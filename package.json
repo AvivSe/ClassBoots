@@ -1,0 +1,17 @@
+{
+  "name": "classboots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-front": "cd ./frontend && npm i && npm start",
+    "build-back": "cd ./backend && npm i",
+    "postinstall": "npm run build-front && npm run build-back",
+    "start": "node deploy.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
