@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-front": "cd ./frontend && npm i && npm start",
+    "build-front": "cd ./frontend && npm i",
     "build-back": "cd ./backend && npm i",
     "postinstall": "npm run build-front && npm run build-back",
-    "start": "node deploy.js"
+    "start": "cd ./frontend && npm start && cd .. && node deploy.js"
   },
   "author": "",
   "license": "ISC",
