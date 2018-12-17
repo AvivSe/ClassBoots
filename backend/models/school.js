@@ -6,4 +6,4 @@ var schoolSchema = mongoose.Schema({
     subjects:   [ Subject ]
 });
 
-module.exports = mongoose.model('School',schoolSchema); // schools
+module.exports = schoolSchema; // schools

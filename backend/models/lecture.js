@@ -9,4 +9,4 @@ var lectureSchema = mongoose.Schema({
     videos:     [ Video ]
 });
 
-module.exports = mongoose.model('Lecture',lectureSchema); // lectures
+module.exports = lectureSchema; // lectures

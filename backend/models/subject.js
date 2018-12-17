@@ -7,4 +7,4 @@ var subjectSchema = mongoose.Schema({
     lectures:   [ Lecture ]
 });
 
-module.exports = mongoose.model('Subject',subjectSchema); // subjects
+module.exports = subjectSchema; // subjects
