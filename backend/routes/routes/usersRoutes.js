@@ -1,5 +1,5 @@
 const express = require('express');
-let User = require('../models/user');
+let User = require('../../models/user');
 const mongoose = require('mongoose');
 
 //TODO: need to move the connection to secret config file
@@ -18,14 +18,14 @@ mongoose.connect("mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classboots")
 // if you want to access params from the parent router
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
-    router.get('/users',(req,res)=>{
+    router.get('',(req,res)=>{
         User.find()
             .then(documents=>{
                 res.status(200).send(documents);
             });
     });
 
-    router.get('/user/:id',(req,res)=>{
+    router.get('/:id',(req,res)=>{
         User.find({_id: req.params.id})
             .then(documents => {
                 res.send(documents);
@@ -34,7 +34,7 @@ var defineRoutes = router =>{
         });
     });
 
-    router.post('/user',(req,res)=>{
+    router.post('',(req,res)=>{
         var user = new User({
             email:req.query.email,
             password:req.query.password
