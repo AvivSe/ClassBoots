@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  userLoginButton = '';
 
-  constructor() { }
+  constructor() {
+    if(true){
+      this.userLoginButton = "Login";
+    }
+  }
 
   ngOnInit() {
   }
