@@ -10,6 +10,8 @@ import { BodyComponent } from './layout/body/body.component';
 import { SomepageComponent } from './pages/somepage/somepage.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RoutingModule} from "./routing/routing.module";
+import { ShirComponent } from './pages/shir/shir.component';
+import { RegisterComponent } from './pages/user/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import {RoutingModule} from "./routing/routing.module";
     LoginBoxComponent,
     BodyComponent,
     SomepageComponent,
-    HomeComponent
+    HomeComponent,
+    ShirComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
