@@ -3,12 +3,13 @@ const express = require('express');
 var mainRouter = express.Router();
 const apiRouter = require('./backend/routes/routers/mainRouter');
 const path = require('path');
+bodyParser = require('body-parser');
 
 const app = express();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/frontend/dist'));
-
+app.use(bodyParser.json());
 
 mainRouter.use('/api', apiRouter);
 
