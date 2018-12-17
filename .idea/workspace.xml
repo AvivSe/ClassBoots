@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db6aad-43ae-45a6-9462-7cc98b9698ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/routes/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/authRoutes.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/routes/routes/authRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+            <state relative-caret-position="441">
+              <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -169,11 +167,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="126" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="22" />
     <option name="y" value="23" />
-    <option name="width" value="1511" />
-    <option name="height" value="965" />
+    <option name="width" value="1651" />
+    <option name="height" value="971" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -295,7 +293,7 @@
       <workItem from="1545031263562" duration="4400000" />
       <workItem from="1545043566275" duration="4326000" />
       <workItem from="1545057265440" duration="1282000" />
-      <workItem from="1545060004839" duration="6280000" />
+      <workItem from="1545060004839" duration="7430000" />
     </task>
     <task id="LOCAL-00001" summary="Angular routing configurations">
       <created>1544943971947</created>
@@ -360,23 +358,30 @@
       <option name="project" value="LOCAL" />
       <updated>1545063866207</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Samba">
+      <created>1545068074740</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1545068074740</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27837000" />
+    <option name="totallyTimeSpent" value="28987000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="126" y="23" width="1511" height="965" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="972" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31073827" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2790838" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298969" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32875144" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32613635" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39977092" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -400,7 +405,8 @@
     <MESSAGE value="Check heroku CI" />
     <MESSAGE value="Some work around" />
     <MESSAGE value="API Architecture" />
-    <option name="LAST_COMMIT_MESSAGE" value="API Architecture" />
+    <MESSAGE value="Samba" />
+    <option name="LAST_COMMIT_MESSAGE" value="Samba" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/frontend/src/environments/environment.prod.ts">
@@ -683,8 +689,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/routes/routes/authRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+        <state relative-caret-position="441">
+          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
         </state>
       </provider>
     </entry>
