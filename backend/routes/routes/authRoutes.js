@@ -7,18 +7,6 @@ const mongoose = require('mongoose');
 // if you want to access params from the parent router
 var router = express.Router({mergeParams: true});
 
-//TODO: need to move the connection to secret config file
-
-const aws = require('aws-sdk');
-
-mongoose.connect("mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classboots")
-//mongoose.connect("mongodb://"+ process.env.DB_USER_CONNECT +":"+ process.env.DB_PASS_CONNECT +"@ds117164.mlab.com:17164/classboots")
-    .then(() => {
-        console.log('Connected to the database!');
-    }).catch(reason => {
-    console.log(reason);
-});
-
 
 var defineRoutes = router =>{
     router.post('/login', async (req,res)=>{

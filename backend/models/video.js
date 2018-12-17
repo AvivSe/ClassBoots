@@ -6,4 +6,4 @@ var videoSchema = mongoose.Schema({
     position:   { type:Number, required:true, unique:true }
 });
 
-module.exports = videoSchema; // videos
+module.exports = mongoose.model('Video',videoSchema); // videos
