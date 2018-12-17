@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 const aws = require('aws-sdk');
 
-//mongoose.connect("mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classboots")
-mongoose.connect("mongodb://"+ process.env.DB_USER_CONNECT +":"+ process.env.DB_PASS_CONNECT +"@ds117164.mlab.com:17164/classboots")
+mongoose.connect("mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classboots")
+//mongoose.connect("mongodb://"+ process.env.DB_USER_CONNECT +":"+ process.env.DB_PASS_CONNECT +"@ds117164.mlab.com:17164/classboots")
     .then(() => {
         console.log('Connected to the database!');
     }).catch(reason => {
