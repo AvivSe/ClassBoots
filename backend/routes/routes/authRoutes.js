@@ -10,20 +10,19 @@ var router = express.Router({mergeParams: true});
 
 var defineRoutes = router =>{
     router.post('/login', async (req,res)=>{
+        var invalid = "Invalid email or password.";
         let user = await User.findOne({ email: req.body.email });
 
         if(!user) {
-            return res.status(400).send("Invalid email or password.");
+            return res.status(400).send(invalid);
         }
 
-
-        
         //const validPassword = await bcrypt.compare(req.body.password, user.password);
         if(req.body.password === user.password) {
-            return res.status(200).send("Is authorized");
+            return res.status(200).send(user);
         }
 
-        return res.status(400).send("Invalid email or password.");
+        return res.status(400).send(invalid);
 
     });
 
