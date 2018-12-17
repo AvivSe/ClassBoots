@@ -14,15 +14,16 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
   display: block;
   background-image: url('images/bg-image.jpg');
   width: 100%;
   height: 100%;
+  filter: blur(2px) grayscale(35%)
 }
 
 .main-page {
-  z-index:0;
+  z-index:999;
 }
 
 p {
