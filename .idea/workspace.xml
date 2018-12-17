@@ -3,22 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c2db6aad-43ae-45a6-9462-7cc98b9698ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/body-parser/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/body-parser/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/routes/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/authRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.js" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/3rdpartylicenses.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/bg-image.805ac11a793d5ea8f978.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/logo.c65c1efce16a20828617.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/main.de530f0e8dbeb314fb2d.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/polyfills.df308dc6aeb1e07dc12f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/runtime.ec2944dd8b20ec099bf3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/styles.bcf48f1d57c58360714e.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,8 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/routes/routes/authRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+            <state relative-caret-position="350">
+              <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -308,7 +295,7 @@
       <workItem from="1545031263562" duration="4400000" />
       <workItem from="1545043566275" duration="4326000" />
       <workItem from="1545057265440" duration="1282000" />
-      <workItem from="1545060004839" duration="3688000" />
+      <workItem from="1545060004839" duration="6280000" />
     </task>
     <task id="LOCAL-00001" summary="Angular routing configurations">
       <created>1544943971947</created>
@@ -366,11 +353,18 @@
       <option name="project" value="LOCAL" />
       <updated>1545057820756</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="API Architecture">
+      <created>1545063866206</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1545063866207</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25245000" />
+    <option name="totallyTimeSpent" value="27837000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="126" y="23" width="1511" height="965" extended-state="0" />
@@ -689,8 +683,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/routes/routes/authRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+        <state relative-caret-position="350">
+          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
         </state>
       </provider>
     </entry>

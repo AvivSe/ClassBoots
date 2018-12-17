@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const express = require('express');
 let User = require('../../models/user');
 const mongoose = require('mongoose');
@@ -20,8 +21,22 @@ mongoose.connect("mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classboots")
 
 
 var defineRoutes = router =>{
-    router.post('/login', (req,res)=>{
-        User.findOne({ email: req.body.email }).then(user => res.status(200).send(user).catch(err => res.status(400).send("Not exists " + err)));
+    router.post('/login', async (req,res)=>{
+        let user = await User.findOne({ email: req.body.email });
+
+        if(!user) {
+            return res.status(400).send("Invalid email or password.");
+        }
+
+
+        
+        //const validPassword = await bcrypt.compare(req.body.password, user.password);
+        if(req.body.password === user.password) {
+            return res.status(200).send("Is authorized");
+        }
+
+        return res.status(400).send("Invalid email or password.");
+
     });
 
     return router;
