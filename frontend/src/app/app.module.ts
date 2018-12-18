@@ -10,6 +10,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RoutingModule} from "./routing/routing.module";
 import { RegisterComponent } from './pages/user/register/register.component';
+import { FormsModule} from "@angular/forms";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { RegisterComponent } from './pages/user/register/register.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RoutingModule
+    RoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
