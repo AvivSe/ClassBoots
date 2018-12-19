@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {RoutingModule} from "./routing/routing.module";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VideoComponent } from './pages/video/video.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserBoxComponent,
     BodyComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
