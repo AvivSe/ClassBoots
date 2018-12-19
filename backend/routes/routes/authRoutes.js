@@ -24,7 +24,6 @@ var defineRoutes = router =>{
     router.post('/login', async (req,res)=>{
         var invalid = "Invalid email or password.";
         let user = await User.findOne({ email: req.body.email });
-
         if(!user) {
             return res.status(400).send(invalid);
         }
