@@ -1,0 +1,88 @@
+<!-- Settings pop-up windows -->
+<div class="modal fade" id="loginModalCenter" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div style="padding-left: 7px;padding-right: 7px;padding-bottom: 7px">
+
+<!-- Menubar (login/create new account) -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#login" role="tab" aria-controls="home" aria-selected="true">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#register" role="tab" aria-controls="profile" aria-selected="false">Create new account!</a>
+            </li>
+          </ul>
+
+<!-- Login partitial  -->
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="home-tab">
+            <div align="center">
+              <br>
+              <h5>Continue via</h5>
+              <button type="submit" style="margin:0px 10px 0px 0px;" class="btn btn-default bg-white" name="provider" value="Google" title="Log in using your Google account"><img src="https://png.icons8.com/color/1600/google-logo.png" style="height:50px; width:50px;" id="loginbtn" name="provider" value="Google" title="Log in using your Google account"></button>
+              <button type="submit" class="btn btn-default bg-white" name="provider" value="Google" title="Log in using your Google account"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/F_icon.svg/2000px-F_icon.svg.png" style="height:50px; width:50px;" name="provider" value="Google" title="Log in using your Google account"></button>
+              <hr>
+            </div>
+            <div align="center">
+              <h5>Login to your account</h5>
+            </div>
+            <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="enter username/email address" name="loginEmail" ngModel required>
+                <small class="form-text text-muted">example : username@email.com</small>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="enter password" name="loginPassword" ngModel required>
+                <small id="" class="form-text text-muted">never share your password with others.</small>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+            </form>
+          </div>
+
+
+<!-- Register Partitial -->
+          <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="profile-tab">
+            <br>
+            <div align="center"><h5>Create New Account</h5></div>
+              <br>
+              <form (ngSubmit)="onRegister(registerForm)" #registerForm="ngForm">
+                <div class="form-row">
+                  <div class="form-group col-md-7">
+                    <input type="email" class="form-control" placeholder="Email" name="registerEmail" ngModel required>
+                  </div>
+                  <!--<div class="form-group col-md-5">-->
+                  <!--<button type="submit" class="btn btn-primary mb-2">Check if available</button>-->
+                  <!--</div>-->
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <input type="password" class="form-control" placeholder="Password" name="registerPassword" ngModel required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="First Name" name="registerFirstName" ngModel required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control"placeholder="Last Name" name="registerLastName" ngModel required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" placeholder="Address" name="registerAddress" ngModel required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>
+                      <input type="date" class="form-control" name="registerDOB" ngModel required>
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%">Create new account</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

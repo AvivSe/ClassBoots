@@ -4,10 +4,11 @@ var userSchema = mongoose.Schema({
     email:      { type:String, required:true, unique:true },
     password:   { type:String, required:true },
     regDate:    { type:Date, default: Date.now },
+    address:    { type:String, required:true },
     rule:       { type:String, default: 'user'},
-    firstname:  { type:String},
-    lastname:   { type:String},
-    BOD:        { type:Date},
+    firstname:  { type:String, required:true },
+    lastname:   { type:String, required:true },
+    DOB:        { type:Date, required:true },
 
 });
 
