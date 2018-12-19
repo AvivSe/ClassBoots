@@ -1,5 +1,8 @@
+
 <nav id="sidebar">
-  <div class="logo-side"></div>
+  <div class="sidebar-top">
+    <div class="logo-side"></div>
+  </div>
   <ul class="list-unstyled components">
     <li *ngFor="let institution of institutions">
       <a href="#{{institution.name}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{institution.name}}</a>
@@ -10,4 +13,5 @@
       </ul>
     </li>
   </ul>
+  <app-footer class="footer"></app-footer>
 </nav>
