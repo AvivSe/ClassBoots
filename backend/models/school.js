@@ -3,7 +3,7 @@ var Subject = require('./subject');
 
 var schoolSchema = mongoose.Schema({
     name:       { type:String, required:true },
-    subjects:   [ Subject ]
+    subjects:   [{ id: String }]
 });
 
 module.exports = mongoose.model('School',schoolSchema); // schools

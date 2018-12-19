@@ -4,27 +4,30 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { LoginBoxComponent } from './partitial/login-box/login-box.component';
+import { UserBoxComponent } from './partitial/user-box/user-box.component';
 import { BodyComponent } from './layout/body/body.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import {RoutingModule} from "./routing/routing.module";
-import { RegisterComponent } from './pages/user/register/register.component';
+import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    LoginBoxComponent,
+    UserBoxComponent,
     BodyComponent,
     HomeComponent,
-    RegisterComponent,
     FooterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RoutingModule
+    RoutingModule,
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,19 +1,13 @@
 <nav id="sidebar">
   <div class="logo-side"></div>
-
   <ul class="list-unstyled components">
-    <p>Dummy Heading</p>
-    <li class="active">
-      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-      <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li>
-          <a routerLink="/">Home</a>
+    <li *ngFor="let institution of institutions">
+      <a href="#{{institution.name}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{institution.name}}</a>
+      <ul class="collapse list-unstyled" id="{{institution.name}}">
+        <li *ngFor="let school of institution.schools">
+          <a routerLink="/register">{{school}}</a>
         </li>
-
       </ul>
-    </li>
-    <li>
-      <a routerLink="/register">Register</a>
     </li>
   </ul>
 </nav>
