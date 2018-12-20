@@ -1,6 +1,6 @@
 //Install express server
 const express = require('express');
-var mainRouter = express.Router();
+const mainRouter = express.Router();
 const apiRouter = require('./backend/routes/routers/mainRouter');
 const path = require('path');
 bodyParser = require('body-parser');
