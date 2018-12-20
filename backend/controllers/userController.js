@@ -1,59 +1,56 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
-//import mongoController from "./mongoController";
-const mongoController = require('./mongoController');
-mongoController.connect();
 
-const getUserCollection = async function(body) {
-    let stat = 200;
-    var result = '';
-    // TODO: error handler
-    // TODO: we can use body as filters.
-    result = await User.find(err => {
-        if(err) {
-            stat = 400;
-            result = err;
-        }
-    });
+class UserController {
+    static async getUserCollection(body) {
+        let result = { status: 200, data: null};
+        // TODO: error handler
+        // TODO: we can use body as filters.
+        result.data = await User.find(err => {
+            if (err) {
+                result.status = 400;
+                result.data = err;
+            }
+        });
+        //console.log(result);
+        return result;
+    };
 
-    return { status: stat, data: result};
-};
+    static async createUser(body) {
+        let result = { status: 201, data: body};
+        // TODO: Check body schema
+        body.password =  await bcrypt.hash(body.password,await bcrypt.genSalt(10));
 
-const createUser = async function(body) {
-    let stat = 201;
-    // TODO: Check body schema
-    body.password =  await bcrypt.hash(body.password,await bcrypt.genSalt(10));
+        const user = new User(body);
 
-    const user = new User(body);
+        await user.save(err => {
+            if (err) {
+                result.status = 400;
+                result.data = err;
+            }
+        });
+        //console.log(result);
+        return result;
+    };
 
-    await user.save(err => {
-        if (err) {
-            stat = 400;
-            body = err;
-        }
-    });
+    static async getUser(email) {
+        //{_id: req.params.id}
+        let result = { status: null, data: null};
 
-    return { status: stat, data: body};
-};
-
-const getUser = async function(email) {
-    //{_id: req.params.id}
-    let result;
-
-    await User.findOne({email: email}).then(user => {
-        if(!user) {
-            result. status = 400;
-            result.data = null;
-        } else {
-            result.status = 200;
-            result.data = user;
-        }
-    }).catch(err=> {
-        result.status = 400;
-        result.data = err;
-    });
-
-    return result;
-};
-module.exports = { createUser,getUserCollection,getUser };
+        await User.findOne({email: email}).then(user => {
+            if(!user) {
+                result. status = 400;
+                result.data = null;
+            } else {
+                result.status = 200;
+                result.data = user;
+            }
+        }).catch(err=> {
+            result.status = 400;
+            result.data = err;
+        });
+        //console.log(result);
+        return result;
+    };
+}
+module.exports = UserController;

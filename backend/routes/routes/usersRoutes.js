@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser,getUserCollection,getUser} = require('../../controllers/userController');
+const UserController = require('../../controllers/userController');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -23,19 +23,19 @@ var defineRoutes = router =>{
 
 
     router.get('/:email',  async function(req,res){
-        let result =  await getUser(req.params.email);
+        let result =  await UserController.getUser(req.params.email);
         res.status(result.status).send(result.data);
 
     });
 
     router.post('',  async function(req,res){
-        let result =  await createUser(req.body);
+        let result =  await UserController.createUser(req.body);
         res.status(result.status).send(result.data);
 
     });
 
     router.get('',  async function(req,res){
-        let result =  await getUserCollection(req.body);
+        let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);
 
     });

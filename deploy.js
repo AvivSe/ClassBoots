@@ -3,9 +3,13 @@ const express = require('express');
 const mainRouter = express.Router();
 const apiRouter = require('./backend/routes/routers/mainRouter');
 const path = require('path');
-bodyParser = require('body-parser');
-
+const mongoController = require('./backend/controllers/mongoController');
 const app = express();
+bodyParser = require('body-parser');
+/**
+ * connect to db
+ */
+mongoController.connect();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/frontend/dist'));
