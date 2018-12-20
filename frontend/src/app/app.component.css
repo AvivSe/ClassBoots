@@ -1,0 +1,17 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.warrper {
+    max-height: 100%;
+}
+
+.main-container{
+    height: 100%;
+    width: 100%;
+}
+
+.opacity {
+    opacity: 0.9;
+}
