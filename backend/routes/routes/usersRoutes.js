@@ -24,13 +24,23 @@ var defineRoutes = router =>{
 
     router.get('/:email',  async function(req,res){
         let result =  await UserController.getUser(req.params.email);
-        res.status(result.status).send(result.data);
+        res.status(200).send(result);
 
     });
 
-    router.post('',  async function(req,res){
+    router.post('/register',  async function(req,res){
         let result =  await UserController.createUser(req.body);
-        res.status(result.status).send(result.data);
+        res.status(result?201:400).send(result);
+
+    });
+
+    router.post('/login',  async function(req,res){
+        if(req.body.email === undefined || req.body.password === undefined)
+            res.status(400).send({"ERROR": "Bad Request"});
+        else {
+            let result = await UserController.login(req.body);
+            res.status(200).send(result);
+        }
 
     });
 
