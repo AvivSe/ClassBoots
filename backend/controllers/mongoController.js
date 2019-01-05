@@ -11,7 +11,7 @@ class MongoController {
     static connect() {
         if(!connected) {
             connected = true;
-            mongoose.connect(connectionString)
+            mongoose.connect(connectionString, { useNewUrlParser: true })
                 .then(() => {
                     console.log('Connected to the database!');
                 }).catch(reason => {
