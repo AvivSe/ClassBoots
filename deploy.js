@@ -24,6 +24,8 @@ mainRouter.get('/*', function(req,res) {
 app.use(mainRouter);
 
 // Start the app by listening on the default Heroku port
-console.log("Server & Client is served on 8080");
-app.listen(process.env.PORT || 8080 || 3000);
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+    console.log("Listening on Port 3000");
+});
 
