@@ -67,13 +67,12 @@ class UserController {
     };
 
     static async getUserCollection(body) {
-        let result = {status: 200, data: null};
+        let result = null;
         // TODO: error handler
         // TODO: we can use body as filters.
         result.data = await User.find(err => {
             if (err) {
-                result.status = 400;
-                result.data = err;
+                result = err
             }
         });
         return result;
