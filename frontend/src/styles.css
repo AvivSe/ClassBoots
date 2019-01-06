@@ -6,22 +6,22 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #fafafa;
-  //overflow: hidden;
-  max-height: 100%;
+  background: #181c1d;
 }
 
 /*background - image*/
 .bg-image {
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 0;
   display: block;
   background-image: url('images/bg-image.jpg');
   width: 100%;
   height: 100%;
-  filter: blur(2px) grayscale(35%)
+  background-repeat: no-repeat;
+}
+
+.welcome-image {
+  background-image: url('app/pages/home/welcome-logo.svg');
+  width: 420px;
+  height: 350px;
 }
 
 .main-page {
@@ -71,37 +71,22 @@ a, a:hover, a:focus {
   display: flex;
   align-items: stretch;
   perspective: 1500px;
-  justify-content: space-between;
 }
 
-
-
 #sidebar {
-  height: 100vh;
   min-width: 270px;
-  max-width: 100%;
-  background: #2e2e2e;
+  max-width: 250px;
   color: #fff;
   transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
   transform-origin: bottom left;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
 }
 
 .logo-side {
-  height: 10vh;
   background-image: url("images/logo.svg");
-  width:  270px;
+  width:  200px;
+  height: 120px;
   background-repeat: no-repeat;
-
-}
-
-.footer {
-  height: 10vh;
-}
-.components {
-  height: 80vh;
+  margin-left:30px;
 }
 
 #sidebar.active {
@@ -112,13 +97,11 @@ a, a:hover, a:focus {
 #sidebar .sidebar-header {
   padding: 20px;
   background: #2e2e2e;
-
 }
 
 #sidebar ul.components {
   padding: 20px 0;
   border-bottom: 1px solid #2e2e2e;
-
 }
 
 #sidebar ul p {
@@ -127,8 +110,8 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li a {
-  padding: 10px;
-  font-size: 1.1em;
+  padding: 13px;
+  font-size: 1.3em;
   display: block;
 }
 #sidebar ul li a:hover {
@@ -144,18 +127,6 @@ a, a:hover, a:focus {
 
 a[data-toggle="collapse"] {
   position: relative;
-}
-
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-  content: '\e259';
-  display: block;
-  position: absolute;
-  right: 20px;
-  font-family: 'Glyphicons Halflings';
-  font-size: 0.6em;
-}
-a[aria-expanded="true"]::before {
-  content: '\e260';
 }
 
 
