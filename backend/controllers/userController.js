@@ -70,7 +70,7 @@ class UserController {
         let result = null;
         // TODO: error handler
         // TODO: we can use body as filters.
-        result.data = await User.find(err => {
+        result = await User.find(err => {
             if (err) {
                 result = err
             }
