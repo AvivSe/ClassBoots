@@ -19,19 +19,6 @@ class UserController {
         };
     };
 
-    static async getUserCollection(body) {
-        let result = {status: 200, data: null};
-        // TODO: error handler
-        // TODO: we can use body as filters.
-        result.data = await User.find(err => {
-            if (err) {
-                result.status = 400;
-                result.data = err;
-            }
-        });
-        return result;
-    };
-
     static async createUser(body) {
         let error = false;
         let user = await User.findOne({email: body.email});
@@ -75,6 +62,19 @@ class UserController {
                 result = {"ERROR":"email not found"};
         }).catch(err => {
             result = err;
+        });
+        return result;
+    };
+
+    static async getUserCollection(body) {
+        let result = {status: 200, data: null};
+        // TODO: error handler
+        // TODO: we can use body as filters.
+        result.data = await User.find(err => {
+            if (err) {
+                result.status = 400;
+                result.data = err;
+            }
         });
         return result;
     };
