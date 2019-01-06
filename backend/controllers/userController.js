@@ -13,7 +13,7 @@ class UserController {
             'todo_edit_this_secret',
             {
                 expiresIn: "1h"
-            }).cath(error => {
+            }).catch(error => {
                 console.log(error);
             })
         };
