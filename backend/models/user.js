@@ -17,13 +17,13 @@ const validateUser = function(user) {
     const schema = {
         email: Joi.string().min(5).max(255).required().email(),
         // TODO: require password complexity
-        password: Joi.string().min(5).max(255).required(),
-        regDate:  Joi.string(),
-        role:      Joi.string(),
+        password:   Joi.string().min(5).max(255).required(),
+        regDate:    Joi.string(),
+        role:       Joi.string(),
         firstName:  Joi.string().min(2).max(255),
         lastName:   Joi.string().min(2).max(255),
-        birthday:  Joi.date(),
-        verified: Joi.boolean()
+        birthday:   Joi.date(),
+        verified:   Joi.boolean()
     };
 
     return Joi.validate(user, schema);
