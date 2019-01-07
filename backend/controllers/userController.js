@@ -13,7 +13,7 @@ class UserController {
             'todo_edit_this_secret',
             {
                 expiresIn: "1h"
-            }) // TODO .catch(e=>....)
+            })// TODO .catch(e=>...
         };
     };
 
@@ -54,8 +54,10 @@ class UserController {
         let result = null;
 
         await User.findOne({email: email}).then(user => {
-            if (user)
+            if (user) {
+                user.password = "Can't provide";
                 result = user;
+            }
             else
                 result = {"ERROR":"email not found"};
         }).catch(err => {
