@@ -38,16 +38,9 @@ class UserController {
     };
 
     static async login(body) {
-        let result = null;
-        let user = await User.findOne({email: body.email});
-
-        if (user && await bcrypt.compare(body.password, user.password)) {
-            return this.getToken(user);
-        } else {
-            result = "Invalid email or password.";
-        }
-
-        return result;
+        let user;
+        return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
+            this.getToken(user) : {error: true, details: "Invalid email or password."};
     };
 
     static async getUser(email) {
