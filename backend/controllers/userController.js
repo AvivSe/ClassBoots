@@ -13,7 +13,7 @@ class UserController {
             'todo_edit_this_secret',
             {
                 expiresIn: "1h"
-            }).catch(error => {
+            }).cath(error => {
                 console.log(error);
             })
         };
@@ -67,12 +67,13 @@ class UserController {
     };
 
     static async getUserCollection(body) {
-        let result = null;
+        let result = {status: 200, data: null};
         // TODO: error handler
         // TODO: we can use body as filters.
-        result = await User.find(err => {
+        result.data = await User.find(err => {
             if (err) {
-                result = err
+                result.status = 400;
+                result.data = err;
             }
         });
         return result;
