@@ -1,9 +1,17 @@
+
 <nav id="sidebar">
-  <div>
-  <div class="logo-side"></div>
-    <hr style="background-color:white">
-    <app-login *ngIf="true"></app-login>
+  <div class="sidebar-top">
+    <div class="logo-side"></div>
   </div>
-  <ul>
+  <ul class="list-unstyled components">
+    <li *ngFor="let institution of institutions">
+      <a href="#{{institution.name}}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{institution.name}}</a>
+      <ul class="collapse list-unstyled" id="{{institution.name}}">
+        <li *ngFor="let school of institution.schools">
+          <a routerLink="/register">{{school}}</a>
+        </li>
+      </ul>
+    </li>
   </ul>
+  <app-footer class="footer"></app-footer>
 </nav>
