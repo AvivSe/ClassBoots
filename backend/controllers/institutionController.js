@@ -14,6 +14,8 @@ class InstitutionController {
         return result;
     };
 
+
+
     static async createInstitution(body) {
         let result = null;
         // TODO: Check body schema

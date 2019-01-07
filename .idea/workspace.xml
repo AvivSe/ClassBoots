@@ -2,10 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aca6a81f-64aa-490c-9c93-3b6287508ccc" name="Default Changelist" comment="Deleting local decencies">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/institutionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/institutionController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/lectureController.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/videoController.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/institution.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/institution.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/lecture.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/lecture.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/school.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/school.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/subject.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/subject.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.js" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routers/lecturesRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routers/videosRouter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routes/institutionsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/institutionsRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routes/lecturesRoutes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routes/usersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/usersRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/routes/videosRoutes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,7 +39,16 @@
         <entry file="file://$PROJECT_DIR$/backend/controllers/userController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/models/subject.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="9" column="69" lean-forward="true" selection-start-line="9" selection-start-column="69" selection-end-line="9" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -30,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/app/routing/routing.module.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
+            <state relative-caret-position="176">
               <caret line="13" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -60,7 +86,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deploy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
+            <state relative-caret-position="416">
               <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
             </state>
           </provider>
@@ -140,12 +166,12 @@
         <option value="$PROJECT_DIR$/frontend/src/app/layout/footer/footer.component.css" />
         <option value="$PROJECT_DIR$/backend/app.js" />
         <option value="$PROJECT_DIR$/backend/bin/www" />
+        <option value="$PROJECT_DIR$/deploy.js" />
         <option value="$PROJECT_DIR$/backend/utils/Utils.js" />
         <option value="$PROJECT_DIR$/backend/controllers/mongoController.js" />
         <option value="$PROJECT_DIR$/backend/routes/routes/usersRoutes.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/deploy.js" />
-        <option value="$PROJECT_DIR$/backend/controllers/institutionController.js" />
+        <option value="$PROJECT_DIR$/backend/models/lecture.js" />
         <option value="$PROJECT_DIR$/backend/controllers/userController.js" />
       </list>
     </option>
@@ -253,7 +279,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="aca6a81f-64aa-490c-9c93-3b6287508ccc" name="Default Changelist" comment="Deleting local decencies" />
+      <changelist id="c2db6aad-43ae-45a6-9462-7cc98b9698ce" name="Default Changelist" comment="" />
       <created>1544893325986</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -266,7 +292,6 @@
       <workItem from="1545060004839" duration="19182000" />
       <workItem from="1545239351813" duration="105000" />
       <workItem from="1545239477450" duration="5485000" />
-      <workItem from="1546847704462" duration="1075000" />
     </task>
     <task id="LOCAL-00001" summary="Angular routing configurations">
       <created>1544943971947</created>
@@ -380,18 +405,11 @@
       <option name="project" value="LOCAL" />
       <updated>1546797009482</updated>
     </task>
-    <task id="LOCAL-00017" summary="Deleting local decencies">
-      <created>1546847526375</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1546847526375</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50342000" />
+    <option name="totallyTimeSpent" value="49304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -410,6 +428,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36363637" />
@@ -648,17 +667,10 @@
     <entry file="file://$PROJECT_DIR$/backend/bin/www" />
     <entry file="file://$PROJECT_DIR$/backend/app.js" />
     <entry file="file://$PROJECT_DIR$/backend/utils/Utils.js" />
-    <entry file="file://$PROJECT_DIR$/backend/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -671,14 +683,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/models/lecture.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="112">
+          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/app/routing/routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="176">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
@@ -700,6 +712,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/deploy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/routes/routes/usersRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
@@ -707,17 +726,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deploy.js">
+    <entry file="file://$PROJECT_DIR$/backend/models/subject.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="26" column="37" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+        <state relative-caret-position="144">
+          <caret line="9" column="69" lean-forward="true" selection-start-line="9" selection-start-column="69" selection-end-line="9" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/controllers/userController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
         </state>
       </provider>
     </entry>
