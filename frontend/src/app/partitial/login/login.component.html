@@ -1,0 +1,10 @@
+<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+  <div class="form-group mx-sm-5 mb-3">
+    <i class="material-icons">account_circle</i> Please login before continue..
+    <input type="email" class="form-control" placeholder="Email" name="loginEmail" ngModel required>
+  </div>
+  <div class="form-group mx-sm-5 mb-3">
+    <input type="password" class="form-control" placeholder="Password" name="loginPassword" ngModel required>
+  </div>
+  <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+</form>
