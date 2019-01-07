@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca6a81f-64aa-490c-9c93-3b6287508ccc" name="Default Changelist" comment="Deleting local decencies">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/institutionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/institutionController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/lectureController.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/videoController.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/institution.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/institution.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/lecture.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/lecture.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/school.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/school.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/subject.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/subject.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routers/lecturesRouter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routers/videosRouter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routes/institutionsRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/institutionsRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routes/lecturesRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routes/usersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/routes/usersRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/routes/videosRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-    </list>
+    <list default="true" id="aca6a81f-64aa-490c-9c93-3b6287508ccc" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -38,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/controllers/userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="297">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -405,11 +383,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546797009482</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Deleting local decencies">
+      <created>1546857388051</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1546857388051</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49304000" />
+    <option name="totallyTimeSpent" value="49613000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,7 +416,7 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36363637" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4996986" visible="true" weight="0.36363637" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39977092" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -440,7 +425,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.23313493" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.50030136" side_tool="true" visible="true" weight="0.36363637" />
       <window_info anchor="bottom" id="GitHub Pull Requests" order="12" weight="0.32993197" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -735,8 +720,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/controllers/userController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        <state relative-caret-position="297">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
