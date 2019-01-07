@@ -6,12 +6,15 @@ const connectionString = "mongodb://site:QqQq!1!1@ds117164.mlab.com:17164/classb
 // "mongodb://"+ process.env.DB_USER_CONNECT +":"+ process.env.DB_PASS_CONNECT +"@ds117164.mlab.com:17164/classboots"
 let connected = false;
 
+/**
+ * Created by Aviv Segal & Nir Elkayam on Dec 2018
+ */
 class MongoController {
 
     static connect() {
         if(!connected) {
             connected = true;
-            mongoose.connect(connectionString, { useNewUrlParser: true })
+            mongoose.connect(connectionString, { useNewUrlParser: true , useCreateIndex: true})
                 .then(() => {
                     console.log('Connected to the database!');
                 }).catch(reason => {
