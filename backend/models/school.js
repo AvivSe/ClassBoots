@@ -3,8 +3,9 @@ var Subject = require('./subject');
 
 var schoolSchema = mongoose.Schema({
     name:       { type:String, required:true },
-    subjects:   [{ _id: String, ref: 'Subject' }],
-    permission:   [{ email : String, ref: 'User' }]
+    subjects:   [{type:mongoose.Schema.Types.ObjectId, ref:'Subject'}],
+    permission: [{type:String, ref:'User'}]
+
 });
 
 module.exports = mongoose.model('School',schoolSchema); // schools

@@ -16,16 +16,11 @@ class LectureController {
     };
 
     static async createLecture(body) {
-        let result = null;
-        // TODO: Check body schema
-        const lecture = new Lecture(body);
-
-        await lecture.create(err => {
-            if (err) {
+        var result = null;
+        var lecture = new Lecture(body);
+        await lecture.save(err => {
+            if (err)
                 result = err;
-            } else {
-                result = "Added";
-            }
         });
         return result;
     };
@@ -45,20 +40,23 @@ class LectureController {
         return result;
     };
 
+    /**
+     * delete lecture and call to remove all videos of this lecture
+     * @param id of lecture to be removed.
+     * @returns {Promise<*>}
+     */
     static async deleteLecture(id) {
         let result = null;
-        await Lecture.findByIdAndDelete(id).then(lecture => {
-            if (lecture)
-                for(let video in lecture.videos){
-                    result = VideoController.deleteVideo(video);
-                    if(result)
-                        break;
+        let obj = await Lecture.findByIdAndDelete(id);
+        if(!result)
+        {
+            obj.videos.forEach(async videoId => {
+                result = await VideoController.deleteVideo(videoId);
+                if (result) {
+                    console.log(result);
                 }
-            else
-                result = {"ERROR":"lecture not found"};
-        }).catch(err => {
-            result = err;
-        });
+            });
+        }
         return result;
     };
 

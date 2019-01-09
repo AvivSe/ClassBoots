@@ -7,7 +7,7 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     router.get('/:id',  async function(req,res){
-        let result =  await LectureController.getLecture(req.params.name);
+        let result =  await LectureController.getLecture(req.params.id);
         res.status(200).send(result);
 
     });
@@ -18,9 +18,13 @@ var defineRoutes = router =>{
 
     });
 
-
     router.get('',  async function(req,res){
         let result =  await LectureController.getLectureCollection(req.body);
+        res.status(200).send(result);
+    });
+
+    router.delete('',  async function(req,res){
+        let result =  await LectureController.deleteLecture(req.body.id);
         res.status(200).send(result);
     });
     return router;

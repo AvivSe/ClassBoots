@@ -14,17 +14,13 @@ class InstitutionController {
         return result;
     };
 
-    static async createInstitution(body) {
-        let result = null;
-        // TODO: Check body schema
-        const institution = new Institution(body);
 
-        await institution.create(err => {
-            if (err) {
+    static async createInstitution(body) {
+        var result = null;
+        var institution = new Institution(body);
+        await institution.save(err => {
+            if (err)
                 result = err;
-            } else {
-                result = "Added";
-            }
         });
         return result;
     };

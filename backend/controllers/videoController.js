@@ -1,4 +1,4 @@
-const Video = require('../models/institution');
+const Video = require('../models/video');
 
 class VideoController {
     static async getVideoCollection(body) {
@@ -15,24 +15,18 @@ class VideoController {
     };
 
     static async createVideo(body) {
-        let result = null;
-        // TODO: Check body schema
-        const video = new Video(body);
-
-        await video.create(err => {
-            if (err) {
+        var result = null;
+        var video = new Video(body);
+        await video.save(err => {
+            if (err)
                 result = err;
-            } else {
-                result = "Added";
-            }
-        });
+            });
         return result;
     };
 
 
     static async getVideo(id) {
         let result = null;
-
         await Video.findOne({_id: id}).then(video => {
             if (video)
                 result = video;
@@ -46,10 +40,24 @@ class VideoController {
 
     static async deleteVideo(id) {
         let result = null;
-        await Video.findByIdAndRemove(id).catch(err => {
+        await Video.findByIdAndDelete(id).catch(err => {
             result = err;
         });
         return result;
+    };
+
+    static async testVideo(id) {
+        var nid;
+        var body = {
+            reference:"amit",
+            position:3
+        }
+        var video = new Video(body);
+        await video.save();
+        nid = video._id;
+        /////
+        console.log(await Video.findByIdAndDelete(nid));
+
     };
 
 }
