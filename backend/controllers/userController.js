@@ -40,7 +40,7 @@ class UserController {
             }
         });
 
-        return error ? {error: "cannot save to db" } : this.getToken(user);
+        return error ? {error: "cannot save to db"} : this.getToken(user);
     };
 
     /**
@@ -51,7 +51,7 @@ class UserController {
     static async login(body) {
         let user;
         return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
-            this.getToken(user) : { error: "Invalid email or password." };
+            this.getToken(user) : {error: "Invalid email or password."};
     };
 
     /**
@@ -66,8 +66,7 @@ class UserController {
             if (user) {
                 user.password = "********";
                 result = user;
-            }
-            else
+            } else
                 result = {error: "email not found"};
         }).catch(err => {
             result = err;
