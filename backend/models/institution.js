@@ -8,8 +8,9 @@ var institutionSchema = mongoose.Schema({
     address:    { type:String, required:true },
     geolocation:{ type:String, required:true },
     image:      { type:String, required:true },
-    permission: [{ id: String }],
-    schools:    [{ id: String }]
+    permission:   [{type:String, ref:'User'}],
+    schools:   [{type:mongoose.Schema.Types.ObjectId, ref:'School'}]
+
 });
 
 module.exports = mongoose.model('Institution',institutionSchema); // institutions

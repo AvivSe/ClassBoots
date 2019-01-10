@@ -6,6 +6,8 @@ var lectureSchema = mongoose.Schema({
     title:      { type:String, required:true },
     description:{ type:String, required:true },
     date:       { type:Date, required:true },
-    videos:     [{ id: String }]
+    videos:     [{type:mongoose.Schema.Types.ObjectId, ref:'Video'}]
+
+
 });
 module.exports = mongoose.model('Lecture',lectureSchema); // lectures
