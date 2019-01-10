@@ -5,22 +5,6 @@ const UserController = require('../../controllers/userController');
 // if you want to access params from the parent router
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
-    // router.get('',(req,res)=>{
-    //     User.find()
-    //         .then(documents=>{
-    //             res.status(200).send(documents);
-    //         });
-    // });
-    //
-    // router.get('/:id',(req,res)=>{
-    //     User.find({_id: req.params.id})
-    //         .then(documents => {
-    //             res.send(documents);
-    //         }).catch(err => {
-    //         console.log(err);
-    //     });
-    // });
-
 
     router.get('/:email',  async function(req,res){
         let result =  await UserController.getUser(req.params.email);
