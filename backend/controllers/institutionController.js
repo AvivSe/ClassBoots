@@ -1,7 +1,11 @@
 const Institution = require('../models/institution');
 
+// crod - create delete update get
+// get collection([filters])
+//
+
 class InstitutionController {
-    static async getInstitutionCollection(body) {
+    static async getInstitutionCollection() {
         let result = null;
         const invalid = "ERROR";
         // TODO: error handler

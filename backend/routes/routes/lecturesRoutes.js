@@ -9,13 +9,11 @@ var defineRoutes = router =>{
     router.get('/:id',  async function(req,res){
         let result =  await LectureController.getLecture(req.params.id);
         res.status(200).send(result);
-
     });
 
-    router.post('/add',  async function(req,res){
+    router.post('',  async function(req,res){
         let result =  await LectureController.createLecture(req.body);
         res.status(result?201:400).send(result);
-
     });
 
     router.get('',  async function(req,res){

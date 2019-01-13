@@ -2,7 +2,7 @@ const Lecture = require('../models/lecture');
 const VideoController = require('../controllers/videoController');
 
 class LectureController {
-    static async getLectureCollection(body) {
+    static async getLectureCollection() {
         let result = null;
         const invalid = "ERROR";
         // TODO: error handler

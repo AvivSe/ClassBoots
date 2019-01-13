@@ -1,7 +1,7 @@
 const Video = require('../models/video');
 
 class VideoController {
-    static async getVideoCollection(body) {
+    static async getVideoCollection() {
         let result = null;
         const invalid = "ERROR";
         // TODO: error handler
