@@ -12,7 +12,6 @@ class UserController {
      * @returns {{token: *}}
      */
     static getToken(user) {
-        user.password = "*******";
         // TODO: Edit the secret with local variable.
         return new Token(user);
     };
@@ -64,7 +63,6 @@ class UserController {
 
         await User.findOne({email: email}).then(user => {
             if (user) {
-                user.password = "********";
                 result = user;
             }
             else
