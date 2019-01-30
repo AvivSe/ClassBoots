@@ -1,0 +1,15 @@
+
+<div align="center">
+  <h5 class="mat-subheading-1">Login to your account</h5>
+</div>
+<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+  <div class="form-group">
+    <input matInput type="email" class="form-control mat-body-1" placeholder="enter username/email address" name="loginEmail" ngModel required>
+    <small class="form-text text-muted mat-small">example : username@email.com</small>
+  </div>
+  <div class="form-group">
+    <input matInput type="password" class="form-control mat-body-1" placeholder="enter password" name="loginPassword" ngModel required>
+    <small id="" class="form-text text-muted mat-small">never share your password with others.</small>
+  </div>
+  <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+</form>

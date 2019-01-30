@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {userLogin} from "../user-box/user-box.model";
+import {userLogin} from "../login.model";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import {userLogin} from "../user-box/user-box.model";
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService : AuthService) {}
 
   onLogin(loginForm){
     if(loginForm.invalid)
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
       email: loginForm.value.loginEmail,
       password: loginForm.value.loginPassword
     };
-    console.log(userLogin);
+    this.authService.login(userLogin);
     loginForm.resetForm();
   }
 

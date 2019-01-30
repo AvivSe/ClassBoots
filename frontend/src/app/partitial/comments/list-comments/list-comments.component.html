@@ -1,0 +1,10 @@
+<mat-accordion multi="true" *ngIf="comments.length > 0">
+  <!--Comment-->
+  <mat-expansion-panel *ngFor="let comment of comments">
+    <mat-expansion-panel-header>
+      {{comment.user}} &nbsp;&nbsp; {{comment.title}}
+    </mat-expansion-panel-header>
+    {{comment.comment}}
+  </mat-expansion-panel>
+  <!--Comment end-->
+</mat-accordion>
