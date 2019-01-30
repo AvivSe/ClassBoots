@@ -17,15 +17,16 @@ export class AuthService {
     createUser(userData : userData){
         this.http.post<{token: string}>("http://localhost:8080/api/user/register",userData)
             .subscribe(r =>{
-                const token = r.token;
-                this.token = token;
+                const t = r.token;
+                this.token = t;
             });
     }
     login(userLogin : userLogin){
         this.http.post<{token: string}>("http://localhost:8080/api/user/login",userLogin)
             .subscribe(r =>{
-            const token = r.token;
-            this.token = token;
+            const t = r.token;
+            console.log(t);
+            this.token = t;
         });
     }
 }

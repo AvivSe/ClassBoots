@@ -22,7 +22,6 @@ export class LoginBoxComponent implements OnInit {
       email: loginForm.value.loginEmail,
       password: loginForm.value.loginPassword
     };
-    console.log(userLogin);
     this.authService.login(userLogin);
     loginForm.resetForm();
   }
