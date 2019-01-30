@@ -25,6 +25,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { LoginBoxComponent } from './partitial/auth/login-box/login-box.component';
 import { RegisterBoxComponent } from './partitial/auth/register-box/register-box.component';
 import {AuthService} from "./partitial/auth/auth.service";
+import {AuthInterceptor} from "./partitial/auth/auth.interceptor";
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import {AuthService} from "./partitial/auth/auth.service";
     MatButtonModule,
     MatExpansionModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthService,multi:true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
 
 })
