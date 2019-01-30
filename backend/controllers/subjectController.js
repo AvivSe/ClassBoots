@@ -15,6 +15,7 @@ class SubjectController {
         return result;
     };
 
+
     static async createSubject(body) {
         var result = null;
         var subject = new Subject(body);
