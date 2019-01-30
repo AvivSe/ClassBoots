@@ -1,19 +1,35 @@
-const Response = require('../models/comment');
+const Comment = require('../models/comment');
 const errorsController = require('../controllers/errorsController');
 
 
-class commentController {
+class CommentController {
+
+    static async getCommentCollection() {
+        let result = null;
+        const invalid = "ERROR";
+        // TODO: error handler
+        // TODO: we can use body as filters.
+        result = await Comment.find(err => {
+            if (err) {//send to function error
+                result = invalid;
+                errorsController.logger(err,result);
+
+            }
+        });
+        return result;
+    };
 
     static async creatComment(body){
-        var result = null;
+        var result = body;
         var comment = new Comment(body);
-        await comment.save(err => {
+       await comment.save(err => {
             if (err) {
                 result = err;
                 errorsController.logger(err,result);
 
             }
         });
+
         return result;
     }
 
@@ -43,3 +59,4 @@ class commentController {
         return result;
     };
 }
+module.exports = CommentController;

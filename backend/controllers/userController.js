@@ -1,30 +1,30 @@
 const User = require('../models/user');
-const errorsController = require('../controllers/errorsController');
-
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Token = require('../utils/Token');
 
+/**
+ * Created by Aviv Segal & Gal Keidar on Dec 2018
+ */
 class UserController {
+    /**
+     * Created by Aviv Segal on Dec 2018
+     * @param user
+     * @returns {{token: *}}
+     */
     static getToken(user) {
         // TODO: Edit the secret with local variable.
-        return { token: jwt.sign(
-            {
-                email: user.email,
-                userId: user._id
-            },
-            'todo_edit_this_secret',
-            {
-                expiresIn: "1h"
-            }).catch(error => {
-                console.log(error);
-                errorsController.logger(error,"invalid");
-            })
-        };
+        return new Token(user);
     };
 
+    /**
+     * Created by Aviv Segal on Dec 2018
+     * @param body
+     * @returns Token
+     */
     static async createUser(body) {
         let error = false;
         let user = await User.findOne({email: body.email});
+        // if user is not null, it's means that we already have user with this email address.
         if (user) {
             return {error: true, details: "email address already exists."};
         }
@@ -36,51 +36,56 @@ class UserController {
         await user.save(err => {
             if (err) {
                 error = true;
-                errorsController.logger(err,error);
             }
         });
 
-        return error?{error: true, details: "cannot save to db"}:this.getToken(user);
+        return error ? {error: "cannot save to db" } : this.getToken(user);
     };
 
+    /**
+     * Created by Aviv Segal on Dec 2018
+     * @param body
+     * @returns Token
+     */
     static async login(body) {
-        let result = null;
-        let user = await User.findOne({email: body.email});
-
-        if (user && await bcrypt.compare(body.password, user.password)) {
-            return this.getToken(user);
-        } else {
-            result = "Invalid email or password.";
-            errorsController.logger(err,result);
-
-        }
-
-        return result;
+        let user;
+        return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
+            this.getToken(user) : { error: "Invalid email or password." };
     };
 
+    /**
+     * Created by Aviv Segal on Dec 2018
+     * @param email
+     * @returns User Details
+     */
     static async getUser(email) {
         let result = null;
 
         await User.findOne({email: email}).then(user => {
-            if (user)
+            if (user) {
                 result = user;
+            }
             else
-                result = {"ERROR":"email not found"};
+                result = {error: "email not found"};
         }).catch(err => {
             result = err;
-            errorsController.logger(err,result);
         });
         return result;
     };
 
+    /**
+     * Created by Aviv Segal on Dec 2018
+     * @param body
+     * @returns All User Collection
+     */
     static async getUserCollection(body) {
-        let result = null;
+        let result = {status: 200, data: null};
         // TODO: error handler
         // TODO: we can use body as filters.
-        result = await User.find(err => {
+        result.data = await User.find(err => {
             if (err) {
-                result = err
-                errorsController.logger(err,result);
+                result.status = 400;
+                result.data = err;
             }
         });
         return result;

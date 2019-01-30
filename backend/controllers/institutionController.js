@@ -33,7 +33,6 @@ class InstitutionController {
         return result;
     };
 
-
     static async getInstitution(name) {
         let result = null;
 
@@ -48,38 +47,6 @@ class InstitutionController {
         });
         return result;
     };
-
-    // static async deleteInstitution(name) {
-    //     let result = null;
-    //
-    //     await Institution.findOneAndDelete({name: name}).then(institution => {
-    //         if (institution)
-    //             result = institution;
-    //         else
-    //             result = {"ERROR":"institution not found"};
-    //     }).catch(err => {
-    //         result = err;
-    //     });
-    //     return result;
-    // };
-
-
-    // static async getMySchools(name) {
-    //     let result = null;
-    //
-    //     await Institution.findOne({name: name}).then(institution => {
-    //         if (institution)
-    //         {
-    //             for(Sch)
-    //             result = user;
-    //         }
-    //     else
-    //         result = {"ERROR":"institution not found"};
-    //     }).catch(err => {
-    //         result = err;
-    //     });
-    //     return result;
-    // };
 }
 
 module.exports = InstitutionController;
