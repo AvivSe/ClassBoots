@@ -1,4 +1,6 @@
 const Video = require('../models/video');
+const errorsController = require('../controllers/errorsController');
+
 
 class VideoController {
     static async getVideoCollection() {
@@ -9,6 +11,8 @@ class VideoController {
         result = await Video.find(err => {
             if (err) {
                 result = invalid;
+                errorsController.logger(err,result);
+
             }
         });
         return result;
@@ -18,8 +22,11 @@ class VideoController {
         var result = null;
         var video = new Video(body);
         await video.save(err => {
-            if (err)
+            if (err) {
                 result = err;
+                errorsController.logger(err,result);
+
+            }
             });
         return result;
     };
@@ -34,6 +41,8 @@ class VideoController {
                 result = {"ERROR":"video not found"};
         }).catch(err => {
             result = err;
+            errorsController.logger(err,result);
+
         });
         return result;
     };
@@ -42,6 +51,8 @@ class VideoController {
         let result = null;
         await Video.findByIdAndDelete(id).catch(err => {
             result = err;
+            errorsController.logger(err,result);
+
         });
         return result;
     };

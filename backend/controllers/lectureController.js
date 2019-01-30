@@ -1,5 +1,6 @@
 const Lecture = require('../models/lecture');
 const VideoController = require('../controllers/videoController');
+const errorsController = require('../controllers/errorsController');
 
 class LectureController {
     static async getLectureCollection() {
@@ -8,8 +9,10 @@ class LectureController {
         // TODO: error handler
         // TODO: we can use body as filters.
         result = await Lecture.find(err => {
-            if (err) {
+            if (err) {//send to function error
                 result = invalid;
+                errorsController.logger(err,result);
+
             }
         });
         return result;
@@ -19,8 +22,11 @@ class LectureController {
         var result = null;
         var lecture = new Lecture(body);
         await lecture.save(err => {
-            if (err)
+            if (err) {
                 result = err;
+                errorsController.logger(err,result);
+
+            }
         });
         return result;
     };
@@ -36,6 +42,7 @@ class LectureController {
                 result = {"ERROR":"lecture not found"};
         }).catch(err => {
             result = err;
+            errorsController.logger(err,result);
         });
         return result;
     };
@@ -59,6 +66,7 @@ class LectureController {
         }
         return result;
     };
+
 
 }
 

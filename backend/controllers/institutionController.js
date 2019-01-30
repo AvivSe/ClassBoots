@@ -1,4 +1,5 @@
 const Institution = require('../models/institution');
+const errorsController = require('../controllers/errorsController');
 
 // crod - create delete update get
 // get collection([filters])
@@ -13,6 +14,7 @@ class InstitutionController {
         result = await User.find(err => {
             if (err) {
                 result = invalid;
+                errorsController.logger(err,result);
             }
         });
         return result;
@@ -23,8 +25,10 @@ class InstitutionController {
         var result = null;
         var institution = new Institution(body);
         await institution.save(err => {
-            if (err)
+            if (err) {
                 result = err;
+                errorsController.logger(err,result);
+            }
         });
         return result;
     };
@@ -40,6 +44,7 @@ class InstitutionController {
                 result = {"ERROR":"institution not found"};
         }).catch(err => {
             result = err;
+            errorsController.logger(err,result);
         });
         return result;
     };

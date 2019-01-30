@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const errorsController = require('../controllers/errorsController');
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -15,6 +17,7 @@ class UserController {
                 expiresIn: "1h"
             }).catch(error => {
                 console.log(error);
+                errorsController.logger(error,"invalid");
             })
         };
     };
@@ -33,6 +36,7 @@ class UserController {
         await user.save(err => {
             if (err) {
                 error = true;
+                errorsController.logger(err,error);
             }
         });
 
@@ -47,6 +51,8 @@ class UserController {
             return this.getToken(user);
         } else {
             result = "Invalid email or password.";
+            errorsController.logger(err,result);
+
         }
 
         return result;
@@ -62,6 +68,7 @@ class UserController {
                 result = {"ERROR":"email not found"};
         }).catch(err => {
             result = err;
+            errorsController.logger(err,result);
         });
         return result;
     };
@@ -73,6 +80,7 @@ class UserController {
         result = await User.find(err => {
             if (err) {
                 result = err
+                errorsController.logger(err,result);
             }
         });
         return result;

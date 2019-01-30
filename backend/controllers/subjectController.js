@@ -1,5 +1,7 @@
 const Subject = require('../models/subject');
 const LectureController = require('../controllers/lectureController');
+const errorsController = require('../controllers/errorsController');
+
 
 class SubjectController {
     static async getSubjectCollection() {
@@ -10,6 +12,7 @@ class SubjectController {
         result = await Subject.find(err => {
             if (err) {
                 result = invalid;
+                errorsController.logger(err,result);
             }
         });
         return result;
@@ -20,8 +23,10 @@ class SubjectController {
         var result = null;
         var subject = new Subject(body);
         await subject.save(err => {
-            if (err)
+            if (err) {
                 result = err;
+                errorsController.logger(err,result);
+            }
         });
         return result;
     };
@@ -37,6 +42,7 @@ class SubjectController {
                 result = {"ERROR":"subject not found"};
         }).catch(err => {
             result = err;
+            errorsController.logger(err,result);
         });
         return result;
     };
