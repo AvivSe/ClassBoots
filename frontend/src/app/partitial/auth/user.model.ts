@@ -1,10 +1,4 @@
-export
-interface userLogin {
-    email: string,
-    password: string,
-}
-export
-interface userRegister {
+export interface userData {
     email: string,
     password: string,
     regDate: Date,

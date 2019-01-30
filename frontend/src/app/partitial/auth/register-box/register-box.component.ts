@@ -1,29 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {userLogin, userRegister} from "./user-box.model";
+import {userData} from "../user.model";
+import {AuthService} from "../auth.service";
 
 @Component({
-  selector: 'app-user-box',
-  templateUrl: './user-box.component.html',
-  styleUrls: ['./user-box.component.css']
+  selector: 'app-register-box',
+  templateUrl: './register-box.component.html',
+  styleUrls: ['./register-box.component.css']
 })
+export class RegisterBoxComponent implements OnInit {
 
-export class UserBoxComponent implements OnInit {
-
-  onLogin(loginForm){
-    if(loginForm.invalid)
-      return;
-    const userLogin : userLogin = {
-      email: loginForm.value.loginEmail,
-      password: loginForm.value.loginPassword
-    };
-    console.log(userLogin);
-    loginForm.resetForm();
+  constructor(public authService : AuthService) {}
+  ngOnInit() {
   }
 
   onRegister(registerForm) {
     if(registerForm.invalid)
       return;
-    const userRegister : userRegister = {
+    const userData : userData = {
       //TODO: FIX THE REG DATE
       email: registerForm.value.registerEmail,
       password: registerForm.value.registerPassword,
@@ -34,9 +27,7 @@ export class UserBoxComponent implements OnInit {
       lastname: registerForm.value.registerLastName,
       DOB: registerForm.value.registerDOB
     };
-    console.log(userRegister);
+    this.authService.createUser(userData);
     registerForm.resetForm();
   }
-
-  ngOnInit() {}
 }
