@@ -11,7 +11,7 @@
     "build-front": "cd ./frontend && npm i",
     "build-back": "cd ./backend && npm i",
     "postinstall": "npm run build-front && npm run build-back",
-    "start": "cd ./frontend && npm start && cd .. && node deploy.js",
+    "start": "node deploy.js",
     "start-dev": "concurrently --kill-others \"node deploy.js\" \"cd ./frontend && npm run serve\""
   },
   "author": "",
