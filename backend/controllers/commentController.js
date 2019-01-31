@@ -30,6 +30,8 @@ class CommentController {
             }
         });
 
+       //TODO: Add this comment to video comments array.
+
         return result;
     }
 
