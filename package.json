@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "5.0.0",
-    "npm": "4.6.1"
-  },
   "scripts": {
     "build-front": "cd ./frontend && npm i",
     "build-back": "cd ./backend && npm i",
