@@ -17,7 +17,7 @@ var defineRoutes = router =>{
     });
 
     router.get('',  async function(req,res){
-        let result =  await SubjectController.getLectureSubject(req.body);
+        let result =  await SubjectController.getSubjectCollection(req.body);
         res.status(200).send(result);
     });
 
