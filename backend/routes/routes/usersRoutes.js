@@ -6,6 +6,13 @@ const UserController = require('../../controllers/userController');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
+    router.get('/profile',  async function(req,res){
+        if(req.header.au)
+        res.status(200).send({result:"aviv"});
+
+    });
+
+
     router.get('/:email',  async function(req,res){
         let result =  await UserController.getUser(req.params.email);
         res.status(200).send(result);
