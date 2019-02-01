@@ -11,7 +11,7 @@ class InstitutionController {
         const invalid = "ERROR";
         // TODO: error handler
         // TODO: we can use body as filters.
-        result = await User.find(err => {
+        result = await Institution.find(err => {
             if (err) {
                 result = invalid;
                 errorsController.logger(err,result);

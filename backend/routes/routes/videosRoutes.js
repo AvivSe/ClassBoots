@@ -15,7 +15,7 @@ var defineRoutes = router =>{
 
     router.post('',  async function(req,res){
         let result =  await VideoController.createVideo(req.body);
-        res.status(result?400:201).send(result);
+        res.status(result?201:400).send(result);
     });
 
     router.get('', checkAuth, Role.admin, async function(req,res){

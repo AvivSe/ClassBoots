@@ -1,5 +1,5 @@
 const express = require('express');
-let Institution = require('../../models/institution');
+const InstitutionController = require('../../controllers/institutionController');
 const mongoose = require('mongoose');
 
 // you need to set mergeParams: true on the router,
@@ -8,34 +8,17 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     // GET all institutions
-    router.get('',(req,res)=>{
-        institution.find({},(err, institution) => {
-            if (err) {
-                console.log(err);
-                res.status(400).send('ERROR');
-            }            res.status(200).send(institution);
-        });
+    router.get('',async (req,res)=>{
+        let result =  await InstitutionController.getInstitutionCollection();
+        res.status(result?400:201).send(result);
     });
 
     // GET institution by id
-    router.get('/id/:id',(req,res)=>{
-        institution.findById(req.params.id, (err, institution) => {
-            if (err) {
-                console.log(err);
-                res.status(400).send('ERROR');
-            }            res.status(200).send(institution);
-        });
+    router.get('/:id',async (req,res)=>{
+        let result =  await InstitutionController.getInstitution(req.params.id);
+        res.status(result?200:400).send(result);
     });
-
-    // GET institution by name
-    router.get('/name/:name',(req,res)=>{
-        institution.findOne({name:req.params.name}, (err, institution) => {
-            if (err) {
-                console.log(err);
-                res.status(400).send('ERROR');
-            }            res.status(200).send(institution);
-        });
-    });
+    
 
     // POST add institution
     router.post('',async (req,res)=>{

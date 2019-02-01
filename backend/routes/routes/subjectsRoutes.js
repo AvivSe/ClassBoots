@@ -8,7 +8,7 @@ var defineRoutes = router =>{
 
     router.get('/:id',  async function(req,res){
         let result =  await SubjectController.getSubject(req.params.id);
-        res.status(200).send(result);
+        res.status(result?200:400).send(result);
     });
 
     router.post('',  async function(req,res){
