@@ -1,4 +1,4 @@
-const School = require('../models/School');
+const School = require('../models/school');
 const SubjectController = require('./subjectController');
 const errorsController = require('../controllers/errorsController');
 
