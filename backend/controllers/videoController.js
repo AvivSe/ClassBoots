@@ -25,7 +25,6 @@ class VideoController {
             if (err) {
                 result = err;
                 errorsController.logger(err,result);
-
             }
             });
         return result;
@@ -57,18 +56,23 @@ class VideoController {
         return result;
     };
 
-    static async testVideo(id) {
-        var nid;
-        var body = {
-            reference:"amit",
-            position:3
-        }
-        var video = new Video(body);
-        await video.save();
-        nid = video._id;
-        /////
-        console.log(await Video.findByIdAndDelete(nid));
+    static async addComment(body) {
+        var commemt = body.comment;
+        var result = await Video.findByIdAndUpdate(
+            body.id,
+            { $push: {"comments": commemt}},
+            { upsert: true, new: true });
+        console.log(result);
+        return result;
+    };
 
+    static async deleteComment(body) {
+        var result = await Video.findByIdAndUpdate(
+            body.id,
+            { $pull: {"comments": {  _id: body.comment.id }}},
+            { upsert: true, new: true });
+        console.log(result);
+        return result;
     };
 
 }

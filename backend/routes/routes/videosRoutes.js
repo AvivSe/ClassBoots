@@ -27,8 +27,13 @@ var defineRoutes = router =>{
         res.status(200).send(result);
     });
 
-    router.post('/test',  async function(req,res){
-        let result =  await VideoController.testVideo(req.body.id);
+    router.post('/addcomment',  async function(req,res){
+        let result =  await VideoController.addComment(req.body);
+        res.status(200).send(result);
+    });
+
+    router.post('/deletecomment',  async function(req,res){
+        let result =  await VideoController.deleteComment(req.body);
         res.status(200).send(result);
     });
     return router;
