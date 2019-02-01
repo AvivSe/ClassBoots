@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npx ng build --aot --prod",
+    "start": "npx fng build --aot --prod",
     "build": "ng build",
     "serve": "ng serve",
     "test": "ng test",
@@ -24,6 +24,8 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@angular-devkit/build-angular": "^0.12.3",
+    "@angular/language-service": "~7.1.0",
     "bootstrap-schematics": "^1.7.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
@@ -36,9 +38,6 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.12.3",
-    "@angular/compiler-cli": "^7.1.3",
-    "@angular/language-service": "~7.1.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
