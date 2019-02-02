@@ -32,6 +32,8 @@ import { UsersManagerComponent } from './administrator/users-manager/users-manag
 import { VideosManagerComponent } from './administrator/videos-manager/videos-manager.component';
 import { MangerMenuComponent } from './administrator/manger-menu/manger-menu.component';
 import { StatisticsComponent } from './administrator/statistics/statistics.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { StatisticsComponent } from './administrator/statistics/statistics.compo
     UsersManagerComponent,
     VideosManagerComponent,
     MangerMenuComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    PrivacyComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
