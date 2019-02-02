@@ -18,7 +18,8 @@ var defineRoutes = router =>{
         res.status(result?201:400).send(result);
     });
 
-    router.get('', checkAuth, Role.admin, async function(req,res){
+    // TODO: checkAuth, Role.admin,
+    router.get('', async function(req,res){
         let result =  await VideoController.getVideoCollection(req.body);
         res.status(200).send(result);
     });

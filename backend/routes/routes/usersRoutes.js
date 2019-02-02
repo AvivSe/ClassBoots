@@ -40,7 +40,8 @@ var defineRoutes = router =>{
 
     });
 
-    router.get('',  checkAuth, Role.setPermissions(['admin']), async function(req,res){
+    // todo: add: checkAuth, Role.setPermissions(['admin'])
+    router.get('' , async function(req,res){
         let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);
 
