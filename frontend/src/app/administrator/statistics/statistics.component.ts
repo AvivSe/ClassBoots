@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-statistics',
@@ -7,7 +8,17 @@ import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  constructor() { }
+
+  constructor(private http: HttpClient) {
+    this.mapChart.dataTable = [];
+    this.mapChart.dataTable .push(['Lat', 'Long', 'Name']);
+    this.http.get('http://localhost:8080/api/institution').subscribe(data => {
+      for (let i in data) {
+        let getLocation = data[i].geolocation.toString().split(",");
+        this.mapChart.dataTable.push([Number(getLocation[0]), Number(getLocation[1]), String(data[i].name) ]);
+      }
+    });
+  }
 
   public pieChart: GoogleChartInterface = {
     chartType: 'PieChart',
@@ -27,15 +38,7 @@ export class StatisticsComponent implements OnInit {
   };
   public mapChart: GoogleChartInterface = {
     chartType: 'GeoChart',
-    dataTable: [
-      ['Lat', 'Long', 'Name'],
-      [31.969839, 34.772755, 'Colman'],
-      [32.176200, 34.836142, 'IDC Herzliya'],
-      [32.090651, 34.80305, 'Shenkar'],
-      [32.776769, 35.023095, 'Ben Gurion'],
-      [31.262273, 34.801258, 'Technion']
-
-    ],
+    //dataTable: this.geoMapData,
     //opt_firstRowIsData: true,
     options: {
       'title': 'Israel',
