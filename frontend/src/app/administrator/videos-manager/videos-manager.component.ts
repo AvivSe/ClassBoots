@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-videos-manager',
@@ -20,7 +21,7 @@ export class VideosManagerComponent implements OnInit {
         editable: true
       },
       onCellEditingStopped: function (event) {
-        http.patch('http://localhost:8080/api/video', event.data).subscribe();
+        http.patch(environment.baseUrl + 'api/video', event.data).subscribe();
       },
       onGridReady: (params) => {
         this.reDraw();
@@ -40,7 +41,7 @@ export class VideosManagerComponent implements OnInit {
   }
 
   reDraw() {
-    this.http.get('http://localhost:8080/api/video').subscribe(data => {
+    this.http.get(environment.baseUrl + 'api/video').subscribe(data => {
       this.rowData = data as any[];
       this.api.redrawRows(this.rowData);
     });

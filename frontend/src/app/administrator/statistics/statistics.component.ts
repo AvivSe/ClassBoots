@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-statistics',
@@ -12,7 +13,7 @@ export class StatisticsComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.mapChart.dataTable = [];
     this.mapChart.dataTable .push(['Lat', 'Long', 'Name']);
-    this.http.get('http://localhost:8080/api/institution').subscribe(data => {
+    this.http.get(environment.baseUrl + 'api/institution').subscribe(data => {
       for (let i in data) {
         let getLocation = data[i].geolocation.toString().split(",");
         this.mapChart.dataTable.push([Number(getLocation[0]), Number(getLocation[1]), String(data[i].name) ]);

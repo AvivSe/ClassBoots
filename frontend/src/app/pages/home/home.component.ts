@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,7 +11,7 @@ export class HomeComponent implements OnInit {
   public institutions: any[];
 
   constructor(private http: HttpClient) {
-    this.http.get('http://localhost:8080/api/institution').subscribe(data => {
+    this.http.get(environment.baseUrl + 'api/institution').subscribe(data => {
       this.institutions = data as any[];
     });
 

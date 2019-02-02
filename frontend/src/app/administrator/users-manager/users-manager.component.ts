@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-users-manager',
@@ -20,7 +21,7 @@ export class UsersManagerComponent implements OnInit {
         editable: true
       },
       onCellEditingStopped: function (event) {
-        http.patch('http://localhost:8080/api/user', event.data).subscribe();
+        http.patch(environment.baseUrl + 'api/user', event.data).subscribe();
       },
       onGridReady: (params) => {
         this.reDraw();
@@ -40,7 +41,7 @@ export class UsersManagerComponent implements OnInit {
   }
 
   reDraw() {
-    this.http.get('http://localhost:8080/api/user').subscribe(data => {
+    this.http.get(environment.baseUrl + 'api/user').subscribe(data => {
       this.rowData = data as any[];
       this.api.redrawRows(this.rowData);
     });
