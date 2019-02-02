@@ -1,15 +1,15 @@
-const Institution = require('../models/institution');
+const School = require('../models/school');
+const SubjectController = require('./subjectController');
 const errorsController = require('../controllers/errorsController');
-const SchoolController = require('../controllers/schoolController');
 
 
-class InstitutionController {
-    static async getInstitutionCollection() {
+class SchoolController {
+    static async getSchoolCollection() {
         let result = null;
         const invalid = "ERROR";
         // TODO: error handler
         // TODO: we can use body as filters.
-        result = await Institution.find(err => {
+        result = await School.find(err => {
             if (err) {
                 result = invalid;
                 errorsController.logger(err,result);
@@ -19,10 +19,10 @@ class InstitutionController {
     };
 
 
-    static async createInstitution(body) {
+    static async createSchool(body) {
         var result = null;
-        var institution = new Institution(body);
-        await institution.save(err => {
+        var school = new School(body);
+        await school.save(err => {
             if (err) {
                 result = err;
                 errorsController.logger(err,result);
@@ -32,14 +32,14 @@ class InstitutionController {
     };
 
 
-    static async getInstitution(id) {
+    static async getSchool(id) {
         let result = null;
 
-        await Institution.findById(id).then(institution => {
-            if (institution)
-                result = institution;
+        await School.findById(id).then(school => {
+            if (school)
+                result = school;
             else
-                result = {"ERROR":"institution not found"};
+                result = {"ERROR":"school not found"};
         }).catch(err => {
             result = err;
             errorsController.logger(err,result);
@@ -48,17 +48,17 @@ class InstitutionController {
     };
 
     /**
-     * delete institution and call to remove all schools of this institution
-     * @param id of institution to be removed.
+     * delete school and call to remove all subjects of this school
+     * @param id of school to be removed.
      * @returns {Promise<*>}
      */
-    static async deleteInstitution(id) {
+    static async deleteSchool(id) {
         let result = null;
-        let obj = await Institution.findByIdAndDelete(id);
+        let obj = await School.findByIdAndDelete(id);
         if(!result)
         {
-            obj.schools.forEach(async schoolId => {
-                result = await SchoolController.deleteSchool(schoolId);
+            obj.subjects.forEach(async subjectId => {
+                result = await SubjectController.deleteSubject(subjectId);
                 if (result) {
                     console.log(result);
                 }
@@ -66,6 +66,7 @@ class InstitutionController {
         }
         return result;
     };
+
 }
 
-module.exports = InstitutionController;
+module.exports = SchoolController;
