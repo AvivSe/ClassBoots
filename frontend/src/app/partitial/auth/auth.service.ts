@@ -7,7 +7,6 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({providedIn:"root"})
 export class AuthService {
     private token : string;
-
     getToken(){
         return this.token;
     }
