@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // local imports
 import { NavbarComponent } from './layout/navbar/navbar.component';
@@ -34,6 +35,7 @@ import { MangerMenuComponent } from './administrator/manger-menu/manger-menu.com
 import { StatisticsComponent } from './administrator/statistics/statistics.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { ModalComponent } from './layout/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { TermsComponent } from './pages/terms/terms.component';
     MangerMenuComponent,
     StatisticsComponent,
     PrivacyComponent,
-    TermsComponent
+    TermsComponent,
+    ModalComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -71,9 +75,15 @@ import { TermsComponent } from './pages/terms/terms.component';
     MatButtonModule,
     MatExpansionModule,
     Ng2GoogleChartsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    ModalModule.forRoot()
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
+  entryComponents: [
+      ModalComponent
+  ],
+  providers: [
+      {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true},
+  ],
   bootstrap: [AppComponent],
 
 })
