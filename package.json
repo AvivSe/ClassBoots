@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": "5.0.0",
-    "npm": "4.6.1"
-  },
   "scripts": {
-    "build-front": "cd ./frontend && npm i",
+    "build-front": "cd ./frontend && npm i && npm start",
     "build-back": "cd ./backend && npm i",
     "postinstall": "npm run build-front && npm run build-back",
-    "start": "cd ./frontend && npm start && cd .. && node deploy.js",
+    "start": "node deploy.js",
     "start-dev": "concurrently --kill-others \"node deploy.js\" \"cd ./frontend && npm run serve\""
   },
   "author": "",

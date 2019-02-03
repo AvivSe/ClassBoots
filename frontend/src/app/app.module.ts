@@ -5,6 +5,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule } from "@angular/material";
+import {AgGridModule} from 'ag-grid-angular';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 // local imports
 import { NavbarComponent } from './layout/navbar/navbar.component';
@@ -26,7 +28,12 @@ import { LoginBoxComponent } from './partitial/auth/login-box/login-box.componen
 import { RegisterBoxComponent } from './partitial/auth/register-box/register-box.component';
 import {AuthService} from "./partitial/auth/auth.service";
 import {AuthInterceptor} from "./partitial/auth/auth.interceptor";
-
+import { UsersManagerComponent } from './administrator/users-manager/users-manager.component';
+import { VideosManagerComponent } from './administrator/videos-manager/videos-manager.component';
+import { MangerMenuComponent } from './administrator/manger-menu/manger-menu.component';
+import { StatisticsComponent } from './administrator/statistics/statistics.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +53,12 @@ import {AuthInterceptor} from "./partitial/auth/auth.interceptor";
     ContactComponent,
     LoginBoxComponent,
     RegisterBoxComponent,
+    UsersManagerComponent,
+    VideosManagerComponent,
+    MangerMenuComponent,
+    StatisticsComponent,
+    PrivacyComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +69,9 @@ import {AuthInterceptor} from "./partitial/auth/auth.interceptor";
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    Ng2GoogleChartsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],

@@ -1,12 +1,24 @@
 const express = require('express');
 const UserController = require('../../controllers/userController');
+const checkAuth = require('../../utils/check-auth');
+const Role = require('../../utils/Role');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.get('/:email',  async function(req,res){
+    router.get('/profile', checkAuth,  async function(req,res){
+        if(req.profile) {
+            res.status(200).send(req.profile);
+        } else {
+            res.status(400).send({message: "cannot find profile data"});
+        }
+
+    });
+
+
+    router.get('/:email', checkAuth, Role.admin,  async function(req,res){
         let result =  await UserController.getUser(req.params.email);
         res.status(200).send(result);
 
@@ -28,7 +40,8 @@ var defineRoutes = router =>{
 
     });
 
-    router.get('',  async function(req,res){
+    // todo: add: checkAuth, Role.setPermissions(['admin'])
+    router.get('' , async function(req,res){
         let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);
 

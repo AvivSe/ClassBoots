@@ -1,0 +1,12 @@
+<app-manger-menu></app-manger-menu>
+<ag-grid-angular #agGrid
+                 class="ag-theme-balham grid"
+                 [gridOptions]="gridOptions"
+                 [columnDefs]="columnDefs"
+                 [rowData]="rowData"
+                 [enableSorting]="true"
+                 [enableColResize]="true"
+                 [pagination]="true"
+                 [paginationAutoPageSize]="true"
+                 rowSelection="multiple">
+</ag-grid-angular>
