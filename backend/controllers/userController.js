@@ -13,7 +13,7 @@ class UserController {
      */
     static getToken(user) {
         // TODO: Edit the secret with local variable.
-        return new Token(user);
+        return { error:false, details: new Token(user) };
     };
 
     /**
@@ -50,7 +50,7 @@ class UserController {
     static async login(body) {
         let user;
         return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
-            this.getToken(user) : { error: "Invalid email or password." };
+            this.getToken(user) : { error: true, description:"Invalid email or password." };
     };
 
     /**
@@ -66,7 +66,7 @@ class UserController {
                 result = user;
             }
             else
-                result = {error: "email not found"};
+                result = {error: true, description:"email not found"};
         }).catch(err => {
             result = err;
         });
