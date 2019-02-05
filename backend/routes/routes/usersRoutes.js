@@ -17,8 +17,7 @@ var defineRoutes = router =>{
 
     });
 
-
-    router.get('/:email', checkAuth, Role.admin,  async function(req,res){
+    router.get('/:email', checkAuth, Role.admin, async function(req,res){
         let result =  await UserController.getUser(req.params.email);
         res.status(200).send(result);
 

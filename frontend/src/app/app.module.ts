@@ -36,6 +36,10 @@ import { StatisticsComponent } from './administrator/statistics/statistics.compo
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ModalComponent } from './layout/modal/modal.component';
+import { InstitutionsManagerComponent } from './administrator/institutions-manager/institutions-manager.component';
+import { SchoolsManagerComponent } from './administrator/schools-manager/schools-manager.component';
+import { SubjectsManagerComponent } from './administrator/subjects-manager/subjects-manager.component';
+import { LecturesManagerComponent } from './administrator/lectures-manager/lectures-manager.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +66,10 @@ import { ModalComponent } from './layout/modal/modal.component';
     PrivacyComponent,
     TermsComponent,
     ModalComponent,
+    InstitutionsManagerComponent,
+    SchoolsManagerComponent,
+    SubjectsManagerComponent,
+    LecturesManagerComponent,
 
   ],
   imports: [
