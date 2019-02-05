@@ -4,6 +4,10 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+@import "~ag-grid-community/dist/styles/ag-theme-dark.css";
+@import "~ag-grid-community/dist/styles/ag-theme-bootstrap.css";
+@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
 
 body {
   font-family: 'Poppins', sans-serif;

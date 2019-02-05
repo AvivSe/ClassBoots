@@ -2,7 +2,6 @@ const Subject = require('../models/subject');
 const LectureController = require('../controllers/lectureController');
 const errorsController = require('../controllers/errorsController');
 
-
 class SubjectController {
     static async getSubjectCollection() {
         let result = null;

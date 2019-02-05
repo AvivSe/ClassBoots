@@ -1,6 +1,5 @@
 
 class Role {
-
     static setPermissions(permissions) {
         return (req, res,next) => {
             if(req.profile.user.role) {

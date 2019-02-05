@@ -5,7 +5,11 @@ import {VideoComponent} from "../pages/video/video.component";
 import {AboutComponent} from "../pages/about/about.component";
 import {ContactComponent} from "../pages/contact/contact.component";
 import {UsersManagerComponent} from "../administrator/users-manager/users-manager.component";
+import {InstitutionsManagerComponent} from "../administrator/institutions-manager/institutions-manager.component";
 import {VideosManagerComponent} from "../administrator/videos-manager/videos-manager.component";
+import {SchoolsManagerComponent} from "../administrator/schools-manager/schools-manager.component";
+import {LecturesManagerComponent} from "../administrator/lectures-manager/lectures-manager.component";
+import {SubjectsManagerComponent} from "../administrator/subjects-manager/subjects-manager.component";
 import {StatisticsComponent} from "../administrator/statistics/statistics.component";
 import {PrivacyComponent} from "../pages/privacy/privacy.component";
 import {TermsComponent} from "../pages/terms/terms.component";
@@ -20,6 +24,11 @@ const routes: Routes = [
   { path: 'admin', component: StatisticsComponent },
   { path: 'admin/stats', component: StatisticsComponent },
   { path: 'admin/users', component: UsersManagerComponent },
+  { path: 'admin/institutions', component: InstitutionsManagerComponent },
+  { path: 'admin/schools', component: SchoolsManagerComponent },
+  { path: 'admin/subjects', component: SubjectsManagerComponent },
+  { path: 'admin/lectures', component: LecturesManagerComponent },
+
   { path: 'admin/videos', component: VideosManagerComponent }
 
 ];

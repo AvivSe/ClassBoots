@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-users-manager',
   templateUrl: './users-manager.component.html',
-  styleUrls: ['./users-manager.component.css']
+  styleUrls: ['./users-manager.component.css','../style.css']
 })
 export class UsersManagerComponent implements OnInit {
   public gridOptions: GridOptions;
@@ -17,8 +17,12 @@ export class UsersManagerComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.gridOptions = <GridOptions>{
       animateRows: true,
+
       defaultColDef: {
-        editable: true
+        editable: true,
+        resizable: true,
+        sortable: true
+
       },
       onCellEditingStopped: function (event) {
         http.patch(environment.baseUrl + 'api/user', event.data).subscribe();
