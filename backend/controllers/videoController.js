@@ -20,16 +20,16 @@ class VideoController {
 
     static async createVideo(body) {
         var result = null;
+        delete body.lectureid;
         var video = new Video(body);
         await video.save(err => {
             if (err) {
                 result = err;
                 errorsController.logger(err,result);
             }
-            });
-        return result;
+        });
+        return result?result:video;
     };
-
 
     static async getVideo(id) {
         let result = null;
@@ -51,27 +51,24 @@ class VideoController {
         await Video.findByIdAndDelete(id).catch(err => {
             result = err;
             errorsController.logger(err,result);
-
         });
         return result;
     };
 
     static async addComment(body) {
-        var commemt = body.comment;
+
         var result = await Video.findByIdAndUpdate(
-            body.id,
-            { $push: {"comments": commemt}},
+            body.videoid,
+            { $push: {"comments": body}},
             { upsert: true, new: true });
-        console.log(result);
         return result;
     };
 
     static async deleteComment(body) {
         var result = await Video.findByIdAndUpdate(
-            body.id,
-            { $pull: {"comments": {  _id: body.comment.id }}},
+            body.videoid,
+            { $pull: {"comments": {  _id: body.commentid }}},
             { upsert: true, new: true });
-        console.log(result);
         return result;
     };
 

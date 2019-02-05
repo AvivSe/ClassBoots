@@ -1,5 +1,6 @@
 const express = require('express');
 const VideoController = require('../../controllers/videoController');
+const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const Role = require('../../utils/Role');
 
@@ -8,13 +9,17 @@ const Role = require('../../utils/Role');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.get('/:id', checkAuth , async function(req,res){
+    router.get('/:id' , async function(req,res){
         let result =  await VideoController.getVideo(req.params.id);
         res.status(200).send(result);
     });
 
     router.post('',  async function(req,res){
+        var send = {};
+        send.lectureid = req.body.lectureid;
         let result =  await VideoController.createVideo(req.body);
+        send.videoid = result._id;
+        LectureController.addVideo(send);
         res.status(result?201:400).send(result);
     });
 
@@ -24,8 +29,8 @@ var defineRoutes = router =>{
         res.status(200).send(result);
     });
 
-    router.delete('', checkAuth, async function(req,res){
-        let result =  await VideoController.deleteVideo(req.body.id);
+    router.delete('', async function(req,res){
+        let result =  await VideoController.deleteVideo(req.body.videoid);
         res.status(200).send(result);
     });
 
@@ -34,7 +39,7 @@ var defineRoutes = router =>{
         res.status(200).send(result);
     });
 
-    router.post('/deletecomment',  async function(req,res){
+    router.delete('/deletecomment',  async function(req,res){
         let result =  await VideoController.deleteComment(req.body);
         res.status(200).send(result);
     });

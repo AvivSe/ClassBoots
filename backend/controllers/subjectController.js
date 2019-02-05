@@ -47,6 +47,18 @@ class SubjectController {
         return result;
     };
 
+    static async getLectures(id) {
+        let result = await this.getSubject(id);
+        if(result.ERROR)
+            return result;
+        var mylectures = [];
+        for (let i = 0; i < result.lectures.length; i++) {
+            let lecture = await LectureController.getLecture(result.lectures[i]);
+            mylectures.push(lecture);
+        }
+        return mylectures;
+    };
+
     /**
      * delete subject and call to remove all lectures of this subject
      * @param id of subject to be removed.
@@ -64,6 +76,14 @@ class SubjectController {
                 }
             });
         }
+        return result;
+    };
+
+    static async addLecture(body) {
+        var result = await Subject.findByIdAndUpdate(
+            body.subjectid,
+            { $push: {"lectures": body.lectureid}},
+            { upsert: true, new: true });
         return result;
     };
 
