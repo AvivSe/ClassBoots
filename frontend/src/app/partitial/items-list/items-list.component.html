@@ -1,0 +1,21 @@
+<div align="center" class="mat-headline">
+    Pick up {{currentRequest}} and continue...
+    <br>
+    <i class="material-icons" style="font-size: 2em;">keyboard_arrow_down</i>
+</div>
+<div class="row">
+    <!-- Team member -->
+    <div class="col-xs-12 col-sm-6 col-md-4 card-padding" *ngFor="let item of itemlist">
+        <div class="frontside">
+            <div class="card" (click)="onClick(item.name)">
+                <div class="card-body text-center">
+                    <p><img class="img-size" src="{{item.image}}" alt="card image"></p>
+                    <h4 class="card-title">{{item.name}}</h4>
+                    <p class="card-text">Some description for {{item.name}}</p>
+                    <h6 class="card-text" style="color:blue;">Location: {{item.address}}</h6>
+                    <h6 class="card-text" style="color:red;"></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
