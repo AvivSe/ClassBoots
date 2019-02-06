@@ -4,9 +4,10 @@ import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
-import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule } from "@angular/material";
+import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule,MatGridListModule } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // local imports
 import { NavbarComponent } from './layout/navbar/navbar.component';
@@ -85,6 +86,7 @@ import { ProfileComponent } from './partitial/auth/profile/profile.component';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    MatGridListModule,
     MatExpansionModule,
     Ng2GoogleChartsModule,
     AgGridModule.withComponents([]),
@@ -92,8 +94,6 @@ import { ProfileComponent } from './partitial/auth/profile/profile.component';
   ],
   entryComponents: [
       ModalComponent
-    AgGridModule.withComponents([]),
-    MatGridListModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
