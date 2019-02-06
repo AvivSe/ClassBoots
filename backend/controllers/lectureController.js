@@ -20,17 +20,16 @@ class LectureController {
 
     static async createLecture(body) {
         var result = null;
+        delete body.subjectid;
         var lecture = new Lecture(body);
-        await lecture.save(err => {
+        await lecture.save((err, lecture)=> {
             if (err) {
                 result = err;
                 errorsController.logger(err,result);
-
             }
         });
-        return result;
-    };
-
+        return result?result:lecture;
+    }
 
     static async getLecture(id) {
         let result = null;
@@ -45,6 +44,18 @@ class LectureController {
             errorsController.logger(err,result);
         });
         return result;
+    };
+
+    static async getVideos(id) {
+        let result = await this.getLecture(id);
+        if(result.ERROR)
+            return result;
+        var myvideos = [];
+        for (let i = 0; i < result.videos.length; i++) {
+            let video = await VideoController.getVideo(result.videos[i]);
+            myvideos.push(video);
+        }
+        return myvideos;
     };
 
     /**
@@ -67,6 +78,13 @@ class LectureController {
         return result;
     };
 
+    static async addVideo(body) {
+        var result = await Lecture.findByIdAndUpdate(
+            body.lectureid,
+            { $push: {"videos": body.videoid}},
+            { upsert: true, new: true });
+        return result;
+    };
 
 }
 

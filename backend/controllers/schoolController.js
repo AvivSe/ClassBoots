@@ -1,6 +1,7 @@
 const School = require('../models/school');
 const SubjectController = require('./subjectController');
-const errorsController = require('../controllers/errorsController');
+const InstitutionController = require('./institutionController');
+const errorsController = require('./errorsController');
 
 
 class SchoolController {
@@ -21,16 +22,16 @@ class SchoolController {
 
     static async createSchool(body) {
         var result = null;
+        delete body.institutionid;
         var school = new School(body);
-        await school.save(err => {
-            if (err) {
-                result = err;
-                errorsController.logger(err,result);
-            }
-        });
-        return result;
-    };
-
+        await school.save((err)=> {
+                if (err) {
+                    result = err;
+                    errorsController.logger(err,result);
+                }
+            });
+        return school;
+    }
 
     static async getSchool(id) {
         let result = null;
@@ -45,6 +46,18 @@ class SchoolController {
             errorsController.logger(err,result);
         });
         return result;
+    };
+
+    static async getSubjects(id) {
+        let result = await this.getSchool(id);
+        if(result.ERROR)
+            return result;
+        var mysubjects = [];
+        for (let i = 0; i < result.subjects.length; i++) {
+            let subject = await SubjectController.getSubject(result.subjects[i]);
+            mysubjects.push(subject);
+        }
+        return mysubjects;
     };
 
     /**
@@ -67,6 +80,13 @@ class SchoolController {
         return result;
     };
 
+    static async addSubject(body) {
+        var result = await School.findByIdAndUpdate(
+            body.schoolid,
+            { $push: {"subjects": body.subjectid}},
+            { upsert: true, new: true });
+        return result;
+    };
 }
 
 module.exports = SchoolController;

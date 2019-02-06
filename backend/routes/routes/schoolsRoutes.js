@@ -1,5 +1,6 @@
 const express = require('express');
 const SchoolController = require('../../controllers/schoolController');
+const InstitutionController = require('../../controllers/institutionController');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -12,7 +13,11 @@ var defineRoutes = router =>{
     });
 
     router.post('',  async function(req,res){
+        var send = {};
+        send.institutionid = req.body.institutionid;
         let result =  await SchoolController.createSchool(req.body);
+        send.schoolid = result._id;
+        InstitutionController.addSchool(send);
         res.status(result?201:400).send(result);
     });
 
@@ -25,6 +30,17 @@ var defineRoutes = router =>{
         let result =  await SchoolController.deleteSchool(req.body.id);
         res.status(200).send(result);
     });
+
+    router.post('/addsubject',  async function(req,res){
+        let result =  await SchoolController.addSubject(req.body);
+        res.status(result?201:400).send(result);
+    });
+
+    router.get('/getsubjects/:id',  async function(req,res){
+        let result = await SchoolController.getSubjects(req.params.id);
+        res.status(result?200:400).send(result);
+    });
+
     return router;
 };
 

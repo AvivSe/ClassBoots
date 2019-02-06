@@ -18,7 +18,6 @@ class InstitutionController {
         return result;
     };
 
-
     static async createInstitution(body) {
         var result = null;
         var institution = new Institution(body);
@@ -36,15 +35,29 @@ class InstitutionController {
         let result = null;
 
         await Institution.findById(id).then(institution => {
-            if (institution)
+            if (institution) {
                 result = institution;
+            }
             else
                 result = {"ERROR":"institution not found"};
         }).catch(err => {
             result = err;
             errorsController.logger(err,result);
         });
+
         return result;
+    };
+
+    static async getSchools(id) {
+        let result = await this.getInstitution(id);
+        if(result.ERROR)
+            return result;
+        var myschools = [];
+        for (let i = 0; i < result.schools.length; i++) {
+            let school = await SchoolController.getSchool(result.schools[i]);
+            myschools.push(school);
+        }
+        return myschools;
     };
 
     /**
@@ -52,20 +65,29 @@ class InstitutionController {
      * @param id of institution to be removed.
      * @returns {Promise<*>}
      */
+    // TODO: need to fix the delete
     static async deleteInstitution(id) {
-        let result = null;
-        let obj = await Institution.findByIdAndDelete(id);
+        let result = await Institution.findByIdAndDelete(id);
         if(!result)
         {
-            obj.schools.forEach(async schoolId => {
-                result = await SchoolController.deleteSchool(schoolId);
-                if (result) {
-                    console.log(result);
+            for (let i = 0; i < result.schools.length; i++) {
+                let obj = await SchoolController.deleteSchool(result.schools[i]);
+                if (obj) {
+                    console.log(obj);
                 }
-            });
+            }
         }
         return result;
     };
+
+    static async addSchool(body) {
+        var result = await Institution.findByIdAndUpdate(
+            body.institutionid,
+            { $push: {"schools": body.schoolid}},
+            { upsert: true, new: true });
+        return result;
+    };
+
 }
 
 module.exports = InstitutionController;
