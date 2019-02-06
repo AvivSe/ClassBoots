@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
-import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule } from "@angular/material";
+import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule, MatGridListModule } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
@@ -34,6 +34,8 @@ import { MangerMenuComponent } from './administrator/manger-menu/manger-menu.com
 import { StatisticsComponent } from './administrator/statistics/statistics.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { ItemsListComponent } from './partitial/items-list/items-list.component';
+import { ProfileComponent } from './partitial/auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { TermsComponent } from './pages/terms/terms.component';
     MangerMenuComponent,
     StatisticsComponent,
     PrivacyComponent,
-    TermsComponent
+    TermsComponent,
+    ItemsListComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,8 @@ import { TermsComponent } from './pages/terms/terms.component';
     MatButtonModule,
     MatExpansionModule,
     Ng2GoogleChartsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    MatGridListModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],

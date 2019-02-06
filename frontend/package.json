@@ -28,6 +28,7 @@
     "@angular/router": "~7.1.0",
     "ag-grid-angular": "^20.0.0",
     "ag-grid-community": "^20.0.0",
+    "angular-typing-animation": "^0.5.4",
     "bootstrap-schematics": "^1.7.1",
     "core-js": "^2.5.4",
     "d3": "^5.8.0",

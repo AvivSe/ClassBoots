@@ -9,10 +9,12 @@ import {VideosManagerComponent} from "../administrator/videos-manager/videos-man
 import {StatisticsComponent} from "../administrator/statistics/statistics.component";
 import {PrivacyComponent} from "../pages/privacy/privacy.component";
 import {TermsComponent} from "../pages/terms/terms.component";
+import {ProfileComponent} from "../partitial/auth/profile/profile.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Video', component: VideoComponent },
+  { path: 'Profile', component: ProfileComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
   { path: 'privacy', component: PrivacyComponent },
