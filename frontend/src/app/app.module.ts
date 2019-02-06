@@ -7,7 +7,6 @@ import { FormsModule } from "@angular/forms";
 import { MatInputModule,MatCardModule,MatButtonModule,MatExpansionModule } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
-import { ModalModule } from 'ngx-bootstrap/modal';
 
 // local imports
 import { NavbarComponent } from './layout/navbar/navbar.component';
@@ -40,6 +39,8 @@ import { InstitutionsManagerComponent } from './administrator/institutions-manag
 import { SchoolsManagerComponent } from './administrator/schools-manager/schools-manager.component';
 import { SubjectsManagerComponent } from './administrator/subjects-manager/subjects-manager.component';
 import { LecturesManagerComponent } from './administrator/lectures-manager/lectures-manager.component';
+import { ItemsListComponent } from './partitial/items-list/items-list.component';
+import { ProfileComponent } from './partitial/auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,9 @@ import { LecturesManagerComponent } from './administrator/lectures-manager/lectu
     StatisticsComponent,
     PrivacyComponent,
     TermsComponent,
+    ItemsListComponent,
+    ProfileComponent,
+    TermsComponent,
     ModalComponent,
     InstitutionsManagerComponent,
     SchoolsManagerComponent,
@@ -88,10 +92,10 @@ import { LecturesManagerComponent } from './administrator/lectures-manager/lectu
   ],
   entryComponents: [
       ModalComponent
+    AgGridModule.withComponents([]),
+    MatGridListModule
   ],
-  providers: [
-      {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true},
-  ],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor,multi:true}],
   bootstrap: [AppComponent],
 
 })

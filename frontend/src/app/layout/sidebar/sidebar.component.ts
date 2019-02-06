@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../partitial/auth/auth.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -6,105 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  institutions = [
-    {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      },
-      {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      },
-      {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      },
-      {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      },
-      {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      },
-      {
-          name: "Colman",
-          schools: ["Computer Science","Art","Law"]
-      },
-      {
-          name: "IDC",
-          schools: ["Art","Law"]
-      },
-      {
-          name: "TLV",
-          schools: ["Computer Science","Law"]
-      },
-      {
-          name: "CDE",
-          schools: ["Law"]
-      }
-      ];
-  constructor() { }
+  needToLogin : boolean = true;
+
+  constructor(public authService : AuthService) {}
   ngOnInit() {
-  }
+    this.authService.getUser.subscribe(user =>{
+      this.needToLogin = false;
+    })  }
+
 }
