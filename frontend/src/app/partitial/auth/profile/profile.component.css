@@ -1,0 +1,26 @@
+
+.jumbotron05 {
+    background-color: rgba(255,255,255,0.5);
+}
+.jumbotron06 {
+    background-color: rgba(255,255,255,0.6);
+}
+.jumbotron07 {
+    background-color: rgba(255,255,255,0.7);
+}
+.jumbotron08{
+    background-color: rgba(255,255,255,0.8);
+}
+.jumbotron09 {
+    background-color: rgba(255,255,255,0.9);
+}
+
+.title-text{
+    width:250%;
+    font-size:1.2em;
+}
+
+.login-btn-color{
+    background-color: #4189c9;
+    color:white;
+}
