@@ -40,8 +40,13 @@ import { InstitutionsManagerComponent } from './administrator/institutions-manag
 import { SchoolsManagerComponent } from './administrator/schools-manager/schools-manager.component';
 import { SubjectsManagerComponent } from './administrator/subjects-manager/subjects-manager.component';
 import { LecturesManagerComponent } from './administrator/lectures-manager/lectures-manager.component';
-import { ItemsListComponent } from './partitial/items-list/items-list.component';
+import { ItemsListComponent } from './partitial/entities/items-list/items-list.component';
 import { ProfileComponent } from './partitial/auth/profile/profile.component';
+import { InstitutionsComponent } from './partitial/entities/institutions/institutions.component';
+import { SchoolsComponent } from './partitial/entities/schools/schools.component';
+import { SubjectsComponent } from './partitial/entities/subjects/subjects.component';
+import { LecturesComponent } from './partitial/entities/lectures/lectures.component';
+import { VideosComponent } from './partitial/entities/videos/videos.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +80,11 @@ import { ProfileComponent } from './partitial/auth/profile/profile.component';
     SchoolsManagerComponent,
     SubjectsManagerComponent,
     LecturesManagerComponent,
+    InstitutionsComponent,
+    SchoolsComponent,
+    SubjectsComponent,
+    LecturesComponent,
+    VideosComponent,
 
   ],
   imports: [
