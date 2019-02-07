@@ -47,6 +47,8 @@ import { AdminCollectionsInstitutionComponent } from './admin-panel/admin-collec
 import { AdminCollectionsSchoolComponent } from './admin-panel/admin-collections/admin-collections-school/admin-collections-school.component';
 import { AdminCollectionsSubjectComponent } from './admin-panel/admin-collections/admin-collections-subject/admin-collections-subject.component';
 import { AdminCollectionsLectureComponent } from './admin-panel/admin-collections/admin-collections-lecture/admin-collections-lecture.component';
+import { EmptyComponent } from './empty/empty.component';
+import { EmptyTwoComponent } from './empty-two/empty-two.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { AdminCollectionsLectureComponent } from './admin-panel/admin-collection
     AdminCollectionsSchoolComponent,
     AdminCollectionsSubjectComponent,
     AdminCollectionsLectureComponent,
+    EmptyComponent,
+    EmptyTwoComponent,
 
   ],
   imports: [

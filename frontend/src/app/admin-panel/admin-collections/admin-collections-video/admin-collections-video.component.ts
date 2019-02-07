@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AdminAgGridService} from "../admin-ag-grid.service";
 
 @Component({
   selector: 'app-admin-collections-video',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminCollectionsVideoComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public agGridService : AdminAgGridService) { }
 
   ngOnInit() {
+    this.agGridService.videos();
   }
 
 }
