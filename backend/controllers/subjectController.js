@@ -1,6 +1,8 @@
 const Subject = require('../models/subject');
 const LectureController = require('../controllers/lectureController');
 const errorsController = require('../controllers/errorsController');
+const SchoolController = require('../controllers/schoolController');
+
 
 class SubjectController {
     static async getSubjectCollection() {
@@ -19,29 +21,32 @@ class SubjectController {
 
 
     static async createSubject(body) {
-        var result = null;
         var subject = new Subject(body);
         await subject.save(err => {
             if (err) {
-                result = err;
-                errorsController.logger(err,result);
+                errorsController.logger("Create Subject",err);
             }
         });
-        return result;
+        return subject;
     };
 
+    static async updateSubject(body) {
+        let result = await Subject.findByIdAndUpdate(body._id, body, {new: true}, err => {
+            if (err) errorsController.logger("update Subject",err);
+        });
+        return result;
+    }
 
     static async getSubject(id) {
         let result = null;
-
         await Subject.findById(id).then(subject => {
             if (subject)
                 result = subject;
             else
                 result = {"ERROR":"subject not found"};
         }).catch(err => {
-            result = err;
-            errorsController.logger(err,result);
+            result = {"ERROR":"subject not found"};
+            errorsController.logger("Get Subject",err);
         });
         return result;
     };
@@ -53,7 +58,9 @@ class SubjectController {
         var mylectures = [];
         for (let i = 0; i < result.lectures.length; i++) {
             let lecture = await LectureController.getLecture(result.lectures[i]);
-            mylectures.push(lecture);
+            if(lecture.ERROR !== undefined)
+                this.deleteLecture({subjectid:id,lectureid:result.lectures[i]});
+            else mylectures.push(lecture);
         }
         return mylectures;
     };
@@ -86,6 +93,21 @@ class SubjectController {
         return result;
     };
 
+    static async deleteLecture(body) {
+        Subject.findByIdAndUpdate(
+            body.subjectid,
+            { $pull: {"lectures": body.lectureid }},
+            { upsert: true, new: true },
+            err=>{
+                if(err) errorsController.logger("Delete Lecture from Subject",err);
+            });
+    };
+
+    static async checkPermission(body) {
+        var result = await this.getSubject(body.subjectid);
+        console.log(result);
+        return await result.ERROR !== undefined?SchoolController.checkPermission({schoolid:result.schoolid,userid:body.userid}):false;
+    };
 }
 
 module.exports = SubjectController;

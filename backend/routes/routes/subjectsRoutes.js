@@ -15,7 +15,7 @@ var defineRoutes = router =>{
     router.post('',  async function(req,res){
         var send = {};
         send.schoolid = req.body.schoolid;
-        let result =  await SubjectController.createSubject(req.body);
+        let result = await (SubjectController.createSubject(req.body));
         send.subjectid = result._id;
         SchoolController.addSubject(send);
         res.status(result?201:400).send(result);
@@ -23,11 +23,16 @@ var defineRoutes = router =>{
 
     router.get('',  async function(req,res){
         let result =  await SubjectController.getSubjectCollection(req.body);
-        res.status(200).send(result);
+        res.status(result?200:400).send(result);
     });
 
     router.delete('',  async function(req,res){
         let result =  await SubjectController.deleteSubject(req.body.id);
+        res.status(200).send(result);
+    });
+
+    router.put('', async function(req,res){
+        let result =  await SubjectController.updateSubject(req.body);
         res.status(200).send(result);
     });
 

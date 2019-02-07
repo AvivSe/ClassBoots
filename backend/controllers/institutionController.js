@@ -19,21 +19,18 @@ class InstitutionController {
     };
 
     static async createInstitution(body) {
-        var result = null;
         var institution = new Institution(body);
         await institution.save(err => {
             if (err) {
-                result = err;
-                errorsController.logger(err,result);
+                errorsController.logger("Create Institution",err);
             }
         });
-        return result;
+        return institution;
     };
 
 
     static async getInstitution(id) {
         let result = null;
-
         await Institution.findById(id).then(institution => {
             if (institution) {
                 result = institution;
@@ -41,8 +38,8 @@ class InstitutionController {
             else
                 result = {"ERROR":"institution not found"};
         }).catch(err => {
-            result = err;
-            errorsController.logger(err,result);
+            result = {"ERROR":"institution not found"};
+            errorsController.logger("Get Subject",err);
         });
 
         return result;
@@ -55,7 +52,9 @@ class InstitutionController {
         var myschools = [];
         for (let i = 0; i < result.schools.length; i++) {
             let school = await SchoolController.getSchool(result.schools[i]);
-            myschools.push(school);
+            if(school.ERROR !== undefined)
+                this.deleteSchool({institutionid:id,schoolid:result.schools[i]});
+            else myschools.push(school);
         }
         return myschools;
     };
@@ -80,6 +79,13 @@ class InstitutionController {
         return result;
     };
 
+    static async updateInstitution(body) {
+        let result = await Institution.findByIdAndUpdate(body._id, body, {new: true}, err => {
+            if (err) errorsController.logger("update Institution",err);
+        });
+        return result;
+    }
+
     static async addSchool(body) {
         var result = await Institution.findByIdAndUpdate(
             body.institutionid,
@@ -88,6 +94,46 @@ class InstitutionController {
         return result;
     };
 
+    static async deleteSchool(body) {
+        Institution.findByIdAndUpdate(
+            body.institutionid,
+            { $pull: {"schools": body.schoolid }},
+            { upsert: true, new: true },
+            err=>{
+                if(err) errorsController.logger("Delete School from Institution",err);
+            });
+    };
+
+    static async addpermission(body) {
+        var result = await Institution.findByIdAndUpdate(
+            body.institutionid,
+            { $push: {"permission": body.userid}},
+            { upsert: true, new: true });
+        return result;
+    };
+
+    static async deletepermission(body) {
+        Institution.findByIdAndUpdate(
+            body.institutionid,
+            { $pull: {"permission": body.userid }},
+            { upsert: true, new: true },
+            err=>{
+                if(err) errorsController.logger("Delete user permission from Institution",err);
+            });
+    };
+
+    static async checkPermission(body) {
+        var result = await this.getInstitution(body.institutionid);
+        console.log(result);
+        if(await result.ERROR !== undefined)
+        {
+            for (let i = 0; i < result.permission.length; i++) {
+                if(result.permission[i] == body.userid)
+                    return true
+            }
+        }
+        return false;
+    };
 }
 
 module.exports = InstitutionController;

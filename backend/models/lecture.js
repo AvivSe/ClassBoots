@@ -6,7 +6,8 @@ var lectureSchema = mongoose.Schema({
     title:      { type:String, required:true },
     description:{ type:String, required:true },
     date:       { type:Date, required:true },
-    videos:     [{type:mongoose.Schema.Types.ObjectId, ref:'Video'}]
+    videos:     [{type:mongoose.Schema.Types.ObjectId, ref:'Video'}],
+    subjectid:   { type:mongoose.Schema.Types.ObjectId, ref:'Subject', required:true }
 
 
 });
