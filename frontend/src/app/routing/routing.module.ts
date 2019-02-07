@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
 import { HomeComponent } from "../pages/home/home.component";
-import {VideoComponent} from "../pages/video/video.component";
+import {VideoComponent} from "../partitial/entities/video/video.component";
 import {AboutComponent} from "../pages/about/about.component";
 import {ContactComponent} from "../pages/contact/contact.component";
 import {UsersManagerComponent} from "../administrator/users-manager/users-manager.component";
@@ -16,10 +16,11 @@ import {TermsComponent} from "../pages/terms/terms.component";
 import {ProfileComponent} from "../partitial/auth/profile/profile.component";
 import {ItemsListComponent} from "../partitial/entities/items-list/items-list.component";
 import {SchoolsComponent} from "../partitial/entities/schools/schools.component";
+import {SubjectsComponent} from "../partitial/entities/subjects/subjects.component";
+import {LecturesComponent} from "../partitial/entities/lectures/lectures.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'Video', component: VideoComponent },
   { path: 'Profile', component: ProfileComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Contact', component: ContactComponent },
@@ -34,9 +35,9 @@ const routes: Routes = [
   { path: 'admin/lectures', component: LecturesManagerComponent },
   { path: 'admin/videos', component: VideosManagerComponent },
   { path: 'schools/:_id', component: SchoolsComponent},
-  { path: 'subjects/:_id', component: SchoolsComponent},
-  { path: 'lectures/:_id', component: SchoolsComponent},
-  { path: 'videos/:_id', component: SchoolsComponent}
+  { path: 'subjects/:_id', component: SubjectsComponent},
+  { path: 'lectures/:_id', component: LecturesComponent},
+  { path: 'Video/:_id', component: VideoComponent },
 ];
 
 @NgModule({

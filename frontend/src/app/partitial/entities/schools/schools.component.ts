@@ -8,16 +8,14 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./schools.component.css']
 })
 export class SchoolsComponent implements OnInit {
-  private sub: any;
 
-  constructor(private entitiesService : entitiesService,private route: ActivatedRoute) { }
+  constructor(public entitiesService : entitiesService,private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params =>{
+    this.route.params.subscribe(params => {
       this.entitiesService.getSchools(params['_id']);
     });
   }
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+
 }

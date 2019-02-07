@@ -21,7 +21,7 @@ import { LoginComponent } from './partitial/auth/login/login.component';
 import { WriteCommentComponent } from './partitial/comments/write-comment/write-comment.component';
 import { AppComponent } from './app.component';
 import { ListCommentsComponent } from './partitial/comments/list-comments/list-comments.component';
-import { VideoComponent } from './pages/video/video.component';
+import { VideoComponent } from './partitial/entities/video/video.component';
 import { RecommendedVideosComponent } from './partitial/recommended-videos/recommended-videos.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -46,7 +46,6 @@ import { InstitutionsComponent } from './partitial/entities/institutions/institu
 import { SchoolsComponent } from './partitial/entities/schools/schools.component';
 import { SubjectsComponent } from './partitial/entities/subjects/subjects.component';
 import { LecturesComponent } from './partitial/entities/lectures/lectures.component';
-import { VideosComponent } from './partitial/entities/videos/videos.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +83,6 @@ import { VideosComponent } from './partitial/entities/videos/videos.component';
     SchoolsComponent,
     SubjectsComponent,
     LecturesComponent,
-    VideosComponent,
 
   ],
   imports: [
