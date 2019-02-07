@@ -14,6 +14,8 @@ import {StatisticsComponent} from "../administrator/statistics/statistics.compon
 import {PrivacyComponent} from "../pages/privacy/privacy.component";
 import {TermsComponent} from "../pages/terms/terms.component";
 import {ProfileComponent} from "../partitial/auth/profile/profile.component";
+import {ItemsListComponent} from "../partitial/entities/items-list/items-list.component";
+import {SchoolsComponent} from "../partitial/entities/schools/schools.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,9 +32,11 @@ const routes: Routes = [
   { path: 'admin/schools', component: SchoolsManagerComponent },
   { path: 'admin/subjects', component: SubjectsManagerComponent },
   { path: 'admin/lectures', component: LecturesManagerComponent },
-
-  { path: 'admin/videos', component: VideosManagerComponent }
-
+  { path: 'admin/videos', component: VideosManagerComponent },
+  { path: 'schools/:_id', component: SchoolsComponent},
+  { path: 'subjects/:_id', component: SchoolsComponent},
+  { path: 'lectures/:_id', component: SchoolsComponent},
+  { path: 'videos/:_id', component: SchoolsComponent}
 ];
 
 @NgModule({
