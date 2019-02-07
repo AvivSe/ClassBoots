@@ -4,16 +4,12 @@ import { HomeComponent } from "../pages/home/home.component";
 import {VideoComponent} from "../pages/video/video.component";
 import {AboutComponent} from "../pages/about/about.component";
 import {ContactComponent} from "../pages/contact/contact.component";
-import {UsersManagerComponent} from "../administrator/users-manager/users-manager.component";
-import {InstitutionsManagerComponent} from "../administrator/institutions-manager/institutions-manager.component";
-import {VideosManagerComponent} from "../administrator/videos-manager/videos-manager.component";
-import {SchoolsManagerComponent} from "../administrator/schools-manager/schools-manager.component";
-import {LecturesManagerComponent} from "../administrator/lectures-manager/lectures-manager.component";
-import {SubjectsManagerComponent} from "../administrator/subjects-manager/subjects-manager.component";
-import {StatisticsComponent} from "../administrator/statistics/statistics.component";
 import {PrivacyComponent} from "../pages/privacy/privacy.component";
 import {TermsComponent} from "../pages/terms/terms.component";
 import {ProfileComponent} from "../partitial/auth/profile/profile.component";
+import { AdminPanelComponent } from "../admin-panel/admin-panel.component";
+import { AdminStatisticsComponent } from "../admin-panel/admin-statistics/admin-statistics.component";
+import { AdminCollectionsManagerComponent } from "../admin-panel/admin-collections/admin-collections.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,17 +19,14 @@ const routes: Routes = [
   { path: 'Contact', component: ContactComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'terms', component: TermsComponent },
-  { path: 'admin', component: StatisticsComponent },
-  { path: 'admin/stats', component: StatisticsComponent },
-  { path: 'admin/users', component: UsersManagerComponent },
-  { path: 'admin/institutions', component: InstitutionsManagerComponent },
-  { path: 'admin/schools', component: SchoolsManagerComponent },
-  { path: 'admin/subjects', component: SubjectsManagerComponent },
-  { path: 'admin/lectures', component: LecturesManagerComponent },
-
-  { path: 'admin/videos', component: VideosManagerComponent }
-
-];
+  { path: 'admin', component: AdminPanelComponent, children: [
+          { path: '', redirectTo: 'statistics', pathMatch: 'full'},
+          { path: 'statistics/:about', component: AdminStatisticsComponent , outlet:'adminPanel'},
+          { path: 'statistics', component: AdminStatisticsComponent , outlet:'adminPanel'},
+          { path: 'collections/:about', component: AdminCollectionsManagerComponent , outlet:'adminPanel'},
+          { path: 'collections', component: AdminCollectionsManagerComponent , outlet:'adminPanel'}
+      ]
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

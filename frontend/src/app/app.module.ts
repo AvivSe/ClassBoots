@@ -29,19 +29,24 @@ import { LoginBoxComponent } from './partitial/auth/login-box/login-box.componen
 import { RegisterBoxComponent } from './partitial/auth/register-box/register-box.component';
 import {AuthService} from "./partitial/auth/auth.service";
 import {AuthInterceptor} from "./partitial/auth/auth.interceptor";
-import { UsersManagerComponent } from './administrator/users-manager/users-manager.component';
-import { VideosManagerComponent } from './administrator/videos-manager/videos-manager.component';
-import { MangerMenuComponent } from './administrator/manger-menu/manger-menu.component';
-import { StatisticsComponent } from './administrator/statistics/statistics.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ModalComponent } from './layout/modal/modal.component';
-import { InstitutionsManagerComponent } from './administrator/institutions-manager/institutions-manager.component';
-import { SchoolsManagerComponent } from './administrator/schools-manager/schools-manager.component';
-import { SubjectsManagerComponent } from './administrator/subjects-manager/subjects-manager.component';
-import { LecturesManagerComponent } from './administrator/lectures-manager/lectures-manager.component';
 import { ItemsListComponent } from './partitial/items-list/items-list.component';
 import { ProfileComponent } from './partitial/auth/profile/profile.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminMenuComponent } from './admin-panel/admin-menu/admin-menu.component';
+import { AdminStatisticsComponent } from './admin-panel/admin-statistics/admin-statistics.component';
+import { AdminCollectionsManagerComponent } from './admin-panel/admin-collections/admin-collections.component';
+import { AgGridComponent } from './admin-panel/admin-collections/ag-grid/ag-grid.component';
+import { AdminStatisticsPieChartComponent } from './admin-panel/admin-statistics/admin-statistics-pie-chart/admin-statistics-pie-chart.component';
+import { AdminStatisticsMapChartComponent } from './admin-panel/admin-statistics/admin-statistics-map-chart/admin-statistics-map-chart.component';
+import { AdminCollectionsUserComponent } from './admin-panel/admin-collections/admin-collections-user/admin-collections-user.component';
+import { AdminCollectionsVideoComponent } from './admin-panel/admin-collections/admin-collections-video/admin-collections-video.component';
+import { AdminCollectionsInstitutionComponent } from './admin-panel/admin-collections/admin-collections-institution/admin-collections-institution.component';
+import { AdminCollectionsSchoolComponent } from './admin-panel/admin-collections/admin-collections-school/admin-collections-school.component';
+import { AdminCollectionsSubjectComponent } from './admin-panel/admin-collections/admin-collections-subject/admin-collections-subject.component';
+import { AdminCollectionsLectureComponent } from './admin-panel/admin-collections/admin-collections-lecture/admin-collections-lecture.component';
 
 @NgModule({
   declarations: [
@@ -61,20 +66,25 @@ import { ProfileComponent } from './partitial/auth/profile/profile.component';
     ContactComponent,
     LoginBoxComponent,
     RegisterBoxComponent,
-    UsersManagerComponent,
-    VideosManagerComponent,
-    MangerMenuComponent,
-    StatisticsComponent,
     PrivacyComponent,
     TermsComponent,
     ItemsListComponent,
     ProfileComponent,
     TermsComponent,
     ModalComponent,
-    InstitutionsManagerComponent,
-    SchoolsManagerComponent,
-    SubjectsManagerComponent,
-    LecturesManagerComponent,
+    AdminPanelComponent,
+    AdminMenuComponent,
+    AdminStatisticsComponent,
+    AdminCollectionsManagerComponent,
+    AgGridComponent,
+    AdminStatisticsPieChartComponent,
+    AdminStatisticsMapChartComponent,
+    AdminCollectionsUserComponent,
+    AdminCollectionsVideoComponent,
+    AdminCollectionsInstitutionComponent,
+    AdminCollectionsSchoolComponent,
+    AdminCollectionsSubjectComponent,
+    AdminCollectionsLectureComponent,
 
   ],
   imports: [
