@@ -1,0 +1,55 @@
+<!--TODO: KILL PADDING-->
+<div class="jumbotron06" style="padding-bottom: 5%;">
+    <div class="container" style="position:center;padding-top: 5%">
+        <div class="row">
+            <mat-card style="width: 100%;padding-bottom: 50%;">
+                <div style="padding: 5%;">
+
+                    <!-- Page starts here -->
+                    <span class="mat-headline">Profile</span>
+                    <hr>
+                    <div style="padding: 5%;">
+                        <form *ngIf="authService.isLogged()">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <span class="mat-title">Email</span>
+                                    <mat-form-field class="title-text">
+                                        <input type="email" matInput placeholder="{{user.email}}" #email>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <span class="mat-title">First Name</span>
+                                    <mat-form-field class="title-text">
+                                        <input type="text" matInput placeholder="{{user.firstname}}" #firstname>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <span class="mat-title">Last Name</span>
+                                    <mat-form-field class="title-text">
+                                        <input type="text" matInput placeholder="{{user.lastname}}" #lastname>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <span class="mat-title">Birthday</span>
+                                    <mat-form-field class="title-text">
+                                        <input type="text" matInput placeholder="{{user.DOB}}" #DOB>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn login-btn-color btn-lg" style="float:right;" (click)="updateUser(email,firstname,lastname,DOB)">Update</button>
+                        </form>
+                    </div>
+
+                    <!-- Page ends here -->
+
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

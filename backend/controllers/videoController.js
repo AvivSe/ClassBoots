@@ -1,5 +1,6 @@
 const Video = require('../models/video');
-const errorsController = require('../controllers/errorsController');
+const errorsController = require('./errorsController');
+const LectureController = require('./lectureController');
 
 
 class VideoController {
@@ -19,17 +20,14 @@ class VideoController {
     };
 
     static async createVideo(body) {
-        var result = null;
         var video = new Video(body);
         await video.save(err => {
             if (err) {
-                result = err;
-                errorsController.logger(err,result);
+                errorsController.logger("Create Video",err);
             }
-            });
-        return result;
+        });
+        return video;
     };
-
 
     static async getVideo(id) {
         let result = null;
@@ -39,9 +37,8 @@ class VideoController {
             else
                 result = {"ERROR":"video not found"};
         }).catch(err => {
-            result = err;
-            errorsController.logger(err,result);
-
+            result = {"ERROR":"video not found"};
+            errorsController.logger("Get Subject",err);
         });
         return result;
     };
@@ -51,28 +48,38 @@ class VideoController {
         await Video.findByIdAndDelete(id).catch(err => {
             result = err;
             errorsController.logger(err,result);
-
         });
         return result;
     };
 
+    static async updateVideo(body) {
+        let result = await Video.findByIdAndUpdate(body._id, body, {new: true}, err => {
+            if (err) errorsController.logger("update Video",err);
+        });
+        return result;
+    }
+
     static async addComment(body) {
-        var commemt = body.comment;
+
         var result = await Video.findByIdAndUpdate(
-            body.id,
-            { $push: {"comments": commemt}},
+            body.videoid,
+            { $push: {"comments": body}},
             { upsert: true, new: true });
-        console.log(result);
         return result;
     };
 
     static async deleteComment(body) {
         var result = await Video.findByIdAndUpdate(
-            body.id,
-            { $pull: {"comments": {  _id: body.comment.id }}},
+            body.videoid,
+            { $pull: {"comments": {  _id: body.commentid }}},
             { upsert: true, new: true });
-        console.log(result);
         return result;
+    };
+
+    static async checkPermission(body) {
+        var result = await this.getVideo(body.videoid);
+        console.log(LectureController);
+        return await result.ERROR === undefined?LectureController.checkPermission({lectureid:result.lectureid,userid:body.userid}).finally(()=>{}):false;
     };
 
 }

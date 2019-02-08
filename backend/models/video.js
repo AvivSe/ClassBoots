@@ -12,7 +12,8 @@ var videoSchema = mongoose.Schema({
     reference:  { type:String, required:true },
     views:      { type:Number, default:0},
     position:   { type:Number, required:true },
-    comments:    [CommentSchema]
+    comments:   [CommentSchema],
+    lectureid:  { type:mongoose.Schema.Types.ObjectId, ref:'Lecture', required:true }
 });
 
 

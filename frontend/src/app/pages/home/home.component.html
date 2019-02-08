@@ -1,28 +1,12 @@
 <div class="jumbotron06">
   <div class="row" style="margin-right: 0px">
-    <div class="col" style="padding-top:5%;">
-      <img src="welcome-logo.svg" style="width: 80%;height: 80%;" onerror="this.onerror=null; this.src='image.png'">
-    </div>
     <div class="col">
-      <p class="mat-display-2" style="color:black;padding-top: 20%;">Welcome to ClassBoots</p>
+      <p class="mat-display-2 welcome-text">
+        Welcome to ClassBoots
+      </p>
     </div>
   </div>
 </div>
 <div class="jumbotron">
-  <div class="row">
-    <!-- Team member -->
-    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let inst of institutions">
-      <div class="frontside">
-        <div class="card">
-          <div class="card-body text-center">
-            <p><img class=" img-fluid" src="{{inst.image}}" alt="card image"></p>
-            <h4 class="card-title">{{inst.name}}</h4>
-            <p class="card-text">Some description for {{inst.name}}</p>
-            <h6 class="card-text" style="color:blue;">Location: {{inst.address}}</h6>
-            <h6 class="card-text" style="color:red;"></h6>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-institutions></app-institutions>
 </div>

@@ -1,6 +1,7 @@
 const Lecture = require('../models/lecture');
-const VideoController = require('../controllers/videoController');
-const errorsController = require('../controllers/errorsController');
+const VideoController = require('./videoController');
+const SubjectController = require('./subjectController');
+const errorsController = require('./errorsController');
 
 class LectureController {
     static async getLectureCollection() {
@@ -19,18 +20,14 @@ class LectureController {
     };
 
     static async createLecture(body) {
-        var result = null;
         var lecture = new Lecture(body);
-        await lecture.save(err => {
+        await lecture.save((err)=> {
             if (err) {
-                result = err;
-                errorsController.logger(err,result);
-
+                errorsController.logger("Create Lecture",err);
             }
         });
-        return result;
-    };
-
+        return lecture;
+    }
 
     static async getLecture(id) {
         let result = null;
@@ -45,6 +42,20 @@ class LectureController {
             errorsController.logger(err,result);
         });
         return result;
+    };
+
+    static async getVideos(id) {
+        let result = await this.getLecture(id);
+        if(result.ERROR)
+            return result;
+        var myvideos = [];
+        for (let i = 0; i < result.videos.length; i++) {
+            let video = await VideoController.getVideo(result.videos[i]);
+            if(video.ERROR !== undefined)
+                this.deleteVideo({lectureid:id,videoid:result.videos[i]});
+            else myvideos.push(video);
+        }
+        return myvideos;
     };
 
     /**
@@ -67,7 +78,36 @@ class LectureController {
         return result;
     };
 
+    static async updateLecture(body) {
+        let result = await Lecture.findByIdAndUpdate(body._id, body, {new: true}, err => {
+            if (err) errorsController.logger("update Lecture",err);
+        });
+        return result;
+    }
 
+    static async addVideo(body) {
+        var result = await Lecture.findByIdAndUpdate(
+            body.lectureid,
+            { $push: {"videos": body.videoid}},
+            { upsert: true, new: true });
+        return result;
+    };
+
+    static async deleteVideo(body) {
+        Lecture.findByIdAndUpdate(
+            body.lectureid,
+            { $pull: {"videos": body.videoid }},
+            { upsert: true, new: true },
+            err=>{
+                if(err) errorsController.logger("Delete Video from Lecture",err);
+            });
+    };
+
+    static async checkPermission(body) {
+        var result = await this.getLecture(body.lectureid);
+        console.log(result);
+        return await result.ERROR !== undefined?SubjectController.checkPermission({subjectid:result.subjectid,userid:body.userid}):false;
+    };
 }
 
 module.exports = LectureController;
