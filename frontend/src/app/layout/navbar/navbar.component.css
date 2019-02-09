@@ -6,3 +6,17 @@
     background-color: #a5b439;
     color:white;
 }
+
+.nav-custom {
+    transition-timing-function: ease;
+    transition: 1s;
+    left: 270px;
+    right: 20px;
+}
+
+.nav-custom2 {
+    transition-timing-function: ease;
+    transition: 1s;
+    left: 20px;
+    right: 20px;
+}
