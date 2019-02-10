@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserBoxComponent } from './user-box.component';
+import { InstitutionCreateComponent } from './institution-create.component';
 
-describe('UserBoxComponent', () => {
-  let component: UserBoxComponent;
-  let fixture: ComponentFixture<UserBoxComponent>;
+describe('InstitutionCreateComponent', () => {
+  let component: InstitutionCreateComponent;
+  let fixture: ComponentFixture<InstitutionCreateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserBoxComponent ]
+      declarations: [ InstitutionCreateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserBoxComponent);
+    fixture = TestBed.createComponent(InstitutionCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

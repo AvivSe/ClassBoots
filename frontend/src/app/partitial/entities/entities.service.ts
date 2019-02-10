@@ -12,9 +12,9 @@ export class entitiesService implements OnInit{
     ngOnInit(): void {}
 
     public getInstitutions(){this.apiRequest(environment.baseUrl + 'api/' + "institution","schools","Institution");}
-    public getSchools(_id){this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/"+_id,"subjects","Schools");}
-    public getSubjects(_id){this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/"+_id,"lectures","Subjects");}
-    public getLectures(_id){this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/"+_id,"Video","Lectures");}
+    public getSchools(_id){this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/"+_id,"subjects","School");}
+    public getSubjects(_id){this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/"+_id,"lectures","Subject");}
+    public getLectures(_id){this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/"+_id,"Video","Lecture");}
     public getVideo(_id){
         this.http.get(environment.baseUrl + 'api/lecture/getvideos/'+_id).subscribe(data => {
             this.videoEmitter.emit(data[0]);

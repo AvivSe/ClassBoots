@@ -11,6 +11,7 @@ export class AuthService {
     public user : userData;
     private isLoggedIn : boolean;
     @Output() getUser : EventEmitter<any> = new EventEmitter<any>();
+    @Output() commandSuccess : EventEmitter<any> = new EventEmitter<any>();
     getToken(){
         return this.token;
     }
@@ -30,6 +31,7 @@ export class AuthService {
                 this.user = user._profile;
                 this.getUser.emit(user._profile);
                 this.isLoggedIn = true;
+                this.commandSuccess.emit();
             });
     }
     login(userLogin : userLogin){
@@ -40,6 +42,7 @@ export class AuthService {
                     this.user = user._profile;
                     this.getUser.emit(user._profile);
                     this.isLoggedIn = true;
+                    this.commandSuccess.emit();
                 }
         });
     }

@@ -1,0 +1,25 @@
+.input-size{
+    width: 100%;
+}
+.login-btn-color{
+    background-color: #4189c9;
+    color:white;
+}
+.logged-btn-color{
+    background-color: #a5b439;
+    color:white;
+}
+
+.nav-custom {
+    transition-timing-function: ease;
+    transition: 1s;
+    left: 270px;
+    right: 20px;
+}
+
+.nav-custom2 {
+    transition-timing-function: ease;
+    transition: 1s;
+    left: 20px;
+    right: 20px;
+}

@@ -8,14 +8,6 @@ import {userData} from "../../partitial/auth/user.model";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user : userData;
-  loginName = '';
-  ngOnInit() {
-  }
-  constructor(public authService : AuthService){
-    authService.getUser.subscribe(user =>{
-      this.user = user;
-      this.loginName = this.user.email;
-    });
-  }
+  ngOnInit() {}
+  constructor() {}
 }
