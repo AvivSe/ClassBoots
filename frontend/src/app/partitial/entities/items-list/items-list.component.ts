@@ -12,6 +12,7 @@ export class ItemsListComponent implements OnInit {
     itemlist: any[];
     nextPath: string;
     title: string;
+    currentId: string;
 
     constructor(private http: HttpClient, private entitiesService: entitiesService) {
     }
@@ -21,6 +22,7 @@ export class ItemsListComponent implements OnInit {
             this.nextPath = data._nextpath;
             this.itemlist = data._data;
             this.title = data.title;
+            this.currentId = data.currentId;
         });
     }
 }

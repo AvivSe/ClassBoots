@@ -11,6 +11,7 @@
                 <div class="frontside">
                     <div class="card" [routerLink]="['/'+nextPath,item._id]">
                         <div class="card-body text-center">
+                            <i class="material-icons" style="float: right;font-size: 2em;" [routerLink]="['/'+title+'/edit',item._id]">edit</i>
                             <p><img class="img-size" src="{{item.image}}" alt="card image"></p>
                             <h4 class="card-title">{{item.name}}</h4>
                             <p class="card-text">Some description for {{item.name}}</p>
@@ -22,7 +23,7 @@
             </div>
             <div style="" class="col-xs-12 col-sm-6 col-md-4 card-button card-padding">
                 <div class="frontside">
-                    <div class="card" routerLink="{{title}}/create">
+                    <div class="card" [routerLink]="['/'+title+'/create',currentId]">
                         <div class="card-body text-center">
                             <i class="material-icons"
                                style="font-size: 10em; margin: 13.3%; color:#a5b439;">add_circle</i>

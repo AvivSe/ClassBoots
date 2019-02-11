@@ -18,6 +18,13 @@ import {SubjectsComponent} from "../partitial/entities/subjects/subjects.compone
 import {LecturesComponent} from "../partitial/entities/lectures/lectures.component";
 import {RegisterBoxComponent} from "../partitial/auth/register-box/register-box.component";
 import {InstitutionCreateComponent} from "../partitial/entities/institutions/institution-create/institution-create.component";
+import {CreateSchoolComponent} from "../partitial/entities/schools/scholl-create/create-school.component";
+import {SubjectCreateComponent} from "../partitial/entities/subjects/subject-create/subject-create.component";
+import {LectureCreateComponent} from "../partitial/entities/lectures/lecture-create/lecture-create.component";
+import {InstitutionEditComponent} from "../partitial/entities/institutions/institution-edit/institution-edit.component";
+import {SubjectEditComponent} from "../partitial/entities/subjects/subject-edit/subject-edit.component";
+import {SchoolEditComponent} from "../partitial/entities/schools/school-edit/school-edit.component";
+import {LectureEditComponent} from "../partitial/entities/lectures/lecture-edit/lecture-edit.component";
 
 const routes: Routes = [
 
@@ -29,8 +36,9 @@ const routes: Routes = [
     {path: 'terms', component: TermsComponent},
 
     //Authentication routes
-    {path: 'Login', component: LoginBoxComponent},
-    {path: 'Register', component: RegisterBoxComponent},
+    {path: '', component: LoginBoxComponent, outlet: 'modal'},
+    {path: 'Login', component: LoginBoxComponent, outlet: 'modal'},
+    {path: 'Register', component: RegisterBoxComponent, outlet: 'modal'},
     {path: 'Profile', component: ProfileComponent},
 
     //Menu routes
@@ -40,7 +48,16 @@ const routes: Routes = [
     {path: 'Video/:_id', component: VideoComponent},
 
     //Create routes
-    {path: 'Institution/create', component: InstitutionCreateComponent},
+    {path: 'Institution/create/:currentId', component: InstitutionCreateComponent},
+    {path: 'School/create/:currentId', component: CreateSchoolComponent},
+    {path: 'Subject/create/:currentId', component: SubjectCreateComponent},
+    {path: 'Lecture/create/:currentId', component: LectureCreateComponent},
+
+    //Edit routes
+    {path: 'Institution/edit/:_id', component: InstitutionEditComponent},
+    {path: 'School/edit/:_id', component: SchoolEditComponent},
+    {path: 'Subject/edit/:_id', component: SubjectEditComponent},
+    {path: 'Lecture/edit/:_id', component: LectureEditComponent},
 
     //Admin panel routes
     {

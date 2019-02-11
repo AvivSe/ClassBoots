@@ -7,11 +7,11 @@
 
   <ng-template #loginPanel>
     <mat-button-toggle-group>
-      <mat-button-toggle class="mat-body-2 outlet-btn" routerLink="Login">Login</mat-button-toggle>
-      <mat-button-toggle class="mat-body-2 outlet-btn" routerLink="Register">Register</mat-button-toggle>
+      <mat-button-toggle class="mat-body-2 outlet-btn" [routerLink]="['./',{outlets:{modal:'Login'}}]">Login</mat-button-toggle>
+      <mat-button-toggle class="mat-body-2 outlet-btn" [routerLink]="[{outlets:{modal:'Register'}}]">Register</mat-button-toggle>
     </mat-button-toggle-group>
     <div class="modal-body">
-      <router-outlet></router-outlet>
+      <router-outlet name="modal"></router-outlet>
     </div>
   </ng-template>
 <ng-template #profilePanel>

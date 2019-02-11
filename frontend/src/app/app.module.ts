@@ -58,6 +58,13 @@ import {AdminCollectionsLectureComponent} from './admin-panel/admin-collections/
 import {EmptyComponent} from './empty/empty.component';
 import {EmptyTwoComponent} from './empty-two/empty-two.component';
 import { InstitutionCreateComponent } from './partitial/entities/institutions/institution-create/institution-create.component';
+import { CreateSchoolComponent } from './partitial/entities/schools/scholl-create/create-school.component';
+import { SubjectCreateComponent } from './partitial/entities/subjects/subject-create/subject-create.component';
+import { LectureCreateComponent } from './partitial/entities/lectures/lecture-create/lecture-create.component';
+import { InstitutionEditComponent } from './partitial/entities/institutions/institution-edit/institution-edit.component';
+import { SubjectEditComponent } from './partitial/entities/subjects/subject-edit/subject-edit.component';
+import { SchoolEditComponent } from './partitial/entities/schools/school-edit/school-edit.component';
+import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
 
 @NgModule({
     declarations: [
@@ -101,6 +108,13 @@ import { InstitutionCreateComponent } from './partitial/entities/institutions/in
         EmptyComponent,
         EmptyTwoComponent,
         InstitutionCreateComponent,
+        CreateSchoolComponent,
+        SubjectCreateComponent,
+        LectureCreateComponent,
+        InstitutionEditComponent,
+        SubjectEditComponent,
+        SchoolEditComponent,
+        LectureEditComponent,
     ],
     imports: [
         BrowserModule,

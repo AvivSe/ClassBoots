@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../../auth/auth.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-institution-create',
@@ -9,12 +10,13 @@ import {AuthService} from "../../../auth/auth.service";
 export class InstitutionCreateComponent implements OnInit {
   title = {title: "Institution"};
 
-  constructor(public authService : AuthService) { }
-  ngOnInit() {
-  }
+  constructor(public authService : AuthService,private route: ActivatedRoute) { }
+  ngOnInit() {}
   onCreate(createForm){
     if(createForm.invalid)
       return;
+    alert(createForm.value.name);
+    createForm.resetForm();
   }
 
 }
