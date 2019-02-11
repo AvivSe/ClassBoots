@@ -1,7 +1,7 @@
 const Video = require('../models/video');
 const errorsController = require('./errorsController');
 const LectureController = require('./lectureController');
-
+const YoutubeCommentsScraper = require('../utils/yt-comment-scraper');
 
 class VideoController {
     static async getVideoCollection() {
@@ -20,7 +20,9 @@ class VideoController {
     };
 
     static async createVideo(body) {
-        var video = new Video(body);
+        const video = new Video(body);
+        YoutubeCommentsScraper.getCommentsAsync(body.reference);
+
         await video.save(err => {
             if (err) {
                 errorsController.logger("Create Video",err);

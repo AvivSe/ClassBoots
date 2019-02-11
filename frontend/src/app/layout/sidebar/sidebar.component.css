@@ -3,3 +3,31 @@
     border-bottom: 1px double white;
     padding-top: 10px;
 }
+
+
+.material-icons {
+    font-size: 60px;
+}
+
+.sidebar-item {
+    background: unset;
+    border: none;
+    text-align: center;
+    color: #646064;
+    transition: 250ms ease-in-out;
+
+}
+
+.sidebar-item:hover {
+    color: #00a5ec;
+}
+
+.sidebar-item > * {
+    display: block;
+}
+.sidebar-item > span {
+    font-size: 12px;
+}
+.sidebar-list {
+
+}

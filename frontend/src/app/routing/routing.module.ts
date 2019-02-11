@@ -10,7 +10,6 @@ import {ProfileComponent} from "../partitial/auth/profile/profile.component";
 import {AdminPanelComponent} from "../admin-panel/admin-panel.component";
 import {AdminStatisticsComponent} from "../admin-panel/admin-statistics/admin-statistics.component";
 import {AdminCollectionsManagerComponent} from "../admin-panel/admin-collections/admin-collections.component";
-import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component";
 import {EmptyComponent} from "../empty/empty.component";
 import {EmptyTwoComponent} from "../empty-two/empty-two.component";
 import {SchoolsComponent} from "../partitial/entities/schools/schools.component";
@@ -25,6 +24,7 @@ import {InstitutionEditComponent} from "../partitial/entities/institutions/insti
 import {SubjectEditComponent} from "../partitial/entities/subjects/subject-edit/subject-edit.component";
 import {SchoolEditComponent} from "../partitial/entities/schools/school-edit/school-edit.component";
 import {LectureEditComponent} from "../partitial/entities/lectures/lecture-edit/lecture-edit.component";
+import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component";
 
 const routes: Routes = [
 
@@ -74,7 +74,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {
+        scrollPositionRestoration: 'top'
+    })],
     exports: [RouterModule]
 })
 export class RoutingModule {
