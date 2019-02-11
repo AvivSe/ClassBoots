@@ -1,11 +1,28 @@
 <nav id="sidebar">
   <div>
     <a routerLink="/">
-  <div class="logo-side"></div>
+      <div class="logo-side"></div>
     </a>
     <hr style="background-color:white">
-    <app-login *ngIf="needToLogin"></app-login>
-    {{list}}
+
+    <ul class="list-group sidebar-list">
+      <li class="list-group-item sidebar-item">
+        <i class="far fa-user fa-3x"></i>
+        <span> My Profile </span>
+      </li>
+      <li class="list-group-item sidebar-item">
+        <i class="far fa-comment-alt fa-3x"></i>
+        <span> My Messages </span>
+      </li>
+      <li class="list-group-item sidebar-item">
+        <i class="fas fa-video fa-3x"></i>
+        <span> My last watches </span>
+      </li>
+      <li class="list-group-item sidebar-item">
+        <i class="far fa-list-alt fa-3x"></i>
+        <span> My Tasks List </span>
+      </li>
+    </ul>
   </div>
   <ul>
   </ul>
