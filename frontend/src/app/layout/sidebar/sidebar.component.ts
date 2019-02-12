@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit{
     })
   }
 
-  private isLogged() {
+  public isLogged() {
     return this.authService.isLogged();
   }
 }

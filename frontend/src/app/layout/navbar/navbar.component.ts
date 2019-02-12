@@ -12,15 +12,15 @@ export class NavbarComponent implements OnInit {
     this.collapsed = authService.getIsSidebarCollapsed();
   }
 
-  private isLogged() {
+  public isLogged() {
     return this.authService.isLogged();
   }
 
-  private isSidebarCollapsed() {
+  public isSidebarCollapsed() {
     return this.collapsed;
   }
 
-  private toggle() {
+  public toggle() {
     this.authService.toggleSidebar();
   }
 
