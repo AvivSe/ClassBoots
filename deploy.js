@@ -46,7 +46,6 @@ const server = app.listen(PORT, () => {
 // get io instance with express as injectable server: (listen to express.)
 const io = require('socket.io').listen(server);
 
-
 io.on('connection', client=>{
     console.log("new connect");
 

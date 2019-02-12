@@ -32,16 +32,20 @@ export class VideoComponent implements OnInit,OnDestroy {
     this.entitiesService.videoEmitter.subscribe(video =>{
       let comments = [];
 
-      video.comments.forEach(comment=>{
-        comments.push({
-          id: comment._id,
-          user: comment.user,
-          title: comment.title,
-          comment: comment.content
-        });
-      });
 
-      this.commentsService.redrawComments(comments);
+      if(video.comments) {
+        video.comments.forEach(comment => {
+          comments.push({
+            id: comment._id,
+            user: comment.user,
+            title: comment.title,
+            comment: comment.content
+          });
+        });
+      }
+      if(comments) {
+        this.commentsService.redrawComments(comments);
+      }
     });
 
     this.route.params.subscribe(params => {
