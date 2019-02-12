@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./partitial/auth/auth.service";
+import {Socket} from "ngx-socket-io";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,9 @@ import {AuthService} from "./partitial/auth/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(public authService : AuthService) {}
+  constructor(public authService : AuthService,public socket: Socket) {
+    this.socket.emit('connection', { name:"aviv" });
+  }
 
   ngOnInit(): void {
     this.authService.autoAuthUser();

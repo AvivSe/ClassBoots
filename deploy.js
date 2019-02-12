@@ -1,11 +1,13 @@
 //Install express server
 const express = require('express');
+
 const mainRouter = express.Router();
 const apiRouter = require('./backend/routes/routers/mainRouter');
 const path = require('path');
 const mongoController = require('./backend/controllers/mongoController');
 const app = express();
 bodyParser = require('body-parser');
+
 /**
  * connect to db
  */
@@ -37,6 +39,26 @@ app.use(mainRouter);
 
 // Start the app by listening on the default Heroku port
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
+});
+
+// get io instance with express as injectable server: (listen to express.)
+const io = require('socket.io').listen(server);
+
+
+io.on('connection', client=>{
+    console.log("new connect");
+
+    client.on('someEvent', data=> {
+        console.log(data);
+        client.broadcast.emit('someEvent', data);
+    });
+
+    client.on('event', data=> {
+        console.log("new event: " + data);
+    });
+    client.on('disconnect', ()=> {
+        console.log("disconnected");
+    });
 });

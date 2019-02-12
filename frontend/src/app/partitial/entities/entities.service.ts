@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable, OnInit, Output} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({providedIn:"root"})
 export class entitiesService implements OnInit{
@@ -54,10 +55,11 @@ export class entitiesService implements OnInit{
         })
     }
     public getVideo(_id){
-        this.http.get(environment.baseUrl + 'api/lecture/getvideos/'+_id).subscribe(data => {
-            this.videoEmitter.emit(data[0]);
+        this.http.get(environment.baseUrl + 'api/video/'+_id).subscribe(data => {
+            this.videoEmitter.emit(data);
             this.videoListEmitter.emit(data);
         });
     }
+
 
 }

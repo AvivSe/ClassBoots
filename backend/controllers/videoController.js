@@ -4,6 +4,7 @@ const LectureController = require('./lectureController');
 const YoutubeCommentsScraper = require('../utils/yt-comment-scraper');
 
 class VideoController {
+
     static async getVideoCollection() {
         let result = null;
         const invalid = "ERROR";
@@ -62,7 +63,6 @@ class VideoController {
     }
 
     static async addComment(body) {
-
         var result = await Video.findByIdAndUpdate(
             body.videoid,
             { $push: {"comments": body}},

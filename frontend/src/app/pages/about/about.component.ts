@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Socket} from "ngx-socket-io";
 
 @Component({
   selector: 'app-about',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor(public socket: Socket) {
+    socket.on('someEvent', (x)=>{
+      console.log("Some Event" + JSON.stringify(x));
+    });
+  }
 
   ngOnInit() {
+  }
+  onMyClick() {
+    this.socket.emit('someEvent', {myData:'Samba'});
   }
 
 }

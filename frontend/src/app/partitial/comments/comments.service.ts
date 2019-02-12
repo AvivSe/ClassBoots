@@ -1,6 +1,6 @@
-import { Comment} from "./comment.model";
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import { Comment } from "./comment.model";
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class CommentsService {
@@ -15,7 +15,14 @@ export class CommentsService {
         return this.commentsUpdated.asObservable();
     }
     addComment(comment : Comment){
-        this.comments.push(comment);
-        this.commentsUpdated.next([...this.comments])
+        if(!this.comments.find(c=>c.id==comment.id)) {
+            this.comments.push(comment);
+            this.commentsUpdated.next([...this.comments]);
+        }
+    }
+    redrawComments(comments:Comment[]) {
+        comments.forEach(comment=>{
+            this.addComment(comment);
+        });
     }
 }
