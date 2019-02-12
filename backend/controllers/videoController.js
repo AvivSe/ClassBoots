@@ -80,10 +80,11 @@ class VideoController {
 
     static async checkPermission(body) {
         var result = await this.getVideo(body.videoid);
-        console.log(LectureController);
+        console.log(LectureController.getAviv());
         return await result.ERROR === undefined?LectureController.checkPermission({lectureid:result.lectureid,userid:body.userid}).finally(()=>{}):false;
     };
 
 }
+
 
 module.exports = VideoController;

@@ -23,6 +23,6 @@ export class LoginBoxComponent implements OnInit {
       password: loginForm.value.loginPassword
     };
     this.authService.login(userLogin);
-    loginForm.resetForm();
+    //loginForm.resetForm();
   }
 }

@@ -1,6 +1,7 @@
-<nav id="top-nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-light nav-custom opacity">
+<nav id="top-nav" class="navbar fixed-top navbar-expand-lg navbar-light bg-light nav-custom opacity" [ngClass]="{'active':authService.getIsSidebarCollapsed()}">
   <div class="container-fluid">
-    <button type="button" id="sidebarCollapse" class="navbar-btn">
+    <div routerLink="/" *ngIf="!isLogged()" class="navbar-btn logo-side"></div>
+    <button *ngIf="isLogged()" type="button" id="sidebarCollapse" (click)="toggle()" class="navbar-btn toggleBtn" [ngClass]="{'active':!authService.getIsSidebarCollapsed()}">
       <span></span>
       <span></span>
       <span></span>

@@ -1,0 +1,6 @@
+<div class="jumbotron">
+  <h1>Don't be shay. </h1>
+  <p>you must login in order to view this page!</p>
+  <p> We will redirect you automatically once you login / register! aviv did that.</p>
+  <button [routerLink]=[authService.getRedirectUrl()] *ngIf="authService.isLogged()"> Click here to continue from same point </button>
+</div>

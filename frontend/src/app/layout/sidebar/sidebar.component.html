@@ -1,28 +1,11 @@
-<nav id="sidebar">
+<nav id="sidebar" [ngClass]="{'active':!authService.getIsSidebarCollapsed()}">
   <div>
     <a routerLink="/">
       <div class="logo-side"></div>
     </a>
     <hr style="background-color:white">
 
-    <ul class="list-group sidebar-list">
-      <li class="list-group-item sidebar-item">
-        <i class="far fa-user fa-3x"></i>
-        <span> My Profile </span>
-      </li>
-      <li class="list-group-item sidebar-item">
-        <i class="far fa-comment-alt fa-3x"></i>
-        <span> My Messages </span>
-      </li>
-      <li class="list-group-item sidebar-item">
-        <i class="fas fa-video fa-3x"></i>
-        <span> My last watches </span>
-      </li>
-      <li class="list-group-item sidebar-item">
-        <i class="far fa-list-alt fa-3x"></i>
-        <span> My Tasks List </span>
-      </li>
-    </ul>
+    <app-user-items *ngIf="isLogged()"></app-user-items>
   </div>
   <ul>
   </ul>

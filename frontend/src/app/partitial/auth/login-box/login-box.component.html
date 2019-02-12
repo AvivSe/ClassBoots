@@ -1,7 +1,7 @@
 <br>
 <div align="center"><h5 class="mat-subheading-1">Login</h5></div>
 <br>
-<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!authService.isLogged()">
   <div class="form-group">
     <mat-form-field class="input-size">
       <input matInput type="email" placeholder="Email Address." name="loginEmail" ngModel required>
@@ -12,3 +12,6 @@
   </div>
   <button type="submit" class="btn login-btn-color btn-lg" style="width: 100%">Login</button>
 </form>
+<div *ngIf="authService.isLogged()">
+  <i class="far fa-thumbs-up fa-7x"></i>
+</div>

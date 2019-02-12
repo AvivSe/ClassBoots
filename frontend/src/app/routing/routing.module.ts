@@ -10,8 +10,6 @@ import {ProfileComponent} from "../partitial/auth/profile/profile.component";
 import {AdminPanelComponent} from "../admin-panel/admin-panel.component";
 import {AdminStatisticsComponent} from "../admin-panel/admin-statistics/admin-statistics.component";
 import {AdminCollectionsManagerComponent} from "../admin-panel/admin-collections/admin-collections.component";
-import {EmptyComponent} from "../empty/empty.component";
-import {EmptyTwoComponent} from "../empty-two/empty-two.component";
 import {SchoolsComponent} from "../partitial/entities/schools/schools.component";
 import {SubjectsComponent} from "../partitial/entities/subjects/subjects.component";
 import {LecturesComponent} from "../partitial/entities/lectures/lectures.component";
@@ -25,6 +23,8 @@ import {SubjectEditComponent} from "../partitial/entities/subjects/subject-edit/
 import {SchoolEditComponent} from "../partitial/entities/schools/school-edit/school-edit.component";
 import {LectureEditComponent} from "../partitial/entities/lectures/lecture-edit/lecture-edit.component";
 import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component";
+import {AuthGuardService} from "../partitial/auth/auth-guard.service";
+import {PleaseLoginComponent} from "../pages/please-login/please-login.component";
 
 const routes: Routes = [
 
@@ -40,12 +40,13 @@ const routes: Routes = [
     {path: 'Login', component: LoginBoxComponent, outlet: 'modal'},
     {path: 'Register', component: RegisterBoxComponent, outlet: 'modal'},
     {path: 'Profile', component: ProfileComponent},
+    {path: 'PleaseLogin', component: PleaseLoginComponent},
 
     //Menu routes
     {path: 'schools/:_id', component: SchoolsComponent},
     {path: 'subjects/:_id', component: SubjectsComponent},
     {path: 'lectures/:_id', component: LecturesComponent},
-    {path: 'Video/:_id', component: VideoComponent},
+    {path: 'Video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
 
     //Create routes
     {path: 'Institution/create/:currentId', component: InstitutionCreateComponent},
@@ -61,13 +62,11 @@ const routes: Routes = [
 
     //Admin panel routes
     {
-        path: 'admin', component: AdminPanelComponent, children: [
+        path: 'admin', component: AdminPanelComponent, canActivate:[AuthGuardService], children: [
             {path: '', redirectTo: 'statistics', pathMatch: 'full'},
             {path: 'statistics/:about', component: AdminStatisticsComponent, outlet: 'adminPanel'},
             {path: 'statistics', component: AdminStatisticsComponent, outlet: 'adminPanel'},
             {path: 'collections/:about', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'},
-            {path: 'collections/:about', component: EmptyTwoComponent, outlet: 'myOutlet'},
-            {path: 'aviv', component: EmptyComponent, outlet: 'myOutlet'},
             {path: 'collections', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'}
         ]
     }

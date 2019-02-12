@@ -55,8 +55,6 @@ import {AdminCollectionsInstitutionComponent} from './admin-panel/admin-collecti
 import {AdminCollectionsSchoolComponent} from './admin-panel/admin-collections/admin-collections-school/admin-collections-school.component';
 import {AdminCollectionsSubjectComponent} from './admin-panel/admin-collections/admin-collections-subject/admin-collections-subject.component';
 import {AdminCollectionsLectureComponent} from './admin-panel/admin-collections/admin-collections-lecture/admin-collections-lecture.component';
-import {EmptyComponent} from './empty/empty.component';
-import {EmptyTwoComponent} from './empty-two/empty-two.component';
 import { InstitutionCreateComponent } from './partitial/entities/institutions/institution-create/institution-create.component';
 import { CreateSchoolComponent } from './partitial/entities/schools/scholl-create/create-school.component';
 import { SubjectCreateComponent } from './partitial/entities/subjects/subject-create/subject-create.component';
@@ -65,6 +63,9 @@ import { InstitutionEditComponent } from './partitial/entities/institutions/inst
 import { SubjectEditComponent } from './partitial/entities/subjects/subject-edit/subject-edit.component';
 import { SchoolEditComponent } from './partitial/entities/schools/school-edit/school-edit.component';
 import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
+import { UserItemsComponent } from './layout/sidebar/user-items/user-items.component';
+import {AuthGuardService} from "./partitial/auth/auth-guard.service";
+import { PleaseLoginComponent } from './pages/please-login/please-login.component';
 
 @NgModule({
     declarations: [
@@ -105,8 +106,6 @@ import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit
         AdminCollectionsSchoolComponent,
         AdminCollectionsSubjectComponent,
         AdminCollectionsLectureComponent,
-        EmptyComponent,
-        EmptyTwoComponent,
         InstitutionCreateComponent,
         CreateSchoolComponent,
         SubjectCreateComponent,
@@ -115,6 +114,8 @@ import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit
         SubjectEditComponent,
         SchoolEditComponent,
         LectureEditComponent,
+        UserItemsComponent,
+        PleaseLoginComponent,
     ],
     imports: [
         BrowserModule,
@@ -135,7 +136,7 @@ import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit
     entryComponents: [
         ModalComponent
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},AuthGuardService],
     bootstrap: [AppComponent],
 
 })

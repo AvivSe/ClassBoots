@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Typed from 'typed.js/src/typed.js';
+import {entitiesService} from "../../partitial/entities/entities.service";
+import {AuthService} from "../../partitial/auth/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,10 @@ import Typed from 'typed.js/src/typed.js';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  constructor(public authService : AuthService){}
   ngOnInit() {
     const options = {
-      strings: ["Classboost", "Classboots", "Awesome."],
+      strings: ["We are Classboost", "We are Classboots*", "We are Awesome.","Your are Awesome.*"],
       // Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
       stringsElement: null,
       // typing speed
