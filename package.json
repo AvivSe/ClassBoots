@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^4.0.3",
     "bcrypt": "^3.0.2",
     "express": "^4.16.4"
   },

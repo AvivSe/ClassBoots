@@ -64,8 +64,9 @@ import { SubjectEditComponent } from './partitial/entities/subjects/subject-edit
 import { SchoolEditComponent } from './partitial/entities/schools/school-edit/school-edit.component';
 import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
 import { UserItemsComponent } from './layout/sidebar/user-items/user-items.component';
-import {AuthGuardService} from "./partitial/auth/auth-guard.service";
+import { AuthGuardService } from "./partitial/auth/auth-guard.service";
 import { PleaseLoginComponent } from './pages/please-login/please-login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -131,7 +132,8 @@ import { PleaseLoginComponent } from './pages/please-login/please-login.componen
         Ng2GoogleChartsModule,
         MatButtonToggleModule,
         AgGridModule.withComponents([]),
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        NgbModule
     ],
     entryComponents: [
         ModalComponent

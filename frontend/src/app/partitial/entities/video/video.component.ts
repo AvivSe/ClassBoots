@@ -5,9 +5,15 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
-  styleUrls: ['./video.component.css']
+  styleUrls: ['./video.component.css' , './rating-template.css']
 })
 export class VideoComponent implements OnInit,OnDestroy {
+  currentRate: Number = 6;
+
+  onRatingClicked(value) {
+    console.log("Rating is: " + (value+1));
+  }
+
   constructor(public entitiesService : entitiesService,private route: ActivatedRoute) {
   }
 
