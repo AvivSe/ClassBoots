@@ -22,8 +22,15 @@ class VideoController {
 
     static async createVideo(body) {
         const video = new Video(body);
-        YoutubeCommentsScraper.getCommentsAsync(body.reference);
+        //TODO: duplicate code
 
+        YoutubeCommentsScraper.getCommentsAsync(body.reference,result=>{
+            Video.findByIdAndUpdate(
+                video._id,
+                { $push: {"ytcomment": result} },
+                { upsert: true, new: true }).then(x=>{});
+        });
+        console.log("gal");
         await video.save(err => {
             if (err) {
                 errorsController.logger("Create Video",err);
@@ -35,8 +42,38 @@ class VideoController {
     static async getVideo(id) {
         let result = null;
         await Video.findOne({_id: id}).then(video => {
-            if (video)
+            if (video) {
                 result = video;
+                let secondesAgo=(new Date()-video.lastscrape)/1000;
+                if(secondesAgo>60){
+                    Video.findByIdAndUpdate(
+                        video._id,
+                        { lastscrape: new Date()},
+                        { upsert: true, new: true }).then(vid=>{
+                        //TODO: duplicate code
+                        YoutubeCommentsScraper.getCommentsAsync(vid.reference,result=>{
+                            if(!vid.ytcomment.find(c=>{
+                                return (c.content===result.content && c.author===result.author);
+                            })){
+                                Video.findByIdAndUpdate(
+                                    vid._id,
+                                    { $push: {"ytcomment": result},lastscrape: new Date() },
+                                    { upsert: true, new: true }).then(ignore=>{});
+                            }
+                            else{
+                                console.log("already exist");
+                            }
+
+                        });
+                    });
+
+                }
+                else{
+                    console.log("dont wanna update because so young :" + secondesAgo);
+
+                }
+
+            }
             else
                 result = {"ERROR":"video not found"};
         }).catch(err => {
@@ -83,6 +120,8 @@ class VideoController {
         console.log(LectureController.getAviv());
         return await result.ERROR === undefined?LectureController.checkPermission({lectureid:result.lectureid,userid:body.userid}).finally(()=>{}):false;
     };
+
+
 
 }
 

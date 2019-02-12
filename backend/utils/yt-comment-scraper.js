@@ -6,8 +6,7 @@ class YoutubeCommentScraper {
         console.log("About to scarpe youtube comments for the following link: " + youtubeRoot + ytID);
         scraper.comments(youtubeRoot+ytID).then(function(result) {
             result.comments.forEach(comment=> {
-                next({ author: comment.author, content: comment.root, likes: comment.like });
-                console.log({ author: comment.author, content: comment.root, likes: comment.like });
+                next({ author: comment.author, content: comment.root });
             });
             scraper.close();
         });
