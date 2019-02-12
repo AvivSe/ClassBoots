@@ -1,0 +1,17 @@
+.login-btn-color{
+    background-color: #4189c9;
+    color:white;
+}
+.logged-btn-color{
+    background-color: #a5b439;
+    color:white;
+}
+
+.outlet-btn{
+    width: 100%;
+}
+
+.cbBtn {
+    margin-left: 10px;
+    background-color: brown;
+}

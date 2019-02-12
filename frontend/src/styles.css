@@ -14,6 +14,7 @@ body {
   background: #181c1d;
 }
 
+
 /*background - image*/
 .bg-image {
   display: block;
@@ -79,8 +80,7 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-  min-width: 270px;
-  max-width: 250px;
+  width: 120px;
   color: #fff;
   transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
   transform-origin: bottom left;
@@ -88,10 +88,10 @@ a, a:hover, a:focus {
 
 .logo-side {
   background-image: url("images/logo.svg");
-  width:  200px;
-  height: 120px;
+  width:  100px;
+  height: 100px;
+  margin: 10px auto auto;
   background-repeat: no-repeat;
-  margin-left:30px;
 }
 
 #sidebar.active {
@@ -210,7 +210,7 @@ a.article, a.article:hover {
 
 /* ---------------------------------------------------
     MEDIAQUERIES
------------------------------------------------------ */
+-----------------------------------------------------
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -250px;
@@ -240,7 +240,7 @@ a.article, a.article:hover {
     transform: rotate(-45deg) translate(1px, -1px);
   }
 
-}
+} */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

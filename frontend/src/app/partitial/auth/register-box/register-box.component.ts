@@ -22,7 +22,7 @@ export class RegisterBoxComponent implements OnInit {
       password: registerForm.value.registerPassword,
       regDate: registerForm.value.registerDOB,
       address: registerForm.value.registerAddress,
-      rule: "user",
+      role: "user",
       firstname: registerForm.value.registerFirstName,
       lastname: registerForm.value.registerLastName,
       DOB: registerForm.value.registerDOB

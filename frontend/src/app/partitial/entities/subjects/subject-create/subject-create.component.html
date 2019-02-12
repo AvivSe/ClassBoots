@@ -1,0 +1,21 @@
+<div class="jumbotron06" style="padding-bottom: 5%;">
+  <div class="container" style="position:center;padding-top: 5%">
+    <mat-card style="width: 100%;padding-bottom: 50%;">
+      <div style="padding: 5%;">
+        <span class="mat-headline">Create a Subject.</span>
+        <hr>
+        <div style="padding: 5%;">
+          <form (ngSubmit)="onCreate(Subject)" #Subject="ngForm">
+            <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="Subject Name" name="name" ngModel
+                     required>
+            </mat-form-field>
+            <br>
+            <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Create a Subject.
+            </button>
+          </form>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

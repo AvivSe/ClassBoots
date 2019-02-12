@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../partitial/auth/auth.service";
-import {userData} from "../../partitial/auth/user.model";
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +7,23 @@ import {userData} from "../../partitial/auth/user.model";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user : userData;
-  loginName = '';
-  ngOnInit() {
+  private collapsed: boolean;
+  constructor(public authService : AuthService) {
+    this.collapsed = authService.getIsSidebarCollapsed();
   }
-  constructor(public authService : AuthService){
-    authService.getUser.subscribe(user =>{
-      this.user = user;
-      this.loginName = this.user.email;
-    });
+
+  public isLogged() {
+    return this.authService.isLogged();
   }
+
+  public isSidebarCollapsed() {
+    return this.collapsed;
+  }
+
+  public toggle() {
+    this.authService.toggleSidebar();
+  }
+
+  ngOnInit() {}
+
 }

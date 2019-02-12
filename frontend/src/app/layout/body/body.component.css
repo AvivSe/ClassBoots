@@ -2,8 +2,12 @@
   opacity: 0.95;
 }
 
-.maincontainer {
+.main-outlet {
+  padding-top: 75px;
   width: 100%;
-  height: 100%;
+  min-height: 80vh;
+}
 
+.main-margin {
+  margin-top: 7%;
 }

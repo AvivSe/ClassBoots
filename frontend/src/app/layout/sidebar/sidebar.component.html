@@ -1,11 +1,11 @@
-<nav id="sidebar">
+<nav id="sidebar" [ngClass]="{'active':!authService.getIsSidebarCollapsed()}">
   <div>
     <a routerLink="/">
-  <div class="logo-side"></div>
+      <div class="logo-side"></div>
     </a>
     <hr style="background-color:white">
-    <app-login *ngIf="needToLogin"></app-login>
-    {{list}}
+
+    <app-user-items *ngIf="isLogged()"></app-user-items>
   </div>
   <ul>
   </ul>

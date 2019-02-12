@@ -1,0 +1,22 @@
+<ul class="list-group user-list">
+  <li routerLink="Profile" routerLinkActive="user-item-active" class="list-group-item user-item">
+      <i class="far fa-user fa-3x"></i>
+      <span> My Profile </span>
+  </li>
+  <li routerLinkActive="user-item-active"  class="list-group-item user-item" >
+    <i class="far fa-comment-alt fa-3x"></i>
+    <span> My Messages </span>
+  </li>
+  <li routerLinkActive="user-item-active" class="list-group-item user-item">
+    <i class="fas fa-video fa-3x"></i>
+    <span> My last watches </span>
+  </li>
+  <li routerLinkActive="user-item-active" class="list-group-item user-item">
+    <i class="far fa-list-alt fa-3x"></i>
+    <span> My Tasks List </span>
+  </li>
+  <li routerLink="admin" routerLinkActive="user-item-active" class="list-group-item user-item" *ngIf="isAdmin()">
+    <i class="fas fa-snowman fa-3x"></i>
+    <span> Admin </span>
+  </li>
+</ul>

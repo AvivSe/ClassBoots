@@ -1,30 +1,24 @@
-<button type="button" class="btn btn-primary" (click)="openModal(login)">Create login modal</button>
-<button type="button" class="btn btn-primary" (click)="openModal(popup)">Create popup modal</button>
 
-<ng-template #login>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+
+
+<button type="button" class="btn login-btn-color btn-lg" (click)="openModal(loginPanel)" *ngIf="!isLogged()">Login</button>
+<button type="button" class="btn logged-btn-color btn-lg" (click)="openModal(profilePanel)" *ngIf="isLogged()">{{loginName}}</button>
+<button type="button" class="btn logged-btn-color btn-lg cbBtn" (click)="onLogout()" *ngIf="isLogged()">
+  <i class="fas fa-sign-out-alt fa"></i>
+</button>
+
+  <ng-template #loginPanel>
+    <mat-button-toggle-group>
+      <mat-button-toggle class="mat-body-2 outlet-btn" [routerLink]="['./',{outlets:{modal:'Login'}}]">Login</mat-button-toggle>
+      <mat-button-toggle class="mat-body-2 outlet-btn" [routerLink]="[{outlets:{modal:'Register'}}]">Register</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="modal-body">
+      <router-outlet name="modal"></router-outlet>
+    </div>
+  </ng-template>
+<ng-template #profilePanel>
+  <!--TODO: FIX THE APP-PROFILE-->
   <div class="modal-body">
-    This is a modal.
-    <button type="button" class="btn btn-primary" (click)="onSomething()">Done</button>
-
-  </div>
-</ng-template>
-
-<ng-template #popup>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    ASDFASDFASDFASDFASDFADSFASDFADSFASDFADSF
-    <button type="button" class="btn btn-primary" (click)="onSomething()">Done</button>
-
+    <app-profile></app-profile>
   </div>
 </ng-template>

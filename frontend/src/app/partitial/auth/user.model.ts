@@ -3,7 +3,7 @@ export interface userData {
     password: string,
     regDate: Date,
     address: string,
-    rule: string,
+    role: string,
     firstname: string,
     lastname: string,
     DOB: Date

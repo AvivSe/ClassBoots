@@ -108,6 +108,10 @@ class LectureController {
         console.log(result);
         return await result.ERROR !== undefined?SubjectController.checkPermission({subjectid:result.subjectid,userid:body.userid}):false;
     };
+
+    static getAviv() {
+        return "aviv";
+    }
 }
 
 module.exports = LectureController;

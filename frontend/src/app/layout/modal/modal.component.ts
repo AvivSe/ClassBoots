@@ -1,5 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {AuthService} from "../../partitial/auth/auth.service";
+import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -7,16 +10,30 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class ModalComponent implements OnInit {
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService) {}
+  loginName = '';
 
+  constructor(private modalService: BsModalService,private authService : AuthService, private router: Router) {
+    authService.getUser.subscribe(user =>{
+      this.loginName = user.email;
+    });
+    authService.commandSuccess.subscribe(nothing => {
+      this.modalRef.hide();
+    })
+
+  }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
-  }
-
-  onSomething() {
-    this.modalRef.hide();
   }
   ngOnInit() {
   }
 
+  isLogged(){
+    return this.authService.isLogged()
+
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['']);
+  }
 }
