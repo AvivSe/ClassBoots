@@ -18,12 +18,13 @@
   </div>
   </mat-card>
 
-    <ngb-rating [(rate)]="currentRate" class="noOutline rating-container">
+  <div class="rating-container">
+    <ngb-rating [(rate)]="currentRate" class="noOutline">
       <ng-template let-fill="fill" let-index="index">
         <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3" (click)="onRatingClicked(index)">&#9733;</span>
       </ng-template>
     </ngb-rating>
-
+  </div>
 
 
 
