@@ -1,10 +1,10 @@
 
-<form (ngSubmit)="onCommentAdded(loginForm)" #loginForm="ngForm">
+<form (ngSubmit)="onCommentAdded(commentForm)" #commentForm="ngForm">
 <mat-card>
 <mat-form-field>
 <textarea placeholder="Write your comment here" name="comment" matInput rows="2" ngModel required minlength="3" #comment="ngModel"></textarea>
     <mat-error *ngIf="comment.invalid">Please enter a comment.</mat-error>
 </mat-form-field>
-    <button mat-raised-button color="warn">Send</button>
+    <button  [disabled]="commentForm.invalid" mat-raised-button color="warn">Send</button>
 </mat-card>
 </form>

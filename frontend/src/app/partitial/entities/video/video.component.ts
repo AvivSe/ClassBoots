@@ -23,29 +23,14 @@ export class VideoComponent implements OnInit,OnDestroy {
               public authService:AuthService,
               public socket: Socket) {
 
-    this.socket.on('new-comment', function(x){
-      console.log("New Comment: " + JSON.stringify(x));
+    this.socket.on('new-comment', function(videoId){
+      commentsService.notify(videoId);
     });
   }
 
   ngOnInit() {
     this.entitiesService.videoEmitter.subscribe(video =>{
-      let comments = [];
-
-
-      if(video.comments) {
-        video.comments.forEach(comment => {
-          comments.push({
-            id: comment._id,
-            user: comment.user,
-            title: comment.title,
-            comment: comment.content
-          });
-        });
-      }
-      if(comments) {
-        this.commentsService.redrawComments(comments);
-      }
+      this.commentsService.notify(video._id)
     });
 
     this.route.params.subscribe(params => {

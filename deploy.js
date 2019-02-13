@@ -54,6 +54,10 @@ io.on('connection', client=>{
         client.broadcast.emit('someEvent', data);
     });
 
+    client.on('new-comment', data=> {
+        client.broadcast.emit('new-comment', data);
+    });
+
     client.on('event', data=> {
         console.log("new event: " + data);
     });

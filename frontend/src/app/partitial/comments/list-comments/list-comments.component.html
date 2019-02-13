@@ -8,3 +8,7 @@
   </mat-expansion-panel>
   <!--Comment end-->
 </mat-accordion>
+<mat-paginator [length]="commentsService.getComments().length"
+               [pageSize]="pageSize"
+               (page)="pageEvent = getPaginatorData($event)">
+</mat-paginator>
