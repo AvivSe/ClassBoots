@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(public authService : AuthService){}
   ngOnInit() {
     const options = {
-      strings: ["We are Classboost", "We are Classboots*", "We are Awesome.","Your are Awesome.*"],
+      strings: ["We are Classboost", "We are Classboots*", "We are Awesome.","Your'e Awesome.*"],
       // Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
       stringsElement: null,
       // typing speed
