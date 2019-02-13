@@ -103,7 +103,7 @@ export class AuthService {
     clearAuthData() {
         localStorage.removeItem('token');
         localStorage.removeItem('profile');
-        localStorage.removeItem('expiration');
+        //localStorage.removeItem('expiration');
     }
     autoAuthUser() {
         const  autoInformation = this.getAuthData();
