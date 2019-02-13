@@ -94,6 +94,7 @@ a, a:hover, a:focus {
   background-repeat: no-repeat;
 }
 
+
 #sidebar.active {
   margin-left: -250px;
   transform: rotateY(100deg);
