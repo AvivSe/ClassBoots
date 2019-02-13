@@ -1,12 +1,13 @@
 import {EventEmitter, Injectable, OnInit, Output} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import { Socket } from 'ngx-socket-io';
+import {ActivatedRoute,Router} from "@angular/router";
 
 @Injectable({providedIn:"root"})
 export class entitiesService implements OnInit{
     itemList;
-    constructor(private http: HttpClient){}
+
+    constructor(private http: HttpClient,private route: ActivatedRoute,private router: Router){}
     ngOnInit(): void {}
 
     //GET ALL (EVENT EMITTERS)
@@ -21,15 +22,15 @@ export class entitiesService implements OnInit{
     @Output() videoEmitter: EventEmitter<any> = new EventEmitter<any>();
 
     //GET ALL (FUNCTIONS)
-    public getInstitutions(){this.apiRequest(environment.baseUrl + 'api/' + "institution","schools","Institution","Institution");}
-    public getSchools(_id){this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/"+_id,"subjects","School",_id);}
-    public getSubjects(_id){this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/"+_id,"lectures","Subject",_id);}
-    public getLectures(_id){this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/"+_id,"Video","Lecture",_id);}
+    public getInstitutions(){this.apiRequest(environment.baseUrl + 'api/' + "institution","schools","Institution","Institution",false);}
+    public getSchools(_id){this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/"+_id,"subjects","School",_id,true);}
+    public getSubjects(_id){this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/"+_id,"lectures","Subject",_id,true);}
+    public getLectures(_id){this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/"+_id,"Video","Lecture",_id,true);}
 
     //API REQUEST FUNCTIONS
-    apiRequest(request,nextPath,title,currentId){
+    apiRequest(request,nextPath,title,currentId,enableAdd : boolean){
         this.http.get(request).subscribe(data => {
-            this.itemListEmitter.emit({title: title,_nextpath : nextPath, _data : data,currentId : currentId});
+            this.itemListEmitter.emit({title: title,_nextpath : nextPath, _data : data,currentId : currentId,enableAdd: enableAdd});
         });
     }
 
@@ -61,5 +62,28 @@ export class entitiesService implements OnInit{
         });
     }
 
+
+    //ADD SINGLE
+    public addSchool(School){
+        this.http.post<{error:string}>(environment.baseUrl + 'api/school',School).subscribe(data=>{
+            if(data.error){
+            }
+            else{
+                this.router.navigate(['schools/'+School.institutionid])
+            }
+        })
+    }
+
+
+    //EDIT SINGLE
+    public editInstitution(Institution){
+        this.http.put<{error:string}>(environment.baseUrl + 'api/institution',Institution).subscribe(data=>{
+            if(data.error) {
+            }
+            else{
+                this.router.navigate(['']);
+            }
+        })
+    }
 
 }

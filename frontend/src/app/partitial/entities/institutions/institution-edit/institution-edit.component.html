@@ -4,25 +4,26 @@
       <div style="padding: 5%;">
         <span class="mat-headline">Edit a Institution.</span>
         <hr>
+        <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
         <div style="padding: 5%;">
           <form (ngSubmit)="onEdit(Institution)" #Institution="ngForm">
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.name}}" name="name" ngModel>
+              <input matInput type="text" name="name" [placeholder]="institution.name" ngModel>
             </mat-form-field>
             <br>
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.address}}" name="address" ngModel>
+              <input matInput type="text" name="address" [placeholder]="institution.address" ngModel>
             </mat-form-field>
             <br>
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.geolocation}}" name="geolocation" ngModel>
+              <input matInput type="text" name="geolocation" [placeholder]="institution.geolocation" ngModel>
             </mat-form-field>
             <br>
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.image}}" name="image" ngModel>
+              <input matInput type="text" name="image" [placeholder]="institution.image" ngModel>
             </mat-form-field>
             <br>
-            <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Edit Institution.
+            <button type="submit" [disabled]="Institution.invalid" class="btn create-btn btn-lg" style="width: 100%">Edit Institution.
             </button>
           </form>
         </div>

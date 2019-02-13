@@ -19,7 +19,6 @@ import {
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {ModalModule} from 'ngx-bootstrap/modal';
-
 // local imports
 import {NavbarComponent} from './layout/navbar/navbar.component';
 import {SidebarComponent} from './layout/sidebar/sidebar.component';
@@ -69,6 +68,7 @@ import { SchoolEditComponent } from './partitial/entities/schools/school-edit/sc
 import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
 import { UserItemsComponent } from './layout/sidebar/user-items/user-items.component';
 import { AuthGuardService } from "./partitial/auth/auth-guard.service";
+import {AdminGuardService} from "./partitial/auth/admin-guard.service";
 import { PleaseLoginComponent } from './pages/please-login/please-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -143,7 +143,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     entryComponents: [
         ModalComponent
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},AuthGuardService],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},AuthGuardService,AdminGuardService],
     bootstrap: [AppComponent],
 
 })

@@ -59,11 +59,16 @@ export class AuthService {
     createUser(userData : userData){
         this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
             .subscribe(user =>{
-                this.token = user._token;
-                this.user = user._profile;
-                this.getUser.emit(user._profile);
-                this.isLoggedIn = true;
-                this.commandSuccess.emit();
+                if(!user.error) {
+                    this.token = user._token;
+                    this.user = user._profile;
+                    this.getUser.emit(user._profile);
+                    this.isLoggedIn = true;
+                    this.commandSuccess.emit();
+                }
+                else{
+                    this.getUser.emit(user);
+                }
             });
     }
     login(userLogin : userLogin){
@@ -80,7 +85,9 @@ export class AuthService {
                     this.isSidebarCollapsed = true;
                     this.saveAuthData(user._token, JSON.stringify(user._profile));
                     this.commandSuccess.emit();
-
+                }
+                else{
+                    this.getUser.emit(user);
                 }
         });
     }

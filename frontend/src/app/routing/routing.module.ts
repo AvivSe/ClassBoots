@@ -24,6 +24,7 @@ import {SchoolEditComponent} from "../partitial/entities/schools/school-edit/sch
 import {LectureEditComponent} from "../partitial/entities/lectures/lecture-edit/lecture-edit.component";
 import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component";
 import {AuthGuardService} from "../partitial/auth/auth-guard.service";
+import {AdminGuardService} from "../partitial/auth/admin-guard.service";
 import {PleaseLoginComponent} from "../pages/please-login/please-login.component";
 
 const routes: Routes = [
@@ -49,20 +50,20 @@ const routes: Routes = [
     {path: 'Video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
 
     //Create routes
-    {path: 'Institution/create/:currentId', component: InstitutionCreateComponent},
-    {path: 'School/create/:currentId', component: CreateSchoolComponent},
-    {path: 'Subject/create/:currentId', component: SubjectCreateComponent},
-    {path: 'Lecture/create/:currentId', component: LectureCreateComponent},
+    {path: 'Institution/create/:currentId', component: InstitutionCreateComponent, canActivate:[AuthGuardService]},
+    {path: 'School/create/:currentId', component: CreateSchoolComponent, canActivate:[AuthGuardService]},
+    {path: 'Subject/create/:currentId', component: SubjectCreateComponent, canActivate:[AuthGuardService]},
+    {path: 'Lecture/create/:currentId', component: LectureCreateComponent, canActivate:[AuthGuardService]},
 
     //Edit routes
-    {path: 'Institution/edit/:_id', component: InstitutionEditComponent},
-    {path: 'School/edit/:_id', component: SchoolEditComponent},
-    {path: 'Subject/edit/:_id', component: SubjectEditComponent},
-    {path: 'Lecture/edit/:_id', component: LectureEditComponent},
+    {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AuthGuardService]},
+    {path: 'School/edit/:_id', component: SchoolEditComponent, canActivate:[AuthGuardService]},
+    {path: 'Subject/edit/:_id', component: SubjectEditComponent, canActivate:[AuthGuardService]},
+    {path: 'Lecture/edit/:_id', component: LectureEditComponent, canActivate:[AuthGuardService]},
 
     //Admin panel routes
     {
-        path: 'admin', component: AdminPanelComponent, canActivate:[AuthGuardService], children: [
+        path: 'admin', component: AdminPanelComponent, canActivate:[AdminGuardService], children: [
             {path: '', redirectTo: 'statistics', pathMatch: 'full'},
             {path: 'statistics/:about', component: AdminStatisticsComponent, outlet: 'adminPanel'},
             {path: 'statistics', component: AdminStatisticsComponent, outlet: 'adminPanel'},

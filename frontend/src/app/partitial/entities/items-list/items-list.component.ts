@@ -13,6 +13,7 @@ export class ItemsListComponent implements OnInit {
     nextPath: string;
     title: string;
     currentId: string;
+    enableAdd: boolean;
 
     constructor(private http: HttpClient, private entitiesService: entitiesService) {
     }
@@ -23,6 +24,7 @@ export class ItemsListComponent implements OnInit {
             this.itemlist = data._data;
             this.title = data.title;
             this.currentId = data.currentId;
+            this.enableAdd = data.enableAdd;
         });
     }
 }

@@ -10,10 +10,20 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./login-box.component.css']
 })
 export class LoginBoxComponent implements OnInit {
-
   constructor(public authService : AuthService) { }
+  errorMessage : string;
+  error : boolean = false;
 
   ngOnInit() {
+    this.authService.getUser.subscribe(error =>{
+      if(error.error){
+        this.errorMessage = error.description;
+        this.error = true;
+      }
+      else{
+        this.errorMessage = '';
+      }
+    })
   }
   onLogin(loginForm){
     if(loginForm.invalid)

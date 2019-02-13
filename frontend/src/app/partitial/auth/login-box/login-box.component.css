@@ -12,3 +12,11 @@
 .fa-thumbs-up {
     color: #43a047;
 }
+
+.error{
+    padding:1%;
+    margin-bottom: 2%;
+    text-align: center;
+    background-color: brown;
+    color:white;
+}

@@ -5,13 +5,13 @@
         <span class="mat-headline">Create a School.</span>
         <hr>
         <div style="padding: 5%;">
+          <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
           <form (ngSubmit)="onCreate(School)" #School="ngForm">
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="School Name" name="name" ngModel
-                     required>
+              <input matInput type="text" placeholder="School Name" name="name" ngModel required>
             </mat-form-field>
             <br>
-            <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Create a School.
+            <button type="submit" [disabled]="School.invalid" class="btn create-btn btn-lg" style="width: 100%">Create a School.
             </button>
           </form>
         </div>

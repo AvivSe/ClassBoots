@@ -10,7 +10,18 @@ import {AuthService} from "../auth.service";
 export class RegisterBoxComponent implements OnInit {
 
   constructor(public authService : AuthService) {}
+  errorMessage : string;
+  error : boolean = false;
+
   ngOnInit() {
+    this.authService.getUser.subscribe(error => {
+      if (error.error) {
+        this.errorMessage = error.description;
+        this.error = true;
+      } else {
+        this.errorMessage = '';
+      }
+    })
   }
 
   onRegister(registerForm) {

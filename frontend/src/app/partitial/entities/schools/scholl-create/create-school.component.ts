@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {entitiesService} from "../../entities.service";
 
 @Component({
   selector: 'app-create-school',
@@ -8,8 +9,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class CreateSchoolComponent implements OnInit {
   currentInstitution: string;
+  errorMessage : string;
+  error : boolean = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,public entitiesService: entitiesService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -18,11 +21,7 @@ export class CreateSchoolComponent implements OnInit {
   }
 
   onCreate(createForm){
-    alert(createForm.value.name);
-    if(createForm.invalid()) {
-      return;
-    }
+    this.entitiesService.addSchool({institutionid:this.currentInstitution,name:createForm.value.name});
     createForm.resetForm();
   }
-
 }

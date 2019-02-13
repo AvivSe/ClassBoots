@@ -1,6 +1,7 @@
 <br>
 <div align="center"><h5 class="mat-subheading-1">Create New Account</h5></div>
 <br>
+<mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
 <form (ngSubmit)="onRegister(registerForm)" #registerForm="ngForm">
   <div class="form-group">
     <mat-form-field class="input-size">
@@ -22,5 +23,5 @@
       <input matInput type="date" name="registerDOB" ngModel required>
     </mat-form-field>
   </div>
-  <button type="submit" class="btn login-btn-color btn-lg" style="width: 100%">Create account</button>
+  <button type="submit" [disabled]="registerForm.invalid" class="btn login-btn-color btn-lg" style="width: 100%">Create account</button>
 </form>
