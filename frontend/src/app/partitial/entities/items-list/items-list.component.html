@@ -1,4 +1,4 @@
-<div class="jumbotron06">
+<div class="jumbotron06" *ngIf="isLoaded">
     <div class="jumbotron">
         <div align="center" class="mat-headline">
             Select a {{title}} to continue...
@@ -34,3 +34,5 @@
         </div>
     </div>
 </div>
+
+<app-lazy-loading *ngIf="!isLoaded"></app-lazy-loading>

@@ -14,7 +14,9 @@ import {
     MatButtonModule,
     MatExpansionModule,
     MatGridListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatPaginator,
+    MatPaginatorModule,
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -71,6 +73,7 @@ import { UserItemsComponent } from './layout/sidebar/user-items/user-items.compo
 import { AuthGuardService } from "./partitial/auth/auth-guard.service";
 import { PleaseLoginComponent } from './pages/please-login/please-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.component';
 
 @NgModule({
     declarations: [
@@ -121,6 +124,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         LectureEditComponent,
         UserItemsComponent,
         PleaseLoginComponent,
+        LazyLoadingComponent,
     ],
     imports: [
         BrowserModule,
@@ -135,6 +139,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MatExpansionModule,
         Ng2GoogleChartsModule,
         MatButtonToggleModule,
+        MatPaginatorModule,
         AgGridModule.withComponents([]),
         ModalModule.forRoot(),
         NgbModule,
