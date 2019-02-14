@@ -10,5 +10,5 @@
 </mat-accordion>
 <mat-paginator [length]="commentsService.getComments().length"
                [pageSize]="pageSize"
-               (page)="pageEvent = getPaginatorData($event)">
+               (page)="getPaginatorData($event)">
 </mat-paginator>
