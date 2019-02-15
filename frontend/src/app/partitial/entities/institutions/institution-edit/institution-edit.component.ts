@@ -10,6 +10,7 @@ import {Institution} from "../institution.model";
 })
 export class InstitutionEditComponent implements OnInit {
     institution : Institution = {name:'',address:'',geolocation:'',image:''};
+    currentID : string;
     errorMessage: string;
     error: boolean = false;
 
@@ -26,10 +27,10 @@ export class InstitutionEditComponent implements OnInit {
             }
         });
         this.route.params.subscribe(params => {
+            this.currentID = params['_id'];
             this.entitiesService.getInstitution(params['_id']);
         });
     }
-
     onEdit(editForm) {
         if (!(editForm.value.name == ''))
             this.institution.name = editForm.value.name;
@@ -41,5 +42,7 @@ export class InstitutionEditComponent implements OnInit {
             this.institution.image = editForm.value.image;
          this.entitiesService.editInstitution(this.institution);
          editForm.resetForm();
+    }
+    onDelete(){
     }
 }

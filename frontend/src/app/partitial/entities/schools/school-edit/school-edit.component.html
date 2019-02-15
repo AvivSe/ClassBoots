@@ -5,6 +5,7 @@
         <span class="mat-headline">Edit a School.</span>
         <hr>
         <div style="padding: 5%;">
+          <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
           <form (ngSubmit)="onEdit(School)" #School="ngForm">
             <mat-form-field class="input-size">
               <input matInput type="text" placeholder="{{data.name}}" name="name" ngModel>

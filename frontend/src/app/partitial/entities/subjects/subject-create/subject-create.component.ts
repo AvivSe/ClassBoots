@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {entitiesService} from "../../entities.service";
 
 @Component({
   selector: 'app-subject-create',
@@ -8,21 +9,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SubjectCreateComponent implements OnInit {
   currentSchool : string;
+  errorMessage: string;
+  error: boolean = false;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,private entitiesService : entitiesService) { }
 
   ngOnInit() {
+    this.entitiesService.subjectEmitter.subscribe(data=>{
+      if(data.error){
+        this.error = true;
+        this.errorMessage = data.description;
+      }
+    });
     this.route.params.subscribe(params => {
       this.currentSchool = params['currentId'];
     });
   }
-
   onCreate(createForm){
-    alert(createForm.value.name);
+    this.entitiesService.addSubject({schoolid:this.currentSchool,name:createForm.value.name,description:createForm.value.description});
     createForm.resetForm();
-    if(createForm.invalid()) {
-      return;
-    }
   }
 
 

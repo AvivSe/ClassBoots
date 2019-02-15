@@ -3,7 +3,7 @@ var Video = require('./video');
 
 var lectureSchema = mongoose.Schema({
     lecturer:   { type:String, required:true },
-    title:      { type:String, required:true },
+    name:      { type:String, required:true },
     description:{ type:String, required:true },
     date:       { type:Date, required:true },
     videos:     [{type:mongoose.Schema.Types.ObjectId, ref:'Video'}],

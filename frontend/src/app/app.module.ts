@@ -17,6 +17,7 @@ import {
     MatButtonToggleModule,
     MatPaginator,
     MatPaginatorModule,
+    MatSnackBarModule,
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -143,7 +144,8 @@ import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.comp
         AgGridModule.withComponents([]),
         ModalModule.forRoot(),
         NgbModule,
-        SocketIoModule.forRoot(socketIoConfig)
+        SocketIoModule.forRoot(socketIoConfig),
+        MatSnackBarModule
     ],
     entryComponents: [
         ModalComponent

@@ -10,6 +10,16 @@
               <input matInput type="text" placeholder="Lecture Name" name="name" ngModel
                      required>
             </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="Lecturer Name" name="lecturer" ngModel
+                     required>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <textarea matInput placeholder="Description" name="description" ngModel></textarea>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="Date" name="date" ngModel>
+            </mat-form-field>
             <br>
             <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Create a Lecture.
             </button>

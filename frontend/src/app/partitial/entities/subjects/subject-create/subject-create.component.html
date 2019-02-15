@@ -5,10 +5,14 @@
         <span class="mat-headline">Create a Subject.</span>
         <hr>
         <div style="padding: 5%;">
+          <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
           <form (ngSubmit)="onCreate(Subject)" #Subject="ngForm">
             <mat-form-field class="input-size">
               <input matInput type="text" placeholder="Subject Name" name="name" ngModel
                      required>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <textarea matInput placeholder="Description" name="description" ngModel></textarea>
             </mat-form-field>
             <br>
             <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Create a Subject.

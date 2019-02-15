@@ -5,9 +5,13 @@
         <span class="mat-headline">Edit a Subject.</span>
         <hr>
         <div style="padding: 5%;">
+          <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
           <form (ngSubmit)="onEdit(Subject)" #Subject="ngForm">
             <mat-form-field class="input-size">
               <input matInput type="text" placeholder="{{data.name}}" name="name" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <textarea matInput [placeholder]="data.description" name="description" ngModel></textarea>
             </mat-form-field>
             <br>
             <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Edit Subject.

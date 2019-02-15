@@ -15,6 +15,12 @@ export class CreateSchoolComponent implements OnInit {
   constructor(private route: ActivatedRoute,public entitiesService: entitiesService) { }
 
   ngOnInit() {
+    this.entitiesService.schoolEmitter.subscribe(data=>{
+      if(data.error){
+        this.error = true;
+        this.errorMessage = data.description;
+      }
+    });
     this.route.params.subscribe(params => {
       this.currentInstitution = params['currentId'];
     });
