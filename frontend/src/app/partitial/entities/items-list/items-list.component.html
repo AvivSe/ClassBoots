@@ -1,32 +1,30 @@
 <div class="jumbotron06" *ngIf="isLoaded">
-    <div class="jumbotron">
-        <div align="center" class="mat-headline">
-            Select a {{title}} to continue...
+    <div class="jumbotron08" style="padding-bottom: 30%;">
+        <div align="center" class="mat-headline" style="font-size:1.8em;">
+            <div style="width:100%; background-color: rgba(0,165,236,0.36);padding:2%">Select a {{title}}</div>
             <br>
             <i class="material-icons" style="font-size: 2em;">keyboard_arrow_down</i>
         </div>
         <div class="row">
             <!-- Team member -->
-            <div class="col-md-4 card-button card-padding" *ngFor="let item of itemlist">
+            <div class="col-md-4 card-button card-padding user-item" *ngFor="let item of itemlist">
                 <div class="frontside">
-                    <div style="height: 23em;" class="card" [routerLink]="['/'+nextPath,item._id]">
+                    <div style="height: 18em;" class="card" [routerLink]="['/'+nextPath,item._id]">
                         <div class="card-body text-center">
                             <i class="material-icons" style="float: right;font-size: 2em;"
                                [routerLink]="['/'+title+'/edit',item._id]">edit</i>
-                            <p><img class="img-size" src="{{item.image}}" alt="card image"></p>
+                            <p><img class="img-size" src="{{getImage(item.image)}}" alt="card image"></p>
                             <h4 class="card-title">{{item.name}}</h4>
-                            <p class="card-text">{{item.description}}</p>
-                            <h6 class="card-text" style="color:blue;">Location: {{item.address}}</h6>
-                            <h6 class="card-text" style="color:red;"></h6>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 card-padding" *ngIf="enableAdd">
+            <div class="col-md-4 card-padding" *ngIf="enableAdd" >
                 <div class="frontside">
-                    <div style="height: 23em;" class="card">
+                    <div style="height: 18em;" class="card  add" [routerLink]="['/'+title+'/create',currentId]">
                         <div class="card-body text-center" style="padding-top:18%">
-                            <button  class="add-btn" mat-fab [routerLink]="['/'+title+'/create',currentId]">+</button>
+                            <i class="material-icons font">add_box
+                            </i>
                         </div>
                     </div>
                 </div>

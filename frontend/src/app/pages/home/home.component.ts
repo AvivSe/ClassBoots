@@ -12,15 +12,15 @@ export class HomeComponent implements OnInit {
   constructor(public authService : AuthService){}
   ngOnInit() {
     const options = {
-      strings: ["We are Classboost", "We are Classboots*", "We are Awesome.","Your'e Awesome.*"],
+      strings: ["Hello!","Welcome to ClassBoost", "Welcome to ClassBoots* !","First you have to select a Institution.","So get down with the scroller..","AND START TO SUCCESS!"],
       // Optionally use an HTML element to grab strings from (must wrap each string in a <p>)
       stringsElement: null,
       // typing speed
-      typeSpeed: 100,
+      typeSpeed: 80,
       // time before typing starts
       startDelay: 1000,
       // backspacing speed
-      backSpeed: 70,
+      backSpeed: 50,
       // time before backspacing
       backDelay: 1000,
       // loop

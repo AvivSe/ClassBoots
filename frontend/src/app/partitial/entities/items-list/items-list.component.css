@@ -1,6 +1,7 @@
 .img-size{
-    height: 150px;
-    width: 170px;
+    height: 130px;
+    width: 150px;
+    margin-left: 30px;
 }
 
 .card-padding{
@@ -10,6 +11,9 @@
 
 .card-button{
     cursor: pointer;
+}
+.jumbotron08{
+    padding-bottom: 20%;
 }
 
 .green-bg{
@@ -36,4 +40,44 @@
     height: 4em;
     font-size:1.5em;
     background-color: #a5b439;
+}
+
+
+
+.user-item {
+    border-top: 1px double white;
+    border-bottom: 1px double white;
+    padding-top: 10px;
+    outline: none;
+    cursor: pointer;
+    background: unset;
+    border: none;
+    text-align: center;
+    color: #646064;
+
+}
+.user-item:hover {
+    color: #000000;
+}
+
+.user-item-active{
+    color: #43a047;
+}
+
+.card:hover{
+    cursor: pointer;
+    border-color: #A5B439;
+}
+
+.add{
+    background-color: transparent;
+    color:lightgrey;
+}
+.add:hover{
+    color: #00a5ec;
+    border-color: #00a5ec;
+}
+
+.font{
+    font-size:5em;
 }

@@ -29,4 +29,10 @@ export class ItemsListComponent implements OnInit {
             this.isLoaded = true;
         });
     }
+    getImage(image){
+        if(image == null) {
+            return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlt7ypGCM9JZSCGfXXphw_WOvsys7fs4Oagpo8ZZfbZi8adCvQ'
+        }
+        return image;
+    }
 }

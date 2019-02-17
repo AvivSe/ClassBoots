@@ -1,5 +1,5 @@
 <!--TODO: KILL PADDING-->
-<div class="jumbotron06" style="padding-bottom: 5%;">
+<div  style="padding-bottom: 5%;">
     <div class="container" style="position:center;padding-top: 5%">
         <div class="row">
             <mat-card style="width: 100%;padding-bottom: 50%;">
@@ -11,7 +11,7 @@
                     <div style="padding: 5%;">
                         <form *ngIf="authService.isLogged()">
                             <div class="form-row">
-                                <div class="form-group">
+                                <div class="form-group ">
                                     <span class="mat-title">Email</span>
                                     <mat-form-field class="title-text">
                                         <input type="email" matInput placeholder="{{user.email}}" #email>
@@ -42,7 +42,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button type="submit" class="btn login-btn-color btn-lg" style="float:right;" (click)="updateUser(email,firstname,lastname,DOB)">Update</button>
+                            <button type="submit" class="btn login-btn-color btn-lg" style="width: 100%" (click)="updateUser(email,firstname,lastname,DOB)">Update</button>
                         </form>
                     </div>
 
