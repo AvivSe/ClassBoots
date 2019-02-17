@@ -1,7 +1,7 @@
 const Institution = require('../models/institution');
-const errorsController = require('../controllers/errorsController');
-const SchoolController = require('../controllers/schoolController');
-
+const errorsController = require('./errorsController');
+const SchoolController = require('./schoolController');
+console.log('Institution connect');
 
 class InstitutionController {
     static async getInstitutionCollection() {
@@ -66,16 +66,14 @@ class InstitutionController {
      */
     // TODO: need to fix the delete
     static async deleteInstitution(id) {
-        let result = await Institution.findByIdAndDelete(id);
-        if(!result)
-        {
-            for (let i = 0; i < result.schools.length; i++) {
-                let obj = await SchoolController.deleteSchool(result.schools[i]);
-                if (obj) {
-                    console.log(obj);
-                }
+        let result = null;
+        let obj = await Institution.findByIdAndDelete(id);
+        obj.schools.forEach(async schoolId => {
+            result = await SchoolController.deleteSchool(schoolId);
+            if (result) {
+                console.log(result);
             }
-        }
+        });
         return result;
     };
 
@@ -122,18 +120,6 @@ class InstitutionController {
             });
     };
 
-    static async checkPermission(body) {
-        var result = await this.getInstitution(body.institutionid);
-        console.log(result);
-        if(await result.ERROR !== undefined)
-        {
-            for (let i = 0; i < result.permission.length; i++) {
-                if(result.permission[i] == body.userid)
-                    return true
-            }
-        }
-        return false;
-    };
 }
 
 module.exports = InstitutionController;

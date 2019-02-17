@@ -1,7 +1,7 @@
 const Video = require('../models/video');
 const errorsController = require('./errorsController');
-const LectureController = require('./lectureController');
 const YoutubeCommentsScraper = require('../utils/yt-comment-scraper');
+console.log('Video connect');
 
 class VideoController {
 
@@ -31,7 +31,6 @@ class VideoController {
                 {upsert: true, new: true}).then(x => {
             });
         });
-        console.log("gal");
         await video.save(err => {
             if (err) {
                 errorsController.logger("Create Video", err);
@@ -113,17 +112,6 @@ class VideoController {
             {upsert: true, new: true});
         return result;
     };
-
-    static async checkPermission(body) {
-        var result = await this.getVideo(body.videoid);
-        console.log(LectureController.getAviv());
-        return await result.ERROR === undefined ? LectureController.checkPermission({
-            lectureid: result.lectureid,
-            userid: body.userid
-        }).finally(() => {
-        }) : false;
-    };
-
 
 }
 

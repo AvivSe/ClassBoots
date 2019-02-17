@@ -3,6 +3,7 @@ const VideoController = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const Role = require('../../utils/Role');
+const Permission = require('../../utils/check-permission');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -30,7 +31,7 @@ var defineRoutes = router =>{
     });
 
     router.delete('', async function(req,res){
-        let result =  await VideoController.deleteVideo(req.body.videoid);
+        let result =  await VideoController.deleteVideo(req.body.id);
         res.status(200).send(result);
     });
 
@@ -49,11 +50,6 @@ var defineRoutes = router =>{
         res.status(200).send(result);
     });
 
-    // TODO: fix checkPermission
-    router.post('/test',  async function(req,res){
-        console.log(await VideoController.checkPermission(req.body));
-        res.status(200).send(null);
-    });
     return router;
 };
 

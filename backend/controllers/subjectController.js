@@ -1,7 +1,7 @@
 const Subject = require('../models/subject');
-const LectureController = require('../controllers/lectureController');
-const errorsController = require('../controllers/errorsController');
-const SchoolController = require('../controllers/schoolController');
+const LectureController = require('./lectureController');
+const errorsController = require('./errorsController');
+console.log('Subject connect');
 
 
 class SubjectController {
@@ -73,15 +73,12 @@ class SubjectController {
     static async deleteSubject(id) {
         let result = null;
         let obj = await Subject.findByIdAndDelete(id);
-        if(!result)
-        {
-            obj.lectures.forEach(async lectureId => {
-                result = await LectureController.deleteLecture(lectureId);
-                if (result) {
-                    console.log(result);
-                }
-            });
-        }
+        obj.lectures.forEach(async lectureId => {
+            result = await LectureController.deleteLecture(lectureId);
+            if (result) {
+                console.log(result);
+            }
+        });
         return result;
     };
 
@@ -103,11 +100,6 @@ class SubjectController {
             });
     };
 
-    static async checkPermission(body) {
-        var result = await this.getSubject(body.subjectid);
-        console.log(result);
-        return await result.ERROR !== undefined?SchoolController.checkPermission({schoolid:result.schoolid,userid:body.userid}):false;
-    };
 }
 
 module.exports = SubjectController;

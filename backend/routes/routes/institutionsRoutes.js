@@ -1,6 +1,5 @@
 const express = require('express');
 const InstitutionController = require('../../controllers/institutionController');
-const SchoolController = require('../../controllers/schoolController');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router

@@ -1,7 +1,7 @@
 const Lecture = require('../models/lecture');
 const VideoController = require('./videoController');
-const SubjectController = require('./subjectController');
 const errorsController = require('./errorsController');
+console.log('Lecture connect');
 
 class LectureController {
     static async getLectureCollection() {
@@ -66,15 +66,12 @@ class LectureController {
     static async deleteLecture(id) {
         let result = null;
         let obj = await Lecture.findByIdAndDelete(id);
-        if(!result)
-        {
-            obj.videos.forEach(async videoId => {
-                result = await VideoController.deleteVideo(videoId);
-                if (result) {
-                    console.log(result);
-                }
-            });
-        }
+        obj.videos.forEach(async videoId => {
+            result = await VideoController.deleteVideo(videoId);
+            if (result) {
+                console.log(result);
+            }
+        });
         return result;
     };
 
@@ -103,15 +100,6 @@ class LectureController {
             });
     };
 
-    static async checkPermission(body) {
-        var result = await this.getLecture(body.lectureid);
-        console.log(result);
-        return await result.ERROR !== undefined?SubjectController.checkPermission({subjectid:result.subjectid,userid:body.userid}):false;
-    };
-
-    static getAviv() {
-        return "aviv";
-    }
 }
 
 module.exports = LectureController;
