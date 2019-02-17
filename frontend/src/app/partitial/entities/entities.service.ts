@@ -1,11 +1,11 @@
 import {EventEmitter, Injectable, OnInit, Output} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute,Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
 import {log} from "util";
 
-@Injectable({providedIn:"root"})
+@Injectable({providedIn: "root"})
 export class entitiesService implements OnInit {
     itemList;
 
@@ -25,6 +25,7 @@ export class entitiesService implements OnInit {
     @Output() subjectEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() lectureEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() videoEmitter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() changeSideBarEmitter: EventEmitter<any> = new EventEmitter<any>();
 
     //GET ALL (FUNCTIONS)
     public getInstitutions() {
@@ -43,6 +44,12 @@ export class entitiesService implements OnInit {
         this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/" + _id, "Video", "Lecture", _id, true);
     }
 
+    public getVideos(_id) {
+        this.http.get(environment.baseUrl + 'api/lecture/getvideos/' + _id).subscribe(data => {
+            this.videoListEmitter.emit({data:data,lectureid:_id});
+        });
+    }
+
     //API REQUEST FUNCTIONS
     apiRequest(request, nextPath, title, currentId, enableAdd: boolean) {
         this.http.get(request).subscribe(data => {
@@ -55,6 +62,7 @@ export class entitiesService implements OnInit {
             });
         });
     }
+
 
     //GET SINGLE FUNCTIONS
     public getInstitution(_id) {
@@ -82,10 +90,9 @@ export class entitiesService implements OnInit {
     }
 
     public getVideo(_id) {
-        this.http.get(environment.baseUrl + 'api/video/' + _id).subscribe(data => {
+        this.http.get<{ reference: string }>(environment.baseUrl + 'api/video/' + _id).subscribe(data => {
             this.videoEmitter.emit(data);
-            this.videoListEmitter.emit(data);
-        });
+        })
     }
 
 
@@ -99,6 +106,7 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
     public addSubject(Subject) {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/subject', Subject).subscribe(data => {
             if (data.error) {
@@ -108,9 +116,9 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
     public addLecture(Lecture) {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
-            console.log(data);
             if (data.error) {
                 this.lectureEmitter.emit(data);
             } else {
@@ -120,6 +128,17 @@ export class entitiesService implements OnInit {
         })
     }
 
+    public addVideo(Video) {
+        this.http.post<{ error: string }>(environment.baseUrl + 'api/video', Video).subscribe(data => {
+            if (data.error) {
+                this.videoEmitter.emit(data);
+            } else {
+                console.log(Video);
+                this.router.navigate(['Video/' + Video.lectureid]);
+                this.matSnackBar.open('Video added.', null, {duration: 3000});
+            }
+        })
+    }
 
 
     //EDIT SINGLE
@@ -133,6 +152,7 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
     public editSchool(School) {
         this.http.put<{ error: boolean }>(environment.baseUrl + 'api/school', School).subscribe(data => {
             if (data.error) {
@@ -143,14 +163,35 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
     public editSubject(Subject) {
-        alert("hi");
         this.http.put<{ error: boolean }>(environment.baseUrl + 'api/subject', Subject).subscribe(data => {
             if (data.error) {
                 this.subjectEmitter.emit(data);
             } else {
                 this.router.navigate(['subjects/' + Subject.schoolid]);
                 this.matSnackBar.open('Subject updated.', null, {duration: 3000});
+            }
+        })
+    }
+
+    public editLecture(Lecture) {
+        this.http.put<{ error: boolean }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
+            if (data.error) {
+                this.lectureEmitter.emit(data);
+            } else {
+                this.router.navigate(['lectures/' + Lecture.subjectid]);
+                this.matSnackBar.open('Lecture updated.', null, {duration: 3000});
+            }
+        })
+    }
+    public editVideo(Video) {
+        this.http.put<{ error: boolean }>(environment.baseUrl + 'api/video', Video).subscribe(data => {
+            if (data.error) {
+                this.videoEmitter.emit(data);
+            } else {
+                this.router.navigate(['Video/' + Video.lectureid]);
+                this.matSnackBar.open('Lecture updated.', null, {duration: 3000});
             }
         })
     }

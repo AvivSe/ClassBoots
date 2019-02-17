@@ -26,6 +26,8 @@ import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component
 import {AuthGuardService} from "../partitial/auth/auth-guard.service";
 import {AdminGuardService} from "../partitial/auth/admin-guard.service";
 import {PleaseLoginComponent} from "../pages/please-login/please-login.component";
+import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
+import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 
 const routes: Routes = [
 
@@ -54,12 +56,14 @@ const routes: Routes = [
     {path: 'School/create/:currentId', component: CreateSchoolComponent, canActivate:[AuthGuardService]},
     {path: 'Subject/create/:currentId', component: SubjectCreateComponent, canActivate:[AuthGuardService]},
     {path: 'Lecture/create/:currentId', component: LectureCreateComponent, canActivate:[AuthGuardService]},
+    {path: 'Video/Create/:currentLecture', component: VideoCreateComponent, canActivate:[AuthGuardService]},
 
     //Edit routes
     {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AuthGuardService]},
     {path: 'School/edit/:_id', component: SchoolEditComponent, canActivate:[AuthGuardService]},
     {path: 'Subject/edit/:_id', component: SubjectEditComponent, canActivate:[AuthGuardService]},
     {path: 'Lecture/edit/:_id', component: LectureEditComponent, canActivate:[AuthGuardService]},
+    {path: 'Video/edit/:videoid/:lectureid', component: VideoEditComponent, canActivate:[AuthGuardService]},
 
     //Admin panel routes
     {

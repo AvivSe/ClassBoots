@@ -1,0 +1,15 @@
+.create-btn{
+    background-color: #a5b439;
+    color:white;
+}
+
+.input-size{
+    width: 100%;
+}
+.error{
+    padding:1%;
+    margin-bottom: 2%;
+    text-align: center;
+    background-color: brown;
+    color:white;
+}

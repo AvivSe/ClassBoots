@@ -7,7 +7,16 @@
         <div style="padding: 5%;">
           <form (ngSubmit)="onEdit(Lecture)" #Lecture="ngForm">
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.name}}" name="name" ngModel>
+              <input matInput type="text" [placeholder]="data.name" name="name" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="text" [placeholder]="data.lecturer" name="lecturer" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <textarea matInput [placeholder]="data.description" name="description" ngModel></textarea>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="date" [placeholder]="data.date" name="date" ngModel>
             </mat-form-field>
             <br>
             <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Edit Lecture.

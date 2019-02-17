@@ -1,0 +1,8 @@
+<ul class="list-group user-list">
+  <li (click)="onClick(video._id)" style="    font-size:3em;"class="list-group-item user-item" *ngFor="let video of data">
+    {{video.position}}
+  </li>
+</ul>
+<div class="list-group-item user-item">
+<button class="btn list-group-item user-item" mat-fab [routerLink]="['Video/Create',currentLecture]">ADD VIDEO</button>
+</div>

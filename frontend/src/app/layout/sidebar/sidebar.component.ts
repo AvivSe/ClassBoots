@@ -8,8 +8,19 @@ import {AuthService} from "../../partitial/auth/auth.service";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit{
+  isListLoaded : boolean = false;
 
-  constructor(public entitiesService: entitiesService,public authService : AuthService) {}
+  constructor(public entitiesService: entitiesService,public authService : AuthService) {
+    this.entitiesService.changeSideBarEmitter.subscribe(lectureId=>{
+      if(lectureId == null) {
+        this.isListLoaded = false;
+      }
+      else {
+        this.isListLoaded = true;
+        this.entitiesService.getVideos(lectureId);
+      }
+    })
+  }
   ngOnInit() {
   }
 

@@ -27,7 +27,6 @@ export class LectureCreateComponent implements OnInit {
   }
 
   onCreate(createForm) {
-    alert(this.currentSubject + " " + createForm.value.name);
     this.entitiesService.addLecture({
       subjectid:this.currentSubject,
       name:createForm.value.name,

@@ -1,0 +1,21 @@
+<div class="jumbotron06" style="padding-bottom: 5%;">
+  <div class="container" style="position:center;padding-top: 5%">
+    <mat-card style="width: 100%;padding-bottom: 50%;">
+      <div style="padding: 5%;">
+        <span class="mat-headline">Edit a Video.</span>
+        <hr>
+        <div style="padding: 5%;">
+          <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
+          <form (ngSubmit)="onEdit(Video)" #Video="ngForm">
+            <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="{{data.views}}" name="views" ngModel>
+            </mat-form-field>
+            <br>
+            <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Edit Video.
+            </button>
+          </form>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

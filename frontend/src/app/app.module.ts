@@ -22,6 +22,9 @@ import {
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { YoutubePlayerModule } from 'ngx-youtube-player';
+
+
 // local imports
 import {NavbarComponent} from './layout/navbar/navbar.component';
 import {SidebarComponent} from './layout/sidebar/sidebar.component';
@@ -75,6 +78,10 @@ import {AdminGuardService} from "./partitial/auth/admin-guard.service";
 import { PleaseLoginComponent } from './pages/please-login/please-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.component';
+import { VideoCreateComponent } from './partitial/entities/video/video-create/video-create.component';
+import { VideoPlayerComponent } from './partitial/entities/video/video-player/video-player.component';
+import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
+import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
 
 @NgModule({
     declarations: [
@@ -126,6 +133,10 @@ import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.comp
         UserItemsComponent,
         PleaseLoginComponent,
         LazyLoadingComponent,
+        VideoCreateComponent,
+        VideoPlayerComponent,
+        VideolistComponent,
+        VideoEditComponent,
     ],
     imports: [
         BrowserModule,
@@ -145,7 +156,8 @@ import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.comp
         ModalModule.forRoot(),
         NgbModule,
         SocketIoModule.forRoot(socketIoConfig),
-        MatSnackBarModule
+        MatSnackBarModule,
+        YoutubePlayerModule
     ],
     entryComponents: [
         ModalComponent

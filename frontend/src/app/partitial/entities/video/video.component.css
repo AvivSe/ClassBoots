@@ -29,3 +29,14 @@
 .bgwhite{
     background-color: white;
 }
+
+.start-msg{
+    padding:1%;
+    margin-bottom: 2%;
+    text-align: center;
+    background-color: brown;
+    color:white;
+}
+.card-button{
+    cursor: pointer;
+}
