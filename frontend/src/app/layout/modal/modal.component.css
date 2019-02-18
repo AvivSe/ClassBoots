@@ -15,3 +15,9 @@
     margin-left: 10px;
     background-color: brown;
 }
+.cbBtn-right {
+    margin-right: 10px;
+    margin-top:6px;
+    background-color: rgba(165, 42, 42, 0);
+    color:black;
+}
