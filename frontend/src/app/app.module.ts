@@ -82,6 +82,7 @@ import { VideoCreateComponent } from './partitial/entities/video/video-create/vi
 import { VideoPlayerComponent } from './partitial/entities/video/video-player/video-player.component';
 import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
+import { SearchComponent } from './partitial/entities/search/search.component';
 
 @NgModule({
     declarations: [
@@ -137,6 +138,7 @@ import { VideoEditComponent } from './partitial/entities/video/video-edit/video-
         VideoPlayerComponent,
         VideolistComponent,
         VideoEditComponent,
+        SearchComponent,
     ],
     imports: [
         BrowserModule,

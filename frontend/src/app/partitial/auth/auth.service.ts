@@ -11,6 +11,7 @@ import {local} from "d3-selection";
 export class AuthService {
     @Output() getUser : EventEmitter<any> = new EventEmitter<any>();
     @Output() commandSuccess : EventEmitter<any> = new EventEmitter<any>();
+    @Output() searchEmitter : EventEmitter<any> = new EventEmitter<any>();
 
     private token : string;
     public user : userData;
@@ -57,7 +58,7 @@ export class AuthService {
         this.isAdmin = false;
     }
     createUser(userData : userData){
-        this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
+            this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
             .subscribe(user =>{
                 if(!user.error) {
                     this.token = user._token;
@@ -147,5 +148,10 @@ export class AuthService {
             token: token,
             profile: profile
         }
+    }
+    findLecture(searchData){
+       this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {
+           this.searchEmitter.emit(data)
+       });
     }
 }
