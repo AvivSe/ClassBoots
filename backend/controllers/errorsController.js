@@ -1,3 +1,5 @@
+console.log('Error connect');
+
 class errorsController {
 
     static logger(err, description){
