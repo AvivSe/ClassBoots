@@ -9,7 +9,7 @@ import {Institution} from "../institution.model";
     styleUrls: ['./institution-edit.component.css']
 })
 export class InstitutionEditComponent implements OnInit {
-    institution : Institution = {name:'',address:'',geolocation:'',image:''};
+    institution = {name:'',address:'',geolocation:'',image:'',id:'',_id:''};
     currentID : string;
     errorMessage: string;
     error: boolean = false;
@@ -44,5 +44,8 @@ export class InstitutionEditComponent implements OnInit {
          editForm.resetForm();
     }
     onDelete(){
+        console.log(this.institution);
+        this.institution.id = this.institution._id;
+        this.entitiesService.deleteElement(this.institution);
     }
 }
