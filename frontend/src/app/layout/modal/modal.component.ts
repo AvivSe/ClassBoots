@@ -13,7 +13,7 @@ export class ModalComponent implements OnInit {
   modalRef: BsModalRef;
   loginName = '';
 
-  constructor(private modalService: BsModalService,private authService : AuthService, private router: Router,private entitiesService:entitiesService) {
+  constructor(private modalService: BsModalService,private authService : AuthService, private router: Router,public entitiesService:entitiesService) {
     authService.getUser.subscribe(user =>{
       this.loginName = user.email;
     });

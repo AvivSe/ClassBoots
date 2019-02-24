@@ -15,6 +15,10 @@
     margin-left: 10px;
     background-color: brown;
 }
+.cbBtn-blue {
+    margin-left: 10px;
+    background-color: #4189c9;
+}
 .cbBtn-right {
     margin-right: 10px;
     margin-top:6px;
@@ -23,11 +27,10 @@
 }
 
 .search-btn{
-    font-size:2em;
-    color:darkgrey;
+    font-size:0.9em;
 }
 
 
-.search-btn:hover{
+.btn:hover{
     color:black;
 }

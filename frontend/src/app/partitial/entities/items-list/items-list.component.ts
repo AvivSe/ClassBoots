@@ -17,7 +17,7 @@ export class ItemsListComponent implements OnInit {
     enableAdd: boolean;
     isLoaded: boolean = false;
 
-    constructor(private http: HttpClient, private entitiesService: entitiesService,private authService:AuthService) {
+    constructor(private http: HttpClient, private entitiesService: entitiesService,public authService:AuthService) {
     }
     ngOnInit() {
         this.entitiesService.itemListEmitter.subscribe(data => {

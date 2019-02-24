@@ -4,7 +4,8 @@ import {userLogin} from "./login.model";
 import {HttpClient} from "@angular/common/http";
 import { environment } from '../../../environments/environment';
 import {Subject} from "rxjs";
-import {local} from "d3-selection";
+import {MatSnackBar} from "@angular/material";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Injectable({providedIn:"root"})
@@ -12,6 +13,11 @@ export class AuthService {
     @Output() getUser : EventEmitter<any> = new EventEmitter<any>();
     @Output() commandSuccess : EventEmitter<any> = new EventEmitter<any>();
     @Output() searchEmitter : EventEmitter<any> = new EventEmitter<any>();
+
+    constructor(private http : HttpClient,private matSnackBar: MatSnackBar, private route: ActivatedRoute, private router: Router){
+        this.isLoggedIn = false;
+        this.isAdmin = false;
+    }
 
     private token : string;
     public user : userData;
@@ -53,10 +59,6 @@ export class AuthService {
     getIsAdmin() {
         return this.isAdmin;
     }
-    constructor(private http : HttpClient){
-        this.isLoggedIn = false;
-        this.isAdmin = false;
-    }
     createUser(userData : userData){
             this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
             .subscribe(user =>{
@@ -66,6 +68,7 @@ export class AuthService {
                     this.getUser.emit(user._profile);
                     this.isLoggedIn = true;
                     this.commandSuccess.emit();
+                    this.matSnackBar.open('You are logged in as '+this.user.email, null, {duration: 3000});
                 }
                 else{
                     this.getUser.emit(user);
@@ -86,6 +89,7 @@ export class AuthService {
                     this.isSidebarCollapsed = true;
                     this.saveAuthData(user._token, JSON.stringify(user._profile));
                     this.commandSuccess.emit();
+                    this.matSnackBar.open('You are logged in as '+this.user.email, null, {duration: 3000});
                 }
                 else{
                     this.getUser.emit(user);
@@ -101,6 +105,7 @@ export class AuthService {
         this.isSidebarCollapsed = false;
         this.clearAuthData();
         this.authStatusListener.next(false);
+        this.matSnackBar.open('logout success!', null, {duration: 3000});
     }
 
     saveAuthData(token: string, profile:string) {
@@ -148,6 +153,11 @@ export class AuthService {
             token: token,
             profile: profile
         }
+    }
+    createContactPost(){
+        //TODO: keep the post in the database
+        this.router.navigate(['']);
+        this.matSnackBar.open('We received your message and we\'ll be in contact soon as possible.', null, {duration: 3000});
     }
     findLecture(searchData){
        this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {

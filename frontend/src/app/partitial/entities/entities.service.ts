@@ -26,6 +26,7 @@ export class entitiesService implements OnInit {
     @Output() lectureEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() videoEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() changeSideBarEmitter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() statisticsEmitter: EventEmitter<any> = new EventEmitter<any>();
 
     //GET ALL (FUNCTIONS)
     public getInstitutions() {
@@ -90,8 +91,10 @@ export class entitiesService implements OnInit {
     }
 
     public getVideo(_id) {
-        this.http.get<{ reference: string }>(environment.baseUrl + 'api/video/' + _id).subscribe(data => {
+        this.http.get<{ reference: string,views}>(environment.baseUrl + 'api/video/' + _id).subscribe(data => {
+            data.views++;
             this.videoEmitter.emit(data);
+            this.updateViews(data);
         })
     }
 
@@ -186,19 +189,26 @@ export class entitiesService implements OnInit {
         })
     }
 
+
+    public updateViews(Video) {
+        this.http.put(environment.baseUrl + 'api/video', Video).subscribe();
+    }
+
     public editVideo(Video) {
         this.http.put<{ error: boolean }>(environment.baseUrl + 'api/video', Video).subscribe(data => {
             if (data.error) {
                 this.videoEmitter.emit(data);
             } else {
                 this.router.navigate(['Video/' + Video.lectureid]);
-                this.matSnackBar.open('Lecture updated.', null, {duration: 3000});
+                this.matSnackBar.open('Video updated.', null, {duration: 3000});
             }
         })
     }
-
     //DELETE ELEMENT
     public deleteElement(element){
+    }
+    public getStatistics(){
+        this.statisticsEmitter.emit();
     }
 }
 
