@@ -46,7 +46,7 @@ export class entitiesService implements OnInit {
 
     public getVideos(_id) {
         this.http.get(environment.baseUrl + 'api/lecture/getvideos/' + _id).subscribe(data => {
-            this.videoListEmitter.emit({data:data,lectureid:_id});
+            this.videoListEmitter.emit({data: data, lectureid: _id});
         });
     }
 
@@ -185,6 +185,7 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
     public editVideo(Video) {
         this.http.put<{ error: boolean }>(environment.baseUrl + 'api/video', Video).subscribe(data => {
             if (data.error) {
@@ -195,4 +196,9 @@ export class entitiesService implements OnInit {
             }
         })
     }
+
+    //DELETE ELEMENT
+    public deleteElement(element){
+    }
 }
+

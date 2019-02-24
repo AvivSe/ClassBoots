@@ -9,6 +9,7 @@ var lectureSchema = mongoose.Schema({
     videos:     [{type:mongoose.Schema.Types.ObjectId, ref:'Video'}],
     subjectid:   { type:mongoose.Schema.Types.ObjectId, ref:'Subject', required:true }
 
-
 });
+
+
 module.exports = mongoose.model('Lecture',lectureSchema); // lectures

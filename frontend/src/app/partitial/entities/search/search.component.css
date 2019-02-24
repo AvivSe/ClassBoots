@@ -16,3 +16,36 @@
     background-color: brown;
     color:white;
 }
+.create-btn{
+    background-color: #4189c9;
+    color:white;
+}
+
+.input-size{
+    width: 100%;
+}
+.jumbotron05 {
+    background-color: rgba(255,255,255,0.5);
+}
+.jumbotron06 {
+    background-color: rgba(255,255,255,0.6);
+}
+.jumbotron07 {
+    background-color: rgba(255,255,255,0.7);
+}
+.jumbotron08{
+    background-color: rgba(255,255,255,0.8);
+}
+.jumbotron09 {
+    background-color: rgba(255,255,255,0.9);
+}
+.result{
+    background-color: #e6e6ff;
+    color: #000000;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+
+    padding: 5px;
+    margin: 5px;
+}

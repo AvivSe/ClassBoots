@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-
 /**
  * Created by Aviv Segal on Jan 2019
  */
