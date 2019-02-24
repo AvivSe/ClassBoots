@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {entitiesService} from "../../partitial/entities/entities.service";
 
 @Component({
   selector: 'app-body',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BodyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private entitiesService:entitiesService) { }
 
   ngOnInit() {
   }

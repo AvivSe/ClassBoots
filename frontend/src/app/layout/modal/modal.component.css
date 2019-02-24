@@ -21,3 +21,13 @@
     background-color: rgba(165, 42, 42, 0);
     color:black;
 }
+
+.search-btn{
+    font-size:2em;
+    color:darkgrey;
+}
+
+
+.search-btn:hover{
+    color:black;
+}

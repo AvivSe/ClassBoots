@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {AuthService} from "../../partitial/auth/auth.service";
 import {Router} from "@angular/router";
+import {entitiesService} from "../../partitial/entities/entities.service";
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +13,7 @@ export class ModalComponent implements OnInit {
   modalRef: BsModalRef;
   loginName = '';
 
-  constructor(private modalService: BsModalService,private authService : AuthService, private router: Router) {
+  constructor(private modalService: BsModalService,private authService : AuthService, private router: Router,private entitiesService:entitiesService) {
     authService.getUser.subscribe(user =>{
       this.loginName = user.email;
     });
@@ -31,7 +32,6 @@ export class ModalComponent implements OnInit {
     return this.authService.isLogged()
 
   }
-
   onLogout() {
     this.authService.logout();
     this.router.navigate(['']);

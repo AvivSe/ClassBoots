@@ -11,15 +11,17 @@
                 <div class="frontside">
                     <div style="height: 18em;" class="card" [routerLink]="['/'+nextPath,item._id]">
                         <div class="card-body text-center">
-                            <i class="material-icons" style="float: right;font-size: 2em;"
-                               [routerLink]="['/'+title+'/edit',item._id]">edit</i>
+                            <i class="material-icons" style="float: right;font-size: 1.9em;"
+                               [routerLink]="['/'+title+'/edit',item._id]" *ngIf="authService.isLogged()">edit</i>
+                            <i class="material-icons" style="float: right;font-size: 1.9em;color:brown"
+                               (click)="deleteElement(item._id)" *ngIf="authService.isLogged()">delete</i>
                             <p><img class="img-size" src="{{getImage(item.image)}}" alt="card image"></p>
                             <h4 class="card-title">{{item.name}}</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 card-padding" *ngIf="enableAdd" >
+            <div class="col-md-4 card-padding" *ngIf="enableAdd&&authService.isLogged()" >
                 <div class="frontside">
                     <div style="height: 18em;" class="card  add" [routerLink]="['/'+title+'/create',currentId]">
                         <div class="card-body text-center" style="padding-top:18%">

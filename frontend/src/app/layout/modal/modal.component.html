@@ -1,7 +1,7 @@
 
 
-<button type="button" class="btn logged-btn-color btn-lg cbBtn-right" (click)="openModal(searchBar)">
-  <i class="material-icons" style="font-size:2em">search</i>
+<button type="button" class="btn logged-btn-color btn-lg cbBtn-right" (click)="entitiesService.changeSideBarEmitter.emit()">
+  <i class="material-icons search-btn">search</i>
 </button>
 <button type="button" class="btn login-btn-color btn-lg" (click)="openModal(loginPanel)" *ngIf="!isLogged()">Login</button>
 <button type="button" class="btn logged-btn-color btn-lg" routerLink="Profile" *ngIf="isLogged()">{{loginName}}</button>
