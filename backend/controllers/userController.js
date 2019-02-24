@@ -3,25 +3,11 @@ const bcrypt = require('bcrypt');
 const Token = require('../utils/Token');
 const History= require('../models/history');
 
-/**
- * Created by Aviv Segal & Gal Keidar on Dec 2018
- */
 class UserController {
-    /**
-     * Created by Aviv Segal on Dec 2018
-     * @param user
-     * @returns {{token: *}}
-     */
     static getToken(user) {
         // TODO: Edit the secret with local variable.
         return new Token(user);
     };
-
-    /**
-     * Created by Aviv Segal on Dec 2018
-     * @param body
-     * @returns Token
-     */
     static async createUser(body) {
         let error = false;
         let user = await User.findOne({email: body.email});
@@ -45,23 +31,11 @@ class UserController {
 
         return error ? {error: true, description: "cannot save to db" } : this.getToken(user);
     };
-
-    /**
-     * Created by Aviv Segal on Dec 2018
-     * @param body
-     * @returns Token
-     */
     static async login(body) {
         let user;
         return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
             this.getToken(user) : { error: true, description: "Invalid email or password." };
     };
-
-    /**
-     * Created by Aviv Segal on Dec 2018
-     * @param email
-     * @returns User Details
-     */
     static async getUser(email) {
         let result = null;
 

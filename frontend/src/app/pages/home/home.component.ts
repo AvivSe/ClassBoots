@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Typed from 'typed.js/src/typed.js';
-import {entitiesService} from "../../partitial/entities/entities.service";
 import {AuthService} from "../../partitial/auth/auth.service";
+import {entitiesService} from "../../partitial/entities/entities.service";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,9 @@ import {AuthService} from "../../partitial/auth/auth.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(public authService : AuthService){}
+  statistics = {institutions: 0,schools:0,lectures:0,videos:0};
+
+  constructor(public authService : AuthService,public entitiesService : entitiesService){}
   ngOnInit() {
     const options = {
       strings: ["Hello!","Welcome to ClassBoost", "Welcome to ClassBoots* !","First you have to select a Institution.","So get down with the scroller..","AND START TO SUCCESS!"],
@@ -45,5 +47,7 @@ export class HomeComponent implements OnInit {
       resetCallback: function() {}
     };
     const typed = new Typed('.typed', options);
+    this.entitiesService.statisticsEmitter.subscribe(data =>{
+    });
   }
 }

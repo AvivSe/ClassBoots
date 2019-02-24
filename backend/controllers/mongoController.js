@@ -12,7 +12,6 @@ class MongoController {
             connected = true;
             mongoose.connect(connectionString, { useNewUrlParser: true, useCreateIndex:true, useFindAndModify:false})
                 .then(() => {
-                    console.log('Connected to the database!');
                 }).catch(reason => {
                 console.log(reason);
             });

@@ -47,17 +47,13 @@ const server = app.listen(PORT, () => {
 const io = require('socket.io').listen(server);
 
 io.on('connection', client=>{
-    console.log("new connect");
-
     client.on('someEvent', data=> {
         console.log(data);
         client.broadcast.emit('someEvent', data);
     });
-
     client.on('new-comment', data=> {
         client.broadcast.emit('new-comment', data);
     });
-
     client.on('event', data=> {
         console.log("new event: " + data);
     });

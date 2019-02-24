@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {entitiesService} from "../entities.service";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
     selector: 'app-items-list',
@@ -16,9 +17,8 @@ export class ItemsListComponent implements OnInit {
     enableAdd: boolean;
     isLoaded: boolean = false;
 
-    constructor(private http: HttpClient, private entitiesService: entitiesService) {
+    constructor(private http: HttpClient, private entitiesService: entitiesService,public authService:AuthService) {
     }
-
     ngOnInit() {
         this.entitiesService.itemListEmitter.subscribe(data => {
             this.nextPath = data._nextpath;
@@ -35,4 +35,8 @@ export class ItemsListComponent implements OnInit {
         }
         return image;
     }
+    deleteElement(_id){
+        this.entitiesService.deleteElement({id:_id});
+    }
+
 }
