@@ -1,14 +1,13 @@
-
-
-<button type="button" class="btn logged-btn-color btn-lg cbBtn-right" (click)="openModal(searchBar)">
-  <i class="material-icons" style="font-size:2em">search</i>
-</button>
+<div>
 <button type="button" class="btn login-btn-color btn-lg" (click)="openModal(loginPanel)" *ngIf="!isLogged()">Login</button>
 <button type="button" class="btn logged-btn-color btn-lg" routerLink="Profile" *ngIf="isLogged()">{{loginName}}</button>
+  <button type="button" (click)="entitiesService.changeSideBarEmitter.emit()" class="btn logged-btn-color btn-lg cbBtn-blue">
+    <i class="fas fa-search"></i>
+  </button>
 <button type="button" class="btn logged-btn-color btn-lg cbBtn" (click)="onLogout()" *ngIf="isLogged()">
   <i class="fas fa-sign-out-alt fa"></i>
 </button>
-
+</div>
   <ng-template #loginPanel>
     <mat-button-toggle-group>
       <mat-button-toggle class="mat-body-2 outlet-btn" [routerLink]="['./',{outlets:{modal:'Login'}}]">Login</mat-button-toggle>

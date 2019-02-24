@@ -24,12 +24,6 @@ body {
   background-repeat: no-repeat;
 }
 
-.welcome-image {
-  background-image: url('app/pages/home/welcome-logo.svg');
-  width: 420px;
-  height: 350px;
-}
-
 .main-page {
   z-index:999;
 }
