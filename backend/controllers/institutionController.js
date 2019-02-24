@@ -65,7 +65,6 @@ class InstitutionController {
      * @param id of institution to be removed.
      * @returns {Promise<*>}
      */
-    // TODO: fix the delete and continue from here!!!!
     static async deleteInstitution(id) {
         let result = null;
         await Institution.findByIdAndDelete(id).then(obj=>{
