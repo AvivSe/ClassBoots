@@ -6,24 +6,20 @@ console.log('Video connect');
 class VideoController {
 
     static async getVideoCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result;
+        var invalid = {};
         result = await Video.find(err => {
             if (err) {
-                result = invalid;
-                errorsController.logger(err, result);
-
+                invalid = {error: true, description: err};
+                errorsController.logger({error: 'getInstitutionCollection', description: err});
             }
         });
-        return result;
+        return invalid.error === undefined ? result : invalid;
     };
 
     static async createVideo(body) {
-        const video = new Video(body);
-        //TODO: duplicate code
-
+        var result = {};
+        var video = new Video(body);
         YoutubeCommentsScraper.getCommentsAsync(body.reference, result => {
             Video.findByIdAndUpdate(
                 video._id,
@@ -33,50 +29,45 @@ class VideoController {
         });
         await video.save(err => {
             if (err) {
-                errorsController.logger("Create Video", err);
+                result = {error: true, description: err};
+                errorsController.logger({error: 'createVideo', description: err});
             }
         });
-        return video;
+        return result.error === undefined ? institution : result;
     };
 
     static async getVideo(id) {
         let result = null;
-        await Video.findOne({_id: id}).then(video => {
-            if (video) {
-                result = video;
-                let secondesAgo = (new Date() - video.lastscrape) / 1000;
-                if (secondesAgo > 60) {
-                    Video.findByIdAndUpdate(
-                        video._id,
-                        {lastscrape: new Date()},
-                        {upsert: true, new: true}).then(vid => {
-                        //TODO: duplicate code
-                        YoutubeCommentsScraper.getCommentsAsync(vid.reference, result => {
-                            if (!vid.ytcomment.find(c => {
-                                return (c.content === result.content && c.author === result.author);
-                            })) {
-                                Video.findByIdAndUpdate(
-                                    vid._id,
-                                    {$push: {"ytcomment": result}, lastscrape: new Date()},
-                                    {upsert: true, new: true}).then(ignore => {
-                                });
-                            } else {
-                                console.log("already exist");
-                            }
+        await Video.findById(id).then(video => {
+            result = video;
+            let secondesAgo = (new Date() - video.lastscrape) / 1000;
+            if (secondesAgo > 60) {
+                Video.findByIdAndUpdate(
+                    video._id,
+                    {lastscrape: new Date()},
+                    {upsert: true, new: true}).then(vid => {
+                    //TODO: duplicate code
+                    YoutubeCommentsScraper.getCommentsAsync(vid.reference, result => {
+                        if (!vid.ytcomment.find(c => {
+                            return (c.content === result.content && c.author === result.author);
+                        })) {
+                            Video.findByIdAndUpdate(
+                                vid._id,
+                                {$push: {"ytcomment": result}, lastscrape: new Date()},
+                                {upsert: true, new: true}).then(ignore => {
+                            });
+                        } else {
+                            console.log("already exist");
+                        }
 
-                        });
                     });
-
-                } else {
-                    console.log("dont wanna update because so young :" + secondesAgo);
-
-                }
-
-            } else
-                result = {"ERROR": "video not found"};
+                });
+            } else {
+                console.log("dont wanna update because so young :" + secondesAgo);
+            }
         }).catch(err => {
-            result = {"ERROR": "video not found"};
-            errorsController.logger("Get Subject", err);
+            result = {error: true, description: err};
+            errorsController.logger({error: 'getVideo', description: err});
         });
         return result;
     };
@@ -84,25 +75,34 @@ class VideoController {
     static async deleteVideo(id) {
         let result = null;
         await Video.findByIdAndDelete(id).catch(err => {
-            result = err;
-            errorsController.logger(err, result);
+            result = {error:true,description:err};
+            errorsController.logger({error:'deleteVideo',description:err});
         });
         return result;
     };
 
     static async updateVideo(body) {
-        let result = await Video.findByIdAndUpdate(body._id, body, {new: true}, err => {
-            if (err) errorsController.logger("update Video", err);
+        var invalid = {};
+        await Video.findByIdAndUpdate(body._id, body, {}).catch(err => {
+            invalid = {error:true,description:err};
+            errorsController.logger({error:'updateVideo',description:err});
         });
-        return result;
+        return invalid;
     }
 
     static async addComment(body) {
+        var invalid = {};
         var result = await Video.findByIdAndUpdate(
             body.videoid,
-            {$push: {"comments": body}},
-            {upsert: true, new: true});
-        return result;
+            {$addToSet: {"comments": body}},
+            {upsert: true},
+            (err =>{
+                if(err) {
+                    invalid = {error: true, description: err};
+                    errorsController.logger({error: 'addComment', description: err});
+                }
+            }));
+        return invalid.error === undefined ? result : invalid;
     };
 
     static async deleteComment(body) {

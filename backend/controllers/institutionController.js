@@ -47,7 +47,6 @@ class InstitutionController {
         let result = [];
         await this.getInstitution(id).then(async institution=>{
             for (let i = 0; i < institution.schools.length; i++) {
-                let school;
                 await SchoolController.getSchool(institution.schools[i]).then(async school=>{
                     if(school.error !== undefined)
                         this.deleteSchool({institutionid:id,schoolid:institution.schools[i]});
@@ -69,10 +68,6 @@ class InstitutionController {
     // TODO: fix the delete and continue from here!!!!
     static async deleteInstitution(id) {
         let result = null;
-        // var institution = await this.getInstitution(id);
-        // if(institution.error){
-        //     return institution;
-        // }
         await Institution.findByIdAndDelete(id).then(obj=>{
             obj.schools.forEach(async schoolId => {
                 result = await SchoolController.deleteSchool(schoolId);
@@ -85,10 +80,6 @@ class InstitutionController {
     };
 
     static async updateInstitution(body) {
-        // var institution = await this.getInstitution(body._id);
-        // if(institution.error){
-        //     return institution;
-        // }
         var invalid = {};
         await Institution.findByIdAndUpdate(body._id, body, {}).catch(err => {
             invalid = {error:true,description:err};
@@ -107,7 +98,7 @@ class InstitutionController {
         var invalid = {};
         var result = await Institution.findByIdAndUpdate(
             body.institutionid,
-            { $push: {"schools": body.schoolid}},
+            { $addToSet: {"schools": body.schoolid}},
             { upsert: true},(err,institution)=>{
                 if(err){
                     invalid = {error:true,description:err};
@@ -119,6 +110,7 @@ class InstitutionController {
             });
         return invalid.error===undefined?result:invalid;
     };
+
     // TODO: don't need now! but need to fix
     static async deleteSchool(body) {
         Institution.findByIdAndUpdate(
@@ -137,7 +129,7 @@ class InstitutionController {
         var invalid = {};
         var result = await Institution.findByIdAndUpdate(
             body.institutionid,
-            { $push: {"permission": body.userid}},
+            { $addToSet: {"permission": body.userid}},
             { upsert: true },
             (err)=>{
                 if(err){
