@@ -100,6 +100,20 @@ class LectureController {
             });
     };
 
+    static async getMyDads(id) {
+        let result = {};
+
+        await Lecture.findById(id).then(lecture => {
+            if (lecture)
+                result = lecture;
+            else
+                result = {"ERROR":"lecture not found"};
+        }).catch(err => {
+            result = err;
+            errorsController.logger(err,result);
+        });
+        return result;
+    };
 }
 
 module.exports = LectureController;

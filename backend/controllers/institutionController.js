@@ -5,54 +5,52 @@ console.log('Institution connect');
 
 class InstitutionController {
     static async getInstitutionCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result = null;
+        var invalid = {};
         result = await Institution.find(err => {
             if (err) {
-                result = invalid;
-                errorsController.logger(err,result);
+                invalid = {error:true,description:err};
+                errorsController.logger({error:'getInstitutionCollection',description:err});
             }
         });
-        return result;
+        return invalid.error===undefined?result:invalid;
     };
 
     static async createInstitution(body) {
+        var result = null;
         var institution = new Institution(body);
         await institution.save(err => {
             if (err) {
-                errorsController.logger("Create Institution",err);
+                result = {error:true,description:err};
+                errorsController.logger({error:'createInstitution',description:err});
             }
         });
-        return institution;
+        return result.error===undefined?institution:result;
     };
 
 
     static async getInstitution(id) {
-        let result = null;
+        var result = null;
         await Institution.findById(id).then(institution => {
-            if (institution) {
+            if (institution)
                 result = institution;
-            }
             else
-                result = {"ERROR":"institution not found"};
+                result = {error:true,description:'Institution not found'};
         }).catch(err => {
-            result = {"ERROR":"institution not found"};
-            errorsController.logger("Get Subject",err);
+            result = {error:true,description:err};
+            errorsController.logger({error:'getInstitution',description:err});
         });
-
         return result;
     };
 
     static async getSchools(id) {
         let result = await this.getInstitution(id);
-        if(result.ERROR)
+        if(result.error)
             return result;
         var myschools = [];
         for (let i = 0; i < result.schools.length; i++) {
             let school = await SchoolController.getSchool(result.schools[i]);
-            if(school.ERROR !== undefined)
+            if(school.error !== undefined)
                 this.deleteSchool({institutionid:id,schoolid:result.schools[i]});
             else myschools.push(school);
         }
@@ -64,15 +62,17 @@ class InstitutionController {
      * @param id of institution to be removed.
      * @returns {Promise<*>}
      */
-    // TODO: need to fix the delete
+    // TODO: fix the delete and continue from here!!!!
     static async deleteInstitution(id) {
         let result = null;
+        var institution = await this.getInstitution(id);
+        if(institution.error !== undefined){
+            errorsController.logger({error:'deleteInstitution',description:institution.description});
+            return institution;
+        }
         let obj = await Institution.findByIdAndDelete(id);
         obj.schools.forEach(async schoolId => {
             result = await SchoolController.deleteSchool(schoolId);
-            if (result) {
-                console.log(result);
-            }
         });
         return result;
     };

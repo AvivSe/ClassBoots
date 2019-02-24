@@ -8,7 +8,28 @@ console.log('Search connect');
 class SearchController {
 
     static async searchLecture(body) {
-        var result = null;
+
+
+        // TODO: need to fix
+        /*var result = null;
+        var idList = null;
+        // check validation
+        if(body.subject !== undefined && body.subject !== "")
+        {
+            query = {$and:[{$or:[{name:{$regex: body.lecture, $options: 'i'}},{description:{$regex: body.lecture, $options: 'i'}}]},{subjectid:body.subject}]}
+        }
+        else if(body.school !== undefined && body.school !== "")
+        {
+            //idList = await
+        }
+
+
+
+
+
+
+
+
         var query = {};
         if(body.lecture) {
             query = {$or:[{name:{$regex: body.lecture, $options: 'i'}},{description:{$regex: body.lecture, $options: 'i'}}]}
@@ -19,8 +40,8 @@ class SearchController {
             }
             return data
         });
-        console.log(result);
-        return result;
+        console.log(result);*/
+        return null;
     };
 
 }

@@ -12,7 +12,7 @@ var defineRoutes = router =>{
         if(req.profile) {
             res.status(200).send(req.profile);
         } else {
-            res.status(400).send({message: "cannot find profile data"});
+            res.status(400).send({error:"true",description: "cannot find profile data"});
         }
 
     });
@@ -39,12 +39,13 @@ var defineRoutes = router =>{
 
     });
 
-    // todo: add: checkAuth, Role.setPermissions(['admin'])
-    router.get('' , async function(req,res){
+    // todo: add: Role.setPermissions(['admin'])
+    router.get('' , checkAuth, async function(req,res){
         let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);
 
     });
+
     return router;
 };
 
