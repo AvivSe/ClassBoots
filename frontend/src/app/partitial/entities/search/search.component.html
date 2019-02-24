@@ -1,0 +1,30 @@
+<div *ngIf="!answerLoaded">
+    <br>
+    <div align="center"><h5 class="mat-subheading-1">Search here</h5></div>
+    <br>
+    <form (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm">
+        <div class="form-group">
+            <mat-form-field class="input-size">
+                <input matInput type="text" placeholder="institution" name="institution" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+                <input matInput type="text" placeholder="school" name="school" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+                <input matInput type="text" placeholder="subject" name="subject" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+                <input matInput type="text" placeholder="lecture" name="lecture" ngModel>
+            </mat-form-field>
+        </div>
+        <button type="submit" [disabled]="searchForm.invalid" class="btn login-btn-color btn-lg" style="width: 100%">
+            Search
+        </button>
+    </form>
+</div>
+
+<div *ngIf="answerLoaded">
+    <div *ngFor="let item of data" [routerLink]="['Video/',item._id]">
+        {{item.name}}
+    </div>
+</div>
