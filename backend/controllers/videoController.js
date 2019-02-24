@@ -1,4 +1,5 @@
 const Video = require('../models/video');
+const History = require('../models/history');
 const errorsController = require('./errorsController');
 const YoutubeCommentsScraper = require('../utils/yt-comment-scraper');
 console.log('Video connect');
@@ -36,15 +37,18 @@ class VideoController {
         return result.error === undefined ? institution : result;
     };
 
-    static async getVideo(id) {
+    static async getVideo(id,userid) {
         let result = null;
         await Video.findById(id).then(video => {
             result = video;
+            History.findAndUpdate(user;:userid,{$addToSet: {watches:id}},{$upsert:false}, err=>{
+                if(err) errorsController.logger({error:'getVideo',description:err});
+            };)
             let secondesAgo = (new Date() - video.lastscrape) / 1000;
             if (secondesAgo > 60) {
                 Video.findByIdAndUpdate(
                     video._id,
-                    {lastscrape: new Date()},
+                    {lastscrape: new Date(), views:(video.views+1)},
                     {upsert: true, new: true}).then(vid => {
                     //TODO: duplicate code
                     YoutubeCommentsScraper.getCommentsAsync(vid.reference, result => {

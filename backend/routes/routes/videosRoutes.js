@@ -11,7 +11,7 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     router.get('/:id', checkAuth, async function(req,res){
-        let result =  await VideoController.getVideo(req.params.id);
+        let result =  await VideoController.getVideo(req.params.id,req.profile._id);
         res.status(200).send(result);
     });
 

@@ -49,7 +49,7 @@ class SchoolController {
         result = await this.getSchool(id).then(async school=>{
             for (let i = 0; i < school.subjects.length; i++) {
                 let subject = await SubjectController.getSubject(school.subjects[i]);
-                if(subject.ERROR !== undefined)
+                if(subject.error !== undefined)
                     this.deleteSubject({schoolid:id,subjectid:school.subjects[i]});
                 else result.push(subject);
             }

@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const Token = require('../utils/Token');
+const History= require('../models/history');
 
 /**
  * Created by Aviv Segal & Gal Keidar on Dec 2018
@@ -28,10 +29,13 @@ class UserController {
         if (user) {
             return {error: true, details: "email address already exists."};
         }
+
         // TODO: Check body schema
         body.password = await bcrypt.hash(body.password, await bcrypt.genSalt(10));
 
         user = new User(body);
+        var history =new History({user:user._id});
+        history.save();
 
         await user.save(err => {
             if (err) {
