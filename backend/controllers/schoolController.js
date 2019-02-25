@@ -2,7 +2,6 @@ const School = require('../models/school');
 const SubjectController = require('./subjectController');
 const errorsController = require('./errorsController');
 
-console.log('School connect');
 
 
 class SchoolController {

@@ -6,6 +6,6 @@ var errorSchema = new mongoose.Schema({
     error:      { type:String},
     description:{},
     date:       { type:Date, default: Date.now }
-});
+},{ _id : false });
 
 module.exports = mongoose.model('Error',errorSchema); // histories

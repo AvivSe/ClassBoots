@@ -1,7 +1,6 @@
 const Subject = require('../models/subject');
 const LectureController = require('./lectureController');
 const errorsController = require('./errorsController');
-console.log('Subject connect');
 
 
 class SubjectController {

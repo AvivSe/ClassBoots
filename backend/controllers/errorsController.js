@@ -1,6 +1,5 @@
 const Error = require('../models/errors');
 
-console.log('Error connect');
 
 class errorsController {
 

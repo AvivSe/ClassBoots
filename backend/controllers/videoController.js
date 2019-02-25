@@ -37,21 +37,34 @@ class VideoController {
         return result.error === undefined ? institution : result;
     };
 
-    static async getVideo(id,userid) {
+    static async getVideo(id, userid) {
         let result = null;
-        await Video.findById(id).then(video => {
+        await Video.findById(id).then(async video => {
             result = video;
-            // History.findAndUpdate({user:userid},
-            //     {$addToSet: {watches:id}},
-            //     {$upsert:false},
-            //     err=>{
-            //     if(err) errorsController.logger({error:'getVideo',description:err});
-            // });
+            if (userid == null) {
+                await History.findOne({user: userid}).then(async history => {
+                    await History.findOne({user: userid}, function (err, history) {
+                        for (var i = 0; i < history.watches.length; i++)
+                            if (history.watches[i].video == id)
+                                break;
+                        if (i < history.watches.length) {
+                            let lastdate = history.watches[i].date;
+                            history.watches[i].date = Date.now();
+                            let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
+                            if (secondeswatchAgo > 1) {
+                                video.views = video.views + 1;
+                                video.save();
+                            }
+                        } else history.watches[i] = {video: id, date: Date.now()};
+                        history.save();
+                    });
+                });
+            }
             let secondesAgo = (new Date() - video.lastscrape) / 1000;
             if (secondesAgo > 60) {
                 Video.findByIdAndUpdate(
                     video._id,
-                    {lastscrape: new Date(), views:(video.views+1)},
+                    {lastscrape: new Date()},
                     {upsert: true, new: true}).then(vid => {
                     //TODO: duplicate code
                     YoutubeCommentsScraper.getCommentsAsync(vid.reference, result => {
@@ -73,7 +86,7 @@ class VideoController {
                 console.log("dont wanna update because so young :" + secondesAgo);
             }
         }).catch(err => {
-            result = {error: true, description: err+"-cannot find"};
+            result = {error: true, description: err + "-cannot find"};
             errorsController.logger({error: 'getVideo', description: err});
         });
         return result;
@@ -82,8 +95,8 @@ class VideoController {
     static async deleteVideo(id) {
         let result = null;
         await Video.findByIdAndDelete(id).catch(err => {
-            result = {error:true,description:err};
-            errorsController.logger({error:'deleteVideo',description:err});
+            result = {error: true, description: err};
+            errorsController.logger({error: 'deleteVideo', description: err});
         });
         return result;
     };
@@ -91,8 +104,8 @@ class VideoController {
     static async updateVideo(body) {
         var invalid = {};
         await Video.findByIdAndUpdate(body._id, body, {}).catch(err => {
-            invalid = {error:true,description:err};
-            errorsController.logger({error:'updateVideo',description:err});
+            invalid = {error: true, description: err};
+            errorsController.logger({error: 'updateVideo', description: err});
         });
         return invalid;
     }
@@ -103,8 +116,8 @@ class VideoController {
             body.videoid,
             {$addToSet: {"comments": body}},
             {upsert: true},
-            (err =>{
-                if(err) {
+            (err => {
+                if (err) {
                     invalid = {error: true, description: err};
                     errorsController.logger({error: 'addComment', description: err});
                 }

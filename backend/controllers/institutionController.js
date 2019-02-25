@@ -1,7 +1,6 @@
 const Institution = require('../models/institution');
 const errorsController = require('./errorsController');
 const SchoolController = require('./schoolController');
-console.log('Institution connect');
 
 class InstitutionController {
     static async getInstitutionCollection() {

@@ -10,7 +10,6 @@ const School = require('../models/school');
 const Institution = require('../models/institution');
 
 
-console.log('Search connect');
 
 class SearchController {
 

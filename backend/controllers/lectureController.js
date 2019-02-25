@@ -1,7 +1,6 @@
 const Lecture = require('../models/lecture');
 const VideoController = require('./videoController');
 const errorsController = require('./errorsController');
-console.log('Lecture connect');
 
 class LectureController {
     static async getLectureCollection() {
@@ -46,7 +45,7 @@ class LectureController {
         let result = [];
         await this.getLecture(id).then(async lecture=>{
             for (let i = 0; i < lecture.videos.length; i++) {
-                await VideoController.getVideo(lecture.videos[i]).then(async video=>{
+                await VideoController.getVideo(lecture.videos[i],null).then(async video=>{
                     if(video.error !== undefined)
                         this.deleteVideo({lectureid:id,videoid:lecture.videos[i]});
                     else result.push(video);
