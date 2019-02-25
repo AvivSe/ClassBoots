@@ -8,7 +8,7 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.get('/:id', checkAuth, async function(req,res){
+    router.get('/:id', async function(req,res){
         let result =  await SchoolController.getSchool(req.params.id);
         res.status(result?200:400).send(result);
     });
@@ -22,7 +22,7 @@ var defineRoutes = router =>{
         res.status(result?201:400).send(result);
     });
 
-    router.get('', checkAuth, async function(req,res){
+    router.get('', async function(req,res){
         let result =  await SchoolController.getSchoolCollection(req.body);
         res.status(result?200:400).send(result);
     });
@@ -42,7 +42,7 @@ var defineRoutes = router =>{
         res.status(result?201:400).send(result);
     });
 
-    router.get('/getsubjects/:id', checkAuth, async function(req,res){
+    router.get('/getsubjects/:id', async function(req,res){
         let result = await SchoolController.getSubjects(req.params.id);
         res.status(result?200:400).send(result);
     });
