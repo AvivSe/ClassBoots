@@ -73,7 +73,7 @@ class VideoController {
                 console.log("dont wanna update because so young :" + secondesAgo);
             }
         }).catch(err => {
-            result = {error: true, description: err};
+            result = {error: true, description: err+"-cannot find"};
             errorsController.logger({error: 'getVideo', description: err});
         });
         return result;

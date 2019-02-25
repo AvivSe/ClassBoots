@@ -13,8 +13,6 @@ module.exports = (req, res, next) => {
                     res.status(401).send({message: 'Auth-Failed', error: err});
                 } else {
                     req.profile = decoded;
-                    var user = await User.find({email: req.profile.email});
-                    req.profile._id = user._id;
                     next();
                 }
             });
