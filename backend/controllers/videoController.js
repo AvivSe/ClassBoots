@@ -41,7 +41,7 @@ class VideoController {
         let result = null;
         await Video.findById(id).then(async video => {
             result = video;
-            if (userid == null) {
+            if (userid != null) {
                 await History.findOne({user: userid}).then(async history => {
                     await History.findOne({user: userid}, function (err, history) {
                         for (var i = 0; i < history.watches.length; i++)
