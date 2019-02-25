@@ -57,9 +57,8 @@ class SubjectController {
         let result = [];
         await this.getSubject(id).then(async subject=>{
             for (let i = 0; i < subject.lectures.length; i++) {
-                let lecture;
-                await LectureController.getLecture(subject.lectures[i]).then(async subject=>{
-                    if(subject.error !== undefined)
+                await LectureController.getLecture(subject.lectures[i]).then(async lecture=>{
+                    if(lecture.error !== undefined)
                         this.deleteLecture({subjectid:id,lectureid:result.lectures[i]});
                     else result.push(lecture);
                 });
