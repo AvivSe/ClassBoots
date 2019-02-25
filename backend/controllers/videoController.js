@@ -41,12 +41,12 @@ class VideoController {
         let result = null;
         await Video.findById(id).then(video => {
             result = video;
-            History.findAndUpdate({user:userid},
-                {$addToSet: {watches:id}},
-                {$upsert:false},
-                err=>{
-                if(err) errorsController.logger({error:'getVideo',description:err});
-            });
+            // History.findAndUpdate({user:userid},
+            //     {$addToSet: {watches:id}},
+            //     {$upsert:false},
+            //     err=>{
+            //     if(err) errorsController.logger({error:'getVideo',description:err});
+            // });
             let secondesAgo = (new Date() - video.lastscrape) / 1000;
             if (secondesAgo > 60) {
                 Video.findByIdAndUpdate(
