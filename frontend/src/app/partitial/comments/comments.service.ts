@@ -43,15 +43,18 @@ export class CommentsService {
 
     redrawComments(comments: any[]) {
         this.comments = [];
-        comments.forEach(comment => {
-            this.comments = [ {
-                videoId: comment.videoId,
-                id: comment._id,
-                user: comment.user,
-                title: comment.title,
-                comment: comment.content
-            } , ...this.comments];
-        });
+
+        if (comments) {
+            comments.forEach(comment => {
+                this.comments = [{
+                    videoId: comment.videoId,
+                    id: comment._id,
+                    user: comment.user,
+                    title: comment.title,
+                    comment: comment.content
+                }, ...this.comments];
+            });
+        }
 
         this.commentsUpdated.next([...this.comments]);
     }

@@ -31,7 +31,7 @@ export class ItemsListComponent implements OnInit {
     }
     getImage(image){
         if(image == null) {
-            return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlt7ypGCM9JZSCGfXXphw_WOvsys7fs4Oagpo8ZZfbZi8adCvQ'
+            return 'https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/07/Fotolia_117855281_Subscription_Monthly_M.jpg';
         }
         return image;
     }

@@ -1,6 +1,6 @@
 // socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const socketIoConfig: SocketIoConfig = { url: 'https://classboots.herokuapp.com', options: {} };
+const socketIoConfig: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
@@ -83,6 +83,7 @@ import { VideoPlayerComponent } from './partitial/entities/video/video-player/vi
 import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
 import { SearchComponent } from './partitial/entities/search/search.component';
+import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 
 @NgModule({
     declarations: [
@@ -139,6 +140,7 @@ import { SearchComponent } from './partitial/entities/search/search.component';
         VideolistComponent,
         VideoEditComponent,
         SearchComponent,
+        LectureComponent,
     ],
     imports: [
         BrowserModule,

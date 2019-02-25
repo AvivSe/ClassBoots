@@ -3,13 +3,13 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
-import {log} from "util";
 
 @Injectable({providedIn: "root"})
 export class entitiesService implements OnInit {
     itemList;
 
     constructor(private matSnackBar: MatSnackBar, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+
     }
 
     ngOnInit(): void {
@@ -30,27 +30,26 @@ export class entitiesService implements OnInit {
 
     //GET ALL (FUNCTIONS)
     public getInstitutions() {
-        this.apiRequest(environment.baseUrl + 'api/' + "institution", "schools", "Institution", "Institution", false);
+        this.apiRequest(environment.baseUrl + 'api/' + "institution", "institution", "Institution", "Institution", false);
     }
 
     public getSchools(_id) {
-        this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/" + _id, "subjects", "School", _id, true);
+        this.apiRequest(environment.baseUrl + 'api/' + "institution/getschools/" + _id, "school", "School", _id, true);
     }
 
     public getSubjects(_id) {
-        this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/" + _id, "lectures", "Subject", _id, true);
+        this.apiRequest(environment.baseUrl + 'api/' + "school/getsubjects/" + _id, "subject", "Subject", _id, true);
     }
 
     public getLectures(_id) {
-        this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/" + _id, "Video", "Lecture", _id, true);
+        this.apiRequest(environment.baseUrl + 'api/' + "subject/getlectures/" + _id, "lecture", "Lecture", _id, true);
     }
 
-    public getVideos(_id) {
+    public getPlaylistByLectureId(_id, next) {
         this.http.get(environment.baseUrl + 'api/lecture/getvideos/' + _id).subscribe(data => {
-            this.videoListEmitter.emit({data: data, lectureid: _id});
+            next(data);
         });
     }
-
     //API REQUEST FUNCTIONS
     apiRequest(request, nextPath, title, currentId, enableAdd: boolean) {
         this.http.get(request).subscribe(data => {
