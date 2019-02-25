@@ -42,7 +42,7 @@ var defineRoutes = router =>{
         res.status(result?201:400).send(result);
     });
 
-    router.get('/getvideos/:id', async function(req,res){
+    router.get('/getvideos/:id', checkAuth, async function(req,res){
         let result = await LectureController.getVideos(req.params.id);
         res.status(result?200:400).send(result);
     });
