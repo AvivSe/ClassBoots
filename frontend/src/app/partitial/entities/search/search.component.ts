@@ -10,16 +10,14 @@ import {SlideInOutAnimation} from "../../../../animations";
 })
 export class SearchComponent implements OnInit {
   animationState = 'out';
-  enableSearchBar : boolean = false;
 
-  constructor(private entitiesService:entitiesService){}
-  ngOnInit(){
-    this.entitiesService.changeSideBarEmitter.subscribe(()=>{
-      this.toggleShowDiv()
+  constructor(private entitiesService:entitiesService){
+    this.entitiesService.SearchEmitter.subscribe(() =>{
+      this.toggleShowDiv();
     })
   }
-
+  ngOnInit(){}
   toggleShowDiv() {
-    this.animationState = this.animationState === 'out' ? 'in' : 'out';
+      this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
 }

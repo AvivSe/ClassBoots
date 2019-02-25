@@ -9,9 +9,9 @@ import {entitiesService} from "../../partitial/entities/entities.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  statistics = {institutions: 75926,schools:2946,lectures:122326,videos:23123468};
+  statistics = {institutions: 0,schools:0,lectures:0,videos:0};
 
-  constructor(public authService : AuthService,private entitiesService : entitiesService){}
+  constructor(public authService : AuthService,public entitiesService : entitiesService){}
   ngOnInit() {
     const options = {
       strings: ["Hello!","Welcome to ClassBoost", "Welcome to ClassBoots* !","First you have to select a Institution.","So get down with the scroller..","AND START TO SUCCESS!"],
@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
     };
     const typed = new Typed('.typed', options);
     this.entitiesService.statisticsEmitter.subscribe(data =>{
-      this.statistics = data;
-    })
+    });
   }
 }
