@@ -12,7 +12,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class AuthService {
     @Output() getUser : EventEmitter<any> = new EventEmitter<any>();
     @Output() commandSuccess : EventEmitter<any> = new EventEmitter<any>();
-    @Output() searchEmitter : EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private http : HttpClient,private matSnackBar: MatSnackBar, private route: ActivatedRoute, private router: Router){
         this.isLoggedIn = false;
@@ -158,10 +157,5 @@ export class AuthService {
         //TODO: keep the post in the database
         this.router.navigate(['']);
         this.matSnackBar.open('We received your message and we\'ll be in contact soon as possible.', null, {duration: 3000});
-    }
-    findLecture(searchData){
-       this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {
-           this.searchEmitter.emit(data)
-       });
     }
 }

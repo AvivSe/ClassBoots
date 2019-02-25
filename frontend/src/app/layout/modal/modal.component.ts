@@ -30,10 +30,12 @@ export class ModalComponent implements OnInit {
 
   isLogged(){
     return this.authService.isLogged()
-
   }
   onLogout() {
     this.authService.logout();
     this.router.navigate(['']);
+  }
+  changeSearchComponent(){
+    this.entitiesService.SearchEmitter.emit();
   }
 }

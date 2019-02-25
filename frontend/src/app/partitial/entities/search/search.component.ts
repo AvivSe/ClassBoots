@@ -15,27 +15,25 @@ export class SearchComponent implements OnInit {
   enableSearchBar: boolean = false;
   answerLoaded: boolean = false;
   data;
-
-  constructor(private authService: AuthService, private entitiesService: entitiesService) {
+  constructor(private authService: AuthService,private entitiesService: entitiesService) {
   }
-
   ngOnInit() {
-    this.entitiesService.changeSideBarEmitter.subscribe(() => {
-      this.toggleShowDiv()
-    })
-    this.authService.searchEmitter.subscribe(data => {
-      this.data = data;
-      this.answerLoaded = true;
-    });
+      this.entitiesService.SearchEmitter.subscribe(data=>{
+          if(data == null) {
+              this.toggleShowDiv();
+          }
+          else{
+              this.data = data;
+              this.answerLoaded = true;
+          }
+      })
   }
-
   toggleShowDiv() {
     this.animationState = this.animationState === 'out' ? 'in' : 'out';
     setTimeout(() => {
       this.answerLoaded = false;
     }, 1000);
   }
-
   onSearch(searchForm) {
     if (searchForm.invalid)
       return;
@@ -45,7 +43,7 @@ export class SearchComponent implements OnInit {
       subject: searchForm.value.searchSubject,
       lecture: searchForm.value.searchLecture,
     };
-    this.authService.findLecture(searchData);
+    this.entitiesService.findLecture(searchData);
     searchForm.resetForm();
   }
 }
