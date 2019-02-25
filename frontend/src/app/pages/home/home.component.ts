@@ -47,7 +47,13 @@ export class HomeComponent implements OnInit {
       resetCallback: function() {}
     };
     const typed = new Typed('.typed', options);
-    this.entitiesService.statisticsEmitter.subscribe(data =>{
-    });
+    for(var i=0;i<6273;i++){
+      setTimeout(()=>{
+        this.statistics.institutions++;
+        this.statistics.schools++;
+        this.statistics.videos++;
+        this.statistics.lectures++;
+      },0)
+    }
   }
 }
