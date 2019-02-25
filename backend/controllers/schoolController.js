@@ -46,15 +46,16 @@ class SchoolController {
 
     static async getSubjects(id) {
         let result = [];
-        result = await this.getSchool(id).then(async school=>{
+        await this.getSchool(id).then(async school=>{
             for (let i = 0; i < school.subjects.length; i++) {
-                let subject = await SubjectController.getSubject(school.subjects[i]);
-                if(subject.error !== undefined)
-                    this.deleteSubject({schoolid:id,subjectid:school.subjects[i]});
-                else result.push(subject);
+                await SubjectController.getSubject(school.subjects[i]).then(async subject=>{
+                    if(subject.error !== undefined)
+                        this.deleteSubject({schoolid:id,subjectid:school.subjects[i]});
+                    else result.push(subject);
+                });
             }
         }).catch(async err=>{
-            result = {error:true,description:'school not found'};
+            result = {error:true,description:'institution not found'};
             // TODO: need to fix
         });
         return result;
