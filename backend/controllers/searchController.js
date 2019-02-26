@@ -14,6 +14,56 @@ const Institution = require('../models/institution');
 class SearchController {
 
     static async searchLecture(body) {
+        var result = [];
+        if(!body.generalSearch)
+            return null;
+        var result = await Lecture.find(
+            {$or:[{name:{$regex: body.generalSearch, $options: 'i'}},{description:{$regex: body.generalSearch, $options: 'i'}}]},
+            {$and:[{lecturer:{$regex: body.lecturer, $options: 'i'}},{date:{$gte: body.date}}]},
+             async (err, docs) => {
+                 if (err)
+                     console.log(err);
+             }).then(async x => {
+            let doc = [];
+            for (let i = 0; i < x.length; i++) {
+                // console.log(docs[i]);
+                doc[i] = await LectureController.getLecture(x[i]);
+            }
+            return doc;
+        }).then(async lectures => {
+            if(body.school != null)
+            {
+                let schools = await School.find({name: {$regex: body.school, $options: 'i'}},
+                    async (err, docs) => {
+                        if (err)
+                            console.log(err);
+                    }).then(docs => {
+                    for (let i = 0; i < docs.length; i++) {
+                        docs[i] = docs[i]._id;
+                    }
+                    return docs;
+                }).then(async docs => {
+                    let schoolfilter = [];
+                    for (let i = 0; i < lectures.length; i++) {
+                        let x = await SubjectController.getSubject(lectures[i].subjectid);
+                        for (let j = 0; j < docs.length; j++) {
+                            if (docs[j].toString() == x.schoolid.toString()) {
+                                schoolfilter[i] = lectures[i];
+                            }
+                        }
+                    }
+                    return schoolfilter;
+                });
+                return schools;
+            }
+            //console.log(lectures);
+            return lectures;
+        });
+        //console.log(result);
+        // console.log(x+"hi");
+       //  Promise.all(result).then(y=>{
+       //      console.log(y);
+       //  });
 
 
         // TODO: need to fix
@@ -29,13 +79,6 @@ class SearchController {
             //idList = await
         }
 
-
-
-
-
-
-
-
 /*        var result = {};
         var query = {};
         if(body.lecture) {
@@ -48,7 +91,7 @@ class SearchController {
             return data
         });
         console.log(result);*/
-        return null;
+
         /*if(body.institution) {query = {name:{$regex: body.institution, $options: 'i'}}};
         result.institutions = await Institution.find(query , (err, data)=> { return data });
         if(body.school) {query = {name:{$regex: body.school, $options: 'i'}};
@@ -57,8 +100,8 @@ class SearchController {
         result.subjects = await Subject.find(query , (err, data)=> { return data });
         if(body.lecture) {query = {$or:[{name:{$regex: body.lecture, $options: 'i'}},{description:{$regex: body.lecture, $options: 'i'}}]};}
         result.lectures = await Lecture.find(query , (err, data)=> { return data });
-        console.log(result);
-        return result;*/
+        console.log(result);*/
+        return await result;
     };
 
 }
