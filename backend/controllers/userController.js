@@ -51,10 +51,14 @@ class UserController {
     }
 
     static async getUserWatchesHistory(userId) {
-        let history = await this.getUserHistory(userId);
+        let history = [];
+        history = await this.getUserHistory(userId);
+        history = history.watches;
+        history.sort(function(a,b){return a.date - b.date});
+        history = history.slice(0,10);
         let result = [];
-        for(let i = 0; i < history.watches.length; i++) {
-            result.push(await Video.findById(history.watches[i].video));
+        for(let i = 0; i < history.length; i++) {
+            result.push(await Video.findById(history[i].video));
         }
         return result;
     }
