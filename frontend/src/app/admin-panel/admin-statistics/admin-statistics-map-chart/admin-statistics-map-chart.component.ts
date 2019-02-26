@@ -8,15 +8,17 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './admin-statistics-map-chart.component.html',
   styleUrls: ['./admin-statistics-map-chart.component.css']
 })
-export class AdminStatisticsMapChartComponent{
+export class AdminStatisticsMapChartComponent implements OnDestroy, OnInit{
 
   constructor(private http: HttpClient) {
     this.mapChart.dataTable = [];
     this.mapChart.dataTable .push(['Lat', 'Long', 'Name']);
     this.http.get(environment.baseUrl + 'api/institution').subscribe(data => {
       for (let i in data) {
-        let getLocation = data[i].geolocation.toString().split(",");
-        this.mapChart.dataTable.push([Number(getLocation[0]), Number(getLocation[1]), String(data[i].name) ]);
+        if(data[i].geolocation) {
+          let getLocation = data[i].geolocation.toString().split(",");
+          this.mapChart.dataTable.push([Number(getLocation[0]), Number(getLocation[1]), String(data[i].name)]);
+        }
       }
     });
   }
@@ -31,5 +33,11 @@ export class AdminStatisticsMapChartComponent{
       'height':600
     },
   };
+
+  ngOnDestroy(): void {
+  }
+
+  ngOnInit(): void {
+  }
 
 }

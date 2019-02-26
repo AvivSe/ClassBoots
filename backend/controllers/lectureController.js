@@ -1,8 +1,30 @@
 const Lecture = require('../models/lecture');
+const Video = require('../models/video');
+
 const VideoController = require('./videoController');
 const errorsController = require('./errorsController');
+const YoutubeScraper = require('../utils/yt-scraper');
 
 class LectureController {
+    static addYTPlaylistToLectureByYTPLID(lectureID, ytplID) {
+        YoutubeScraper.getPlaylistAsync(ytplID, (playlist)=>{
+            var x = 0;
+            Lecture.findById(lectureID).then(lecture => {
+                if (lecture) {
+                    playlist.forEach((v)=>{
+                        //TODO: If there is already some video with same reference, dont add the video.
+                        let newVideo = new Video({ name: v.name, reference: v.id, lectureid: lectureID, position:  x++ });
+                        console.log(newVideo);
+                        VideoController.createVideo(newVideo);
+                        LectureController.addVideo({ lectureid: lectureID, videoid: newVideo._id });
+                    });
+                }
+            }).catch(err => {
+                errorsController.logger({error:'addYTPlaylistToLectureByYTPLID',description:err});
+            });
+        });
+    }
+
     static async getLectureCollection() {
         var result;
         var invalid = {};
