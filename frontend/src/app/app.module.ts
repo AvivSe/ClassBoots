@@ -89,7 +89,7 @@ import { VideoEditComponent } from './partitial/entities/video/video-edit/video-
 import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
-
+import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
 @NgModule({
     declarations: [
         AppComponent,
@@ -145,6 +145,7 @@ import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/
         VideolistComponent,
         VideoEditComponent,
         SearchComponent,
+        LastWatchesComponent,
         LectureComponent,
         YoutubeCommentsComponent,
     ],
@@ -159,9 +160,7 @@ import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/
         MatButtonModule,
         MatGridListModule,
         MatExpansionModule,
-        MatSlideToggleModule,
         Ng2GoogleChartsModule,
-        MatCheckboxModule,
         MatButtonToggleModule,
         MatPaginatorModule,
         AgGridModule.withComponents([]),
