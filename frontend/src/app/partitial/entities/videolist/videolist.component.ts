@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {entitiesService} from "../entities.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-videolist',
@@ -7,18 +8,23 @@ import {entitiesService} from "../entities.service";
   styleUrls: ['./videolist.component.css']
 })
 export class VideolistComponent implements OnInit {
+  @Input() lectureId;
   data = [{position: '',_id:''}];
-  currentLecture;
-  constructor(private entitiesService :entitiesService) { }
+
+  constructor(private entitiesService :entitiesService, route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
-    this.entitiesService.videoListEmitter.subscribe(data=>{
-      this.data = data.data;
-      this.currentLecture = data.lectureid;
-    })
+    this.entitiesService.getPlaylistByLectureId(this.lectureId,(data)=> {
+      this.data = data;
+      if(data.length > 0) {
+        this.router.navigate(['/lecture/' + this.lectureId, {outlets: {videoOutlet: [data[0]._id]}}]);
+      }
+    });
   }
   onClick(videoId){
-    this.entitiesService.getVideo(videoId);
+    this.router.navigateByUrl('/lecture/'+this.lectureId, {skipLocationChange: true}).then(()=>
+        this.router.navigate(['/lecture/'+this.lectureId, { outlets: { videoOutlet: [videoId] } }]));
   }
 
 }

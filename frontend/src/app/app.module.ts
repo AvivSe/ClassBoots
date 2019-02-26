@@ -1,6 +1,8 @@
+import {environment} from "../environments/environment";
+
 // socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const socketIoConfig: SocketIoConfig = { url: 'https://classboots.herokuapp.com', options: {} };
+const socketIoConfig: SocketIoConfig = { url: environment.baseUrl , options: {} };
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
@@ -83,7 +85,7 @@ import { VideoPlayerComponent } from './partitial/entities/video/video-player/vi
 import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
 import { SearchComponent } from './partitial/entities/search/search.component';
-import { LastWatchesComponent } from './partitial/auth/last-watches/last-watches.component';
+import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
 
 @NgModule({
     declarations: [

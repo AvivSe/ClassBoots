@@ -1,11 +1,13 @@
-console.log('Error connect');
+const Error = require('../models/errors');
+
 
 class errorsController {
 
-    static logger(err, description){
-       console.log(err+': '+description);
-    }
 
+    static logger(body) {
+        var error = new Error(body);
+        error.save();
+    };
 
 }
 module.exports = errorsController;

@@ -1,61 +1,61 @@
 const Lecture = require('../models/lecture');
 const VideoController = require('./videoController');
 const errorsController = require('./errorsController');
-console.log('Lecture connect');
 
 class LectureController {
     static async getLectureCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result;
+        var invalid = {};
         result = await Lecture.find(err => {
-            if (err) {//send to function error
-                result = invalid;
-                errorsController.logger(err,result);
-
+            if (err) {
+                invalid = {error:true,description:err};
+                errorsController.logger({error:'getLectureCollection',description:err});
             }
         });
-        return result;
+        return invalid.error===undefined?result:invalid;
     };
 
     static async createLecture(body) {
+        var result = {};
         var lecture = new Lecture(body);
-        await lecture.save((err)=> {
+        await lecture.save(err => {
             if (err) {
-                errorsController.logger("Create Lecture",err);
+                result = {error:true,description:err};
+                errorsController.logger({error:'createLecture',description:err});
             }
         });
-        return lecture;
+        return result.error===undefined?lecture:result;
     }
 
     static async getLecture(id) {
-        let result = null;
-
+        var result = null;
         await Lecture.findById(id).then(lecture => {
             if (lecture)
                 result = lecture;
             else
-                result = {"ERROR":"lecture not found"};
+                result = {error:true,description:'lecture not found'};
         }).catch(err => {
-            result = err;
-            errorsController.logger(err,result);
+            result = {error:true,description:err};
+            errorsController.logger({error:'getLecture',description:err});
         });
         return result;
     };
 
     static async getVideos(id) {
-        let result = await this.getLecture(id);
-        if(result.ERROR)
-            return result;
-        var myvideos = [];
-        for (let i = 0; i < result.videos.length; i++) {
-            let video = await VideoController.getVideo(result.videos[i]);
-            if(video.ERROR !== undefined)
-                this.deleteVideo({lectureid:id,videoid:result.videos[i]});
-            else myvideos.push(video);
-        }
-        return myvideos;
+        let result = [];
+        await this.getLecture(id).then(async lecture=>{
+            for (let i = 0; i < lecture.videos.length; i++) {
+                await VideoController.getVideo(lecture.videos[i],null).then(async video=>{
+                    if(video.error !== undefined)
+                        this.deleteVideo({lectureid:id,videoid:lecture.videos[i]});
+                    else result.push(video);
+                });
+            }
+        }).catch(async err=>{
+            result = {error:true,description:'lecture not found'};
+            // TODO: need to fix
+        });
+        return result;
     };
 
     /**
@@ -65,31 +65,50 @@ class LectureController {
      */
     static async deleteLecture(id) {
         let result = null;
-        let obj = await Lecture.findByIdAndDelete(id);
-        obj.videos.forEach(async videoId => {
-            result = await VideoController.deleteVideo(videoId);
-            if (result) {
-                console.log(result);
-            }
+        await Lecture.findByIdAndDelete(id).then(obj=>{
+            obj.videos.forEach(async videoid => {
+                result = await VideoController.deleteVideo(videoid);
+            });
+        }).catch(err => {
+            result = {error:true,description:err};
+            errorsController.logger({error:'deleteLecture',description:err});
         });
         return result;
     };
 
     static async updateLecture(body) {
-        let result = await Lecture.findByIdAndUpdate(body._id, body, {new: true}, err => {
-            if (err) errorsController.logger("update Lecture",err);
+        var invalid = {};
+        await Lecture.findByIdAndUpdate(body._id, body, {}).catch(err => {
+            invalid = {error:true,description:err};
+            errorsController.logger({error:'updateLecture',description:err});
         });
-        return result;
+        return invalid;
     }
 
     static async addVideo(body) {
+        var lecture = await this.getLecture(body.lectureid);
+        if(lecture.error)
+            return lecture;
+        var video = await VideoController.getVideo(body.videoid);
+        if(video.error)
+            return video;
+        var invalid = {};
         var result = await Lecture.findByIdAndUpdate(
             body.lectureid,
-            { $push: {"videos": body.videoid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"videos": body.videoid}},
+            { upsert: true},(err,lecture)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addVideo',description:err});
+                }
+                if(lecture){
+                    VideoController.updateVideo({_id:body.videoid,lectureid:lecture._id});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
+    // TODO: don't need now! but need to fix
     static async deleteVideo(body) {
         Lecture.findByIdAndUpdate(
             body.lectureid,

@@ -1,32 +1,32 @@
 const School = require('../models/school');
 const SubjectController = require('./subjectController');
 const errorsController = require('./errorsController');
-console.log('School connect');
+
 
 
 class SchoolController {
     static async getSchoolCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result;
+        var invalid = {};
         result = await School.find(err => {
             if (err) {
-                result = invalid;
-                errorsController.logger(err,result);
+                invalid = {error:true,description:err};
+                errorsController.logger({error:'getSchoolCollection',description:err});
             }
         });
-        return result;
+        return invalid.error===undefined?result:invalid;
     };
 
     static async createSchool(body) {
+        var result = {};
         var school = new School(body);
         await school.save((err)=> {
-                if (err) {
-                    errorsController.logger("Create School",err);
-                }
+            if (err) {
+                result = {error:true,description:err};
+                errorsController.logger({error:'createInstitution',description:err});
+            }
             });
-        return school;
+        return result.error===undefined?school:result;
     }
 
     static async getSchool(id) {
@@ -35,26 +35,29 @@ class SchoolController {
             if (school)
                 result = school;
             else
-                result = {"ERROR":"school not found"};
+                result = {error:true,description:'school not found'};
         }).catch(err => {
-            result = {"ERROR":"school not found"};
-            errorsController.logger("Get Subject",err);
+            result = {error:true,description:err};
+            errorsController.logger({error:'getSchool',description:err});
         });
         return result;
     };
 
     static async getSubjects(id) {
-        let result = await this.getSchool(id);
-        if(result.ERROR)
-            return result;
-        var mysubjects = [];
-        for (let i = 0; i < result.subjects.length; i++) {
-            let subject = await SubjectController.getSubject(result.subjects[i]);
-            if(subject.ERROR !== undefined)
-                this.deleteSubject({schoolid:id,subjectid:result.subjects[i]});
-            else mysubjects.push(subject);
-        }
-        return mysubjects;
+        let result = [];
+        await this.getSchool(id).then(async school=>{
+            for (let i = 0; i < school.subjects.length; i++) {
+                await SubjectController.getSubject(school.subjects[i]).then(async subject=>{
+                    if(subject.error !== undefined)
+                        this.deleteSubject({schoolid:id,subjectid:school.subjects[i]});
+                    else result.push(subject);
+                });
+            }
+        }).catch(async err=>{
+            result = {error:true,description:'institution not found'};
+            // TODO: need to fix
+        });
+        return result;
     };
 
     /**
@@ -64,31 +67,51 @@ class SchoolController {
      */
     static async deleteSchool(id) {
         let result = null;
-        let obj = await School.findByIdAndDelete(id);
-        obj.subjects.forEach(async subjectId => {
-            result = await SubjectController.deleteSubject(subjectId);
-            if (result) {
-                console.log(result);
-            }
+        await School.findByIdAndDelete(id).then(obj=>{
+            obj.subjects.forEach(async subjectId => {
+                result = await SubjectController.deleteSubject(subjectId);
+            });
+        }).catch(err => {
+            result = {error:true,description:err};
+            errorsController.logger({error:'deleteSchool',description:err});
         });
+
         return result;
     };
 
     static async updateSchool(body) {
-        let result = await School.findByIdAndUpdate(body._id, body, {new: true}, err => {
-            if (err) errorsController.logger("update School",err);
+        var invalid = {};
+        await School.findByIdAndUpdate(body._id, body, {}).catch(err => {
+            invalid = {error:true,description:err};
+            errorsController.logger({error:'updateSchool',description:err});
         });
-        return result;
+        return invalid;
     }
 
     static async addSubject(body) {
+        var school = await SchoolController.getSchool(body.schoolid);
+        if(school.error)
+            return school;
+        var subject = await SubjectController.getSubject(body.subjectid);
+        if(subject.error)
+            return subject;
+        var invalid = {};
         var result = await School.findByIdAndUpdate(
             body.schoolid,
-            { $push: {"subjects": body.subjectid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"subjects": body.subjectid}},
+            { upsert: true},(err,schools)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addSubject',description:err});
+                }
+                if(schools){
+                    SubjectController.updateSubject({_id:body.subjectid,schoolid:school._id});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
+    // TODO: don't need now! but need to fix
     static async deleteSubject(body) {
         School.findByIdAndUpdate(
             body.schoolid,
@@ -100,20 +123,37 @@ class SchoolController {
     };
 
     static async addpermission(body) {
-        var result = await School.findByIdAndUpdate(
+        var school = await this.getSchool(body.schoolid);
+        if(school.error)
+            return school;
+        var invalid = {};
+        var result = await school.findByIdAndUpdate(
             body.schoolid,
-            { $push: {"permission": body.userid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"permission": body.userid}},
+            { upsert: true },
+            (err)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addpermission',description:err});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
     static async deletepermission(body) {
-        School.findByIdAndUpdate(
+        var school = await this.getSchool(body.schoolid);
+        if(school.error)
+            return school;
+        var invalid = {};
+        await School.findByIdAndUpdate(
             body.schoolid,
             { $pull: {"permission": body.userid }},
-            { upsert: true, new: true },
+            { upsert: true },
             err=>{
-                if(err) errorsController.logger("Delete user permission from School",err);
+                if(err) {
+                    invalid = {error: true, description: err};
+                    errorsController.logger({error: 'deletepermission', description: err});
+                }
             });
     };
 

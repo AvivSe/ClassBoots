@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <h1>Lecture Name: {{this.currentLecture.name}}</h1>
+  <div class="row">
+    <div class="col-9">
+      <h5>VIDEO OUTLET</h5>
+      <router-outlet name="videoOutlet"></router-outlet>
+    </div>
+    <div class="col-3">
+      <h5>LIST:</h5>
+      <app-videolist *ngIf="init" [lectureId]="currentLecture._id"></app-videolist>
+    </div>
+
+  </div>
+</div>

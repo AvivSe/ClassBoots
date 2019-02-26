@@ -10,12 +10,12 @@ const Permission = require('../../utils/check-permission');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.get('/:id' , async function(req,res){
-        let result =  await VideoController.getVideo(req.params.id);
+    router.get('/:id', checkAuth, async function(req,res){
+        let result =  await VideoController.getVideo(req.params.id,req.profile.user._id);
         res.status(200).send(result);
     });
 
-    router.post('',  async function(req,res){
+    router.post('', checkAuth, async function(req,res){
         var send = {};
         send.lectureid = req.body.lectureid;
         let result =  await VideoController.createVideo(req.body);
@@ -25,27 +25,27 @@ var defineRoutes = router =>{
     });
 
     // TODO: checkAuth, Role.admin,
-    router.get('', async function(req,res){
+    router.get('', checkAuth, async function(req,res){
         let result =  await VideoController.getVideoCollection(req.body);
         res.status(result?200:400).send(result);
     });
 
-    router.delete('', async function(req,res){
+    router.delete('', checkAuth, async function(req,res){
         let result =  await VideoController.deleteVideo(req.body.id);
         res.status(200).send(result);
     });
 
-    router.put('', async function(req,res){
+    router.put('', checkAuth, async function(req,res){
         let result =  await VideoController.updateVideo(req.body);
         res.status(200).send(result);
     });
 
-    router.post('/addcomment',  async function(req,res){
+    router.post('/addcomment', checkAuth, async function(req,res){
         let result =  await VideoController.addComment(req.body);
         res.status(200).send(result);
     });
 
-    router.delete('/deletecomment',  async function(req,res){
+    router.delete('/deletecomment', checkAuth, async function(req,res){
         let result =  await VideoController.deleteComment(req.body);
         res.status(200).send(result);
     });

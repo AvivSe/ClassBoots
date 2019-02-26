@@ -1,68 +1,73 @@
 const Subject = require('../models/subject');
 const LectureController = require('./lectureController');
 const errorsController = require('./errorsController');
-console.log('Subject connect');
 
 
 class SubjectController {
     static async getSubjectCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result;
+        var invalid = {};
         result = await Subject.find(err => {
             if (err) {
-                result = invalid;
-                errorsController.logger(err,result);
+                invalid = {error:true,description:err};
+                errorsController.logger({error:'getSubjectCollection',description:err});
             }
         });
-        return result;
+        return invalid.error===undefined?result:invalid;
     };
 
 
     static async createSubject(body) {
+        var result = {};
         var subject = new Subject(body);
         await subject.save(err => {
             if (err) {
-                errorsController.logger("Create Subject",err);
+                result = {error:true,description:err};
+                errorsController.logger({error:'createSubject',description:err});
             }
         });
-        return subject;
+        return result.error===undefined?subject:result;
     };
 
     static async updateSubject(body) {
-        let result = await Subject.findByIdAndUpdate(body._id, body, {new: true}, err => {
-            if (err) errorsController.logger("update Subject",err);
+        var invalid = {};
+        await Subject.findByIdAndUpdate(body._id, body, {}).catch(err => {
+            invalid = {error:true,description:err};
+            errorsController.logger({error:'updateSubject',description:err});
         });
-        return result;
+        return invalid;
     }
 
     static async getSubject(id) {
-        let result = null;
+        var result = null;
         await Subject.findById(id).then(subject => {
             if (subject)
                 result = subject;
             else
-                result = {"ERROR":"subject not found"};
+                result = {error:true,description:'subject not found'};
         }).catch(err => {
-            result = {"ERROR":"subject not found"};
-            errorsController.logger("Get Subject",err);
+            result = {error:true,description:err};
+            errorsController.logger({error:'getSubject',description:err});
         });
         return result;
     };
 
     static async getLectures(id) {
-        let result = await this.getSubject(id);
-        if(result.ERROR)
-            return result;
-        var mylectures = [];
-        for (let i = 0; i < result.lectures.length; i++) {
-            let lecture = await LectureController.getLecture(result.lectures[i]);
-            if(lecture.ERROR !== undefined)
-                this.deleteLecture({subjectid:id,lectureid:result.lectures[i]});
-            else mylectures.push(lecture);
-        }
-        return mylectures;
+        let result = [];
+        await this.getSubject(id).then(async subject=>{
+            for (let i = 0; i < subject.lectures.length; i++) {
+                await LectureController.getLecture(subject.lectures[i]).then(async lecture=>{
+                    if(lecture.error !== undefined)
+                        this.deleteLecture({subjectid:id,lectureid:result.lectures[i]});
+                    else result.push(lecture);
+                });
+            }
+        }).catch(async err=>{
+            result = {error:true,description:'subject not found'};
+            // TODO: need to fix
+        });
+        return result;
+
     };
 
     /**
@@ -72,22 +77,38 @@ class SubjectController {
      */
     static async deleteSubject(id) {
         let result = null;
-        let obj = await Subject.findByIdAndDelete(id);
-        obj.lectures.forEach(async lectureId => {
-            result = await LectureController.deleteLecture(lectureId);
-            if (result) {
-                console.log(result);
-            }
+        await Subject.findByIdAndDelete(id).then(obj=>{
+            obj.lectures.forEach(async lectureID => {
+                result = await LectureController.deleteLecture(lectureID);
+            });
+        }).catch(err => {
+            result = {error:true,description:err};
+            errorsController.logger({error:'deleteSubject',description:err});
         });
         return result;
     };
 
     static async addLecture(body) {
+        var subject = await this.getSubject(body.subjectid);
+        if(subject.error)
+            return subject;
+        var lecture = await LectureController.getLecture(body.lectureid);
+        if(lecture.error)
+            return lecture;
+        var invalid = {};
         var result = await Subject.findByIdAndUpdate(
             body.subjectid,
-            { $push: {"lectures": body.lectureid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"lectures": body.lectureid}},
+            { upsert: true},(err,subject)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addLecture',description:err});
+                }
+                if(subject){
+                    LectureController.updateLecture({_id:body.lectureid,subjectid:subject._id});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
     static async deleteLecture(body) {
@@ -96,7 +117,7 @@ class SubjectController {
             { $pull: {"lectures": body.lectureid }},
             { upsert: true, new: true },
             err=>{
-                if(err) errorsController.logger("Delete Lecture from Subject",err);
+                if(err) errorsController.logger("Delete lectures from subject",err);
             });
     };
 

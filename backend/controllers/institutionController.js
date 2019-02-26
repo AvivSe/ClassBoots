@@ -1,62 +1,62 @@
 const Institution = require('../models/institution');
 const errorsController = require('./errorsController');
 const SchoolController = require('./schoolController');
-console.log('Institution connect');
 
 class InstitutionController {
     static async getInstitutionCollection() {
-        let result = null;
-        const invalid = "ERROR";
-        // TODO: error handler
-        // TODO: we can use body as filters.
+        var result;
+        var invalid = {};
         result = await Institution.find(err => {
             if (err) {
-                result = invalid;
-                errorsController.logger(err,result);
+                invalid = {error:true,description:err};
+                errorsController.logger({error:'getInstitutionCollection',description:err});
             }
         });
-        return result;
+        return invalid.error===undefined?result:invalid;
     };
 
     static async createInstitution(body) {
+        var result = {};
         var institution = new Institution(body);
         await institution.save(err => {
             if (err) {
-                errorsController.logger("Create Institution",err);
+                result = {error:true,description:err};
+                errorsController.logger({error:'createInstitution',description:err});
             }
         });
-        return institution;
+        return result.error===undefined?institution:result;
     };
 
 
     static async getInstitution(id) {
-        let result = null;
+        var result = null;
         await Institution.findById(id).then(institution => {
-            if (institution) {
+            if (institution)
                 result = institution;
-            }
             else
-                result = {"ERROR":"institution not found"};
+                result = {error:true,description:'Institution not found'};
         }).catch(err => {
-            result = {"ERROR":"institution not found"};
-            errorsController.logger("Get Subject",err);
+            result = {error:true,description:err};
+            errorsController.logger({error:'getInstitution',description:err});
         });
-
         return result;
     };
 
     static async getSchools(id) {
-        let result = await this.getInstitution(id);
-        if(result.ERROR)
-            return result;
-        var myschools = [];
-        for (let i = 0; i < result.schools.length; i++) {
-            let school = await SchoolController.getSchool(result.schools[i]);
-            if(school.ERROR !== undefined)
-                this.deleteSchool({institutionid:id,schoolid:result.schools[i]});
-            else myschools.push(school);
-        }
-        return myschools;
+        let result = [];
+        await this.getInstitution(id).then(async institution=>{
+            for (let i = 0; i < institution.schools.length; i++) {
+                await SchoolController.getSchool(institution.schools[i]).then(async school=>{
+                    if(school.error !== undefined)
+                        this.deleteSchool({institutionid:id,schoolid:institution.schools[i]});
+                    else result.push(school);
+                });
+            }
+        }).catch(async err=>{
+            result = {error:true,description:'institution not found'};
+            // TODO: need to fix
+        });
+        return result;
     };
 
     /**
@@ -64,34 +64,52 @@ class InstitutionController {
      * @param id of institution to be removed.
      * @returns {Promise<*>}
      */
-    // TODO: need to fix the delete
     static async deleteInstitution(id) {
         let result = null;
-        let obj = await Institution.findByIdAndDelete(id);
-        obj.schools.forEach(async schoolId => {
-            result = await SchoolController.deleteSchool(schoolId);
-            if (result) {
-                console.log(result);
-            }
+        await Institution.findByIdAndDelete(id).then(obj=>{
+            obj.schools.forEach(async schoolId => {
+                result = await SchoolController.deleteSchool(schoolId);
+            });
+        }).catch(err => {
+            result = {error:true,description:err};
+            errorsController.logger({error:'deleteInstitution',description:err});
         });
         return result;
     };
 
     static async updateInstitution(body) {
-        let result = await Institution.findByIdAndUpdate(body._id, body, {new: true}, err => {
-            if (err) errorsController.logger("update Institution",err);
+        var invalid = {};
+        await Institution.findByIdAndUpdate(body._id, body, {}).catch(err => {
+            invalid = {error:true,description:err};
+            errorsController.logger({error:'updateInstitution',description:err});
         });
-        return result;
+        return invalid;
     }
 
     static async addSchool(body) {
+        var institution = await this.getInstitution(body.institutionid);
+        if(institution.error)
+            return institution;
+        var school = await SchoolController.getSchool(body.schoolid);
+        if(school.error)
+            return school;
+        var invalid = {};
         var result = await Institution.findByIdAndUpdate(
             body.institutionid,
-            { $push: {"schools": body.schoolid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"schools": body.schoolid}},
+            { upsert: true},(err,institution)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addSchool',description:err});
+                }
+                if(institution){
+                    SchoolController.updateSchool({_id:body.schoolid,institutionid:institution._id});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
+    // TODO: don't need now! but need to fix
     static async deleteSchool(body) {
         Institution.findByIdAndUpdate(
             body.institutionid,
@@ -103,20 +121,37 @@ class InstitutionController {
     };
 
     static async addpermission(body) {
+        var institution = await this.getInstitution(body.institutionid);
+        if(institution.error)
+            return institution;
+        var invalid = {};
         var result = await Institution.findByIdAndUpdate(
             body.institutionid,
-            { $push: {"permission": body.userid}},
-            { upsert: true, new: true });
-        return result;
+            { $addToSet: {"permission": body.userid}},
+            { upsert: true },
+            (err)=>{
+                if(err){
+                    invalid = {error:true,description:err};
+                    errorsController.logger({error:'addpermission',description:err});
+                }
+            });
+        return invalid.error===undefined?result:invalid;
     };
 
     static async deletepermission(body) {
-        Institution.findByIdAndUpdate(
+        var institution = await this.getInstitution(body.institutionid);
+        if(institution.error)
+            return institution;
+        var invalid = {};
+        await Institution.findByIdAndUpdate(
             body.institutionid,
             { $pull: {"permission": body.userid }},
-            { upsert: true, new: true },
+            { upsert: true },
             err=>{
-                if(err) errorsController.logger("Delete user permission from Institution",err);
+                if(err) {
+                    invalid = {error: true, description: err};
+                    errorsController.logger({error: 'deletepermission', description: err});
+                }
             });
     };
 
