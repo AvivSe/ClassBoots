@@ -1,6 +1,9 @@
 .input-size{
     width: 100%;
 }
+.input-size1{
+    width:200px ;
+}
 .login-btn-color{
     background-color: #a5b439;
     color:white;

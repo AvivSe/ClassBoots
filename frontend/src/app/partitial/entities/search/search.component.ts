@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
   enableSearchBar: boolean = false;
   answerLoaded: boolean = false;
   data;
+    isDisabled: any;
   constructor(private authService: AuthService,private entitiesService: entitiesService) {
   }
   ngOnInit() {
@@ -38,10 +39,10 @@ export class SearchComponent implements OnInit {
     if (searchForm.invalid)
       return;
     const searchData = {
-      institution: searchForm.value.searchInstitution,
+      generalSearch: searchForm.value.searchGeneral,
+      date: searchForm.value.searchDate,
+      lecturer: searchForm.value.searchLecturer,
       school: searchForm.value.searchSchool,
-      subject: searchForm.value.searchSubject,
-      lecture: searchForm.value.searchLecture,
     };
     this.entitiesService.findLecture(searchData);
     searchForm.resetForm();

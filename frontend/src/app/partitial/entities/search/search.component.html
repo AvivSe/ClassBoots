@@ -4,17 +4,33 @@
             <form (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm">
                 <div class="form-group">
                     <mat-form-field class="input-size">
-                        <input matInput type="text" placeholder="institution" name="institution" ngModel>
+                        <input matInput type="text" placeholder="Search" name="generalSearch" ngModel required>
                     </mat-form-field>
-                    <mat-form-field class="input-size">
-                        <input matInput type="text" placeholder="school" name="school" ngModel>
-                    </mat-form-field>
-                    <mat-form-field class="input-size">
-                        <input matInput type="text" placeholder="subject" name="subject" ngModel>
-                    </mat-form-field>
-                    <mat-form-field class="input-size">
-                        <input matInput type="text" placeholder="lecture" name="lecture" ngModel>
-                    </mat-form-field>
+
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Advanced Search
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-form-field class="input-size">
+                                <input matInput type="date" placeholder="Date" name="date" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="text" placeholder="lecturer" name="lecturer" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="text" placeholder="school" name="school" ngModel>
+                            </mat-form-field>
+                            <mat-action-row class="searchNow">
+                                <button mat-raised-button color="primary">Search now</button>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+
+
                 </div>
                 <button type="submit" [disabled]="searchForm.invalid" class="btn login-btn-color btn-lg"
                         style="width: 100%">
@@ -28,6 +44,9 @@
                 {{item.name}}
                 </div>
             </div>
+        </div>
+        <div style="text-align:center; font-size: 3em;">
+            <i class="material-icons" style="cursor: pointer;" (click)="toggleShowDiv()">keyboard_arrow_up</i>
         </div>
     </div>
 </div>
