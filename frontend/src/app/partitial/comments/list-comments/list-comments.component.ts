@@ -3,15 +3,12 @@ import { Comment } from "../comment.model";
 import { CommentsService}  from "../comments.service";
 import { Subscription } from 'rxjs';
 import {MatPaginator} from "@angular/material";
-import {log} from "util";
-import {keys} from "d3-collection";
 @Component({
   selector: 'app-list-comments',
   templateUrl: './list-comments.component.html',
   styleUrls: ['./list-comments.component.css']
 })
 export class ListCommentsComponent implements OnInit {
-
   comments:Comment[] = [];
   commentsSub:Subscription;
 
@@ -25,7 +22,6 @@ export class ListCommentsComponent implements OnInit {
   highValue:number = 10;
 
   getPaginatorData(event){
-    console.log(event);
     if(event.pageIndex === this.pageIndex + 1){
       this.lowValue = this.lowValue + this.pageSize;
       this.highValue =  this.highValue + this.pageSize;
@@ -36,7 +32,6 @@ export class ListCommentsComponent implements OnInit {
     }
     this.pageIndex = event.pageIndex;
     this.drawComments();
-
   }
 
   ngOnInit() {

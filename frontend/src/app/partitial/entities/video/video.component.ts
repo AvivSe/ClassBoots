@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {entitiesService} from "../entities.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CommentsService} from "../../comments/comments.service";
@@ -13,10 +13,11 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./video.component.css' , './rating-template.css']
 })
 export class VideoComponent implements OnInit,OnDestroy {
-  currentVideo: any;
+  currentVideo = {reference: '',_id:'',lectureid:'',ytcomment: [],views:'',position:''};
   currentRate: Number = 0;
   isVideoLoaded : boolean = false;
   videoId: string = '';
+  checked : boolean = false;
 
   constructor(public entitiesService : entitiesService,
               private route: ActivatedRoute,
@@ -32,7 +33,7 @@ export class VideoComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.videoId = this.route.snapshot.params.videoId;
-    this.http.get(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
+    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[],views:string,position:string}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
       this.currentVideo = data;
       this.isVideoLoaded=true;
       this.commentsService.notify(this.currentVideo._id);
@@ -46,6 +47,4 @@ export class VideoComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(): void {
   }
-
-
 }
