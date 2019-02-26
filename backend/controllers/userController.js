@@ -54,7 +54,7 @@ class UserController {
         let history = [];
         history = await this.getUserHistory(userId);
         history = history.watches;
-        history.sort(function(a,b){return a.date - b.date});
+        history.sort(function(a,b){return b.date - a.date});
         history = history.slice(0,10);
         let result = [];
         for(let i = 0; i < history.length; i++) {
