@@ -41,7 +41,7 @@ var defineRoutes = router =>{
     });
 
     router.post('/addcomment', checkAuth, async function(req,res){
-        let result =  await VideoController.addComment(req.body);
+        let result =  await VideoController.addComment(req.body,req.profile.user._id);
         res.status(200).send(result);
     });
 

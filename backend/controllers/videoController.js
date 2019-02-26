@@ -110,8 +110,9 @@ class VideoController {
         return invalid;
     }
 
-    static async addComment(body) {
+    static async addComment(body,userid) {
         var invalid = {};
+        body.user = userid;
         var result = await Video.findByIdAndUpdate(
             body.videoid,
             {$addToSet: {"comments": body}},
