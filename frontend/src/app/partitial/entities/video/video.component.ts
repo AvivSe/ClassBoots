@@ -13,7 +13,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./video.component.css' , './rating-template.css']
 })
 export class VideoComponent implements OnInit,OnDestroy {
-  currentVideo = {reference: '',_id:'',lectureid:'',ytcomment: []};
+  currentVideo = {reference: '',_id:'',lectureid:'',ytcomment: [],views:'',position:''};
   currentRate: Number = 0;
   isVideoLoaded : boolean = false;
   videoId: string = '';
@@ -33,7 +33,7 @@ export class VideoComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.videoId = this.route.snapshot.params.videoId;
-    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[]}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
+    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[],views:string,position:string}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
       this.currentVideo = data;
       this.isVideoLoaded=true;
       this.commentsService.notify(this.currentVideo._id);
