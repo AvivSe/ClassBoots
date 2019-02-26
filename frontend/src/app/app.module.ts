@@ -86,6 +86,7 @@ import { VideolistComponent } from './partitial/entities/videolist/videolist.com
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
 import { SearchComponent } from './partitial/entities/search/search.component';
 import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
+import  { LectureComponent } from "./partitial/entities/lecture/lecture.component";
 
 @NgModule({
     declarations: [
@@ -143,6 +144,7 @@ import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.c
         VideoEditComponent,
         SearchComponent,
         LastWatchesComponent,
+        LectureComponent
     ],
     imports: [
         BrowserModule,
