@@ -1,3 +1,24 @@
+.input-size{
+    width: 100%;
+}
+.input-size1{
+    width:200px ;
+}
+.login-btn-color{
+    background-color: #a5b439;
+    color:white;
+}
+.logged-btn-color{
+    background-color: #a5b439;
+    color:white;
+}
+.error{
+    padding:1%;
+    margin-bottom: 2%;
+    text-align: center;
+    background-color: brown;
+    color:white;
+}
 .create-btn{
     background-color: #4189c9;
     color:white;
@@ -20,4 +41,14 @@
 }
 .jumbotron09 {
     background-color: rgba(255,255,255,0.9);
+}
+.result{
+    background-color: #e6e6ff;
+    color: #000000;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+
+    padding: 5px;
+    margin: 5px;
 }

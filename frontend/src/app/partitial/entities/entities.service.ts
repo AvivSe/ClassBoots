@@ -211,5 +211,12 @@ export class entitiesService implements OnInit {
             this.router.navigate(['']);
         })
     }
+    findLecture(searchData){
+        this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {
+            this.SearchEmitter.emit(data)
+        });
+    }
 }
+
+
 
