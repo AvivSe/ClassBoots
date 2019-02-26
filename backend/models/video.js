@@ -20,7 +20,8 @@ var videoSchema = mongoose.Schema({
     comments:   [CommentSchema],
     ytcomment:  [YTCommentSchema],
     lectureid:  { type:mongoose.Schema.Types.ObjectId, ref:'Lecture', required:true },
-    lastscrape: { type:Date, default: Date.now }
+    lastscrape: { type:Date, default: Date.now },
+    name:       {type:String, required:true}
 });
 
 
