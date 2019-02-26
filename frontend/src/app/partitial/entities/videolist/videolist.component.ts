@@ -17,6 +17,9 @@ export class VideolistComponent implements OnInit {
   ngOnInit() {
     this.entitiesService.getPlaylistByLectureId(this.lectureId,(data)=> {
       this.data = data;
+      if(data.length > 0) {
+        this.router.navigate(['/lecture/' + this.lectureId, {outlets: {videoOutlet: [data[0]._id]}}]);
+      }
     });
   }
   onClick(videoId){
