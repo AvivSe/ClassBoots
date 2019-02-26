@@ -1,13 +1,9 @@
-.video {
-    width: 100%;
-    height: 500px;
-    background-color: black;
-    color:white;
-    margin: auto;
+.videoOutlet{
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.header-padding{
-    padding-top: 10%;
+.playlist{
+    background-color: rgba(0, 0, 0, 0.81);
 }
 
 

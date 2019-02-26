@@ -1,0 +1,14 @@
+<div class="row animated fadeIn">
+    <div class="col-10 videoOutlet">
+        <div class="header-padding" style="padding-left:1.5%">
+            <h1 style="text-align: center">{{currentLecture.name}}</h1>
+            <router-outlet name="videoOutlet"></router-outlet>
+        </div>
+    </div>
+    <div class="col-2 playlist">
+        <div class="header-padding">
+            <h1 style="color:#00b2ff;text-align: center;">PLAYLIST</h1>
+            <app-videolist *ngIf="init" [lectureId]="currentLecture._id"></app-videolist>
+        </div>
+    </div>
+</div>

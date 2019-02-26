@@ -28,6 +28,7 @@ import {AdminGuardService} from "../partitial/auth/admin-guard.service";
 import {PleaseLoginComponent} from "../pages/please-login/please-login.component";
 import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
+import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
 
 const routes: Routes = [
 
@@ -46,10 +47,14 @@ const routes: Routes = [
     {path: 'PleaseLogin', component: PleaseLoginComponent},
 
     //Menu routes
-    {path: 'schools/:_id', component: SchoolsComponent},
-    {path: 'subjects/:_id', component: SubjectsComponent},
-    {path: 'lectures/:_id', component: LecturesComponent},
-    {path: 'Video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
+    {path: 'institution/:_id', component: SchoolsComponent},
+    {path: 'school/:_id', component: SubjectsComponent},
+    {path: 'subject/:_id', component: LecturesComponent},
+    {path: 'lecture/:_id', component: LectureComponent, canActivate:[AuthGuardService], children: [
+            {path: ':videoId', component: VideoComponent, outlet: 'videoOutlet'}
+        ]
+    },
+    {path: 'video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
 
     //Create routes
     {path: 'Institution/create/:currentId', component: InstitutionCreateComponent, canActivate:[AuthGuardService]},
@@ -79,7 +84,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, {
-        scrollPositionRestoration: 'top'
+        scrollPositionRestoration: 'enabled'
     })],
     exports: [RouterModule]
 })

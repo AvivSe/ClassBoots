@@ -2,12 +2,13 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const Token = require('../utils/Token');
 const History= require('../models/history');
-
+const Video = require('../models/video');
 class UserController {
     static getToken(user) {
         // TODO: Edit the secret with local variable.
         return new Token(user);
     };
+
     static async createUser(body) {
         let error = false;
         let user = await User.findOne({email: body.email});
@@ -36,6 +37,28 @@ class UserController {
         return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
             this.getToken(user) : { error: true, description: "Invalid email or password." };
     };
+
+    static async getUserHistory(userId) {
+        let result = null;
+        await History.findOne({user:userId}).then(history=>{
+            if(history) {
+                result = history;
+            } else {
+                result = {error: "history not found"};
+            }
+        });
+        return result;
+    }
+
+    static async getUserWatchesHistory(userId) {
+        let history = await this.getUserHistory(userId);
+        let result = [];
+        for(let i = 0; i < history.watches.length; i++) {
+            result.push(await Video.findById(history.watches[i].video));
+        }
+        return result;
+    }
+
     static async getUser(email) {
         let result = null;
 

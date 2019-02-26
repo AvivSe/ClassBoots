@@ -1,6 +1,8 @@
+import {environment} from "../environments/environment";
+
 // socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const socketIoConfig: SocketIoConfig = { url: 'https://classboots.herokuapp.com', options: {} };
+const socketIoConfig: SocketIoConfig = { url: environment.baseUrl , options: {} };
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
@@ -18,6 +20,8 @@ import {
     MatPaginator,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
+    MatCheckboxModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -36,7 +40,7 @@ import {WriteCommentComponent} from './partitial/comments/write-comment/write-co
 import {AppComponent} from './app.component';
 import {ListCommentsComponent} from './partitial/comments/list-comments/list-comments.component';
 import {VideoComponent} from './partitial/entities/video/video.component';
-import {RecommendedVideosComponent} from './partitial/recommended-videos/recommended-videos.component';
+import {RecommendedVideosComponent} from './partitial/entities/video/recommended-videos/recommended-videos.component';
 import {AboutComponent} from './pages/about/about.component';
 import {ContactComponent} from './pages/contact/contact.component';
 import {LoginBoxComponent} from './partitial/auth/login-box/login-box.component';
@@ -83,6 +87,8 @@ import { VideoPlayerComponent } from './partitial/entities/video/video-player/vi
 import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
 import { SearchComponent } from './partitial/entities/search/search.component';
+import { LectureComponent } from './partitial/entities/lecture/lecture.component';
+import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
 
 @NgModule({
     declarations: [
@@ -139,6 +145,8 @@ import { SearchComponent } from './partitial/entities/search/search.component';
         VideolistComponent,
         VideoEditComponent,
         SearchComponent,
+        LectureComponent,
+        YoutubeCommentsComponent,
     ],
     imports: [
         BrowserModule,
@@ -151,7 +159,9 @@ import { SearchComponent } from './partitial/entities/search/search.component';
         MatButtonModule,
         MatGridListModule,
         MatExpansionModule,
+        MatSlideToggleModule,
         Ng2GoogleChartsModule,
+        MatCheckboxModule,
         MatButtonToggleModule,
         MatPaginatorModule,
         AgGridModule.withComponents([]),

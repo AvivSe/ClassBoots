@@ -1,9 +1,11 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {entitiesService} from "../entities.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CommentsService} from "../../comments/comments.service";
 import {AuthService} from "../../auth/auth.service";
 import {Socket} from "ngx-socket-io";
+import {environment} from "../../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-video',
@@ -11,32 +13,31 @@ import {Socket} from "ngx-socket-io";
   styleUrls: ['./video.component.css' , './rating-template.css']
 })
 export class VideoComponent implements OnInit,OnDestroy {
-  currentLecture = {name: '',_id: '',description: '',lecturer: '',date: ''};
-  currentVideo = {reference: '',_id: '',position: '',views: ''};
+  currentVideo = {reference: '',_id:'',lectureid:'',ytcomment: [],views:'',position:''};
   currentRate: Number = 0;
   isVideoLoaded : boolean = false;
+  videoId: string = '';
+  checked : boolean = false;
 
   constructor(public entitiesService : entitiesService,
               private route: ActivatedRoute,
+              private http: HttpClient,
               public commentsService: CommentsService,
               public authService:AuthService,
-              public socket: Socket) {
+              public socket: Socket,
+              ) {
     this.socket.on('new-comment', function(videoId){
       commentsService.notify(videoId);
     });
   }
+
   ngOnInit() {
-    this.route.params.subscribe(params=>{
-      this.entitiesService.getLecture(params['_id']);
-    });
-    this.entitiesService.lectureEmitter.subscribe(lecture =>{
-      this.currentLecture = lecture;
-      this.entitiesService.changeSideBarEmitter.emit(lecture._id)
-    });
-    this.entitiesService.videoEmitter.subscribe(video =>{
-      this.currentVideo = video;
-      this.isVideoLoaded = true;
-      this.commentsService.notify(video._id);
+    this.videoId = this.route.snapshot.params.videoId;
+    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[],views:string,position:string}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
+      this.currentVideo = data;
+      this.isVideoLoaded=true;
+      this.commentsService.notify(this.currentVideo._id);
+      this.entitiesService.changeSideBarEmitter.emit(this.currentVideo.lectureid)
     });
   }
 
@@ -45,6 +46,5 @@ export class VideoComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.entitiesService.changeSideBarEmitter.emit(null);
   }
 }
