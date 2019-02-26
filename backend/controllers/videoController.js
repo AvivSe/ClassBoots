@@ -1,7 +1,7 @@
 const Video = require('../models/video');
 const History = require('../models/history');
 const errorsController = require('./errorsController');
-const YoutubeCommentsScraper = require('../utils/yt-comment-scraper');
+const YoutubeScraper = require('../utils/yt-scraper');
 console.log('Video connect');
 
 class VideoController {
@@ -21,7 +21,7 @@ class VideoController {
     static async createVideo(body) {
         var result = {};
         var video = new Video(body);
-        YoutubeCommentsScraper.getCommentsAsync(body.reference, result => {
+        YoutubeScraper.getCommentsAsync(body.reference, result => {
             Video.findByIdAndUpdate(
                 video._id,
                 {$push: {"ytcomment": result}},
@@ -67,7 +67,7 @@ class VideoController {
                     {lastscrape: new Date()},
                     {upsert: true, new: true}).then(vid => {
                     //TODO: duplicate code
-                    YoutubeCommentsScraper.getCommentsAsync(vid.reference, result => {
+                    YoutubeScraper.getCommentsAsync(vid.reference, result => {
                         if (!vid.ytcomment.find(c => {
                             return (c.content === result.content && c.author === result.author);
                         })) {
