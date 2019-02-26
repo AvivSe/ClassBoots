@@ -2,7 +2,31 @@ const Video = require('../models/video');
 const History = require('../models/history');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
+const createCountMinSketch = require("count-min-sketch");
+
 console.log('Video connect');
+
+var Sketch = (function () {
+    var instance;
+
+    async function createInstance() {
+        let sketch = createCountMinSketch();
+        let videos = await VideoController.getVideoCollection();
+        videos.forEach(v=> {
+            sketch.update(v.lectureid, v.views);
+        });
+        return sketch;
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
 
 class VideoController {
 
@@ -40,6 +64,11 @@ class VideoController {
     static async getVideo(id, userid) {
         let result = null;
         await Video.findById(id).then(async video => {
+
+            Sketch.getInstance().then(sketch=> {
+                sketch.update(video.lectureid, 1);
+            });
+
             result = video;
             if (userid != null) {
                 await History.findOne({user: userid}).then(async history => {
@@ -51,9 +80,8 @@ class VideoController {
                             let lastdate = history.watches[i].date;
                             history.watches[i].date = Date.now();
                             let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
-                            if (secondeswatchAgo > 1) {
-                                video.views = video.views + 1;
-                                video.save();
+                            if (secondeswatchAgo > 60) {
+                                VideoController.updateVideo({_id:video._id,views:++video.views});
                             }
                         } else history.watches[i] = {video: id, date: Date.now()};
                         history.save();
@@ -137,4 +165,4 @@ class VideoController {
 }
 
 
-module.exports = VideoController;
+module.exports = { VideoController, Sketch };

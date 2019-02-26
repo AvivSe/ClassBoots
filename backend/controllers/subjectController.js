@@ -1,6 +1,7 @@
 const Subject = require('../models/subject');
-const LectureController = require('./lectureController');
+const {LectureController} = require('./lectureController');
 const errorsController = require('./errorsController');
+const {Sketch} = require('./videoController');
 
 
 class SubjectController {
@@ -120,6 +121,21 @@ class SubjectController {
                 if(err) errorsController.logger("Delete lectures from subject",err);
             });
     };
+
+    static async cms(subjectID) {
+        let subject = await SubjectController.getSubject(subjectID);
+        let lectures = subject.lectures.map(lec=> {
+            return lec._id;
+        });
+
+        console.log(lectures);
+        let totalLecturesInSubject = 0;
+        for (let i = 0; i < lectures.length; i++) {
+            totalLecturesInSubject += (await LectureController.cms(lectures[i])).total;
+        }
+
+        return { total: totalLecturesInSubject };
+    }
 
 }
 

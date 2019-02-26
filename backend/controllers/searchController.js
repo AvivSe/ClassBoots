@@ -1,5 +1,5 @@
 const errorsController = require('./errorsController');
-const LectureController = require('./lectureController');
+const {LectureController} = require('./lectureController');
 const SubjectController = require('./subjectController');
 const SchoolController = require('./schoolController');
 const InstitutionController = require('./institutionController');

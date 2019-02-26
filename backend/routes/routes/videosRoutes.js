@@ -1,5 +1,5 @@
 const express = require('express');
-const VideoController = require('../../controllers/videoController');
+const {VideoController} = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const Role = require('../../utils/Role');

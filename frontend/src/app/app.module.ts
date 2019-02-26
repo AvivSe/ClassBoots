@@ -17,11 +17,10 @@ import {
     MatExpansionModule,
     MatGridListModule,
     MatButtonToggleModule,
-    MatPaginator,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatSlideToggleModule,
-    MatCheckboxModule
+    MatSlideToggleModule
+    
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';

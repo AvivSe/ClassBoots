@@ -1,11 +1,13 @@
 const Lecture = require('../models/lecture');
 const Video = require('../models/video');
-
-const VideoController = require('./videoController');
+const {VideoController, Sketch} = require('./videoController');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
+const flag = true;
+
 
 class LectureController {
+
     static addYTPlaylistToLectureByYTPLID(lectureID, ytplID) {
         YoutubeScraper.getPlaylistAsync(ytplID, (playlist)=>{
             var x = 0;
@@ -141,6 +143,22 @@ class LectureController {
             });
     };
 
+    static async cms(lectureID) {
+        let result = "";
+        await Sketch.getInstance().then(sketch=> {
+            result = sketch.query(lectureID);
+        });
+
+        return {total: result};
+    }
+
+    static async stats() {
+        let lectures = await LectureController.getLectureCollection();
+
+        let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+
+        return { totalVideos:  totalVideos };
+    }
 }
 
-module.exports = LectureController;
+module.exports = { LectureController:LectureController, Sketch:Sketch };
