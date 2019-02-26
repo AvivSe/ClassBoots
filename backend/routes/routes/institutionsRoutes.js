@@ -7,6 +7,10 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
+    router.get('/getschoolsgs', async function(req,res){
+        let result = await InstitutionController.getSchoolsGB();
+        res.status(result?200:400).send(result);
+    });
     // TODO: need to check all the parameters for all!!!!!
     router.get('/:id', async function(req,res){
         let result = await InstitutionController.getInstitution(req.params.id);
@@ -37,6 +41,7 @@ var defineRoutes = router =>{
         let result =  await InstitutionController.addSchool(req.body);
         res.status(result?201:400).send(result);
     });
+
 
     router.get('/getschools/:id', async function(req,res){
         let result = await InstitutionController.getSchools(req.params.id);
