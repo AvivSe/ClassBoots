@@ -1,6 +1,8 @@
+import {environment} from "../environments/environment";
+
 // socket.io
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const socketIoConfig: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+const socketIoConfig: SocketIoConfig = { url: environment.baseUrl , options: {} };
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
