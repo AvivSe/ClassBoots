@@ -1,0 +1,14 @@
+<mat-accordion multi="true" *ngIf="comments.length > 0" class="animated fadeIn">
+  <!--Comment-->
+  <mat-expansion-panel *ngFor="let comment of comments" class="animated fadeIn">
+    <mat-expansion-panel-header>
+      {{comment.author}} &nbsp;&nbsp; {{comment.content.split('\n')[0] + "..."}}
+    </mat-expansion-panel-header>
+    {{comment.content}}
+  </mat-expansion-panel>
+  <!--Comment end-->
+</mat-accordion>
+<mat-paginator [length]="TotalComments.length"
+               [pageSize]="pageSize"
+               (page)="getPaginatorData($event)">
+</mat-paginator>

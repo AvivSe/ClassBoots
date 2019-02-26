@@ -1,34 +1,39 @@
-<div class="jumbotron" *ngIf="isVideoLoaded">
-    <h1> {{currentVideo.reference}} </h1>
-    <div class="mat-title" align="center">Something
-    <span>
-        <i class="material-icons card-button" style="float: right;font-size: 1.5em;">edit</i></span>
-    </div>
-    <div>
-        <app-video-player [_id]="currentVideo.reference"></app-video-player>
-        <mat-card>
-            <div class="row mat-title mat-h3" align="center">
-                <div class="col-4">
-                    <ngb-rating [(rate)]="currentRate" class="noOutline">
-                        <ng-template let-fill="fill" let-index="index">
+<div class="animated fadeIn">
+<span>
+        <i class="material-icons card-button" style="float: right;font-size: 2em;">edit</i></span>
+<div>
+    <app-video-player [_id]="currentVideo.reference"></app-video-player>
+    <mat-card>
+        <div class="row mat-title mat-h3" align="center">
+            <div class="col-4">
+                <ngb-rating [(rate)]="currentRate" class="noOutline">
+                    <ng-template let-fill="fill" let-index="index">
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"
                                   (click)="onRatingClicked(index)">&#9733;</span>
-                        </ng-template>
-                    </ngb-rating>
-                </div>
-                <div class="col-4">Views: {{currentVideo.views}}</div>
-                <div class="col-4">Position: {{currentVideo.position}}</div>
+                    </ng-template>
+                </ngb-rating>
             </div>
-        </mat-card>
-        <mat-card>
-            <div class="comments-block">
-                <div class="mat-title" align="center"> Write a Comment...</div>
+            <div class="col-4">Views: {{currentVideo.views}}</div>
+            <div class="col-4">Position: {{currentVideo.position}}</div>
+        </div>
+    </mat-card>
+    <mat-card>
+        <div class="comments-block">
+            <div class="mat-title" align="center"> Write a Comment...</div>
 
-                <app-write-comment [videoId]="currentVideo._id"></app-write-comment>
-                <app-list-comments></app-list-comments>
-
+            <app-write-comment [videoId]="currentVideo._id"></app-write-comment>
+            <app-list-comments></app-list-comments>
+        </div>
+    </mat-card>
+    <hr style="background-color:white;">
+    <mat-card>
+        <div class="comments-block">
+            <div align="right" style="padding-right:1%;font-size:1.5em;">Load Youtube comments&nbsp;&nbsp;
+                <mat-slide-toggle [(ngModel)]="checked"></mat-slide-toggle>
             </div>
-        </mat-card>
-        <app-recommended-videos></app-recommended-videos>
-    </div>
+            <app-youtube-comments *ngIf="checked" [TotalComments]="currentVideo.ytcomment"></app-youtube-comments>
+        </div>
+    </mat-card>
+    <app-recommended-videos></app-recommended-videos>
+</div>
 </div>
