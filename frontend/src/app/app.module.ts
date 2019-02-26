@@ -159,6 +159,7 @@ import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.c
         MatCardModule,
         MatButtonModule,
         MatGridListModule,
+        MatSlideToggleModule,
         MatExpansionModule,
         Ng2GoogleChartsModule,
         MatButtonToggleModule,
