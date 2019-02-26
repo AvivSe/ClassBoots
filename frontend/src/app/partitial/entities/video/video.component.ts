@@ -25,6 +25,9 @@ export class VideoComponent implements OnInit,OnDestroy {
               public authService:AuthService,
               public socket: Socket,
               ) {
+    this.socket.on('new-comment', function(videoId){
+      commentsService.notify(videoId);
+    });
   }
 
   ngOnInit() {
@@ -35,10 +38,6 @@ export class VideoComponent implements OnInit,OnDestroy {
       this.commentsService.notify(this.currentVideo._id);
       this.entitiesService.changeSideBarEmitter.emit(this.currentVideo.lectureid)
     });
-
-    this.socket.on('new-comment', function(videoId){
-      this.commentsService.notify(videoId);
-    });
   }
 
   onRatingClicked(value) {
@@ -46,7 +45,6 @@ export class VideoComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.entitiesService.changeSideBarEmitter.emit(null);
   }
 
 
