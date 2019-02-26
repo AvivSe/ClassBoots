@@ -68,34 +68,6 @@ class InstitutionController {
             {"$group":{_id: "$institutionid",schools:{$push:"$name"}}}
         ]);
 
-
-        // function map(result) {
-        //     emit(result.institutionid,result.schools)
-        // }
-        // function reduce(key,val) {
-        //         key.count = count(val);
-        // }
-        // map(result);
-        // for (let i = 0; i < result.length; i++) {
-        //     reduce(result[i],result[i].schools);
-        // }
-        // mapreduce(
-        //     function() {
-        //         emit(result.schools, 1);
-        //     },
-        //     function(key,values) {
-        //         return result.sum( values )
-        //     },
-        //     { "out": { "inline": 1 } }
-        // );
-
-        // for (let i = 0; i < result.length; i++) {
-        //     let schoolsMAP = result[i].map((school)=>school.name);
-        //     console.log(schoolsMAP);
-        //     result[i].count = schoolsMAP.reduce(()=>2);
-        // }
-
-
         return result;
     };
 

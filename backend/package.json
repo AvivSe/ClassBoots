@@ -23,6 +23,7 @@
     "mapred": "^0.1.0",
     "mongoose": "^5.4.0",
     "morgan": "~1.9.0",
+    "node-aho-corasick": "0.0.2",
     "node-mapred": "^1.2.0",
     "pug": "^2.0.3",
     "webpack": "^4.27.1",
