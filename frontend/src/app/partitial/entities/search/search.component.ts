@@ -3,6 +3,7 @@ import {userData} from "../../auth/user.model";
 import {AuthService} from "../../auth/auth.service";
 import {entitiesService} from "../entities.service";
 import {SlideInOutAnimation} from "../../../../animations";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
   answerLoaded: boolean = false;
   data;
     isDisabled: any;
-  constructor(private authService: AuthService,private entitiesService: entitiesService) {
+  constructor(private authService: AuthService,private entitiesService: entitiesService, private router:Router) {
   }
   ngOnInit() {
       this.entitiesService.SearchEmitter.subscribe(data=>{
@@ -39,12 +40,16 @@ export class SearchComponent implements OnInit {
     if (searchForm.invalid)
       return;
     const searchData = {
-      generalSearch: searchForm.value.searchGeneral,
-      date: searchForm.value.searchDate,
-      lecturer: searchForm.value.searchLecturer,
-      school: searchForm.value.searchSchool,
+      generalSearch: searchForm.value.generalSearch,
+      date: searchForm.value.date,
+      lecturer: searchForm.value.lecturer,
+      school: searchForm.value.school,
     };
     this.entitiesService.findLecture(searchData);
     searchForm.resetForm();
+  }
+  navToLecture(lectureId){
+      this.router.navigateByUrl('', {skipLocationChange: true}).then(()=>
+          this.router.navigateByUrl('/lecture/'+lectureId));
   }
 }

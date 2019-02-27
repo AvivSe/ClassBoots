@@ -27,4 +27,8 @@ export class VideolistComponent implements OnInit {
         this.router.navigate(['/lecture/'+this.lectureId, { outlets: { videoOutlet: [videoId] } }]));
   }
 
+  setRedirect(){
+    this.router.navigateByUrl('/Video/create/'+this.lectureId);
+    this.entitiesService.setRedirectUrl(this.router.routerState.snapshot);
+  }
 }
