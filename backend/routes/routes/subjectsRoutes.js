@@ -14,13 +14,17 @@ var defineRoutes = router => {
     });
 
     router.get('/:id', async function (req, res) {
-        let result = await SubjectController.getSubject(req.params.id);
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await SubjectController.getSubject(req.params.id);
         res.status(result ? 200 : 400).send(result);
     });
 
     router.post('', checkAuth, async function (req, res) {
         let result = {};
-        if (!req.body.schoolid) {
+        if (!req.body.name || !req.body.description || !req.body.schoolid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
@@ -35,29 +39,45 @@ var defineRoutes = router => {
     });
 
     router.get('', async function (req, res) {
-        let result = await SubjectController.getSubjectCollection(req.body);
+        let result = await SubjectController.getSubjectCollection();
         res.status(result ? 200 : 400).send(result);
     });
-
     router.delete('', checkAuth, async function (req, res) {
-        let result = await SubjectController.deleteSubject(req.body._id);
-        if (!result.error)
-            SchoolController.deleteSubject({schoolid: req.body.schoolid, subjectid: req.body._id});
+        let result = {};
+        if (!req.body._id || !req.body.schoolid)
+            result = {error: true, description: 'you don\'t have validation'};
+        else {
+            result = await SubjectController.deleteSubject(req.body._id);
+            if (!result.error)
+                SchoolController.deleteSubject({schoolid: req.body.schoolid, subjectid: req.body._id});
+        }
         res.status(200).send(result);
     });
 
     router.put('', checkAuth, async function (req, res) {
-        let result = await SubjectController.updateSubject(req.body);
+        let result = {};
+        if (!req.body._id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await SubjectController.updateSubject(req.body);
         res.status(200).send(result);
     });
 
     router.post('/addLecture', checkAuth, async function (req, res) {
-        let result = await SubjectController.addLecture(req.body);
+        let result = {};
+        if (!req.body.subjectid || !req.body.lectureid)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await SubjectController.addLecture(req.body);
         res.status(result ? 201 : 400).send(result);
     });
 
     router.get('/getlectures/:id', async function (req, res) {
-        let result = await SubjectController.getLectures(req.params.id);
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await SubjectController.getLectures(req.params.id);
         res.status(result ? 200 : 400).send(result);
     });
 

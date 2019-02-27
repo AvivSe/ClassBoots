@@ -11,13 +11,17 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     router.get('/:id', checkAuth, async function(req,res){
-        let result =  await VideoController.getVideo(req.params.id,req.profile.user._id);
+        let result = {};
+        if(!req.params.id)
+            result = {error:true,description:'you don\'t have validation'};
+        else
+            result = await VideoController.getVideo(req.params.id,req.profile.user._id);
         res.status(200).send(result);
     });
 
     router.post('', checkAuth, async function(req,res){
         let result = {};
-        if (!req.body.lectureid) {
+        if (!req.body.reference || !req.body.position || !req.body.lectureid || !req.body.name) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
@@ -31,31 +35,47 @@ var defineRoutes = router =>{
         res.status(result ? 201 : 400).send(result);
     });
 
-    // TODO: checkAuth, Role.admin,
     router.get('', checkAuth, async function(req,res){
-        let result =  await VideoController.getVideoCollection(req.body);
+        let result =  await VideoController.getVideoCollection();
         res.status(result?200:400).send(result);
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await VideoController.deleteVideo(req.body._id);
-        if(!result.error)
-            LectureController.deleteVideo({lectureid:req.body.lectureid,videoid:req.body._id});
+        let result = {};
+        if(!req.body.lectureid || req.body._id)
+            result = {error:true,description:'you don\'t have validation'};
+        else {
+            result = await VideoController.deleteVideo(req.body._id);
+            if (!result.error)
+                LectureController.deleteVideo({lectureid: req.body.lectureid, videoid: req.body._id});
+        }
         res.status(200).send(result);
     });
 
     router.put('', checkAuth, async function(req,res){
-        let result =  await VideoController.updateVideo(req.body);
+        let result = {};
+        if(!req.body._id)
+            result = {error:true,description:'you don\'t have validation'};
+        else
+            result = await VideoController.updateVideo(req.body);
         res.status(200).send(result);
     });
 
     router.post('/addcomment', checkAuth, async function(req,res){
-        let result =  await VideoController.addComment(req.body,req.profile.user._id);
+        let result = {};
+        if(!req.body.videoid)
+            result = {error:true,description:'you don\'t have validation'};
+        else
+            result = await VideoController.addComment(req.body,req.profile.user._id);
         res.status(200).send(result);
     });
 
     router.delete('/deletecomment', checkAuth, async function(req,res){
-        let result =  await VideoController.deleteComment(req.body);
+        let result = {};
+        if(!req.body.videoid || !req.body.commentid)
+            result = {error:true,description:'you don\'t have validation'};
+        else
+            result = await VideoController.deleteComment(req.body);
         res.status(200).send(result);
     });
 
