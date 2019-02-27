@@ -12,8 +12,9 @@ class UserController {
     };
 
     static async createUser(body) {
-        let error = false;
+
         try {
+            let error = false;
             let user = await User.findOne({email: body.email});
             // if user is not null, it's means that we already have user with this email address.
             if (user) {
@@ -36,23 +37,27 @@ class UserController {
             return error ? {error: true, description: "cannot save to db" } : this.getToken(user);
         }
        catch (e) {
-           errorsController.logger({error:true,description:'createUser: '+e});
+           errorsController.logger({error:'createUser',description:e});
+           return {error:true,description:'createUser: '+e};
        }
     };
     static async login(body) {
-        let user;
+
         try {
+            let user;
             return (user = await User.findOne({email: body.email})) && await bcrypt.compare(body.password, user.password) ?
                 this.getToken(user) : { error: true, description: "Invalid email or password." };
         }
         catch (e) {
-            errorsController.logger({error:true,description:'login: '+e});
+            errorsController.logger({error:'login',description:e});
+            return {error:true,description:'login: '+e};
         }
     };
 
     static async getUserHistory(userId) {
-        let result = null;
+
         try {
+            let result = null;
             await History.findOne({user:userId}).then(history=>{
                 if(history) {
                     result = history;
@@ -63,14 +68,16 @@ class UserController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getUserHistory: '+e});
+            errorsController.logger({error:'getUserHistory',description:e});
+            return {error:true,description:'getUserHistory: '+e};
         }
 
     }
 
     static async getUserWatchesHistory(userId) {
-        let history = [];
+
         try {
+            let history = [];
             history = await this.getUserHistory(userId);
             history = history.watches;
             history.sort(function(a,b){return b.date - a.date});
@@ -82,13 +89,15 @@ class UserController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getUserWatchesHistory: '+e});
+            errorsController.logger({error:'getUserWatchesHistory',description:e});
+            return {error:true,description:'getUserWatchesHistory: '+e};
         }
     }
 
     static async getUser(email) {
-        let result = null;
+
         try {
+            let result = null;
             await User.findOne({email: email}).then(user => {
                 if (user) {
                     result = user;
@@ -101,7 +110,8 @@ class UserController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getUser: '+e});
+            errorsController.logger({error:'getUser',description:e});
+            return {error:true,description:'getUser: '+e};
         }
     };
 
@@ -111,10 +121,11 @@ class UserController {
      * @returns All User Collection
      */
     static async getUserCollection(body) {
-        let result = {status: 200, data: null};
+
         // TODO: error handler
         // TODO: we can use body as filters.
         try {
+            let result = {status: 200, data: null};
             result.data = await User.find(err => {
                 if (err) {
                     result.status = 400;
@@ -124,7 +135,8 @@ class UserController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getUserCollection: '+e});
+            errorsController.logger({error:'getUserCollection',description:e});
+            return {error:true,description:'getUserCollection: '+e};
         }
     };
 }

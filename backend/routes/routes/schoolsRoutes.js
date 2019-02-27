@@ -33,7 +33,7 @@ var defineRoutes = router =>{
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await SchoolController.deleteSchool(req.body.id);
+        let result =  await SchoolController.deleteSchool(req.body._id);
         res.status(200).send(result);
     });
 

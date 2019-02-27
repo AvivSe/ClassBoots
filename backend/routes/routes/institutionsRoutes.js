@@ -33,7 +33,7 @@ var defineRoutes = router =>{
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await InstitutionController.deleteInstitution(req.body.id);
+        let result =  await InstitutionController.deleteInstitution(req.body._id);
         res.status(200).send(result);
     });
 

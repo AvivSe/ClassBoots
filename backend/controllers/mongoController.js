@@ -19,7 +19,8 @@ class MongoController {
             }
         }
         catch (e) {
-            errorsController.logger({error:true,description:'connect-MongoController: '+e});
+            errorsController.logger({error:'connect-MongoController: ',description:e});
+            return {error:true,description:'connect-MongoController: '+e};
         }
 
     }

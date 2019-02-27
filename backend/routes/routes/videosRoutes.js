@@ -31,7 +31,7 @@ var defineRoutes = router =>{
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await VideoController.deleteVideo(req.body.id);
+        let result =  await VideoController.deleteVideo(req.body._id);
         res.status(200).send(result);
     });
 
