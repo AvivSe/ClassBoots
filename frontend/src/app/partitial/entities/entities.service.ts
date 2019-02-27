@@ -29,7 +29,6 @@ export class entitiesService implements OnInit {
     @Output() changeSideBarEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() SearchEmitter: EventEmitter<any> = new EventEmitter<any>();
     @Output() statisticsEmitter: EventEmitter<any> = new EventEmitter<any>();
-    @Output() pieChartEmitter: EventEmitter<any> = new EventEmitter<any>();
 
     //GET ALL (FUNCTIONS)
     public getInstitutions() {

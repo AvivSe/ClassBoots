@@ -206,9 +206,7 @@ class LectureController {
 
     static async stats() {
         let lectures = await LectureController.getLectureCollection();
-
         let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
-
         return { totalVideos:  totalVideos };
     }
 }
