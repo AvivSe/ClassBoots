@@ -19,11 +19,18 @@ var defineRoutes = router =>{
     });
 
     router.post('', checkAuth, async function(req,res){
-        var send = {};
-        send.institutionid = req.body.institutionid;
-        let result = await SchoolController.createSchool(req.body);
-        send.schoolid = result._id;
-        InstitutionController.addSchool(send);
+        let result = {};
+        if(!req.body.institutionid) {
+            result = {error: true, description: 'you don\'t have validation'};
+        }else {
+            var send = {};
+            send.institutionid = req.body.institutionid;
+            result = await SchoolController.createSchool(req.body);
+            if (!result.error) {
+                send.schoolid = result._id;
+                InstitutionController.addSchool(send);
+            }
+        }
         res.status(result?201:400).send(result);
     });
 
@@ -33,7 +40,9 @@ var defineRoutes = router =>{
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await SchoolController.deleteSchool(req.body.id);
+        let result =  await SchoolController.deleteSchool(req.body._id);
+        if(!result.error)
+            InstitutionController.deleteSchool({institutionid:req.body.institutionid,schoolid:req.body._id});
         res.status(200).send(result);
     });
 

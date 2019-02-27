@@ -26,15 +26,17 @@ class LectureController {
             });
         }
         catch (e) {
-            errorsController.logger({error:true,description:'addYTPlaylistToLectureByYTPLID: '+e});
+            errorsController.logger({error:'addYTPlaylistToLectureByYTPLID',description:e});
+            return {error:true,description:'addYTPlaylistToLectureByYTPLID: '+e};
         }
 
     }
 
     static async getLectureCollection() {
-        var result;
-        var invalid = {};
+
         try {
+            let result;
+            let invalid = {};
             result = await Lecture.find(err => {
                 if (err) {
                     invalid = {error:true,description:err};
@@ -44,15 +46,19 @@ class LectureController {
             return invalid.error===undefined?result:invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getLectureCollection: '+e});
+            errorsController.logger({error:'getLectureCollection',description:e});
+            return {error:true,description:'getLectureCollection: '+e};
         }
 
     };
 
     static async createLecture(body) {
-        var result = {};
-        var lecture = new Lecture(body);
+        if(!body.lecturer || !body.name || !body.description || !body.date || !body.subjectid || !body.title){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
+            let result = {};
+            let lecture = new Lecture(body);
             await lecture.save(err => {
                 if (err) {
                     result = {error:true,description:err};
@@ -62,14 +68,17 @@ class LectureController {
             return result.error===undefined?lecture:result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'createLecture: '+e});
+            errorsController.logger({error:'createLecture',description:e});
+            return {error:true,description:'createLecture: '+e};
         }
-
     }
 
     static async getLecture(id) {
-        var result = null;
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
+            let result = null;
             await Lecture.findById(id).then(lecture => {
                 if (lecture)
                     result = lecture;
@@ -82,20 +91,22 @@ class LectureController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getLecture: '+e});
+            errorsController.logger({error:'getLecture',description:e});
+            return {error:true,description:'getLecture: '+e};
         }
 
     };
 
     static async getVideos(id) {
-        let result = [];
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
+            let result = [];
             await this.getLecture(id).then(async lecture=>{
                 for (let i = 0; i < lecture.videos.length; i++) {
                     await VideoController.getVideo(lecture.videos[i],null).then(async video=>{
-                        if(video.error !== undefined)
-                            this.deleteVideo({lectureid:id,videoid:lecture.videos[i]});
-                        else result.push(video);
+                        result.push(video);
                     });
                 }
             }).catch(async err=>{
@@ -105,7 +116,8 @@ class LectureController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getVideos: '+e});
+            errorsController.logger({error:'getVideos',description:e});
+            return {error:true,description:'getVideos: '+e};
         }
 
     };
@@ -116,11 +128,15 @@ class LectureController {
      * @returns {Promise<*>}
      */
     static async deleteLecture(id) {
-        let result = null;
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
+            let result = null;
             await Lecture.findByIdAndDelete(id).then(obj=>{
+                result = {Deleted:id};
                 obj.videos.forEach(async videoid => {
-                    result = await VideoController.deleteVideo(videoid);
+                    VideoController.deleteVideo(videoid);
                 });
             }).catch(err => {
                 result = {error:true,description:err};
@@ -129,14 +145,18 @@ class LectureController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'deleteLecture: '+e});
+            errorsController.logger({error:'deleteLecture',description:e});
+            return {error:true,description:'deleteLecture: '+e};
         }
 
     };
 
     static async updateLecture(body) {
-        var invalid = {};
+        if(!body._id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
+            let invalid = {};
             await Lecture.findByIdAndUpdate(body._id, body, {}).catch(err => {
                 invalid = {error:true,description:err};
                 errorsController.logger({error:'updateLecture',description:err});
@@ -144,15 +164,19 @@ class LectureController {
             return invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'updateLecture: '+e});
+            errorsController.logger({error:'updateLecture',description:e});
+            return {error:true,description:'updateLecture: '+e};
         }
 
     }
 
     static async addVideo(body) {
-        var invalid = {};
+        if(!body.lectureid || !body.videoid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
-            var lecture = await this.getLecture(body.lectureid);
+            let invalid = {};
+            let lecture = await this.getLecture(body.lectureid);
             if(lecture.error)
                 return lecture;
             var video = await VideoController.getVideo(body.videoid);
@@ -173,13 +197,16 @@ class LectureController {
             return invalid.error===undefined?result:invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'addVideo: '+e});
+            errorsController.logger({error:'addVideo',description:e});
+            return {error:true,description:'addVideo: '+e};
         }
-
     };
 
     // TODO: don't need now! but need to fix
     static async deleteVideo(body) {
+        if(!body.lectureid || !body.videoid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             Lecture.findByIdAndUpdate(
                 body.lectureid,
@@ -190,7 +217,8 @@ class LectureController {
                 });
         }
         catch (e) {
-            errorsController.logger({error:true,description:'deleteVideo: '+e});
+            errorsController.logger({error:'deleteVideo',description:e});
+            return {error:true,description:'deleteVideo: '+e};
         }
 
     };
