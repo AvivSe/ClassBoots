@@ -8,7 +8,7 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.get('/cms/:id', async (req,res)=> {
+    router.get('/:id/cms', async (req,res)=> {
         let result = await SubjectController.cms(req.params.id);
         res.status(result?200:400).send(result);
     });
