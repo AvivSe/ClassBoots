@@ -8,7 +8,11 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     router.get('/:id/cms', async (req,res)=> {
-        let result = await InstitutionController.cms(req.params.id);
+        let result = {};
+        if(!req.params.id)
+            result= {error:true,description:'you do\'nt have validation'};
+        else
+            result = await InstitutionController.cms(req.params.id);
         res.status(result?200:400).send(result);
     });
 

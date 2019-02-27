@@ -168,18 +168,21 @@ class SubjectController {
     };
 
     static async cms(subjectID) {
-        let subject = await SubjectController.getSubject(subjectID);
-        let lectures = subject.lectures.map(lec => {
-            return lec._id;
-        });
-
-        console.log(lectures);
-        let totalLecturesInSubject = 0;
-        for (let i = 0; i < lectures.length; i++) {
-            totalLecturesInSubject += (await LectureController.cms(lectures[i])).total;
+        try {
+            let subject = await SubjectController.getSubject(subjectID);
+            let lectures = subject.lectures.map(lec=> {
+                return lec._id;
+            });
+            let totalLecturesInSubject = 0;
+            for (let i = 0; i < lectures.length; i++) {
+                totalLecturesInSubject += (await LectureController.cms(lectures[i])).total;
+            }
+            return { total: totalLecturesInSubject };
         }
-
-        return {total: totalLecturesInSubject};
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
+        }
     }
 
 }

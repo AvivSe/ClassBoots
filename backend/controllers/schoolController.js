@@ -229,18 +229,25 @@ class SchoolController {
     };
 
     static async cms(schoolID) {
-        let subjects = await SchoolController.getSubjects(schoolID);
-        if(subjects.error) {
-            return { error: true, description: 'CMS + ' + subjects.description}
+        try {
+            let subjects = await SchoolController.getSubjects(schoolID);
+            if(subjects.error) {
+                return { error: true, description: 'CMS + ' + subjects.description}
+            }
+
+            let totalViewsInSchool = 0;
+            for (let i = 0; i < subjects.length; i++) {
+                for (let j = 0; j < subjects[i].lectures.length; j++) {
+                    totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
+                }
+            }
+            return { total: totalViewsInSchool};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
         }
 
-        let totalViewsInSchool = 0;
-        for (let i = 0; i < subjects.length; i++) {
-            for (let j = 0; j < subjects[i].lectures.length; j++) {
-                totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
-            }
-        }
-        return { total: totalViewsInSchool}
 
     }
 

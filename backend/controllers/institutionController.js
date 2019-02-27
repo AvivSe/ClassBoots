@@ -265,15 +265,17 @@ class InstitutionController {
             return { total: totalViewsInInst}
         }
         catch (e) {
-            errorsController.logger({error:true,description:'cms: '+e});
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
         }
 
 
     }
 
     static async totalCms() {
-        let result = {totalViews: 0, institutions: []};
+
         try {
+            let result = {totalViews: 0, institutions: []};
             let institution = await InstitutionController.getInstitutionCollection();
             if (institution.error) {
                 return {error: true, description: 'CMS + ' + institution.description}
@@ -324,7 +326,8 @@ class InstitutionController {
 
             return result;
         } catch (e) {
-            errorsController.logger({error: true, description: 'totalCms: ' + e});
+            errorsController.logger({error:'totalCms',description:e});
+            return {error:true,description:'totalCms: '+e};
 
         }
     }

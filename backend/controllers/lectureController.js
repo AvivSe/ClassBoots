@@ -205,20 +205,34 @@ class LectureController {
     };
 
     static async cms(lectureID) {
-        let result = "";
-        await Sketch.getInstance().then(sketch=> {
-            result = sketch.query(lectureID);
-        });
+        try {
+            let result = "";
+            await Sketch.getInstance().then(sketch=> {
+                result = sketch.query(lectureID);
+            });
 
-        return {total: result};
+            return {total: result};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
+        }
+
     }
 
     static async stats() {
-        let lectures = await LectureController.getLectureCollection();
+        try {
+            let lectures = await LectureController.getLectureCollection();
 
-        let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+            let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
 
-        return { totalVideos:  totalVideos };
+            return { totalVideos:  totalVideos };
+        }
+        catch (e) {
+            errorsController.logger({error:'stats',description:e});
+            return {error:true,description:'stats: '+e};
+        }
+
     }
 }
 
