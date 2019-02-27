@@ -1,0 +1,15 @@
+<div class="jumbotron" align="center">
+    <div class="mat-title">Aho-Algorithm</div>
+    <input matInput style="width: 20%;" placeholder="Add new word" #word>
+    <button mat-button (click)="addWord(word)">Add</button>
+    <div *ngIf="words.length > 0">
+        [<span *ngFor="let w of words">{{w}} </span>]
+        <div style="padding-top: 0.5%;">
+            <button mat-button (click)="runAlgorithm()">Run Aho-Algorithm</button>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let i of result">
+    {{i}}
+</div>

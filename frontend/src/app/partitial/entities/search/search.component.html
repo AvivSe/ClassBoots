@@ -4,7 +4,7 @@
             <form (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm">
                 <div class="form-group">
                     <mat-form-field class="input-size">
-                        <input matInput type="text" placeholder="Search" name="generalSearch" ngModel required>
+                        <input matInput type="text" placeholder="Search Lecture" name="generalSearch" ngModel required>
                     </mat-form-field>
 
                     <mat-accordion>
@@ -39,7 +39,7 @@
             </form>
         </div>
         <div *ngIf="answerLoaded">
-            <div *ngFor="let item of data" [routerLink]="['Video/',item._id]">
+            <div *ngFor="let item of data" (click)="navToLecture(item._id)">
                 <div class="result">
                 {{item.name}}
                 </div>

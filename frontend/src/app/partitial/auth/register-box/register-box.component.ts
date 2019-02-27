@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {userData} from "../user.model";
 import {AuthService} from "../auth.service";
+import {userLogin} from "../login.model";
 
 @Component({
   selector: 'app-register-box',
@@ -27,16 +28,10 @@ export class RegisterBoxComponent implements OnInit {
   onRegister(registerForm) {
     if(registerForm.invalid)
       return;
-    const userData : userData = {
+    const userData : userLogin = {
       //TODO: FIX THE REG DATE
       email: registerForm.value.registerEmail,
-      password: registerForm.value.registerPassword,
-      regDate: registerForm.value.registerDOB,
-      address: registerForm.value.registerAddress,
-      role: "user",
-      firstname: registerForm.value.registerFirstName,
-      lastname: registerForm.value.registerLastName,
-      DOB: registerForm.value.registerDOB
+      password: registerForm.value.registerPassword
     };
     this.authService.createUser(userData);
     registerForm.resetForm();

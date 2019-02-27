@@ -6,9 +6,18 @@
             <span class="mat-headline">Last Watches:</span>
           <div style="padding: 5%;">
 
-              <mat-grid-list *ngFor="let video of videos" cols="2" rowHeight="2:1" >
-                  <mat-grid-tile>{{ video.reference }}</mat-grid-tile>
-              </mat-grid-list>
+              <mat-accordion>
+                  <mat-expansion-panel *ngFor="let video of videos" >
+                      <mat-expansion-panel-header>
+                          <mat-panel-title class="result">
+                              {{video.name}}
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div [routerLink]="['/lecture/'+video.lectureid, {outlets:{ videoOutlet:[video._id]}} ]">
+                          {{video.reference}}
+                      </div>
+                  </mat-expansion-panel>
+              </mat-accordion>
 
           </div>
         </div>
