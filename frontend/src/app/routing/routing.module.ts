@@ -29,7 +29,7 @@ import {PleaseLoginComponent} from "../pages/please-login/please-login.component
 import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
-import {LastWatchesComponent } from "../partitial/auth/last-watches/last-watches.component";
+import {LastWatchesComponent } from "../partitial/entities/last-watches/last-watches.component";
 import {PageNotFoundComponent} from "../pages/page-not-found/page-not-found.component";
 
 const routes: Routes = [
