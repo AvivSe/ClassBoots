@@ -30,6 +30,7 @@ import {VideoCreateComponent} from "../partitial/entities/video/video-create/vid
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
 import {LastWatchesComponent } from "../partitial/auth/last-watches/last-watches.component";
+import {PageNotFoundComponent} from "../pages/page-not-found/page-not-found.component";
 
 const routes: Routes = [
 
@@ -47,6 +48,7 @@ const routes: Routes = [
     {path: 'Register', component: RegisterBoxComponent, outlet: 'modal'},
     {path: 'Profile', component: ProfileComponent},
     {path: 'PleaseLogin', component: PleaseLoginComponent},
+    {path: '404', component: PageNotFoundComponent},
 
     //Menu routes
     {path: 'institution/:_id', component: SchoolsComponent},
@@ -81,7 +83,9 @@ const routes: Routes = [
             {path: 'collections/:about', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'},
             {path: 'collections', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'}
         ]
-    }
+    },
+    {path: '**', redirectTo: '/404'}
+
 ];
 
 @NgModule({
