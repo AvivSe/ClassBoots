@@ -269,7 +269,6 @@ class InstitutionController {
             return {error:true,description:'cms: '+e};
         }
 
-
     }
 
     static async totalCms() {
@@ -280,7 +279,6 @@ class InstitutionController {
             if (institution.error) {
                 return {error: true, description: 'CMS + ' + institution.description}
             }
-
             for (let i = 0; i < institution.length; i++) {
                 let totalInstitutionStats = {
                     _id: institution[i]._id,
@@ -290,6 +288,9 @@ class InstitutionController {
                 };
                 for (let j = 0; j < institution[i].schools.length; j++) {
                     let school = await SchoolController.getSchool(institution[i].schools[j]);
+                    if (school.error) {
+                        return {error: true, description: 'CMS + ' + school.description}
+                    }
                     let totalSchoolsStats = {
                         _id: school._id,
                         name: school.name,
@@ -298,6 +299,9 @@ class InstitutionController {
                     };
                     for (let k = 0; k < school.subjects.length; k++) {
                         let subject = await SubjectController.getSubject(school.subjects[k]);
+                        if (subject.error) {
+                            return {error: true, description: 'CMS + ' + subject.description}
+                        }
                         let totalSubjectStats = {
                             _id: subject._id,
                             name: subject.name,
@@ -306,6 +310,9 @@ class InstitutionController {
                         };
                         for (let l = 0; l < subject.lectures.length; l++) {
                             let lecture = await LectureController.getLecture(subject.lectures[l]);
+                            if (lecture.error) {
+                                return {error: true, description: 'CMS + ' + lecture.description}
+                            }
                             let totalLectureStats = {
                                 _id: lecture._id,
                                 name: lecture.name,
