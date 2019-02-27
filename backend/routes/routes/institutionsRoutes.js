@@ -13,12 +13,12 @@ var defineRoutes = router =>{
             result= {error:true,description:'you do\'nt have validation'};
         else
             result = await InstitutionController.cms(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.get('/getschoolsgs', async function(req,res){
         let result = await InstitutionController.getSchoolsGB();
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
     router.get('/:id', async function(req,res){
         let result = {};
@@ -26,7 +26,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.getInstitution(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('', checkAuth, async function(req,res){
@@ -35,12 +35,12 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result =  await InstitutionController.createInstitution(req.body);
-        res.status(result?201:400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('', async function(req,res){
         let result =  await InstitutionController.getInstitutionCollection();
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('', checkAuth, async function(req,res){
@@ -67,7 +67,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result =  await InstitutionController.addSchool(req.body);
-        res.status(result?201:400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
 
@@ -77,7 +77,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.getSchools(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/permission', checkAuth, async function(req,res){
@@ -86,7 +86,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.addpermission(req.body);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('/permission', checkAuth, async function(req,res){
@@ -95,7 +95,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.deletepermission(req.body);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     return router;
