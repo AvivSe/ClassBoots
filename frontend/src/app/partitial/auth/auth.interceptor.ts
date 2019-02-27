@@ -21,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor{
                 if (err instanceof HttpErrorResponse) {
                     switch (err.status) {
                         case 401:
+                        case 400:
                             this.router.navigate(['PleaseLogin'], { queryParams: { returnUrl: req.url } });
                             break;
                         case 404:

@@ -16,7 +16,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await VideoController.getVideo(req.params.id,req.profile.user._id);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('', checkAuth, async function(req,res){
@@ -32,12 +32,12 @@ var defineRoutes = router =>{
                 LectureController.addVideo(send);
             }
         }
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('', checkAuth, async function(req,res){
         let result =  await VideoController.getVideoCollection();
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('', checkAuth, async function(req,res){
@@ -49,7 +49,7 @@ var defineRoutes = router =>{
             if (!result.error)
                 LectureController.deleteVideo({lectureid: req.body.lectureid, videoid: req.body._id});
         }
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.put('', checkAuth, async function(req,res){
@@ -58,7 +58,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await VideoController.updateVideo(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addcomment', checkAuth, async function(req,res){
@@ -67,7 +67,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await VideoController.addComment(req.body,req.profile.user._id);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('/deletecomment', checkAuth, async function(req,res){
@@ -76,7 +76,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await VideoController.deleteComment(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     return router;

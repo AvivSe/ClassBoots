@@ -14,7 +14,7 @@ var defineRoutes = router => {
             result= {error:true,description:'you do\'nt have validation'};
         else
              result = await SchoolController.cms(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.get('/:id', async function (req, res) {
@@ -23,7 +23,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SchoolController.getSchool(req.params.id);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('', checkAuth, async function (req, res) {
@@ -39,12 +39,12 @@ var defineRoutes = router => {
                 InstitutionController.addSchool(send);
             }
         }
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('', async function (req, res) {
         let result = await SchoolController.getSchoolCollection();
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('', checkAuth, async function (req, res) {
@@ -56,7 +56,7 @@ var defineRoutes = router => {
             if (!result.error)
                 InstitutionController.deleteSchool({institutionid: req.body.institutionid, schoolid: req.body._id});
         }
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.put('', checkAuth, async function (req, res) {
@@ -65,7 +65,7 @@ var defineRoutes = router => {
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await SchoolController.updateSchool(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addsubject', checkAuth, async function (req, res) {
@@ -74,7 +74,7 @@ var defineRoutes = router => {
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await SchoolController.addSubject(req.body);
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('/getsubjects/:id', async function (req, res) {
@@ -83,7 +83,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SchoolController.getSubjects(req.params.id);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addpermission', checkAuth, async function (req, res) {
@@ -92,7 +92,7 @@ var defineRoutes = router => {
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await SchoolController.addpermission(req.body);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('/permission', checkAuth, async function (req, res) {
@@ -101,7 +101,7 @@ var defineRoutes = router => {
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await SchoolController.deletepermission(req.body);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     return router;
