@@ -260,41 +260,64 @@ class InstitutionController {
     }
 
     static async totalCms() {
-        let result = { totalViews: 0, institutions: [] };
+        let result = {totalViews: 0, institutions: []};
         try {
             let institution = await InstitutionController.getInstitutionCollection();
-            if(institution.error) {
-                return { error: true, description: 'CMS + ' + institution.description }
+            if (institution.error) {
+                return {error: true, description: 'CMS + ' + institution.description}
             }
 
-        for (let i = 0; i < institution.length; i++) {
-            let  totalInstitutionStats = { _id: institution[i]._id, name: institution[i].name , totalViews: (await InstitutionController.cms(institution[i]._id)).total, schools: []};
-            for (let j = 0; j < institution[i].schools.length; j++) {
-                let school = await SchoolController.getSchool(institution[i].schools[j]);
-                let totalSchoolsStats = { _id: school._id, name: school.name, totalViews: (await SchoolController.cms(school._id)).total, subjects: []};
-                for (let k = 0; k < school.subjects.length; k++) {
-                    let subject = await SubjectController.getSubject(school.subjects[k]);
-                    let totalSubjectStats = { _id: subject._id, name: subject.name, totalViews: (await SubjectController.cms(subject._id)).total, lectures: []};
-                    for (let l = 0; l < subject.lectures.length; l++) {
-                        let lecture = await LectureController.getLecture(subject.lectures[l]);
-                        let totalLectureStats = { _id: lecture._id, name: lecture.name, totalViews: (await LectureController.cms(lecture._id)).total, videos: []};
-                        for (let m = 0; m < lecture.videos.length; m++) {
-                            let video = await Video.findOne({_id: lecture.videos[m]});
-                            totalLectureStats.videos.push({ _id: video._id, name: 'TODO', totalViews: video.views })
+            for (let i = 0; i < institution.length; i++) {
+                let totalInstitutionStats = {
+                    _id: institution[i]._id,
+                    name: institution[i].name,
+                    totalViews: (await InstitutionController.cms(institution[i]._id)).total,
+                    schools: []
+                };
+                for (let j = 0; j < institution[i].schools.length; j++) {
+                    let school = await SchoolController.getSchool(institution[i].schools[j]);
+                    let totalSchoolsStats = {
+                        _id: school._id,
+                        name: school.name,
+                        totalViews: (await SchoolController.cms(school._id)).total,
+                        subjects: []
+                    };
+                    for (let k = 0; k < school.subjects.length; k++) {
+                        let subject = await SubjectController.getSubject(school.subjects[k]);
+                        let totalSubjectStats = {
+                            _id: subject._id,
+                            name: subject.name,
+                            totalViews: (await SubjectController.cms(subject._id)).total,
+                            lectures: []
+                        };
+                        for (let l = 0; l < subject.lectures.length; l++) {
+                            let lecture = await LectureController.getLecture(subject.lectures[l]);
+                            let totalLectureStats = {
+                                _id: lecture._id,
+                                name: lecture.name,
+                                totalViews: (await LectureController.cms(lecture._id)).total,
+                                videos: []
+                            };
+                            for (let m = 0; m < lecture.videos.length; m++) {
+                                let video = await Video.findOne({_id: lecture.videos[m]});
+                                totalLectureStats.videos.push({_id: video._id, name: 'TODO', totalViews: video.views})
+                            }
+                            totalSubjectStats.lectures.push(totalLectureStats);
                         }
-                        totalSubjectStats.lectures.push(totalLectureStats);
+                        totalSchoolsStats.subjects.push(totalSubjectStats);
                     }
-                    totalSchoolsStats.subjects.push(totalSubjectStats);
+                    totalInstitutionStats.schools.push(totalSchoolsStats);
                 }
-                totalInstitutionStats.schools.push(totalSchoolsStats) ;
+                result.totalViews += totalInstitutionStats.totalViews;
+                result.institutions.push(totalInstitutionStats);
             }
-            result.totalViews += totalInstitutionStats.totalViews;
-            result.institutions.push(totalInstitutionStats);
+
+            return result;
+        } catch (e) {
+            errorsController.logger({error: true, description: 'totalCms: ' + e});
+
         }
-
-        return result;
     }
-
 }
 
-module;.exports = InstitutionController;
+module.exports = InstitutionController;

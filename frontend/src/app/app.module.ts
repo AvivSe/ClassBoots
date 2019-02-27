@@ -19,8 +19,8 @@ import {
     MatButtonToggleModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatSlideToggleModule
-    
+    MatSlideToggleModule,
+    MatListModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -89,6 +89,7 @@ import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
 import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -163,6 +164,7 @@ import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.c
         Ng2GoogleChartsModule,
         MatButtonToggleModule,
         MatPaginatorModule,
+        MatListModule,
         AgGridModule.withComponents([]),
         ModalModule.forRoot(),
         NgbModule,
