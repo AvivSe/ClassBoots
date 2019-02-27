@@ -36,12 +36,18 @@ var defineRoutes = router =>{
     });
 
     router.post('', checkAuth, async function(req,res){
-        var send = {};
-        send.subjectid = req.body.subjectid;
-        let result =  await LectureController.createLecture(req.body);
-        send.lectureid = result._id;
-        SubjectController.addLecture(send);
-        res.status(result?201:400).send(result);
+        if (!req.body.subjectid) {
+            result = {error: true, description: 'you don\'t have validation'};
+        } else {
+            var send = {};
+            send.subjectid = req.body.subjectid;
+            let result = await LectureController.createLecture(req.body);
+            if (!result.error) {
+                send.lectureid = result._id;
+                SubjectController.addLecture(send);
+            }
+        }
+        res.status(result ? 201 : 400).send(result);
     });
 
     router.get('', async function(req,res){
@@ -51,6 +57,8 @@ var defineRoutes = router =>{
 
     router.delete('', checkAuth, async function(req,res){
         let result =  await LectureController.deleteLecture(req.body._id);
+        if(!result.error)
+            SubjectController.deleteLecture({subjectid:req.body.subjectid,lectureid:req.body._id});
         res.status(200).send(result);
     });
 

@@ -16,12 +16,18 @@ var defineRoutes = router =>{
     });
 
     router.post('', checkAuth, async function(req,res){
-        var send = {};
-        send.lectureid = req.body.lectureid;
-        let result =  await VideoController.createVideo(req.body);
-        send.videoid = result._id;
-        LectureController.addVideo(send);
-        res.status(result?201:400).send(result);
+        if (!req.body.lectureid) {
+            result = {error: true, description: 'you don\'t have validation'};
+        } else {
+            var send = {};
+            send.lectureid = req.body.lectureid;
+            let result = await VideoController.createVideo(req.body);
+            if (!result.error) {
+                send.videoid = result._id;
+                LectureController.addVideo(send);
+            }
+        }
+        res.status(result ? 201 : 400).send(result);
     });
 
     // TODO: checkAuth, Role.admin,
@@ -32,6 +38,8 @@ var defineRoutes = router =>{
 
     router.delete('', checkAuth, async function(req,res){
         let result =  await VideoController.deleteVideo(req.body._id);
+        if(!result.error)
+            LectureController.deleteVideo({lectureid:req.body.lectureid,videoid:req.body._id});
         res.status(200).send(result);
     });
 

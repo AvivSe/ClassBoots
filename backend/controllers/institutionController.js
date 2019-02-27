@@ -79,9 +79,7 @@ class InstitutionController {
             await this.getInstitution(id).then(async institution=>{
                 for (let i = 0; i < institution.schools.length; i++) {
                     await SchoolController.getSchool(institution.schools[i]).then(async school=>{
-                        if(school.error !== undefined)
-                            this.deleteSchool({institutionid:id,schoolid:institution.schools[i]});
-                        else result.push(school);
+                        result.push(school);
                     });
                 }
             }).catch(async err=>{

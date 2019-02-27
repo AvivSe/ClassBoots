@@ -106,9 +106,7 @@ class LectureController {
             await this.getLecture(id).then(async lecture=>{
                 for (let i = 0; i < lecture.videos.length; i++) {
                     await VideoController.getVideo(lecture.videos[i],null).then(async video=>{
-                        if(video.error !== undefined)
-                            this.deleteVideo({lectureid:id,videoid:lecture.videos[i]});
-                        else result.push(video);
+                        result.push(video);
                     });
                 }
             }).catch(async err=>{
