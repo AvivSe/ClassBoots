@@ -49,7 +49,7 @@ var defineRoutes = router =>{
             result =  {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.deleteInstitution(req.body._id);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.put('', checkAuth, async function(req,res){
@@ -58,7 +58,7 @@ var defineRoutes = router =>{
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await InstitutionController.updateInstitution(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addschool', checkAuth, async function(req,res){
