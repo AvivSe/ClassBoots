@@ -7,10 +7,8 @@ var router = express.Router({mergeParams: true});
 
 var defineRoutes = router =>{
     router.get('/cms', async (req,res)=> {
-
         let result = await InstitutionController.totalCms();
-
-        res.status(result?200:400).send(result);
+        res.status(!result.err?200:400).send(result);
     });
     return router;
 };

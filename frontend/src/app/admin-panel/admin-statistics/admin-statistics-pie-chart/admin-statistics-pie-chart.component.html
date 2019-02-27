@@ -1,3 +1,21 @@
 <h2>{{ title }}</h2>
+<h3>{{ subtitle }}</h3>
 <app-lazy-loading *ngIf="!loaded"></app-lazy-loading>
-<svg *ngIf="loaded" appPieDirective [data]="DATA" width="960" height="500"></svg>
+<button *ngIf="loaded" (click)="switchTo()"> Show By Institution</button>
+<div class="row">
+    <div class="col-8">
+        <div>
+            <ng-container #outlet>
+            </ng-container>
+        </div>
+
+        <ng-template #content>
+            <svg *ngIf="loaded" appPieDirective [data]="DATA" width="960" height="500"></svg>
+        </ng-template>
+
+    </div>
+    <div class="col-4" *ngIf="loaded" >
+        <h6 class="dropdown-header">Show by schools</h6>
+        <a *ngFor="let inst of cms.institutions" class="dropdown-item" (click)="switchTo(inst.schools)">{{inst.name}}</a>
+    </div>
+</div>

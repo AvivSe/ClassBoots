@@ -2,6 +2,7 @@ import {Directive, ElementRef, Input} from '@angular/core';
 import * as d3Scale from "d3-scale";
 import * as d3Shape from "d3-shape";
 import * as d3 from "d3-selection";
+import {entitiesService} from "../../../partitial/entities/entities.service";
 
 @Directive({
   selector: '[appPieDirective]'
@@ -22,7 +23,7 @@ export class PieDirectiveDirective {
   private color: any;
   private svg: any;
 
-  constructor(public el: ElementRef) {
+  constructor(public el: ElementRef,private entitiesSerivce: entitiesService) {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
@@ -31,6 +32,13 @@ export class PieDirectiveDirective {
   ngOnInit() {
     this.initSvg();
     this.drawPie();
+    this.entitiesSerivce.pieChartEmitter.subscribe(action => {
+        if(action.name == 'redraw') {
+            this.data = action.payload;
+            this.drawPie();
+
+        }
+    })
   }
 
   private initSvg() {
