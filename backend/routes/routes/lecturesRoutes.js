@@ -50,7 +50,7 @@ var defineRoutes = router =>{
     });
 
     router.delete('', checkAuth, async function(req,res){
-        let result =  await LectureController.deleteLecture(req.body.id);
+        let result =  await LectureController.deleteLecture(req.body._id);
         res.status(200).send(result);
     });
 
