@@ -1,9 +1,9 @@
 const errorsController = require('./errorsController');
+const {VideoController} = require('./videoController');
 const LectureController = require('./lectureController');
 const SubjectController = require('./subjectController');
 const SchoolController = require('./schoolController');
 const InstitutionController = require('./institutionController');
-const VideoController = require('./videoController');
 
 const Video = require('../models/video');
 const Lecture = require('../models/lecture');
@@ -12,6 +12,7 @@ const School = require('../models/school');
 const Institution = require('../models/institution');
 
 var AhoCorasick = require('node-aho-corasick');
+console.log('search');
 
 
 class SearchController {

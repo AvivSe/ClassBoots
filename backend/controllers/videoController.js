@@ -3,6 +3,7 @@ const History = require('../models/history');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
 const createCountMinSketch = require("count-min-sketch");
+console.log('video');
 
 var Sketch = (function () {
     var instance;
