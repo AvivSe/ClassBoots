@@ -95,6 +95,7 @@ import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-stat
 
 import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';
 import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/admin-statistics-groupby/admin-statistics-groupby.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
@@ -157,6 +158,7 @@ import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/
         PieDirectiveDirective,
         AdminStatisticsAhoComponent,
         AdminStatisticsGroupbyComponent,
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,

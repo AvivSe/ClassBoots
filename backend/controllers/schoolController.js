@@ -26,7 +26,6 @@ class SchoolController {
     };
 
     static async createSchool(body) {
-
         try {
             let result = {};
             let school = new School(body);
@@ -46,7 +45,6 @@ class SchoolController {
     }
 
     static async getSchool(id) {
-
         try {
             let result = null;
             await School.findById(id).then(school => {
@@ -68,20 +66,16 @@ class SchoolController {
     };
 
     static async getSubjects(id) {
-
         try {
-            let result = [];
+              let result = [];
             await this.getSchool(id).then(async school=>{
                 for (let i = 0; i < school.subjects.length; i++) {
                     await SubjectController.getSubject(school.subjects[i]).then(async subject=>{
-                        if(subject.error !== undefined)
-                            this.deleteSubject({schoolid:id,subjectid:school.subjects[i]});
-                        else result.push(subject);
+                        result.push(subject);
                     });
                 }
             }).catch(async err=>{
                 result = {error:true,description:'School not found'};
-                // TODO: need to fix
             });
             return result;
         }
@@ -98,7 +92,6 @@ class SchoolController {
      * @returns {Promise<*>}
      */
     static async deleteSchool(id) {
-
         try {
             let result = null;
             await School.findByIdAndDelete(id).then(obj=>{
@@ -121,7 +114,6 @@ class SchoolController {
     };
 
     static async updateSchool(body) {
-
         try {
             let invalid = {};
             await School.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -138,7 +130,6 @@ class SchoolController {
     }
 
     static async addSubject(body) {
-
         try {
             let invalid = {};
             let school = await SchoolController.getSchool(body.schoolid);
@@ -169,8 +160,11 @@ class SchoolController {
 
     // TODO: don't need now! but need to fix
     static async deleteSubject(body) {
+        if(!body.schoolid || !body.subjectid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
+
             School.findByIdAndUpdate(
                 body.schoolid,
                 { $pull: {"subjects": body.subjectid }},
@@ -186,9 +180,8 @@ class SchoolController {
     };
 
     static async addpermission(body) {
-
         try {
-            let invalid = {};
+          let invalid = {};
             let school = await this.getSchool(body.schoolid);
             if(school.error)
                 return school;
@@ -211,8 +204,8 @@ class SchoolController {
     };
 
     static async deletepermission(body) {
-
         try {
+
             let invalid = {};
             let school = await this.getSchool(body.schoolid);
             if(school.error)
@@ -236,18 +229,25 @@ class SchoolController {
     };
 
     static async cms(schoolID) {
-        let subjects = await SchoolController.getSubjects(schoolID);
-        if(subjects.error) {
-            return { error: true, description: 'CMS + ' + subjects.description}
+        try {
+            let subjects = await SchoolController.getSubjects(schoolID);
+            if(subjects.error) {
+                return { error: true, description: 'CMS + ' + subjects.description}
+            }
+
+            let totalViewsInSchool = 0;
+            for (let i = 0; i < subjects.length; i++) {
+                for (let j = 0; j < subjects[i].lectures.length; j++) {
+                    totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
+                }
+            }
+            return { total: totalViewsInSchool};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
         }
 
-        let totalViewsInSchool = 0;
-        for (let i = 0; i < subjects.length; i++) {
-            for (let j = 0; j < subjects[i].lectures.length; j++) {
-                totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
-            }
-        }
-        return { total: totalViewsInSchool}
 
     }
 
