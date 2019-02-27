@@ -1,2 +1,3 @@
 <h2>{{ title }}</h2>
-<svg appPieDirective [data]="POPULATION" width="960" height="500"></svg>
+<app-lazy-loading *ngIf="!loaded"></app-lazy-loading>
+<svg *ngIf="loaded" appPieDirective [data]="DATA" width="960" height="500"></svg>
