@@ -75,7 +75,7 @@ class VideoController {
     };
 
     static async getVideo(id, userid) {
-        if(!id || !userid)
+        if(!id)
             return {error:true,description:'you don\'t have validation'};
 
         try {
