@@ -53,7 +53,7 @@ class LectureController {
     };
 
     static async createLecture(body) {
-        if(!body.lecturer || !body.name || !body.description || !body.data || !body.subjectid){
+        if(!body.lecturer || !body.name || !body.description || !body.date || !body.subjectid){
             return {error:true,description:'you don\'t have validation'};
         }
         try {
