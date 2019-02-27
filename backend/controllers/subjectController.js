@@ -27,6 +27,8 @@ class SubjectController {
 
 
     static async createSubject(body) {
+        if(!body.name || !body.description || !body.schoolid )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = {};
@@ -47,6 +49,8 @@ class SubjectController {
     };
 
     static async updateSubject(body) {
+        if(!body._id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -64,6 +68,8 @@ class SubjectController {
     }
 
     static async getSubject(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -86,6 +92,8 @@ class SubjectController {
     };
 
     static async getLectures(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = [];
@@ -116,6 +124,8 @@ class SubjectController {
      * @returns {Promise<*>}
      */
     static async deleteSubject(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -138,6 +148,8 @@ class SubjectController {
     };
 
     static async addLecture(body) {
+        if(!body.subjectid || !body.lectureid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -168,6 +180,8 @@ class SubjectController {
     };
 
     static async deleteLecture(body) {
+        if(!body.subjectid || !body.lectureid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             Subject.findByIdAndUpdate(

@@ -26,6 +26,8 @@ class SchoolController {
     };
 
     static async createSchool(body) {
+        if(!body.name || !body.institutionid )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = {};
@@ -46,6 +48,8 @@ class SchoolController {
     }
 
     static async getSchool(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -68,9 +72,11 @@ class SchoolController {
     };
 
     static async getSubjects(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
-            let result = [];
+              let result = [];
             await this.getSchool(id).then(async school=>{
                 for (let i = 0; i < school.subjects.length; i++) {
                     await SubjectController.getSubject(school.subjects[i]).then(async subject=>{
@@ -98,6 +104,8 @@ class SchoolController {
      * @returns {Promise<*>}
      */
     static async deleteSchool(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -121,6 +129,8 @@ class SchoolController {
     };
 
     static async updateSchool(body) {
+        if(!body._id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -138,6 +148,8 @@ class SchoolController {
     }
 
     static async addSubject(body) {
+        if(!body.schoolid || !body.subjectid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -169,8 +181,11 @@ class SchoolController {
 
     // TODO: don't need now! but need to fix
     static async deleteSubject(body) {
+        if(!body.schoolid || !body.subjectid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
+
             School.findByIdAndUpdate(
                 body.schoolid,
                 { $pull: {"subjects": body.subjectid }},
@@ -186,9 +201,11 @@ class SchoolController {
     };
 
     static async addpermission(body) {
+        if(!body.schoolid || !body.userid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
-            let invalid = {};
+          let invalid = {};
             let school = await this.getSchool(body.schoolid);
             if(school.error)
                 return school;
@@ -211,8 +228,11 @@ class SchoolController {
     };
 
     static async deletepermission(body) {
+        if(!body.schoolid || !body.userid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
+
             let invalid = {};
             let school = await this.getSchool(body.schoolid);
             if(school.error)

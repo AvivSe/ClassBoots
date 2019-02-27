@@ -53,7 +53,9 @@ class LectureController {
     };
 
     static async createLecture(body) {
-
+        if(!body.lecturer || !body.name || !body.description || !body.data || !body.subjectid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let result = {};
             let lecture = new Lecture(body);
@@ -72,7 +74,9 @@ class LectureController {
     }
 
     static async getLecture(id) {
-
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let result = null;
             await Lecture.findById(id).then(lecture => {
@@ -94,7 +98,9 @@ class LectureController {
     };
 
     static async getVideos(id) {
-
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let result = [];
             await this.getLecture(id).then(async lecture=>{
@@ -124,7 +130,9 @@ class LectureController {
      * @returns {Promise<*>}
      */
     static async deleteLecture(id) {
-
+        if(!id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let result = null;
             await Lecture.findByIdAndDelete(id).then(obj=>{
@@ -146,7 +154,9 @@ class LectureController {
     };
 
     static async updateLecture(body) {
-
+        if(!body._id){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let invalid = {};
             await Lecture.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -163,7 +173,9 @@ class LectureController {
     }
 
     static async addVideo(body) {
-
+        if(!body.lectureid || !body.videoid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             let invalid = {};
             let lecture = await this.getLecture(body.lectureid);
@@ -194,7 +206,9 @@ class LectureController {
 
     // TODO: don't need now! but need to fix
     static async deleteVideo(body) {
-
+        if(!body.lectureid || !body.videoid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             Lecture.findByIdAndUpdate(
                 body.lectureid,
