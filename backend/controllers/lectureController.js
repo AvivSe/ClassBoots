@@ -217,13 +217,15 @@ class LectureController {
             errorsController.logger({error:'cms',description:e});
             return {error:true,description:'cms: '+e};
         }
-
     }
 
     static async stats() {
         try {
             let lectures = await LectureController.getLectureCollection();
-            let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+            let totalVideos = 0;
+            if(lectures) {
+                totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+            }
             return { totalVideos:  totalVideos };
         }
         catch (e) {
