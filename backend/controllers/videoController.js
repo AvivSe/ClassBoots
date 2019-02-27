@@ -47,6 +47,8 @@ class VideoController {
     };
 
     static async createVideo(body) {
+        if(!body.reference || !body.position || !body.lectureid || !body.name )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = {};
@@ -72,6 +74,8 @@ class VideoController {
     };
 
     static async getVideo(id, userid) {
+        if(!id || !userid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -142,6 +146,8 @@ class VideoController {
     };
 
     static async deleteVideo(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -157,6 +163,8 @@ class VideoController {
     };
 
     static async updateVideo(body) {
+        if(!body._id )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -172,6 +180,8 @@ class VideoController {
     }
 
     static async addComment(body, userid) {
+        if(!body.videoid || !userid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let invalid = {};
@@ -194,6 +204,8 @@ class VideoController {
     };
 
     static async deleteComment(body) {
+        if(!body.videoid || !body.commentid)
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = await Video.findByIdAndUpdate(
