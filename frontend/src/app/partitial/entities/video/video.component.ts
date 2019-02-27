@@ -18,6 +18,7 @@ export class VideoComponent implements OnInit,OnDestroy {
   isVideoLoaded : boolean = false;
   videoId: string = '';
   checked : boolean = false;
+  isLoaded: boolean = false;
 
   constructor(public entitiesService : entitiesService,
               private route: ActivatedRoute,
@@ -25,6 +26,7 @@ export class VideoComponent implements OnInit,OnDestroy {
               public commentsService: CommentsService,
               public authService:AuthService,
               public socket: Socket,
+              private router : Router
               ) {
     this.socket.on('new-comment', function(videoId){
       commentsService.notify(videoId);
@@ -37,7 +39,8 @@ export class VideoComponent implements OnInit,OnDestroy {
       this.currentVideo = data;
       this.isVideoLoaded=true;
       this.commentsService.notify(this.currentVideo._id);
-      this.entitiesService.changeSideBarEmitter.emit(this.currentVideo.lectureid)
+      this.entitiesService.changeSideBarEmitter.emit(this.currentVideo.lectureid);
+      this.isLoaded = true;
     });
   }
 
@@ -46,5 +49,9 @@ export class VideoComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+  setRedirect() {
+    this.entitiesService.setRedirectUrl(this.router.routerState.snapshot);
+    this.router.navigate(['Video/edit/',this.videoId]);
   }
 }

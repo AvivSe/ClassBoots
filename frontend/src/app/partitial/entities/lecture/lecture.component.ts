@@ -19,6 +19,7 @@ export class LectureComponent implements OnInit {
       this.entitiesService.getLecture(params['_id']);
     });
     this.entitiesService.lectureEmitter.subscribe(lecture =>{
+      console.log(lecture);
       this.currentLecture = lecture;
       this.init = true;
     });

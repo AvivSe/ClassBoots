@@ -18,7 +18,6 @@ var defineRoutes = router =>{
 
     router.get('/history/videos', checkAuth,  async function(req,res){
         if(req.profile) {
-            console.log(req.profile.user._id);
             let result = await UserController.getUserWatchesHistory(req.profile.user._id);
             res.status(result?200:400).send(result);
         } else {
@@ -48,7 +47,6 @@ var defineRoutes = router =>{
 
     });
 
-    // todo: add: Role.setPermissions(['admin'])
     router.get('' , checkAuth, async function(req,res){
         let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);

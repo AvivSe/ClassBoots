@@ -35,4 +35,11 @@ export class SchoolEditComponent implements OnInit {
       this.data.name = editForm.value.name;
     this.entitiesService.editSchool(this.data);
   }
+
+  deleteItem() {
+    this.entitiesService.deleteElement("school", this.data, (data) => {
+      if (data.error) {
+      }
+    });
+  }
 }

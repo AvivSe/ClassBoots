@@ -53,7 +53,6 @@ class LectureController {
     };
 
     static async createLecture(body) {
-
         try {
             let result = {};
             let lecture = new Lecture(body);
@@ -72,7 +71,6 @@ class LectureController {
     }
 
     static async getLecture(id) {
-
         try {
             let result = null;
             await Lecture.findById(id).then(lecture => {
@@ -94,20 +92,16 @@ class LectureController {
     };
 
     static async getVideos(id) {
-
         try {
             let result = [];
             await this.getLecture(id).then(async lecture=>{
                 for (let i = 0; i < lecture.videos.length; i++) {
                     await VideoController.getVideo(lecture.videos[i],null).then(async video=>{
-                        if(video.error !== undefined)
-                            this.deleteVideo({lectureid:id,videoid:lecture.videos[i]});
-                        else result.push(video);
+                        result.push(video);
                     });
                 }
             }).catch(async err=>{
                 result = {error:true,description:'lecture not found'};
-                // TODO: need to fix
             });
             return result;
         }
@@ -124,12 +118,12 @@ class LectureController {
      * @returns {Promise<*>}
      */
     static async deleteLecture(id) {
-
         try {
             let result = null;
             await Lecture.findByIdAndDelete(id).then(obj=>{
+                result = {Deleted:id};
                 obj.videos.forEach(async videoid => {
-                    result = await VideoController.deleteVideo(videoid);
+                    VideoController.deleteVideo(videoid);
                 });
             }).catch(err => {
                 result = {error:true,description:err};
@@ -145,7 +139,6 @@ class LectureController {
     };
 
     static async updateLecture(body) {
-
         try {
             let invalid = {};
             await Lecture.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -162,7 +155,6 @@ class LectureController {
     }
 
     static async addVideo(body) {
-
         try {
             let invalid = {};
             let lecture = await this.getLecture(body.lectureid);
@@ -193,7 +185,9 @@ class LectureController {
 
     // TODO: don't need now! but need to fix
     static async deleteVideo(body) {
-
+        if(!body.lectureid || !body.videoid){
+            return {error:true,description:'you don\'t have validation'};
+        }
         try {
             Lecture.findByIdAndUpdate(
                 body.lectureid,
@@ -211,20 +205,34 @@ class LectureController {
     };
 
     static async cms(lectureID) {
-        let result = "";
-        await Sketch.getInstance().then(sketch=> {
-            result = sketch.query(lectureID);
-        });
+        try {
+            let result = "";
+            await Sketch.getInstance().then(sketch=> {
+                result = sketch.query(lectureID);
+            });
 
-        return {total: result};
+            return {total: result};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
+        }
     }
 
     static async stats() {
-        let lectures = await LectureController.getLectureCollection();
+        try {
+            let lectures = await LectureController.getLectureCollection();
+            let totalVideos = 0;
+            if(lectures) {
+                totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+            }
+            return { totalVideos:  totalVideos };
+        }
+        catch (e) {
+            errorsController.logger({error:'stats',description:e});
+            return {error:true,description:'stats: '+e};
+        }
 
-        let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
-
-        return { totalVideos:  totalVideos };
     }
 }
 

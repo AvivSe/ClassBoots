@@ -12,6 +12,8 @@ class UserController {
     };
 
     static async createUser(body) {
+        if(!body.email || !body.password )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let error = false;
@@ -42,6 +44,8 @@ class UserController {
        }
     };
     static async login(body) {
+        if(!body.email || !body.password )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let user;
@@ -55,6 +59,8 @@ class UserController {
     };
 
     static async getUserHistory(userId) {
+        if(!userId )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;
@@ -75,7 +81,8 @@ class UserController {
     }
 
     static async getUserWatchesHistory(userId) {
-
+        if(!userId )
+            return {error:true,description:'you don\'t have validation'};
         try {
             let history = [];
             history = await this.getUserHistory(userId);
@@ -95,6 +102,8 @@ class UserController {
     }
 
     static async getUser(email) {
+        if(!email )
+            return {error:true,description:'you don\'t have validation'};
 
         try {
             let result = null;

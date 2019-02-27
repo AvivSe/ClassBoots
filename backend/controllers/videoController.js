@@ -29,7 +29,6 @@ var Sketch = (function () {
 class VideoController {
 
     static async getVideoCollection() {
-
         try {
             let result;
             let invalid = {};
@@ -47,7 +46,6 @@ class VideoController {
     };
 
     static async createVideo(body) {
-
         try {
             let result = {};
             let video = new Video(body);
@@ -64,7 +62,7 @@ class VideoController {
                     errorsController.logger({error: 'createVideo', description: err});
                 }
             });
-            return result.error === undefined ? institution : result;
+            return result.error === undefined ? video : result;
         } catch (e) {
             errorsController.logger({error: 'createVideo', description: e});
             return {error: true, description: 'createVideo: ' + e};
@@ -72,7 +70,6 @@ class VideoController {
     };
 
     static async getVideo(id, userid) {
-
         try {
             let result = null;
             await Video.findById(id).then(async video => {
@@ -142,9 +139,8 @@ class VideoController {
     };
 
     static async deleteVideo(id) {
-
         try {
-            let result = null;
+            let result = {Deleted:id};
             await Video.findByIdAndDelete(id).catch(err => {
                 result = {error: true, description: err};
                 errorsController.logger({error: 'deleteVideo', description: err});
@@ -157,7 +153,6 @@ class VideoController {
     };
 
     static async updateVideo(body) {
-
         try {
             let invalid = {};
             await Video.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -172,7 +167,6 @@ class VideoController {
     }
 
     static async addComment(body, userid) {
-
         try {
             let invalid = {};
             body.user = userid;
@@ -194,7 +188,6 @@ class VideoController {
     };
 
     static async deleteComment(body) {
-
         try {
             let result = await Video.findByIdAndUpdate(
                 body.videoid,

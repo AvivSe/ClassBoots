@@ -1,6 +1,6 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" *ngIf="isLoaded">
 <span>
-        <i class="material-icons card-button" style="float: right;font-size: 2em;">edit</i></span>
+        <i class="material-icons card-button" style="float: right;font-size: 2em;" (click)="setRedirect()">edit</i></span>
 <div>
     <app-video-player [_id]="currentVideo.reference"></app-video-player>
     <mat-card>
@@ -37,3 +37,6 @@
     <app-recommended-videos></app-recommended-videos>
 </div>
 </div>
+
+
+<app-lazy-loading *ngIf="!isLoaded"></app-lazy-loading>

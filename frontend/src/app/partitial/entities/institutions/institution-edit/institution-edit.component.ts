@@ -43,4 +43,11 @@ export class InstitutionEditComponent implements OnInit {
          this.entitiesService.editInstitution(this.institution);
          editForm.resetForm();
     }
+
+    deleteItem(){
+        this.entitiesService.deleteElement("institution",this.institution,(data)=>{
+           if(data.error){
+           }
+        });
+    }
 }
