@@ -21,10 +21,11 @@ export class VideoCreateComponent implements OnInit {
       }
     });
     this.route.params.subscribe(params =>{
-      this.currentLecture = params['currentLecture'];
+      this.currentLecture = params['currentId'];
     })
   }
   onCreate(createForm){
+    alert("hi");
     const video = {
       lectureid: this.currentLecture,
       reference: createForm.value.reference,

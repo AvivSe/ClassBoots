@@ -7,10 +7,12 @@
          role="button"
          aria-haspopup="true"
          aria-expanded="false"
-         class="nav-link dropdown-toggle">Statistics</a>
+         class="nav-link dropdown-toggle">Requests</a>
       <div class="dropdown-menu">
-        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/pie'}}]" class="dropdown-item">Pie Chart</a>
-        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/map'}}]"  class="dropdown-item">Map Chart</a>
+        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/statistics'}}]" class="dropdown-item">Statistics</a>
+        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/map'}}]"  class="dropdown-item">Map</a>
+        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/aho'}}]"  class="dropdown-item">Aho algorithm</a>
+        <a [routerLink]="[ {outlets:{ adminPanel:'statistics/groupby'}}]"  class="dropdown-item">GroupBy</a>
       </div>
     </li>
     <li class="nav-item dropdown">

@@ -89,6 +89,8 @@ import { VideoEditComponent } from './partitial/entities/video/video-edit/video-
 import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
+import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';
+import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/admin-statistics-groupby/admin-statistics-groupby.component';
 
 @NgModule({
     declarations: [
@@ -147,6 +149,8 @@ import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/
         SearchComponent,
         LectureComponent,
         YoutubeCommentsComponent,
+        AdminStatisticsAhoComponent,
+        AdminStatisticsGroupbyComponent,
     ],
     imports: [
         BrowserModule,

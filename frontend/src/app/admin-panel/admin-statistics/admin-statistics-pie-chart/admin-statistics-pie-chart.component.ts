@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-
 @Component({
   selector: 'app-admin-statistics-pie-chart',
   templateUrl: './admin-statistics-pie-chart.component.html',

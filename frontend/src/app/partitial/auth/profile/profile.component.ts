@@ -17,7 +17,8 @@ export class ProfileComponent implements OnInit {
       this.user = user.email;
     })
   }
-  updateUser(email,firstname,lastname,DOB){
-    //TODO: UPDATE USER AT SERVER.
+  updateUser(userForm){
+    console.log(userForm.value.email);
+    userForm.resetForm();
   }
 }

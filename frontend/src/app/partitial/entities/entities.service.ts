@@ -7,6 +7,7 @@ import {MatSnackBar} from "@angular/material";
 @Injectable({providedIn: "root"})
 export class entitiesService implements OnInit {
     itemList;
+    redirectUrl;
 
     constructor(private matSnackBar: MatSnackBar, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
 
@@ -104,7 +105,7 @@ export class entitiesService implements OnInit {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/school', School).subscribe(data => {
             if (data.error) {
             } else {
-                this.router.navigate(['schools/' + School.institutionid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('School added.', null, {duration: 3000});
             }
         })
@@ -114,7 +115,7 @@ export class entitiesService implements OnInit {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/subject', Subject).subscribe(data => {
             if (data.error) {
             } else {
-                this.router.navigate(['subjects/' + Subject.schoolid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Subject added.', null, {duration: 3000});
             }
         })
@@ -123,9 +124,10 @@ export class entitiesService implements OnInit {
     public addLecture(Lecture) {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
             if (data.error) {
+                console.log(data);
                 this.lectureEmitter.emit(data);
             } else {
-                this.router.navigate(['lectures/' + Lecture.subjectid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Lecture added.', null, {duration: 3000});
             }
         })
@@ -137,7 +139,7 @@ export class entitiesService implements OnInit {
                 this.videoEmitter.emit(data);
             } else {
                 console.log(Video);
-                this.router.navigate(['Video/' + Video.lectureid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Video added.', null, {duration: 3000});
             }
         })
@@ -150,7 +152,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.institutionEmitter.emit(data);
             } else {
-                this.router.navigate(['']);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Institution updated.', null, {duration: 3000});
             }
         })
@@ -161,7 +163,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.schoolEmitter.emit(data);
             } else {
-                this.router.navigate(['schools/' + School.institutionid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('School updated.', null, {duration: 3000});
             }
         })
@@ -172,7 +174,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.subjectEmitter.emit(data);
             } else {
-                this.router.navigate(['subjects/' + Subject.schoolid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Subject updated.', null, {duration: 3000});
             }
         })
@@ -183,7 +185,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.lectureEmitter.emit(data);
             } else {
-                this.router.navigate(['lectures/' + Lecture.subjectid]);
+                this.applyRedirectUrl();
                 this.matSnackBar.open('Lecture updated.', null, {duration: 3000});
             }
         })
@@ -205,11 +207,45 @@ export class entitiesService implements OnInit {
         })
     }
 
+    //ALGORITHMS
+    public getStatistics(next) {
+        this.http.get<{ error: boolean }>(environment.baseUrl + 'api/search/statistic').subscribe(data => {
+            next(data);
+        })
+    }
+    public ahoAlgorithm(words,next){
+        this.http.post<{error:boolean}>(environment.baseUrl+'api/search/words',words).subscribe(data=>{
+            console.log(data);
+            next(data);
+        })
+    }
+
+    public getSchoolsGroupBy(next){
+        this.http.get<{error:boolean}>(environment.baseUrl+'api/institution/getschoolsgs').subscribe(data=>{
+            console.log(data);
+            next(data);
+        })
+    }
+
     //DELETE ELEMENT
     public deleteElement(institution) {
         this.http.delete<{ error: boolean }>(environment.baseUrl + 'api/institution', institution).subscribe(data => {
             this.router.navigate(['']);
         })
     }
+    //SET GET AND APPLY REDIRECT URL
+    public getRedirectUrl() {
+        return this.redirectUrl;
+    }
+
+    public applyRedirectUrl() {
+        this.router.navigate([this.getRedirectUrl()]);
+    }
+
+    public setRedirectUrl(url) {
+        this.redirectUrl = url.url;
+    }
 }
+
+
 

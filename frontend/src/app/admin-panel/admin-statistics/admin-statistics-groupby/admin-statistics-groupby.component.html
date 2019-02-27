@@ -1,0 +1,6 @@
+<h1 align="center" style="padding-top:2%">Schools GroupBy Institutions</h1>
+<hr style="padding-top: 1%">
+
+<div *ngFor="let item of data" align="center" class="mat-title">
+  <span style="color:blue">{{item._id}}</span> &nbsp; <span *ngFor="let school of item.schools" style="color:red">{{school}}</span>
+</div>

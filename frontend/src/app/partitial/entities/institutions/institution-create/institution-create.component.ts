@@ -9,13 +9,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class InstitutionCreateComponent implements OnInit {
   title = {title: "Institution"};
-
   constructor(public authService : AuthService,private route: ActivatedRoute) { }
   ngOnInit() {}
   onCreate(createForm){
     if(createForm.invalid)
       return;
-    alert(createForm.value.name);
     createForm.resetForm();
   }
 

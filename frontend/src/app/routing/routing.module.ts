@@ -51,7 +51,7 @@ const routes: Routes = [
     {path: 'school/:_id', component: SubjectsComponent},
     {path: 'subject/:_id', component: LecturesComponent},
     {path: 'lecture/:_id', component: LectureComponent, canActivate:[AuthGuardService], children: [
-            {path: ':videoId', component: VideoComponent, outlet: 'videoOutlet'}
+        {path: ':videoId', component: VideoComponent, outlet: 'videoOutlet'}
         ]
     },
     {path: 'video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
@@ -61,7 +61,7 @@ const routes: Routes = [
     {path: 'School/create/:currentId', component: CreateSchoolComponent, canActivate:[AuthGuardService]},
     {path: 'Subject/create/:currentId', component: SubjectCreateComponent, canActivate:[AuthGuardService]},
     {path: 'Lecture/create/:currentId', component: LectureCreateComponent, canActivate:[AuthGuardService]},
-    {path: 'Video/Create/:currentLecture', component: VideoCreateComponent, canActivate:[AuthGuardService]},
+    {path: 'Video/create/:currentId', component: VideoCreateComponent, canActivate:[AuthGuardService]},
 
     //Edit routes
     {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AuthGuardService]},

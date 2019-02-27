@@ -66,6 +66,8 @@ export class AuthService {
                     this.user = user._profile;
                     this.getUser.emit(user._profile);
                     this.isLoggedIn = true;
+                    this.sidebarStatus.next(true);
+                    this.isSidebarCollapsed = true;
                     this.commandSuccess.emit();
                     this.matSnackBar.open('You are logged in as '+this.user.email, null, {duration: 3000});
                 }

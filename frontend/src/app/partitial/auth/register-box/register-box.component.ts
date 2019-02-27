@@ -30,13 +30,7 @@ export class RegisterBoxComponent implements OnInit {
     const userData : userData = {
       //TODO: FIX THE REG DATE
       email: registerForm.value.registerEmail,
-      password: registerForm.value.registerPassword,
-      regDate: registerForm.value.registerDOB,
-      address: registerForm.value.registerAddress,
-      role: "user",
-      firstname: registerForm.value.registerFirstName,
-      lastname: registerForm.value.registerLastName,
-      DOB: registerForm.value.registerDOB
+      password: registerForm.value.registerPassword
     };
     this.authService.createUser(userData);
     registerForm.resetForm();
