@@ -12,6 +12,16 @@ var defineRoutes = router =>{
         res.status(result?200:400).send(result);
     });
 
+    router.post('/words', async function(req,res){
+        let result =  await SearchController.searchcomment(req.body);
+        res.status(result?200:400).send(result);
+    });
+
+    router.get('/statistic', async function(req,res){
+        let result =  await SearchController.getStatistic();
+        res.status(result?200:400).send(result);
+    });
+
     return router;
 };
 

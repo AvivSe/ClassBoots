@@ -8,14 +8,20 @@ let connected = false;
 class MongoController {
 
     static connect() {
-        if(!connected) {
-            connected = true;
-            mongoose.connect(connectionString, { useNewUrlParser: true, useCreateIndex:true, useFindAndModify:false})
-                .then(() => {
-                }).catch(reason => {
-                console.log(reason);
-            });
+        try {
+            if(!connected) {
+                connected = true;
+                mongoose.connect(connectionString, { useNewUrlParser: true, useCreateIndex:true, useFindAndModify:false})
+                    .then(() => {
+                    }).catch(reason => {
+                    console.log(reason);
+                });
+            }
         }
+        catch (e) {
+            errorsController.logger({error:true,description:'connect-MongoController: '+e});
+        }
+
     }
 }
 

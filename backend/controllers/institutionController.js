@@ -2,6 +2,8 @@ const Institution = require('../models/institution');
 const School = require('../models/school');
 const errorsController = require('./errorsController');
 const SchoolController = require('./schoolController');
+var mapreduce = require('mapred')();
+const SubjectController = require('./subjectController');
 
 
 class InstitutionController {
@@ -86,6 +88,11 @@ class InstitutionController {
 
     static async getSchoolsGB() {
         let result = [];
+        result=await School.aggregate([
+            {"$group":{_id: "$institutionid",schools:{$push:"$name"}}}
+        ]);
+
+        return result;
         try {
             result=await School.aggregate([
                 {"$group":{_id: "$institutionid",schools:{$push:"$name"}}}
@@ -136,14 +143,14 @@ class InstitutionController {
     }
 
     static async addSchool(body) {
-        var institution = await this.getInstitution(body.institutionid);
-        if(institution.error)
-            return institution;
-        var school = await SchoolController.getSchool(body.schoolid);
-        if(school.error)
-            return school;
         var invalid = {};
         try {
+            var institution = await this.getInstitution(body.institutionid);
+            if(institution.error)
+                return institution;
+            var school = await SchoolController.getSchool(body.schoolid);
+            if(school.error)
+                return school;
             var result = await Institution.findByIdAndUpdate(
                 body.institutionid,
                 { $addToSet: {"schools": body.schoolid}},
@@ -166,49 +173,116 @@ class InstitutionController {
 
     // TODO: don't need now! but need to fix
     static async deleteSchool(body) {
-        Institution.findByIdAndUpdate(
-            body.institutionid,
-            { $pull: {"schools": body.schoolid }},
-            { upsert: true, new: true },
-            err=>{
-                if(err) errorsController.logger("Delete School from Institution",err);
-            });
+        try {
+            Institution.findByIdAndUpdate(
+                body.institutionid,
+                { $pull: {"schools": body.schoolid }},
+                { upsert: true, new: true },
+                err=>{
+                    if(err) errorsController.logger("Delete School from Institution",err);
+                });
+        }
+        catch (e) {
+            errorsController.logger({error:true,description:'deleteSchool: '+e});
+        }
+
     };
 
     static async addpermission(body) {
-        var institution = await this.getInstitution(body.institutionid);
-        if(institution.error)
-            return institution;
         var invalid = {};
-        var result = await Institution.findByIdAndUpdate(
-            body.institutionid,
-            { $addToSet: {"permission": body.userid}},
-            { upsert: true },
-            (err)=>{
-                if(err){
-                    invalid = {error:true,description:err};
-                    errorsController.logger({error:'addpermission',description:err});
-                }
-            });
-        return invalid.error===undefined?result:invalid;
+        try {
+            var institution = await this.getInstitution(body.institutionid);
+            if(institution.error)
+                return institution;
+            var result = await Institution.findByIdAndUpdate(
+                body.institutionid,
+                { $addToSet: {"permission": body.userid}},
+                { upsert: true },
+                (err)=>{
+                    if(err){
+                        invalid = {error:true,description:err};
+                        errorsController.logger({error:'addpermission',description:err});
+                    }
+                });
+            return invalid.error===undefined?result:invalid;
+        }
+        catch (e) {
+            errorsController.logger({error:true,description:'addpermission: '+e});
+        }
+
     };
 
     static async deletepermission(body) {
-        var institution = await this.getInstitution(body.institutionid);
-        if(institution.error)
-            return institution;
         var invalid = {};
-        await Institution.findByIdAndUpdate(
-            body.institutionid,
-            { $pull: {"permission": body.userid }},
-            { upsert: true },
-            err=>{
-                if(err) {
-                    invalid = {error: true, description: err};
-                    errorsController.logger({error: 'deletepermission', description: err});
-                }
-            });
+        try {
+            var institution = await this.getInstitution(body.institutionid);
+            if(institution.error)
+                return institution;
+            await Institution.findByIdAndUpdate(
+                body.institutionid,
+                { $pull: {"permission": body.userid }},
+                { upsert: true },
+                err=>{
+                    if(err) {
+                        invalid = {error: true, description: err};
+                        errorsController.logger({error: 'deletepermission', description: err});
+                    }
+                });
+        }
+        catch (e) {
+            errorsController.logger({error:true,description:'deletepermission: '+e});
+        }
+
     };
+
+    static async cms(instID) {
+        try {
+            let schools = await InstitutionController.getSchools(instID);
+            if(schools.error) {
+                return { error: true, description: 'CMS + ' + schools.description}
+            }
+
+            let totalViewsInInst = 0;
+            for (let i = 0; i < schools.length; i++) {
+                for (let j = 0; j < schools[i].subjects.length; j++) {
+                    totalViewsInInst += (await SubjectController.cms(schools[i].subjects[j])).total;
+                }
+            }
+            return { total: totalViewsInInst}
+        }
+        catch (e) {
+            errorsController.logger({error:true,description:'cms: '+e});
+        }
+
+
+    }
+
+    static async totalCms() {
+        let result = { totalViews: 0, institutions: [] };
+        try {
+            let institution = await InstitutionController.getInstitutionCollection();
+            if(institution.error) {
+                return { error: true, description: 'CMS + ' + institution.description }
+            }
+
+            for (let i = 0; i < institution.length; i++) {
+                let totalInstitutionViews = (await InstitutionController.cms(institution[i]._id)).total;
+                result.totalViews += totalInstitutionViews;
+                result.institutions += { _id: institution[i]._id, name: institution[i].name , totalViews: totalInstitutionViews };
+                for (let j = 0; j < institution[i].schools.length; j++) {
+
+
+                }
+            }
+
+            return result;
+        }
+        catch (e) {
+            errorsController.logger({error:true,description:'totalCms: '+e});
+        }
+
+
+    }
 
 }
 

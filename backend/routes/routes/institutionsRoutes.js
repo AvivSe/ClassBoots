@@ -7,6 +7,11 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
+    router.get('/:id/cms', async (req,res)=> {
+        let result = await InstitutionController.cms(req.params.id);
+        res.status(result?200:400).send(result);
+    });
+
     router.get('/getschoolsgs', async function(req,res){
         let result = await InstitutionController.getSchoolsGB();
         res.status(result?200:400).send(result);

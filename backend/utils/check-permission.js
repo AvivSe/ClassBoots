@@ -2,7 +2,7 @@ const InstitutionController = require('../controllers/institutionController');
 const SchoolController = require('../controllers/schoolController');
 const SubjectController = require('../controllers/subjectController');
 const LectureController = require('../controllers/lectureController');
-const VideoController = require('../controllers/videoController');
+const { VideoController } = require('../controllers/videoController');
 
 
 class Permission{
