@@ -271,7 +271,7 @@ class InstitutionController {
                 let totalInstitutionStats = {
                     _id: institution[i]._id,
                     name: institution[i].name,
-                    totalViews: (await InstitutionController.cms(institution[i]._id)).total,
+                    totalViews: 0,
                     schools: []
                 };
                 for (let j = 0; j < institution[i].schools.length; j++) {
@@ -279,7 +279,7 @@ class InstitutionController {
                     let totalSchoolsStats = {
                         _id: school._id,
                         name: school.name,
-                        totalViews: (await SchoolController.cms(school._id)).total,
+                        totalViews: 0,
                         subjects: []
                     };
                     for (let k = 0; k < school.subjects.length; k++) {
@@ -287,7 +287,7 @@ class InstitutionController {
                         let totalSubjectStats = {
                             _id: subject._id,
                             name: subject.name,
-                            totalViews: (await SubjectController.cms(subject._id)).total,
+                            totalViews: 0,
                             lectures: []
                         };
                         for (let l = 0; l < subject.lectures.length; l++) {
@@ -296,16 +296,14 @@ class InstitutionController {
                                 _id: lecture._id,
                                 name: lecture.name,
                                 totalViews: (await LectureController.cms(lecture._id)).total,
-                                videos: []
                             };
-                            for (let m = 0; m < lecture.videos.length; m++) {
-                                let video = await Video.findOne({_id: lecture.videos[m]});
-                                totalLectureStats.videos.push({_id: video._id, name: 'TODO', totalViews: video.views})
-                            }
+                            totalSubjectStats.totalViews += totalLectureStats.totalViews;
                             totalSubjectStats.lectures.push(totalLectureStats);
                         }
+                        totalSchoolsStats.totalViews += totalSubjectStats.totalViews;
                         totalSchoolsStats.subjects.push(totalSubjectStats);
                     }
+                    totalInstitutionStats.totalViews += totalSchoolsStats.totalViews;
                     totalInstitutionStats.schools.push(totalSchoolsStats);
                 }
                 result.totalViews += totalInstitutionStats.totalViews;

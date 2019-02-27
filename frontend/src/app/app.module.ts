@@ -6,7 +6,7 @@ const socketIoConfig: SocketIoConfig = { url: environment.baseUrl , options: {} 
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {Directive, NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
@@ -89,6 +89,7 @@ import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
 import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
+import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
 @NgModule({
     declarations: [
@@ -148,6 +149,7 @@ import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.c
         LastWatchesComponent,
         LectureComponent,
         YoutubeCommentsComponent,
+        PieDirectiveDirective,
     ],
     imports: [
         BrowserModule,
