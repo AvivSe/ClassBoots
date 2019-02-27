@@ -97,8 +97,6 @@ class SearchController {
         return result;
     }
 
-
-
 }
 
 

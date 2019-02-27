@@ -1,6 +1,7 @@
 const School = require('../models/school');
 const SubjectController = require('./subjectController');
 const errorsController = require('./errorsController');
+const LectureController = require('./lectureController');
 
 
 
@@ -54,7 +55,7 @@ class SchoolController {
                 });
             }
         }).catch(async err=>{
-            result = {error:true,description:'institution not found'};
+            result = {error:true,description:'School not found'};
             // TODO: need to fix
         });
         return result;
@@ -156,6 +157,23 @@ class SchoolController {
                 }
             });
     };
+
+    static async cms(schoolID) {
+        let subjects = await SchoolController.getSubjects(schoolID);
+        if(subjects.error) {
+            return { error: true, description: 'CMS + ' + subjects.description}
+        }
+
+        let totalViewsInSchool = 0;
+        for (let i = 0; i < subjects.length; i++) {
+            for (let j = 0; j < subjects[i].lectures.length; j++) {
+                totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
+            }
+        }
+        return { total: totalViewsInSchool}
+
+    }
+
 
 
 }

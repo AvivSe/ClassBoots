@@ -3,6 +3,7 @@ const School = require('../models/school');
 const errorsController = require('./errorsController');
 const SchoolController = require('./schoolController');
 var mapreduce = require('mapred')();
+const SubjectController = require('./subjectController');
 
 
 class InstitutionController {
@@ -166,6 +167,22 @@ class InstitutionController {
                 }
             });
     };
+
+    static async cms(instID) {
+        let schools = await InstitutionController.getSchools(instID);
+        if(schools.error) {
+            return { error: true, description: 'CMS + ' + schools.description}
+        }
+
+        let totalViewsInInst = 0;
+        for (let i = 0; i < schools.length; i++) {
+            for (let j = 0; j < schools[i].subjects.length; j++) {
+                totalViewsInInst += (await SubjectController.cms(schools[i].subjects[j])).total;
+            }
+        }
+        return { total: totalViewsInInst}
+
+    }
 
 }
 

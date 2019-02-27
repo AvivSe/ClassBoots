@@ -4,8 +4,6 @@ const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
 const createCountMinSketch = require("count-min-sketch");
 
-console.log('Video connect');
-
 var Sketch = (function () {
     var instance;
 

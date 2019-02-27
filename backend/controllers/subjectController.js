@@ -1,5 +1,5 @@
 const Subject = require('../models/subject');
-const {LectureController} = require('./lectureController');
+const LectureController = require('./lectureController');
 const errorsController = require('./errorsController');
 const {Sketch} = require('./videoController');
 

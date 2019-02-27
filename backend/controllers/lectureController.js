@@ -3,8 +3,6 @@ const Video = require('../models/video');
 const {VideoController, Sketch} = require('./videoController');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
-const flag = true;
-
 
 class LectureController {
 
@@ -161,4 +159,4 @@ class LectureController {
     }
 }
 
-module.exports = { LectureController:LectureController, Sketch:Sketch };
+module.exports =  LectureController;
