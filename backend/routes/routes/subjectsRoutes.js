@@ -19,12 +19,13 @@ var defineRoutes = router => {
     });
 
     router.post('', checkAuth, async function (req, res) {
+        let result = {};
         if (!req.body.schoolid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
             send.schoolid = req.body.schoolid;
-            let result = await (SubjectController.createSubject(req.body));
+            result = await (SubjectController.createSubject(req.body));
             if (!result.error) {
                 send.subjectid = result._id;
                 SchoolController.addSubject(send);

@@ -16,12 +16,13 @@ var defineRoutes = router =>{
     });
 
     router.post('', checkAuth, async function(req,res){
+        let result = {};
         if (!req.body.lectureid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
             send.lectureid = req.body.lectureid;
-            let result = await VideoController.createVideo(req.body);
+            result = await VideoController.createVideo(req.body);
             if (!result.error) {
                 send.videoid = result._id;
                 LectureController.addVideo(send);

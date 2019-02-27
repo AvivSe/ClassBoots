@@ -36,12 +36,13 @@ var defineRoutes = router =>{
     });
 
     router.post('', checkAuth, async function(req,res){
+        let result = {};
         if (!req.body.subjectid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
             send.subjectid = req.body.subjectid;
-            let result = await LectureController.createLecture(req.body);
+            result = await LectureController.createLecture(req.body);
             if (!result.error) {
                 send.lectureid = result._id;
                 SubjectController.addLecture(send);
