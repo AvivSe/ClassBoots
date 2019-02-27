@@ -14,9 +14,8 @@ var defineRoutes = router => {
             result= {error:true,description:'you do\'nt have validation'};
         else
          result = await LectureController.cms(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
-
 
     router.get('/:id', async function (req, res) {
         let result = {};
@@ -27,12 +26,10 @@ var defineRoutes = router => {
         res.status(200).send(result);
     });
 
-
     router.get('/stats', async (req, res) => {
         let result = await LectureController.stats();
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
-
 
     router.post('/addplaylist/:id', checkAuth, async function (req, res) {
         var send = {};
@@ -40,7 +37,7 @@ var defineRoutes = router => {
         send.plID = req.body.plID;
         await LectureController.addYTPlaylistToLectureByYTPLID(req.params.id, req.body.plID);
         let result = send;
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.post('', checkAuth, async function (req, res) {
@@ -56,12 +53,12 @@ var defineRoutes = router => {
                 SubjectController.addLecture(send);
             }
         }
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('', async function (req, res) {
         let result = await LectureController.getLectureCollection();
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.delete('', checkAuth, async function (req, res) {
@@ -91,7 +88,7 @@ var defineRoutes = router => {
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await LectureController.addVideo(req.body);
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('/getvideos/:id', checkAuth, async function (req, res) {
@@ -100,7 +97,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await LectureController.getVideos(req.params.id);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
 
