@@ -45,7 +45,7 @@ var defineRoutes = router => {
 
     router.post('', checkAuth, async function (req, res) {
         let result = {};
-        if (!req.body.lecturer || !req.body.name || !req.body.description || !req.body.date || !req.body.subjectid || !req.body.title) {
+        if (!req.body.lecturer || !req.body.name || !req.body.description || !req.body.date || !req.body.subjectid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
             var send = {};
