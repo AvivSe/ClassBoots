@@ -3,7 +3,6 @@ const History = require('../models/history');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
 const createCountMinSketch = require("count-min-sketch");
-console.log('video');
 
 var Sketch = (function () {
     var instance;
@@ -30,7 +29,6 @@ var Sketch = (function () {
 class VideoController {
 
     static async getVideoCollection() {
-
         try {
             let result;
             let invalid = {};
@@ -48,9 +46,6 @@ class VideoController {
     };
 
     static async createVideo(body) {
-        if(!body.reference || !body.position || !body.lectureid || !body.name )
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = {};
             let video = new Video(body);
@@ -75,9 +70,6 @@ class VideoController {
     };
 
     static async getVideo(id, userid) {
-        if(!id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = null;
             await Video.findById(id).then(async video => {
@@ -147,9 +139,6 @@ class VideoController {
     };
 
     static async deleteVideo(id) {
-        if(!id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = {Deleted:id};
             await Video.findByIdAndDelete(id).catch(err => {
@@ -164,9 +153,6 @@ class VideoController {
     };
 
     static async updateVideo(body) {
-        if(!body._id )
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let invalid = {};
             await Video.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -181,9 +167,6 @@ class VideoController {
     }
 
     static async addComment(body, userid) {
-        if(!body.videoid || !userid)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let invalid = {};
             body.user = userid;
@@ -205,9 +188,6 @@ class VideoController {
     };
 
     static async deleteComment(body) {
-        if(!body.videoid || !body.commentid)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = await Video.findByIdAndUpdate(
                 body.videoid,

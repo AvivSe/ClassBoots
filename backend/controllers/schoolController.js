@@ -26,9 +26,6 @@ class SchoolController {
     };
 
     static async createSchool(body) {
-        if(!body.name || !body.institutionid )
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = {};
             let school = new School(body);
@@ -48,9 +45,6 @@ class SchoolController {
     }
 
     static async getSchool(id) {
-        if(!id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = null;
             await School.findById(id).then(school => {
@@ -72,9 +66,6 @@ class SchoolController {
     };
 
     static async getSubjects(id) {
-        if(!id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
               let result = [];
             await this.getSchool(id).then(async school=>{
@@ -85,7 +76,6 @@ class SchoolController {
                 }
             }).catch(async err=>{
                 result = {error:true,description:'School not found'};
-                // TODO: need to fix
             });
             return result;
         }
@@ -102,9 +92,6 @@ class SchoolController {
      * @returns {Promise<*>}
      */
     static async deleteSchool(id) {
-        if(!id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let result = null;
             await School.findByIdAndDelete(id).then(obj=>{
@@ -127,9 +114,6 @@ class SchoolController {
     };
 
     static async updateSchool(body) {
-        if(!body._id)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let invalid = {};
             await School.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -146,9 +130,6 @@ class SchoolController {
     }
 
     static async addSubject(body) {
-        if(!body.schoolid || !body.subjectid)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
             let invalid = {};
             let school = await SchoolController.getSchool(body.schoolid);
@@ -199,9 +180,6 @@ class SchoolController {
     };
 
     static async addpermission(body) {
-        if(!body.schoolid || !body.userid)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
           let invalid = {};
             let school = await this.getSchool(body.schoolid);
@@ -226,9 +204,6 @@ class SchoolController {
     };
 
     static async deletepermission(body) {
-        if(!body.schoolid || !body.userid)
-            return {error:true,description:'you don\'t have validation'};
-
         try {
 
             let invalid = {};
@@ -254,18 +229,25 @@ class SchoolController {
     };
 
     static async cms(schoolID) {
-        let subjects = await SchoolController.getSubjects(schoolID);
-        if(subjects.error) {
-            return { error: true, description: 'CMS + ' + subjects.description}
+        try {
+            let subjects = await SchoolController.getSubjects(schoolID);
+            if(subjects.error) {
+                return { error: true, description: 'CMS + ' + subjects.description}
+            }
+
+            let totalViewsInSchool = 0;
+            for (let i = 0; i < subjects.length; i++) {
+                for (let j = 0; j < subjects[i].lectures.length; j++) {
+                    totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
+                }
+            }
+            return { total: totalViewsInSchool};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
         }
 
-        let totalViewsInSchool = 0;
-        for (let i = 0; i < subjects.length; i++) {
-            for (let j = 0; j < subjects[i].lectures.length; j++) {
-                totalViewsInSchool += (await LectureController.cms(subjects[i].lectures[j])).total;
-            }
-        }
-        return { total: totalViewsInSchool}
 
     }
 

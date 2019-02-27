@@ -12,8 +12,6 @@ const School = require('../models/school');
 const Institution = require('../models/institution');
 
 var AhoCorasick = require('node-aho-corasick');
-console.log('search');
-
 
 class SearchController {
 

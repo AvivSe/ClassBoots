@@ -53,9 +53,6 @@ class LectureController {
     };
 
     static async createLecture(body) {
-        if(!body.lecturer || !body.name || !body.description || !body.date || !body.subjectid || !body.title){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let result = {};
             let lecture = new Lecture(body);
@@ -74,9 +71,6 @@ class LectureController {
     }
 
     static async getLecture(id) {
-        if(!id){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let result = null;
             await Lecture.findById(id).then(lecture => {
@@ -98,9 +92,6 @@ class LectureController {
     };
 
     static async getVideos(id) {
-        if(!id){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let result = [];
             await this.getLecture(id).then(async lecture=>{
@@ -111,7 +102,6 @@ class LectureController {
                 }
             }).catch(async err=>{
                 result = {error:true,description:'lecture not found'};
-                // TODO: need to fix
             });
             return result;
         }
@@ -128,9 +118,6 @@ class LectureController {
      * @returns {Promise<*>}
      */
     static async deleteLecture(id) {
-        if(!id){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let result = null;
             await Lecture.findByIdAndDelete(id).then(obj=>{
@@ -152,9 +139,6 @@ class LectureController {
     };
 
     static async updateLecture(body) {
-        if(!body._id){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let invalid = {};
             await Lecture.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -171,9 +155,6 @@ class LectureController {
     }
 
     static async addVideo(body) {
-        if(!body.lectureid || !body.videoid){
-            return {error:true,description:'you don\'t have validation'};
-        }
         try {
             let invalid = {};
             let lecture = await this.getLecture(body.lectureid);
@@ -224,18 +205,32 @@ class LectureController {
     };
 
     static async cms(lectureID) {
-        let result = "";
-        await Sketch.getInstance().then(sketch=> {
-            result = sketch.query(lectureID);
-        });
+        try {
+            let result = "";
+            await Sketch.getInstance().then(sketch=> {
+                result = sketch.query(lectureID);
+            });
 
-        return {total: result};
+            return {total: result};
+        }
+        catch (e) {
+            errorsController.logger({error:'cms',description:e});
+            return {error:true,description:'cms: '+e};
+        }
+
     }
 
     static async stats() {
-        let lectures = await LectureController.getLectureCollection();
-        let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
-        return { totalVideos:  totalVideos };
+        try {
+            let lectures = await LectureController.getLectureCollection();
+            let totalVideos = lectures.map(lec=>lec.videos.length).reduce((sum, current)=>sum+current);
+            return { totalVideos:  totalVideos };
+        }
+        catch (e) {
+            errorsController.logger({error:'stats',description:e});
+            return {error:true,description:'stats: '+e};
+        }
+
     }
 }
 
