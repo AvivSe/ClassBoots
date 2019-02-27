@@ -49,7 +49,6 @@ const routes: Routes = [
     {path: 'Profile', component: ProfileComponent},
     {path: 'PleaseLogin', component: PleaseLoginComponent},
     {path: '404', component: PageNotFoundComponent},
-    {path: '**', redirectTo: '/404'},
 
     //Menu routes
     {path: 'institution/:_id', component: SchoolsComponent},
@@ -84,7 +83,8 @@ const routes: Routes = [
             {path: 'collections/:about', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'},
             {path: 'collections', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'}
         ]
-    }
+    },
+    {path: '**', redirectTo: '/404'}
 
 ];
 
