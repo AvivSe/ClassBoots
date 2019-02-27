@@ -33,7 +33,7 @@ export class AdminStatisticsMapChartComponent implements OnDestroy, OnInit{
           let getLocation = data[i].geolocation.toString().split(",");
           new google.maps.Marker({
             position: new google.maps.LatLng(Number(getLocation[0]),Number(getLocation[1])),
-            icon: data[i].image,
+            icon: 'http://icons.iconarchive.com/icons/google/noto-emoji-people-profession/32/10212-woman-student-icon.png',
             map: this.map,
             title: 'Got you!'
           });
