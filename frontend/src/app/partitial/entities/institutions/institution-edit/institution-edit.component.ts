@@ -43,9 +43,4 @@ export class InstitutionEditComponent implements OnInit {
          this.entitiesService.editInstitution(this.institution);
          editForm.resetForm();
     }
-    onDelete(){
-        console.log(this.institution);
-        this.institution.id = this.institution._id;
-        this.entitiesService.deleteElement(this.institution);
-    }
 }

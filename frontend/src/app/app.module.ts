@@ -17,10 +17,12 @@ import {
     MatExpansionModule,
     MatGridListModule,
     MatButtonToggleModule,
+    MatPaginator,
     MatPaginatorModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -91,6 +93,9 @@ import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/
 import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
 import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
+import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';
+import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/admin-statistics-groupby/admin-statistics-groupby.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -150,6 +155,8 @@ import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-stat
         LectureComponent,
         YoutubeCommentsComponent,
         PieDirectiveDirective,
+        AdminStatisticsAhoComponent,
+        AdminStatisticsGroupbyComponent,
     ],
     imports: [
         BrowserModule,
@@ -161,9 +168,10 @@ import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-stat
         MatCardModule,
         MatButtonModule,
         MatGridListModule,
-        MatSlideToggleModule,
         MatExpansionModule,
+        MatSlideToggleModule,
         Ng2GoogleChartsModule,
+        MatCheckboxModule,
         MatButtonToggleModule,
         MatPaginatorModule,
         MatListModule,
