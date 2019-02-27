@@ -127,7 +127,7 @@ class InstitutionController {
         try {
             let result = null;
             await Institution.findByIdAndDelete(id).then(obj=>{
-                result = {'Deleted':id};
+                result = {Deleted:id};
                 obj.schools.forEach(async schoolId => {
                     SchoolController.deleteSchool(schoolId);
                 });

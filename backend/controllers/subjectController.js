@@ -120,7 +120,7 @@ class SubjectController {
         try {
             let result = null;
             await Subject.findByIdAndDelete(id).then(obj=>{
-                result = {'Deleted':id};
+                result = {Deleted:id};
                 obj.lectures.forEach(async lectureID => {
                     LectureController.deleteLecture(lectureID);
                 });
