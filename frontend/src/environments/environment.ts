@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://classboots.herokuapp.com/'
+  baseUrl: 'https://classboots.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
