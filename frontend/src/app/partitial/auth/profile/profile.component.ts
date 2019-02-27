@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
     })
   }
   updateUser(userForm){
-    console.log(userForm.value.email);
     userForm.resetForm();
   }
 }

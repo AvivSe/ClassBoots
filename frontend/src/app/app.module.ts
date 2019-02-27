@@ -90,7 +90,7 @@ import { VideoEditComponent } from './partitial/entities/video/video-edit/video-
 import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
-import {LastWatchesComponent} from "./partitial/auth/last-watches/last-watches.component";
+import {LastWatchesComponent} from "./partitial/entities/last-watches/last-watches.component";
 import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
 import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';

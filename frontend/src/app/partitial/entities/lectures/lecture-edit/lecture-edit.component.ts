@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./lecture-edit.component.css']
 })
 export class LectureEditComponent implements OnInit {
-    data;
+    data = {name: '',lecturer:'',description:'',date:''};
     errorMessage: string;
     error: boolean = false;
 
@@ -35,9 +35,15 @@ export class LectureEditComponent implements OnInit {
         if (editForm.value.lecturer != '')
             this.data.lecturer = editForm.value.lecturer;
         if (editForm.value.description != '')
-            this.data.lecturer = editForm.value.description;
+            this.data.description = editForm.value.description;
         if (editForm.value.date != '')
             this.data.date = editForm.value.date;
         this.entitiesService.editLecture(this.data);
+    }
+    deleteItem() {
+        this.entitiesService.deleteElement("lecture", this.data, (data) => {
+            if (data.error) {
+            }
+        });
     }
 }

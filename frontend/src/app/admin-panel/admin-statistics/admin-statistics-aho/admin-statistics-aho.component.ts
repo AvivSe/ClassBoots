@@ -14,13 +14,14 @@ export class AdminStatisticsAhoComponent implements OnInit {
   ngOnInit() {
   }
 
-  addWord(word){
-    this.words.push(word.value);
+  onAdd(word){
+    this.words.push(word.value.name);
+    word.resetForm();
   }
 
   runAlgorithm(){
     this.entitiesService.ahoAlgorithm({words:this.words},(data)=>{
-      this.words = data;
+      this.result = data;
     })
   }
 

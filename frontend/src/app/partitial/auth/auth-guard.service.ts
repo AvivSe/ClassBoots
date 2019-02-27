@@ -22,7 +22,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
         //if (loggedInUser.role === 'ADMIN') {
         //    return true;
        // } else {
-         //   console.log('Unauthorized to open link: '+ state.url);
          //   return false;
        // }
     }

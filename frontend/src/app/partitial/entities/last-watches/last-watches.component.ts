@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {entitiesService} from "../../entities/entities.service";
+import {entitiesService} from "../entities.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import { Router } from "@angular/router";
@@ -16,7 +16,6 @@ export class LastWatchesComponent implements OnInit {
     http.get(environment.baseUrl + 'api/user/history/videos').subscribe(data=> {
       this.videos = data as any[];
     });
-
   }
   ngOnInit() {
   }

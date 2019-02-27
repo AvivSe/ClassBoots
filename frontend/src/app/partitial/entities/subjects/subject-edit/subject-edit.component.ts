@@ -43,4 +43,11 @@ export class SubjectEditComponent implements OnInit {
       this.data.description = editForm.value.description;
     this.entitiesService.editSubject(this.data);
   }
+
+  deleteItem() {
+    this.entitiesService.deleteElement("subject", this.data, (data) => {
+      if (data.error) {
+      }
+    });
+  }
 }

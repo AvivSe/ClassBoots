@@ -8,7 +8,7 @@ import {entitiesService} from "../../entities.service";
   styleUrls: ['./video-edit.component.css']
 })
 export class VideoEditComponent implements OnInit {
-  data = {views:'',_id:''};
+  data = {reference:'',name:'',position:''};
   currentLectureId;
   errorMessage: string;
   error: boolean = false;
@@ -23,16 +23,26 @@ export class VideoEditComponent implements OnInit {
       }
       else {
         this.data = data;
+        console.log(this.data);
       }
     });
     this.route.params.subscribe(params=>{
-      console.log(params);
       this.entitiesService.getVideo(params['videoid']);
       this.currentLectureId = params['lectureid']
     })
   }
   onEdit(editForm){
-    this.entitiesService.editVideo({id:this.data._id,views:editForm.value.views,lectureid:this.currentLectureId});
-    editForm.resetForm()
+    console.log(this.data);
+    if (editForm.value.name != '')
+      this.data.name = editForm.value.name;
+    if (editForm.value.reference != '')
+      this.data.reference = editForm.value.reference;
+    if (editForm.value.position != '')
+      this.data.position = editForm.value.position;
+    this.entitiesService.editVideo(this.data);
+  }
+
+  clickMe(){
+    console.log(this.data);
   }
 }

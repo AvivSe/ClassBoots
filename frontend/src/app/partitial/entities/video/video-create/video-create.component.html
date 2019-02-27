@@ -7,6 +7,10 @@
         <div style="padding: 5%;">
           <form (ngSubmit)="onCreate(Video)" #Video="ngForm">
             <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="Name" name="name" ngModel
+                     required>
+            </mat-form-field>
+            <mat-form-field class="input-size">
               <input matInput type="text" placeholder="Reference" name="reference" ngModel
                      required>
             </mat-form-field>

@@ -31,11 +31,6 @@ var defineRoutes = router => {
         res.status(200).send(result);
     });
 
-    router.get('/stats', async (req, res) => {
-        let result = await LectureController.stats();
-        res.status(result.error?400:200).send(result);
-    });
-
     router.post('/addplaylist/:id', checkAuth, async function (req, res) {
         var send = {};
         send.msg = "Trying to create new videos from playlist to lecture " + req.params.id;

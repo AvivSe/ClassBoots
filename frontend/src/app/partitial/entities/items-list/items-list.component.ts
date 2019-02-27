@@ -23,7 +23,7 @@ export class ItemsListComponent implements OnInit {
     ngOnInit() {
         this.entitiesService.itemListEmitter.subscribe(data => {
             this.nextPath = data._nextpath;
-            this.itemlist = data._data;
+            this.itemlist = data._data as any[];
             this.title = data.title;
             this.currentId = data.currentId;
             this.enableAdd = data.enableAdd;
@@ -41,9 +41,4 @@ export class ItemsListComponent implements OnInit {
     setRedirect() {
         this.entitiesService.setRedirectUrl(this.router.routerState.snapshot);
     }
-
-    deleteElement(_id) {
-        this.entitiesService.deleteElement({id: _id});
-    }
-
 }

@@ -25,13 +25,14 @@ export class VideoCreateComponent implements OnInit {
     })
   }
   onCreate(createForm){
-    alert("hi");
     const video = {
       lectureid: this.currentLecture,
+      name: createForm.value.name,
       reference: createForm.value.reference,
       position: createForm.value.position
     };
     this.entitiesService.addVideo(video);
+    createForm.resetForm();
   }
 
 }
