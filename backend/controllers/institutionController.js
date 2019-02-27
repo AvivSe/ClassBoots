@@ -26,6 +26,8 @@ class InstitutionController {
     };
 
     static async createInstitution(body) {
+        if(!body.name || !body.suffix || !body.address || !body.geolocation || !body.image)
+            return {error:true,description:'you don\'t have validation'};
         var result = {};
         var institution = new Institution(body);
         try{
@@ -44,6 +46,8 @@ class InstitutionController {
 
 
     static async getInstitution(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
         var result = null;
         try {
             await Institution.findById(id).then(institution => {
@@ -64,6 +68,8 @@ class InstitutionController {
     };
 
     static async getSchools(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
         let result = [];
         try {
             await this.getInstitution(id).then(async institution=>{
@@ -87,20 +93,21 @@ class InstitutionController {
     };
 
     static async getSchoolsGB() {
-        let result = [];
-        result=await School.aggregate([
-            {"$group":{_id: "$institutionid",schools:{$push:"$name"}}}
-        ]);
-
-        return result;
         try {
+            let result = [];
             result=await School.aggregate([
                 {"$group":{_id: "$institutionid",schools:{$push:"$name"}}}
             ]);
+            for (let i = 0; i < result.length; i++) {
+                let x = await this.getInstitution(result[i]._id);
+                result[i].institution = x.name;
+                delete result[i]._id;
+            }
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getSchoolsGB: '+e});
+            errorsController.logger({error: 'getSchoolsGB', description: e});
+            return {error: true, description: 'getSchoolsGB: ' + e}
         }
     };
 
@@ -110,6 +117,8 @@ class InstitutionController {
      * @returns {Promise<*>}
      */
     static async deleteInstitution(id) {
+        if(!id)
+            return {error:true,description:'you don\'t have validation'};
         let result = null;
         try {
             await Institution.findByIdAndDelete(id).then(obj=>{
@@ -129,6 +138,8 @@ class InstitutionController {
     };
 
     static async updateInstitution(body) {
+        if(!body.id)
+            return {error:true,description:'you don\'t have validation'};
         var invalid = {};
         try {
             await Institution.findByIdAndUpdate(body._id, body, {}).catch(err => {
@@ -143,6 +154,8 @@ class InstitutionController {
     }
 
     static async addSchool(body) {
+        if(!body.institutionid || !body.schoolid)
+            return {error:true,description:'you don\'t have validation'};
         var invalid = {};
         try {
             var institution = await this.getInstitution(body.institutionid);
@@ -173,6 +186,8 @@ class InstitutionController {
 
     // TODO: don't need now! but need to fix
     static async deleteSchool(body) {
+        if(!body.institutionid || !body.schoolid)
+            return {error:true,description:'you don\'t have validation'};
         try {
             Institution.findByIdAndUpdate(
                 body.institutionid,
@@ -189,6 +204,8 @@ class InstitutionController {
     };
 
     static async addpermission(body) {
+        if(!body.institutionid || !body.userid)
+            return {error:true,description:'you don\'t have validation'};
         var invalid = {};
         try {
             var institution = await this.getInstitution(body.institutionid);
@@ -213,6 +230,8 @@ class InstitutionController {
     };
 
     static async deletepermission(body) {
+        if(!body.institutionid || !body.userid)
+            return {error:true,description:'you don\'t have validation'};
         var invalid = {};
         try {
             var institution = await this.getInstitution(body.institutionid);
