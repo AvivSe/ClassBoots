@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {entitiesService} from "../../entities/entities.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-last-watches',
@@ -11,10 +12,11 @@ import {environment} from "../../../../environments/environment";
 export class LastWatchesComponent implements OnInit {
   videos: any[];
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private router: Router) {
     http.get(environment.baseUrl + 'api/user/history/videos').subscribe(data=> {
       this.videos = data as any[];
     });
+
   }
   ngOnInit() {
   }

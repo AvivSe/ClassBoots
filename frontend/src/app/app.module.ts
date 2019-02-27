@@ -20,6 +20,7 @@ import {
     MatPaginator,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatListModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -160,6 +161,7 @@ import  { LectureComponent } from "./partitial/entities/lecture/lecture.componen
         Ng2GoogleChartsModule,
         MatButtonToggleModule,
         MatPaginatorModule,
+        MatListModule,
         AgGridModule.withComponents([]),
         ModalModule.forRoot(),
         NgbModule,
