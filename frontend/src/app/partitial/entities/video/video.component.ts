@@ -26,6 +26,7 @@ export class VideoComponent implements OnInit,OnDestroy {
               public commentsService: CommentsService,
               public authService:AuthService,
               public socket: Socket,
+              private router : Router
               ) {
     this.socket.on('new-comment', function(videoId){
       commentsService.notify(videoId);
@@ -48,5 +49,9 @@ export class VideoComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+  setRedirect() {
+    this.entitiesService.setRedirectUrl(this.router.routerState.snapshot);
+    this.router.navigate(['Video/edit/',this.videoId]);
   }
 }

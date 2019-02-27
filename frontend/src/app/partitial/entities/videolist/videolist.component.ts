@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class VideolistComponent implements OnInit {
   @Input() lectureId;
-  data = [{position: '',_id:''}];
+  data = [{name:'',position: '',_id:''}];
 
   constructor(private entitiesService :entitiesService, route: ActivatedRoute, private router: Router) {
   }

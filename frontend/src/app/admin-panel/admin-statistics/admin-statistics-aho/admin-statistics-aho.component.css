@@ -1,0 +1,20 @@
+.create-btn{
+    background-color: #4189c9;
+    color:white;
+}
+
+.green{
+    background-color: #43a047;
+    color:white;
+}
+
+.input-size{
+    width: 100%;
+}
+.error{
+    padding:1%;
+    margin-bottom: 2%;
+    text-align: center;
+    background-color: brown;
+    color:white;
+}

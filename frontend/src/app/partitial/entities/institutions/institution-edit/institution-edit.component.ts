@@ -47,7 +47,6 @@ export class InstitutionEditComponent implements OnInit {
     deleteItem(){
         this.entitiesService.deleteElement("institution",this.institution,(data)=>{
            if(data.error){
-
            }
         });
     }

@@ -122,7 +122,9 @@ export class entitiesService implements OnInit {
     }
 
     public addLecture(Lecture) {
+        console.log(Lecture);
         this.http.post<{ error: string }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
+            console.log(data);
             if (data.error) {
                 this.lectureEmitter.emit(data);
             } else {
@@ -137,8 +139,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.videoEmitter.emit(data);
             } else {
-                console.log(Video);
-                this.applyRedirectUrl();
+                this.applyRedirectUrlVideo();
                 this.matSnackBar.open('Video added.', null, {duration: 3000});
             }
         })
@@ -200,7 +201,7 @@ export class entitiesService implements OnInit {
             if (data.error) {
                 this.videoEmitter.emit(data);
             } else {
-                this.router.navigate(['Video/' + Video.lectureid]);
+                this.applyRedirectUrlVideo();
                 this.matSnackBar.open('Video updated.', null, {duration: 3000});
             }
         })
@@ -214,14 +215,12 @@ export class entitiesService implements OnInit {
     }
     public ahoAlgorithm(words,next){
         this.http.post<{error:boolean}>(environment.baseUrl+'api/search/words',words).subscribe(data=>{
-            console.log(data);
             next(data);
         })
     }
 
     public getSchoolsGroupBy(next){
         this.http.get<{error:boolean}>(environment.baseUrl+'api/institution/getschoolsgs').subscribe(data=>{
-            console.log(data);
             next(data);
         })
     }
@@ -238,16 +237,18 @@ export class entitiesService implements OnInit {
     public applyRedirectUrl() {
         this.router.navigate([this.getRedirectUrl()]);
     }
+    public applyRedirectUrlVideo() {
+        this.router.navigateByUrl(this.getRedirectUrl());
+    }
 
     public setRedirectUrl(url) {
-        console.log(url.url);
         this.redirectUrl = url.url;
     }
 
 
     //DELETE ELEMENT
     public deleteElement(title,element,next) {
-        this.http.delete<{ error: boolean }>(environment.baseUrl + 'api/institution/',element).subscribe(data => {
+        this.http.request<{ error: boolean }>('delete',environment.baseUrl + 'api/'+title,{body:element}).subscribe(data => {
             if(data.error){
             }
             else{

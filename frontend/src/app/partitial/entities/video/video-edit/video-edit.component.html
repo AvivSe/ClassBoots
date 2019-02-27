@@ -8,12 +8,19 @@
           <mat-card class="error" *ngIf="error">{{errorMessage}}</mat-card>
           <form (ngSubmit)="onEdit(Video)" #Video="ngForm">
             <mat-form-field class="input-size">
-              <input matInput type="text" placeholder="{{data.views}}" name="views" ngModel>
+              <input matInput type="text" placeholder="{{data.name}}" name="name" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="{{data.reference}}" name="reference" ngModel>
+            </mat-form-field>
+            <mat-form-field class="input-size">
+              <input matInput type="text" placeholder="{{data.position}}" name="position" ngModel>
             </mat-form-field>
             <br>
             <button type="submit" class="btn create-btn btn-lg" style="width: 100%">Edit Video.
             </button>
           </form>
+          <button (click)="clickMe()">csacsa</button>
         </div>
       </div>
     </mat-card>

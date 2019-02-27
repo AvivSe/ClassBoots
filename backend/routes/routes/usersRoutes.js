@@ -18,7 +18,6 @@ var defineRoutes = router =>{
 
     router.get('/history/videos', checkAuth,  async function(req,res){
         if(req.profile) {
-            console.log(req.profile.user._id);
             let result = await UserController.getUserWatchesHistory(req.profile.user._id);
             res.status(result?200:400).send(result);
         } else {

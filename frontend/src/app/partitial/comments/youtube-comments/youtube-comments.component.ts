@@ -32,7 +32,6 @@ export class YoutubeCommentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.TotalComments);
     this.drawComments();
   }
 

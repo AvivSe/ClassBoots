@@ -12,7 +12,6 @@ import {detectChanges} from "@angular/core/src/render3";
 export class AppComponent implements OnInit {
   constructor(public authService : AuthService,public socket: Socket, private router: Router) {
     this.router.events.subscribe((evt) => {
-      //console.log("Roter did something");
         window.scrollTo(0, 0);
     });
 
