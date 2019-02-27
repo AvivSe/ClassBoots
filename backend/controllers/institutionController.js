@@ -184,6 +184,27 @@ class InstitutionController {
 
     }
 
+    static async totalCms() {
+        let result = { totalViews: 0, institutions: [] };
+
+        let institution = await InstitutionController.getInstitutionCollection();
+        if(institution.error) {
+            return { error: true, description: 'CMS + ' + institution.description }
+        }
+
+        for (let i = 0; i < institution.length; i++) {
+            let totalInstitutionViews = (await InstitutionController.cms(institution[i]._id)).total;
+            result.totalViews += totalInstitutionViews;
+            result.institutions += { _id: institution[i]._id, name: institution[i].name , totalViews: totalInstitutionViews };
+            for (let j = 0; j < institution[i].schools.length; j++) {
+
+
+            }
+        }
+
+        return result;
+    }
+
 }
 
 module.exports = InstitutionController;

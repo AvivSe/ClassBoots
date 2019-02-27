@@ -70,20 +70,24 @@ class VideoController {
             result = video;
             if (userid != null) {
                 await History.findOne({user: userid}).then(async history => {
-                    await History.findOne({user: userid}, function (err, history) {
-                        for (var i = 0; i < history.watches.length; i++)
-                            if (history.watches[i].video == id)
-                                break;
-                        if (i < history.watches.length) {
-                            let lastdate = history.watches[i].date;
-                            history.watches[i].date = Date.now();
-                            let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
-                            if (secondeswatchAgo > 60) {
-                                VideoController.updateVideo({_id:video._id,views:++video.views});
-                            }
-                        } else history.watches[i] = {video: id, date: Date.now()};
-                        history.save();
-                    });
+                    if(history) {
+                        await History.findOne({user: userid}, function (err, history) {
+                            for (var i = 0; i < history.watches.length; i++)
+                                if (history.watches[i].video == id)
+                                    break;
+                            if (i < history.watches.length) {
+                                let lastdate = history.watches[i].date;
+                                history.watches[i].date = Date.now();
+                                let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
+                                if (secondeswatchAgo > 60) {
+                                    VideoController.updateVideo({_id: video._id, views: ++video.views});
+                                }
+                            } else history.watches[i] = {video: id, date: Date.now()};
+                            history.save();
+                        });
+                    } else {
+                        //TODO: Nir have to complote this case
+                    }
                 });
             }
             let secondesAgo = (new Date() - video.lastscrape) / 1000;
