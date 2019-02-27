@@ -225,13 +225,6 @@ export class entitiesService implements OnInit {
             next(data);
         })
     }
-
-    //DELETE ELEMENT
-    public deleteElement(institution) {
-        this.http.delete<{ error: boolean }>(environment.baseUrl + 'api/institution', institution).subscribe(data => {
-            this.router.navigate(['']);
-        })
-    }
     findLecture(searchData){
         this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {
             this.SearchEmitter.emit(data)
@@ -247,7 +240,21 @@ export class entitiesService implements OnInit {
     }
 
     public setRedirectUrl(url) {
+        console.log(url.url);
         this.redirectUrl = url.url;
+    }
+
+
+    //DELETE ELEMENT
+    public deleteElement(title,element,next) {
+        this.http.delete<{ error: boolean }>(environment.baseUrl + 'api/institution/',element).subscribe(data => {
+            if(data.error){
+            }
+            else{
+                this.applyRedirectUrl();
+                this.matSnackBar.open(title+' Deleted', null, {duration: 3000});
+            }
+        });
     }
 }
 
