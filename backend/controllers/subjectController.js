@@ -6,9 +6,10 @@ const {Sketch} = require('./videoController');
 
 class SubjectController {
     static async getSubjectCollection() {
-        var result;
-        var invalid = {};
+
         try {
+            let result;
+            let invalid = {};
             result = await Subject.find(err => {
                 if (err) {
                     invalid = {error:true,description:err};
@@ -18,16 +19,18 @@ class SubjectController {
             return invalid.error===undefined?result:invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getSubjectCollection: '+e});
+            errorsController.logger({error:'getSubjectCollection',description:e});
+            return {error:true,description:'getSubjectCollection: '+e};
         }
 
     };
 
 
     static async createSubject(body) {
-        var result = {};
-        var subject = new Subject(body);
+
         try {
+            let result = {};
+            let subject = new Subject(body);
             await subject.save(err => {
                 if (err) {
                     result = {error:true,description:err};
@@ -37,14 +40,16 @@ class SubjectController {
             return result.error===undefined?subject:result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'createSubject: '+e});
+            errorsController.logger({error:'createSubject',description:e});
+            return {error:true,description:'createSubject: '+e};
         }
 
     };
 
     static async updateSubject(body) {
-        var invalid = {};
+
         try {
+            let invalid = {};
             await Subject.findByIdAndUpdate(body._id, body, {}).catch(err => {
                 invalid = {error:true,description:err};
                 errorsController.logger({error:'updateSubject',description:err});
@@ -52,14 +57,16 @@ class SubjectController {
             return invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'updateSubject: '+e});
+            errorsController.logger({error:'updateSubject',description:e});
+            return {error:true,description:'updateSubject: '+e};
         }
 
     }
 
     static async getSubject(id) {
-        var result = null;
+
         try {
+            let result = null;
             await Subject.findById(id).then(subject => {
                 if (subject)
                     result = subject;
@@ -72,14 +79,16 @@ class SubjectController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getSubject: '+e});
+            errorsController.logger({error:'getSubject',description:e});
+            return {error:true,description:'getSubject: '+e};
         }
 
     };
 
     static async getLectures(id) {
-        let result = [];
+
         try {
+            let result = [];
             await this.getSubject(id).then(async subject=>{
                 for (let i = 0; i < subject.lectures.length; i++) {
                     await LectureController.getLecture(subject.lectures[i]).then(async lecture=>{
@@ -95,7 +104,8 @@ class SubjectController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getLectures: '+e});
+            errorsController.logger({error:'getLectures',description:e});
+            return {error:true,description:'getLectures: '+e};
         }
 
     };
@@ -106,8 +116,9 @@ class SubjectController {
      * @returns {Promise<*>}
      */
     static async deleteSubject(id) {
-        let result = null;
+
         try {
+            let result = null;
             await Subject.findByIdAndDelete(id).then(obj=>{
                 obj.lectures.forEach(async lectureID => {
                     result = await LectureController.deleteLecture(lectureID);
@@ -119,21 +130,23 @@ class SubjectController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'deleteSubject: '+e});
+            errorsController.logger({error:'deleteSubject',description:e});
+            return {error:true,description:'deleteSubject: '+e};
         }
 
     };
 
     static async addLecture(body) {
-        var invalid = {};
+
         try {
-            var subject = await this.getSubject(body.subjectid);
+            let invalid = {};
+            let subject = await this.getSubject(body.subjectid);
             if(subject.error)
                 return subject;
-            var lecture = await LectureController.getLecture(body.lectureid);
+            let lecture = await LectureController.getLecture(body.lectureid);
             if(lecture.error)
                 return lecture;
-            var result = await Subject.findByIdAndUpdate(
+            let result = await Subject.findByIdAndUpdate(
                 body.subjectid,
                 { $addToSet: {"lectures": body.lectureid}},
                 { upsert: true},(err,subject)=>{
@@ -148,11 +161,13 @@ class SubjectController {
             return invalid.error===undefined?result:invalid;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'addLecture: '+e});
+            errorsController.logger({error:'addLecture',description:e});
+            return {error:true,description:'addLecture: '+e};
         }
     };
 
     static async deleteLecture(body) {
+
         try {
             Subject.findByIdAndUpdate(
                 body.subjectid,
@@ -163,7 +178,8 @@ class SubjectController {
                 });
         }
         catch (e) {
-            errorsController.logger({error:true,description:'deleteLecture: '+e});
+            errorsController.logger({error:'deleteLecture',description:e});
+            return {error:true,description:'deleteLecture: '+e};
         }
 
     };

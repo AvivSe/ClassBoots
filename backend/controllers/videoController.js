@@ -10,7 +10,7 @@ var Sketch = (function () {
     async function createInstance() {
         let sketch = createCountMinSketch();
         let videos = await VideoController.getVideoCollection();
-        videos.forEach(v=> {
+        videos.forEach(v => {
             sketch.update(v.lectureid, v.views);
         });
         return sketch;
@@ -29,9 +29,10 @@ var Sketch = (function () {
 class VideoController {
 
     static async getVideoCollection() {
-        var result;
-        var invalid = {};
+
         try {
+            let result;
+            let invalid = {};
             result = await Video.find(err => {
                 if (err) {
                     invalid = {error: true, description: err};
@@ -39,16 +40,17 @@ class VideoController {
                 }
             });
             return invalid.error === undefined ? result : invalid;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'getVideoCollection: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'getVideoCollection', description: e});
+            return {error: true, description: 'getVideoCollection: ' + e};
         }
     };
 
     static async createVideo(body) {
-        var result = {};
-        var video = new Video(body);
+
         try {
+            let result = {};
+            let video = new Video(body);
             YoutubeScraper.getCommentsAsync(body.reference, result => {
                 Video.findByIdAndUpdate(
                     video._id,
@@ -63,42 +65,44 @@ class VideoController {
                 }
             });
             return result.error === undefined ? institution : result;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'createVideo: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'createVideo', description: e});
+            return {error: true, description: 'createVideo: ' + e};
         }
     };
 
     static async getVideo(id, userid) {
-        let result = null;
+
         try {
+            let result = null;
             await Video.findById(id).then(async video => {
 
-                Sketch.getInstance().then(sketch=> {
+                Sketch.getInstance().then(sketch => {
                     sketch.update(video.lectureid, 1);
                 });
 
                 result = video;
                 if (userid != null) {
                     await History.findOne({user: userid}).then(async history => {
-                        if(history) {
-                            await History.findOne({user: userid}, function (err, history) {
-                                for (var i = 0; i < history.watches.length; i++)
-                                    if (history.watches[i].video == id)
-                                        break;
-                                if (i < history.watches.length) {
-                                    let lastdate = history.watches[i].date;
-                                    history.watches[i].date = Date.now();
-                                    let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
-                                    if (secondeswatchAgo > 60) {
-                                        VideoController.updateVideo({_id: video._id, views: ++video.views});
-                                    }
-                                } else history.watches[i] = {video: id, date: Date.now()};
-                                history.save();
-                            });
-                        } else {
-                            //TODO: Nir have to complote this case
+                        if (!history) {
+                            var history =new History({user:userid});
+                            history.save();
                         }
+                        await History.findOne({user: userid}, function (err, history) {
+                            for (var i = 0; i < history.watches.length; i++)
+                                if (history.watches[i].video == id)
+                                    break;
+                            if (i < history.watches.length) {
+                                let lastdate = history.watches[i].date;
+                                history.watches[i].date = Date.now();
+                                let secondeswatchAgo = (history.watches[i].date - lastdate) / 1000;
+                                if (secondeswatchAgo > 60) {
+                                    VideoController.updateVideo({_id: video._id, views: ++video.views});
+                                }
+                            } else history.watches[i] = {video: id, date: Date.now()};
+                            history.save();
+                        });
+
                     });
                 }
                 let secondesAgo = (new Date() - video.lastscrape) / 1000;
@@ -131,45 +135,48 @@ class VideoController {
                 errorsController.logger({error: 'getVideo', description: err});
             });
             return result;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'getVideo: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'getVideo', description: e});
+            return {error: true, description: 'getVideo: ' + e};
         }
     };
 
     static async deleteVideo(id) {
-        let result = null;
+
         try {
+            let result = null;
             await Video.findByIdAndDelete(id).catch(err => {
                 result = {error: true, description: err};
                 errorsController.logger({error: 'deleteVideo', description: err});
             });
             return result;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'deleteVideo: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'deleteVideo', description: e});
+            return {error: true, description: 'deleteVideo: ' + e};
         }
     };
 
     static async updateVideo(body) {
-        var invalid = {};
+
         try {
+            let invalid = {};
             await Video.findByIdAndUpdate(body._id, body, {}).catch(err => {
                 invalid = {error: true, description: err};
                 errorsController.logger({error: 'updateVideo', description: err});
             });
             return invalid;
+        } catch (e) {
+            errorsController.logger({error: 'updateVideo', description: e});
+            return {error: true, description: 'updateVideo: ' + e};
         }
-       catch (e) {
-           errorsController.logger({error:true,description:'updateVideo: '+e});
-       }
     }
 
-    static async addComment(body,userid) {
-        var invalid = {};
-        body.user = userid;
+    static async addComment(body, userid) {
+
         try {
-            var result = await Video.findByIdAndUpdate(
+            let invalid = {};
+            body.user = userid;
+            let result = await Video.findByIdAndUpdate(
                 body.videoid,
                 {$addToSet: {"comments": body}},
                 {upsert: true},
@@ -180,26 +187,27 @@ class VideoController {
                     }
                 }));
             return invalid.error === undefined ? result : invalid;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'addComment: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'addComment', description: e});
+            return {error: true, description: 'addComment: ' + e};
         }
     };
 
     static async deleteComment(body) {
+
         try {
-            var result = await Video.findByIdAndUpdate(
+            let result = await Video.findByIdAndUpdate(
                 body.videoid,
                 {$pull: {"comments": {_id: body.commentid}}},
                 {upsert: true, new: true});
             return result;
-        }
-        catch (e) {
-            errorsController.logger({error:true,description:'deleteComment: '+e});
+        } catch (e) {
+            errorsController.logger({error: 'deleteComment', description: e});
+            return {error: true, description: 'deleteComment: ' + e};
         }
     };
 
 }
 
 
-module.exports = { VideoController, Sketch };
+module.exports = {VideoController, Sketch};

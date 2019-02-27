@@ -17,11 +17,11 @@ var AhoCorasick = require('node-aho-corasick');
 class SearchController {
 
     static async searchLecture(body) {
-        var result = [];
+
         try {
             if(!body.generalSearch)
-                return null;
-            var result = await Lecture.find(
+                return {error:true,description:"you are searching nothing!"};
+            return await Lecture.find(
                 {$or:[{name:{$regex: body.generalSearch, $options: 'i'}},{description:{$regex: body.generalSearch, $options: 'i'}}]},
                 {$and:[{lecturer:{$regex: body.lecturer, $options: 'i'}},{date:{$gte: body.date}}]},
                 async (err, docs) => {
@@ -63,18 +63,19 @@ class SearchController {
                 //console.log(lectures);
                 return lectures;
             });
-            return await result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'searchLecture: '+e});
+            errorsController.logger({error:'searchLecture',description:e});
+            return {error:true,description:'searchLecture: '+e};
         }
 
     };
 
 
     static async searchcomment(body) {
-        let ac = new AhoCorasick();
+
         try {
+            let ac = new AhoCorasick();
             let videos = await VideoController.getVideoCollection();
             let comments = [];
             for (let i = 0; i < videos.length; i++) {
@@ -94,14 +95,16 @@ class SearchController {
             return res;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'searchcomment: '+e});
+            errorsController.logger({error:'searchcomment',description:e});
+            return {error:true,description:'searchcomment: '+e};
         }
 
     }
 
     static async getStatistic(body) {
-        let result = {};
+
         try {
+            let result = {};
             result.institutions = await Institution.countDocuments();
             result.schools = await School.countDocuments();
             result.subjects = await Subject.countDocuments();
@@ -110,7 +113,8 @@ class SearchController {
             return result;
         }
         catch (e) {
-            errorsController.logger({error:true,description:'getStatistic: '+e});
+            errorsController.logger({error:'getStatistic',description:e});
+            return {error:true,description:'getStatistic: '+e};
         }
 
     }
