@@ -14,7 +14,7 @@ var defineRoutes = router => {
             result= {error:true,description:'you do\'nt have validation'};
         else
             result = await SubjectController.cms(req.params.id);
-        res.status(result?200:400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.get('/:id', async function (req, res) {
@@ -23,7 +23,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SubjectController.getSubject(req.params.id);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('', checkAuth, async function (req, res) {
@@ -39,12 +39,12 @@ var defineRoutes = router => {
                 SchoolController.addSubject(send);
             }
         }
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('', async function (req, res) {
         let result = await SubjectController.getSubjectCollection();
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
     router.delete('', checkAuth, async function (req, res) {
         let result = {};
@@ -55,7 +55,7 @@ var defineRoutes = router => {
             if (!result.error)
                 SchoolController.deleteSubject({schoolid: req.body.schoolid, subjectid: req.body._id});
         }
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.put('', checkAuth, async function (req, res) {
@@ -64,7 +64,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SubjectController.updateSubject(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addLecture', checkAuth, async function (req, res) {
@@ -73,7 +73,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SubjectController.addLecture(req.body);
-        res.status(result ? 201 : 400).send(result);
+        res.status(result.error?400:201).send(result);
     });
 
     router.get('/getlectures/:id', async function (req, res) {
@@ -82,7 +82,7 @@ var defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await SubjectController.getLectures(req.params.id);
-        res.status(result ? 200 : 400).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     return router;
