@@ -128,8 +128,9 @@ class LectureController {
         try {
             let result = null;
             await Lecture.findByIdAndDelete(id).then(obj=>{
+                result = {'Deleted':id};
                 obj.videos.forEach(async videoid => {
-                    result = await VideoController.deleteVideo(videoid);
+                    VideoController.deleteVideo(videoid);
                 });
             }).catch(err => {
                 result = {error:true,description:err};

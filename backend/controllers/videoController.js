@@ -144,7 +144,7 @@ class VideoController {
     static async deleteVideo(id) {
 
         try {
-            let result = null;
+            let result = {'Deleted':id};
             await Video.findByIdAndDelete(id).catch(err => {
                 result = {error: true, description: err};
                 errorsController.logger({error: 'deleteVideo', description: err});

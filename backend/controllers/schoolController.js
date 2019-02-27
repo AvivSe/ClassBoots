@@ -102,8 +102,9 @@ class SchoolController {
         try {
             let result = null;
             await School.findByIdAndDelete(id).then(obj=>{
+                result = {'Deleted':id};
                 obj.subjects.forEach(async subjectId => {
-                    result = await SubjectController.deleteSubject(subjectId);
+                    SubjectController.deleteSubject(subjectId);
                 });
             }).catch(err => {
                 result = {error:true,description:err};
