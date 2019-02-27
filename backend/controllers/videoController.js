@@ -67,7 +67,7 @@ class VideoController {
                     errorsController.logger({error: 'createVideo', description: err});
                 }
             });
-            return result.error === undefined ? institution : result;
+            return result.error === undefined ? video : result;
         } catch (e) {
             errorsController.logger({error: 'createVideo', description: e});
             return {error: true, description: 'createVideo: ' + e};
