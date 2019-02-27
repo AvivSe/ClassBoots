@@ -1,5 +1,5 @@
 const express = require('express');
-const VideoController = require('../../controllers/videoController');
+const {VideoController} = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const Role = require('../../utils/Role');
@@ -41,7 +41,7 @@ var defineRoutes = router =>{
     });
 
     router.post('/addcomment', checkAuth, async function(req,res){
-        let result =  await VideoController.addComment(req.body);
+        let result =  await VideoController.addComment(req.body,req.profile.user._id);
         res.status(200).send(result);
     });
 

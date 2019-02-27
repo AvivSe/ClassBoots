@@ -29,6 +29,7 @@ import {PleaseLoginComponent} from "../pages/please-login/please-login.component
 import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
+import {LastWatchesComponent } from "../partitial/auth/last-watches/last-watches.component";
 
 const routes: Routes = [
 
@@ -38,6 +39,7 @@ const routes: Routes = [
     {path: 'Contact', component: ContactComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'terms', component: TermsComponent},
+    {path: 'last-watches', component: LastWatchesComponent},
 
     //Authentication routes
     {path: '', component: LoginBoxComponent, outlet: 'modal'},

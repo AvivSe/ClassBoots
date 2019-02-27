@@ -7,8 +7,18 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
-    router.post('', checkAuth, async function(req,res){
+    router.post('', async function(req,res){
         let result =  await SearchController.searchLecture(req.body);
+        res.status(result?200:400).send(result);
+    });
+
+    router.post('/words', async function(req,res){
+        let result =  await SearchController.searchcomment(req.body);
+        res.status(result?200:400).send(result);
+    });
+
+    router.get('/statistic', async function(req,res){
+        let result =  await SearchController.getStatistic();
         res.status(result?200:400).send(result);
     });
 

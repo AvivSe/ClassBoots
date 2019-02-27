@@ -124,7 +124,6 @@ export class entitiesService implements OnInit {
     public addLecture(Lecture) {
         this.http.post<{ error: string }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
             if (data.error) {
-                console.log(data);
                 this.lectureEmitter.emit(data);
             } else {
                 this.applyRedirectUrl();
@@ -233,6 +232,11 @@ export class entitiesService implements OnInit {
             this.router.navigate(['']);
         })
     }
+    findLecture(searchData){
+        this.http.post(environment.baseUrl+"api/search/",searchData).subscribe(data => {
+            this.SearchEmitter.emit(data)
+        });
+    }
     //SET GET AND APPLY REDIRECT URL
     public getRedirectUrl() {
         return this.redirectUrl;
@@ -246,6 +250,4 @@ export class entitiesService implements OnInit {
         this.redirectUrl = url.url;
     }
 }
-
-
 

@@ -58,8 +58,8 @@ export class AuthService {
     getIsAdmin() {
         return this.isAdmin;
     }
-    createUser(userData : userData){
-        this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
+    createUser(userData : userLogin){
+            this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
             .subscribe(user =>{
                 if(!user.error) {
                     this.token = user._token;

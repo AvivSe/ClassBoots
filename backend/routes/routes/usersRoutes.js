@@ -16,10 +16,10 @@ var defineRoutes = router =>{
         }
     });
 
-    router.get('/history', checkAuth,  async function(req,res){
+    router.get('/history/videos', checkAuth,  async function(req,res){
         if(req.profile) {
             console.log(req.profile.user._id);
-            let result = await UserController.getUserHistory(req.profile.user._id);
+            let result = await UserController.getUserWatchesHistory(req.profile.user._id);
             res.status(result?200:400).send(result);
         } else {
             res.status(400).send({error:"true",description: "cannot find profile data"});

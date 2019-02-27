@@ -8,10 +8,23 @@ const checkAuth = require('../../utils/check-auth');
 var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
+    router.get('/:id/cms', async (req,res)=> {
+        let result = await LectureController.cms(req.params.id);
+        res.status(result?200:400).send(result);
+    });
+
+
     router.get('/:id', async function(req,res){
         let result =  await LectureController.getLecture(req.params.id);
         res.status(200).send(result);
     });
+
+
+    router.get('/stats', async (req,res)=> {
+        let result = await LectureController.stats();
+        res.status(result?200:400).send(result);
+    });
+
 
     router.post('/addplaylist/:id', checkAuth, async function(req,res){
         var send = {};
@@ -55,6 +68,7 @@ var defineRoutes = router =>{
         let result = await LectureController.getVideos(req.params.id);
         res.status(result?200:400).send(result);
     });
+
 
     return router;
 };
