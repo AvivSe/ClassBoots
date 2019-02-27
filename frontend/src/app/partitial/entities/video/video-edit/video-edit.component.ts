@@ -23,7 +23,6 @@ export class VideoEditComponent implements OnInit {
       }
       else {
         this.data = data;
-        console.log(this.data);
       }
     });
     this.route.params.subscribe(params=>{
@@ -32,7 +31,6 @@ export class VideoEditComponent implements OnInit {
     })
   }
   onEdit(editForm){
-    console.log(this.data);
     if (editForm.value.name != '')
       this.data.name = editForm.value.name;
     if (editForm.value.reference != '')
@@ -40,9 +38,5 @@ export class VideoEditComponent implements OnInit {
     if (editForm.value.position != '')
       this.data.position = editForm.value.position;
     this.entitiesService.editVideo(this.data);
-  }
-
-  clickMe(){
-    console.log(this.data);
   }
 }
