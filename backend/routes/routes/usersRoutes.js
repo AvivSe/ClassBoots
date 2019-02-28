@@ -47,7 +47,7 @@ var defineRoutes = router =>{
 
     });
 
-    router.get('' , checkAuth, async function(req,res){
+    router.get('' , checkAuth, Role.admin, async function(req,res){
         let result =  await UserController.getUserCollection(req.body);
         res.status(result.status).send(result.data);
 
