@@ -122,9 +122,7 @@ export class entitiesService implements OnInit {
     }
 
     public addLecture(Lecture) {
-        console.log(Lecture);
         this.http.post<{ error: string }>(environment.baseUrl + 'api/lecture', Lecture).subscribe(data => {
-            console.log(data);
             if (data.error) {
                 this.lectureEmitter.emit(data);
             } else {

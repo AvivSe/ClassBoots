@@ -4,12 +4,14 @@ const LectureController = require('./lectureController');
 const SubjectController = require('./subjectController');
 const SchoolController = require('./schoolController');
 const InstitutionController = require('./institutionController');
+const UserController = require('./userController');
 
 const Video = require('../models/video');
 const Lecture = require('../models/lecture');
 const Subject = require('../models/subject');
 const School = require('../models/school');
 const Institution = require('../models/institution');
+const User = require('../models/user');
 
 var AhoCorasick = require('node-aho-corasick');
 
@@ -18,11 +20,14 @@ class SearchController {
     static async searchLecture(body) {
 
         try {
-            if(!body.generalSearch)
-                return {error:true,description:"you are searching nothing!"};
             return await Lecture.find(
-                {$or:[{name:{$regex: body.generalSearch, $options: 'i'}},{description:{$regex: body.generalSearch, $options: 'i'}}]},
-                {$and:[{lecturer:{$regex: body.lecturer, $options: 'i'}},{date:{$gte: body.date}}]},
+                {$and:[
+                    {$or: [{name: {$regex: body.generalSearch, $options: 'i'}},
+                        {description: {$regex: body.generalSearch, $options: 'i'}}]},
+                    {lecturer: {$regex: body.lecturer, $options: 'i'}}//,
+                    //{date: {$gte: body.date}}
+                    // TODO: fix date
+                ]},
                 async (err, docs) => {
                     if (err)
                         console.log(err);
@@ -34,8 +39,7 @@ class SearchController {
                 }
                 return doc;
             }).then(async lectures => {
-                if(body.school != null)
-                {
+                if (body.school != null) {
                     let schools = await School.find({name: {$regex: body.school, $options: 'i'}},
                         async (err, docs) => {
                             if (err)
@@ -62,10 +66,9 @@ class SearchController {
                 //console.log(lectures);
                 return lectures;
             });
-        }
-        catch (e) {
-            errorsController.logger({error:'searchLecture',description:e});
-            return {error:true,description:'searchLecture: '+e};
+        } catch (err) {
+            errorsController.logger({error: 'searchLecture', description: err});
+            return {error: true, description: 'searchLecture: ' + err};
         }
 
     };
@@ -80,10 +83,10 @@ class SearchController {
             for (let i = 0; i < videos.length; i++) {
                 comments = comments.concat(videos[i].comments);
             }
-            comments = comments.map(comment=>comment.content);
+            comments = comments.map(comment => comment.content);
             var fullText = '';
             for (let i = 0; i < comments.length; i++) {
-                fullText = fullText.concat(comments[i],' , ');
+                fullText = fullText.concat(comments[i], ' , ');
             }
             console.log(fullText);
             for (let i = 0; i < body.words.length; i++) {
@@ -92,10 +95,9 @@ class SearchController {
             ac.build();
             var res = ac.search(fullText);
             return res;
-        }
-        catch (e) {
-            errorsController.logger({error:'searchcomment',description:e});
-            return {error:true,description:'searchcomment: '+e};
+        } catch (err) {
+            errorsController.logger({error: 'searchcomment', description: err});
+            return {error: true, description: 'searchcomment: ' + err};
         }
 
     }
@@ -110,13 +112,46 @@ class SearchController {
             result.lectures = await Lecture.countDocuments();
             result.videos = await Video.countDocuments();
             return result;
-        }
-        catch (e) {
-            errorsController.logger({error:'getStatistic',description:e});
-            return {error:true,description:'getStatistic: '+e};
+        } catch (err) {
+            errorsController.logger({error: 'getStatistic', description: err});
+            return {error: true, description: 'getStatistic: ' + err};
         }
 
     }
+
+    static async searchUsers(body) {
+
+        try {
+            return await User.find(
+                {$and: [
+                    {$or: [{email: {$regex: body.generalSearch, $options: 'i'}},
+                        {firstName: {$regex: body.generalSearch, $options: 'i'}}]},
+                    {role: body.role},
+                    //{regDate: {$gte: body.regdate}},
+                    // TODO: fix date
+                    {email: {$regex: body.suffix, $options: 'i'}}
+                    ]},
+                async (err, docs) => {
+                    if (err) {
+                        errorsController.logger({error: 'searchUsers', description: err});
+                        return {error: true, description: 'searchUsers: ' + err};
+                    }
+                    return docs;
+                }).then(async docs => {
+                    if(docs.error)
+                        return docs;
+                    let users = [];
+                    for (let i = 0; i < docs.length; i++)
+                        users[i] = await User.findById(docs[i]._id);
+                    return users;
+            });
+        } catch (err) {
+            errorsController.logger({error: 'searchUsers', description: err});
+            return {error: true, description: 'searchUsers: ' + err};
+        }
+
+    };
+
 
 }
 
