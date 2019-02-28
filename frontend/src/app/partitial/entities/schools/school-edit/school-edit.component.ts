@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./school-edit.component.css']
 })
 export class SchoolEditComponent implements OnInit {
-  data;
+  data = { name: '' };
   currentID : string;
   errorMessage: string;
   error: boolean = false;

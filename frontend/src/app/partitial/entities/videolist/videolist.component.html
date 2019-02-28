@@ -1,4 +1,5 @@
-<ul class="list-group user-list">
+<span *ngIf="!loaded" class="loading"> loading... </span>
+<ul class="list-group user-list" *ngIf="loaded">
   <li (click)="onClick(video._id)" style="font-size:1em;" class="list-group-item user-item" *ngFor="let video of data">
     <hr style="background-color:rgba(116,116,116,0.24)">
     {{video.name}}

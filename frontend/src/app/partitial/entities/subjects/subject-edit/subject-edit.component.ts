@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./subject-edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
-  data;
+  data = { name:'',description:'' };
   currentID : string;
   errorMessage: string;
   error: boolean = false;

@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./videolist.component.css']
 })
 export class VideolistComponent implements OnInit {
+  loaded: boolean = false;
   @Input() lectureId;
   data = [{name:'',position: '',_id:''}];
 
@@ -19,6 +20,7 @@ export class VideolistComponent implements OnInit {
       this.data = data;
       if(data.length > 0) {
         this.router.navigate(['/lecture/' + this.lectureId, {outlets: {videoOutlet: [data[0]._id]}}]);
+        this.loaded = true;
       }
     });
   }
