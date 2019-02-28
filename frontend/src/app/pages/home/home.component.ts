@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
     statistics = {institutions: 0, schools: 0, lectures: 0, videos: 0};
 
     constructor(public authService: AuthService, public entitiesService: entitiesService) {
+
     }
 
     ngOnInit() {
@@ -76,6 +77,7 @@ export class HomeComponent implements OnInit {
                     }, 0)
                 }
             }
+
         });
     }
 }
