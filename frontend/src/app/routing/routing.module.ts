@@ -70,11 +70,11 @@ const routes: Routes = [
     {path: 'video/:_id', component: VideoComponent, canActivate:[AuthGuardService]},
 
     //Create routes
-    {path: 'Institution/create/:currentId', component: InstitutionCreateComponent, canActivate:[AuthGuardService]},
-    {path: 'School/create/:currentId', component: CreateSchoolComponent, canActivate:[AuthGuardService]},
-    {path: 'Subject/create/:currentId', component: SubjectCreateComponent, canActivate:[AuthGuardService]},
-    {path: 'Lecture/create/:currentId', component: LectureCreateComponent, canActivate:[AuthGuardService]},
-    {path: 'Video/create/:currentId', component: VideoCreateComponent, canActivate:[AuthGuardService]},
+    {path: 'Institution/create/:currentId', component: InstitutionCreateComponent,canActivate:[AdminGuardService]},
+    {path: 'School/create/:currentId', component: CreateSchoolComponent,canActivate:[AdminGuardService]},
+    {path: 'Subject/create/:currentId', component: SubjectCreateComponent,canActivate:[AdminGuardService]},
+    {path: 'Lecture/create/:currentId', component: LectureCreateComponent,canActivate:[AdminGuardService]},
+    {path: 'Video/create/:currentId', component: VideoCreateComponent, canActivate:[AdminGuardService]},
 
     //Edit routes
     {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AdminGuardService]},

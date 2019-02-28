@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 card-padding" *ngIf="enableAdd&&authService.isLogged()" >
+            <div class="col-md-4 card-padding" *ngIf="enableAdd&&authService.isLogged()&&authService.getIsAdmin()" >
                 <div class="frontside">
                     <div style="height: 18em;" class="card add" (click)="setRedirect()" [routerLink]="['/'+title+'/create',currentId]">
                         <div class="card-body text-center" style="padding-top:13%">
