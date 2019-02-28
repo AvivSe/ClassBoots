@@ -13,6 +13,8 @@ export class AdminStatisticsOthersComponent implements OnInit {
   cmsValue : string = '';
   twoWayBinding : string = '';
   twoWayBindingCounter = 0;
+  usersResult = [];
+
   constructor(public socket: Socket,private http : HttpClient) {
     socket.on('someEvent', (x)=>{
       this.twoWayBinding = "Event" + JSON.stringify(x);
@@ -44,8 +46,10 @@ export class AdminStatisticsOthersComponent implements OnInit {
       });
     }
   }
-
   onSearchUser(User){
+    this.http.post(environment.baseUrl+'api/search/users',User.value).subscribe((data:[])=>{
+      this.usersResult = data;
+    });
 
   }
 }

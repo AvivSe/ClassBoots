@@ -12,7 +12,7 @@ export class AdminGuardService implements CanActivate, CanActivateChild {
             return true;
         }
         this.authService.setRedirectUrl(url);
-        this.router.navigate([ 'PleaseLogin' ]);
+        this.router.navigate([ 'PermissionDenied' ]);
         return false;
     }
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

@@ -8,17 +8,34 @@ var router = express.Router({mergeParams: true});
 var defineRoutes = router =>{
 
     router.post('', async function(req,res){
-        let result =  await SearchController.searchLecture(req.body);
+        let result = {};
+        if(!req.body.generalSearch)
+            result = {error:true,description:"you are searching nothing!"};
+        else
+            result = await SearchController.searchLecture(req.body);
         res.status(result?200:400).send(result);
     });
 
     router.post('/words', async function(req,res){
-        let result =  await SearchController.searchcomment(req.body);
+        let result = {};
+        if(!req.body.words)
+            result = {error:true,description:"you are searching nothing!"};
+        else
+            result = await SearchController.searchcomment(req.body);
+        res.status(result?200:400).send(result);
+    });
+
+    router.post('/users',checkAuth, async function(req,res){
+        let result = {};
+        if(!req.body.generalSearch)
+            result = {error:true,description:"you are searching nothing!"};
+        else
+            result = await SearchController.searchUsers(req.body);
         res.status(result?200:400).send(result);
     });
 
     router.get('/statistic', async function(req,res){
-        let result =  await SearchController.getStatistic();
+        let result = await SearchController.getStatistic();
         res.status(result?200:400).send(result);
     });
 

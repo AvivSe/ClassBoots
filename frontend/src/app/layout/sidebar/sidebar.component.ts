@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {entitiesService} from "../../partitial/entities/entities.service";
 import {AuthService} from "../../partitial/auth/auth.service";
 
 @Component({
@@ -16,7 +15,4 @@ export class SidebarComponent implements OnInit{
   ngOnInit() {
   }
 
-  public isLogged() {
-    return this.authService.isLogged();
-  }
 }

@@ -4,7 +4,7 @@
       <div class="logo-side"></div>
     </a>
     <hr style="background-color:white">
-    <app-user-items *ngIf="isLogged()"></app-user-items>
+    <app-user-items *ngIf="authService.isLogged()"></app-user-items>
   </div>
   <ul>
   </ul>

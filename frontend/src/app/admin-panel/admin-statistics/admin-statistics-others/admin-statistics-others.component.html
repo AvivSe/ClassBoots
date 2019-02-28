@@ -3,6 +3,7 @@
     <hr>
     <div class="jumbotron">
         <h2>Search User's</h2>
+        <br>
         <form (ngSubmit)="onSearchUser(User)" #User="ngForm">
             <div class="Wrapper">
                 <div class="Input">
@@ -10,20 +11,39 @@
                            placeholder="Keywords" ngModel>
                 </div>
             </div>
+            <br>
             <div class="Wrapper">
                 <div class="Input">
                     <input matInput type="text" style="font-size:1.5em;" class="Input-text" name="suffix"
                            placeholder="Suffix" ngModel>
                 </div>
             </div>
+            <br>
             <div class="Wrapper">
                 <div class="Input">
                     <input matInput type="text" style="font-size:1.5em;" class="Input-text" name="role"
                            placeholder="Role" ngModel>
                 </div>
             </div>
-            <button type="submit" mat-button style="font-size:2em;">Search <i class="fab fa-searchengin"></i></button>
+            <br>
+            <div class="Wrapper" style="padding-left:3%">
+                <div class="Input">
+                    <input matInput type="text" type="date" style="font-size:1.5em;" class="Input-text" name="regdate"
+                           placeholder="Role" ngModel>
+                </div>
+            </div>
+            <br>
+            <button type="submit" mat-button style="font-size:2em;background-color: #A5B439;color:white;width: 100%"><i class="fab fa-searchengin"></i></button>
         </form>
+        <br><br>
+
+        <div *ngIf="usersResult.length > 0">
+            <h2>Result log</h2>
+            <hr>
+            <span *ngFor="let i of usersResult">
+    {{i.email}}, &nbsp;
+</span>
+        </div>
 
     </div>
     <hr>
@@ -58,6 +78,7 @@
             <div style="padding-top:0.5%;font-size:1.0em;">{{twoWayBindingCounter}} Poke's got already.</div>
             <div style="padding-top:0.5%;font-size:1.0em;">{{twoWayBinding}}</div>
         </div>
+
 
     </div>
 </div>

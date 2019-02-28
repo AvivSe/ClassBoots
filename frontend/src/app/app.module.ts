@@ -80,7 +80,7 @@ import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit
 import { UserItemsComponent } from './layout/sidebar/user-items/user-items.component';
 import { AuthGuardService } from "./partitial/auth/auth-guard.service";
 import {AdminGuardService} from "./partitial/auth/admin-guard.service";
-import { PleaseLoginComponent } from './pages/please-login/please-login.component';
+import { PleaseLoginComponent } from './pages/errors/please-login/please-login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.component';
 import { VideoCreateComponent } from './partitial/entities/video/video-create/video-create.component';
@@ -95,8 +95,10 @@ import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-stat
 
 import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';
 import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/admin-statistics-groupby/admin-statistics-groupby.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
 import { AdminStatisticsOthersComponent } from './admin-panel/admin-statistics/admin-statistics-others/admin-statistics-others.component';
+import { PermissionDeniedComponent } from './pages/errors/permission-denied/permission-denied.component';
+import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
 
 @NgModule({
     declarations: [
@@ -161,6 +163,8 @@ import { AdminStatisticsOthersComponent } from './admin-panel/admin-statistics/a
         AdminStatisticsGroupbyComponent,
         PageNotFoundComponent,
         AdminStatisticsOthersComponent,
+        PermissionDeniedComponent,
+        CanNotHandleComponent,
     ],
     imports: [
         BrowserModule,

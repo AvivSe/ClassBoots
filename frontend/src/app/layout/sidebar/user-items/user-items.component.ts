@@ -13,7 +13,4 @@ export class UserItemsComponent implements OnInit {
   ngOnInit() {
   }
 
-  public isAdmin() {
-    return this.authService.getIsAdmin();
-  }
 }
