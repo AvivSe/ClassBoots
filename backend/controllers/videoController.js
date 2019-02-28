@@ -103,7 +103,7 @@ class VideoController {
                     });
                 }
                 let secondesAgo = (new Date() - video.lastscrape) / 1000;
-                if (secondesAgo > 60) {
+                if (secondesAgo > 86400) {
                     Video.findByIdAndUpdate(
                         video._id,
                         {lastscrape: new Date()},
