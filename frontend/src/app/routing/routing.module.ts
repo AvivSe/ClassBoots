@@ -34,6 +34,7 @@ import {PageNotFoundComponent} from "../pages/errors/page-not-found/page-not-fou
 import {PermissionDeniedComponent} from "../pages/errors/permission-denied/permission-denied.component";
 import {CanNotHandleComponent} from "../pages/errors/can-not-handle/can-not-handle.component";
 import {BadRequestComponent} from "../pages/errors/bad-request/bad-request.component";
+import {NotAllowedComponent} from "../pages/errors/not-allowed/not-allowed.component";
 
 const routes: Routes = [
 
@@ -55,6 +56,7 @@ const routes: Routes = [
     {path: '404', component: PageNotFoundComponent},
     {path: '503', component: CanNotHandleComponent},
     {path: '400', component: BadRequestComponent},
+    {path: '405', component: NotAllowedComponent},
 
 
     //Menu routes

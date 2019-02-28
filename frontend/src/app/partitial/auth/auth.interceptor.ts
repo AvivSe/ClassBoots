@@ -30,6 +30,9 @@ export class AuthInterceptor implements HttpInterceptor{
                         case 404:
                             this.router.navigate(['/404'], { queryParams: { returnUrl: req.url } });
                             break;
+                        case 405:
+                            this.router.navigate(['/405'], { queryParams: { returnUrl: req.url } });
+                            break;
                         case 503:
                             this.router.navigate(['/503'], { queryParams: { returnUrl: req.url } });
                             break;
