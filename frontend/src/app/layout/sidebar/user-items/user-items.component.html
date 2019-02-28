@@ -15,7 +15,7 @@
     <i class="far fa-list-alt fa-3x"></i>
     <span> My Tasks List </span>
   </li>
-  <li routerLink="admin" routerLinkActive="user-item-active" class="list-group-item user-item" *ngIf="isAdmin()">
+  <li routerLink="admin" routerLinkActive="user-item-active" class="list-group-item user-item" *ngIf="authService.getIsAdmin()">
     <i class="fas fa-snowman fa-3x"></i>
     <span> Admin </span>
   </li>

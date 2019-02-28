@@ -8,12 +8,9 @@ import {AuthService} from "../../../partitial/auth/auth.service";
 })
 export class UserItemsComponent implements OnInit {
 
-  constructor(public authService : AuthService) { }
+  constructor(private authService : AuthService) { }
 
   ngOnInit() {
   }
 
-  public isAdmin() {
-    return this.authService.getIsAdmin();
-  }
 }

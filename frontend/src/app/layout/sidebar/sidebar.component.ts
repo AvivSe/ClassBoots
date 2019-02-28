@@ -10,13 +10,10 @@ import {AuthService} from "../../partitial/auth/auth.service";
 export class SidebarComponent implements OnInit{
   isListLoaded : boolean = false;
 
-  constructor(public authService : AuthService) {
+  constructor(private authService : AuthService) {
 
   }
   ngOnInit() {
   }
 
-  public isLogged() {
-    return this.authService.isLogged();
-  }
 }
