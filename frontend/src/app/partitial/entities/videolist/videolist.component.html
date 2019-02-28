@@ -1,9 +1,15 @@
 <ul class="list-group user-list">
-  <li (click)="onClick(video._id)" style="font-size:3em;"class="list-group-item user-item" *ngFor="let video of data">
-    {{video.name}} | {{video.position}}
+  <li (click)="onClick(video._id)" style="font-size:2.6em;" class="list-group-item user-item" *ngFor="let video of data">
+    <hr style="background-color:rgba(116,116,116,0.24)">
+    {{video.name}}
+    <span style="font-size:0.6em;">
+    Part {{video.position}}
+      </span>
   </li>
 </ul>
+<hr style="background-color:rgba(116,116,116,0.24)" *ngIf="data.length>0">
 <div class="list-group-item user-item">
-<button class="btn list-group-item user-item" mat-fab (click)="setRedirect()">ADD VIDEO</button>
+<button class="btn list-group-item user-item" style="font-size:2em;" mat-fab (click)="setRedirect()">ADD VIDEO</button>
+
 </div>
 
