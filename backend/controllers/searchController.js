@@ -20,13 +20,14 @@ class SearchController {
     static async searchLecture(body) {
 
         try {
+            if(!body.date)
+                body.date = new Date(2015,1,1);
             return await Lecture.find(
                 {$and:[
                     {$or: [{name: {$regex: body.generalSearch, $options: 'i'}},
                         {description: {$regex: body.generalSearch, $options: 'i'}}]},
-                    {lecturer: {$regex: body.lecturer, $options: 'i'}}//,
-                    //{date: {$gte: body.date}}
-                    // TODO: fix date
+                    {lecturer: {$regex: body.lecturer, $options: 'i'}},
+                    {date: {$gte: body.date}}
                 ]},
                 async (err, docs) => {
                     if (err)
@@ -122,13 +123,14 @@ class SearchController {
     static async searchUsers(body) {
 
         try {
+            if(!body.regdate)
+                body.regdate = new Date(2015,1,1);
             return await User.find(
                 {$and: [
                     {$or: [{email: {$regex: body.generalSearch, $options: 'i'}},
                         {firstName: {$regex: body.generalSearch, $options: 'i'}}]},
-                    {role: body.role},
-                    //{regDate: {$gte: body.regdate}},
-                    // TODO: fix date
+                    {role: {$regex: body.role, $options: 'i'}},
+                    {regDate: {$gte: body.regdate}},
                     {email: {$regex: body.suffix, $options: 'i'}}
                     ]},
                 async (err, docs) => {
