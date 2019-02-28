@@ -99,6 +99,8 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
 import { AdminStatisticsOthersComponent } from './admin-panel/admin-statistics/admin-statistics-others/admin-statistics-others.component';
 import { PermissionDeniedComponent } from './pages/errors/permission-denied/permission-denied.component';
 import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
+import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
+import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.component';
 
 @NgModule({
     declarations: [
@@ -165,6 +167,8 @@ import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-han
         AdminStatisticsOthersComponent,
         PermissionDeniedComponent,
         CanNotHandleComponent,
+        BadRequestComponent,
+        NotAllowedComponent,
     ],
     imports: [
         BrowserModule,

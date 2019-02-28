@@ -10,7 +10,7 @@
             <!-- Team member -->
             <div class="col-md-4 card-button card-padding user-item animated fadeIn" *ngFor="let item of itemlist">
                 <div class="frontside">
-                    <div style="height: 18em;" class="card" [routerLink]="['/'+nextPath,item._id]">
+                    <div style="height: 18em;" class="card" (click)="setRedirect()" [routerLink]="['/'+nextPath,item._id]">
                         <div class="card-body text-center">
                             <i class="material-icons" style="float: right;font-size: 1.9em;"
                                [routerLink]="['/'+title+'/edit',item._id]" (click)="setRedirect()" *ngIf="authService.getIsAdmin()">edit</i>
