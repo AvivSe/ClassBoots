@@ -160,4 +160,8 @@ export class AuthService {
         this.router.navigate(['']);
         this.matSnackBar.open('We received your message and we\'ll be in contact soon as possible.', null, {duration: 3000});
     }
+
+    public applyRedirectUrl() {
+        this.router.navigate([this.getRedirectUrl()]);
+    }
 }

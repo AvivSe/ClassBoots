@@ -43,6 +43,9 @@ export class AdminStatisticsOthersComponent implements OnInit {
         this.cmsValue = data.totalViews;
       });
     }
+  }
+
+  onSearchUser(User){
 
   }
 }

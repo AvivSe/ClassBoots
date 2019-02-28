@@ -39,8 +39,8 @@
             </form>
         </div>
         <div *ngIf="answerLoaded">
-            <div *ngFor="let item of data" (click)="navToLecture(item._id)">
-                <div class="result">
+            <div *ngFor="let item of data" (click)="navToLecture(item._id)" style="cursor: pointer">
+                <div class="result" (click)="toggleShowDiv()">
                 {{item.name}}
                 </div>
             </div>
