@@ -2,8 +2,7 @@ const express = require('express');
 const {VideoController} = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
-const Role = require('../../utils/Role');
-const Permission = require('../../utils/check-permission');
+const {admin} = require('../../utils/Role');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -19,7 +18,7 @@ var defineRoutes = router =>{
         res.status(result.error?400:200).send(result);
     });
 
-    router.post('', checkAuth, async function(req,res){
+    router.post('', checkAuth, admin, async function(req,res){
         let result = {};
         if (!req.body.reference || !req.body.position || !req.body.lectureid || !req.body.name) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -35,12 +34,12 @@ var defineRoutes = router =>{
         res.status(result.error?400:201).send(result);
     });
 
-    router.get('', checkAuth, async function(req,res){
+    router.get('', checkAuth, admin, async function(req,res){
         let result =  await VideoController.getVideoCollection();
         res.status(result.error?400:200).send(result);
     });
 
-    router.delete('', checkAuth, async function(req,res){
+    router.delete('', checkAuth, admin, async function(req,res){
         let result = {};
         if(!req.body.lectureid || req.body._id)
             result = {error:true,description:'you don\'t have validation'};
@@ -52,7 +51,7 @@ var defineRoutes = router =>{
         res.status(result.error?400:200).send(result);
     });
 
-    router.put('', checkAuth, async function(req,res){
+    router.put('', checkAuth, admin, async function(req,res){
         let result = {};
         if(!req.body._id)
             result = {error:true,description:'you don\'t have validation'};
@@ -70,7 +69,7 @@ var defineRoutes = router =>{
         res.status(result.error?400:200).send(result);
     });
 
-    router.delete('/deletecomment', checkAuth, async function(req,res){
+    router.delete('/deletecomment', checkAuth, admin, async function(req,res){
         let result = {};
         if(!req.body.videoid || !req.body.commentid)
             result = {error:true,description:'you don\'t have validation'};

@@ -216,9 +216,9 @@ class InstitutionController {
                 });
             return invalid.error===undefined?result:invalid;
         }
-        catch (e) {
-            errorsController.logger({error:'addpermission',description:e});
-            return {error:true,description:'addpermission: '+e};
+        catch (err) {
+            errorsController.logger({error:'addpermission',description:err});
+            return {error:true,description:'addpermission: '+err};
         }
 
     };
@@ -241,10 +241,11 @@ class InstitutionController {
                         errorsController.logger({error: 'deletepermission', description: err});
                     }
                 });
+            return invalid.error===undefined?result:invalid;
         }
-        catch (e) {
-            errorsController.logger({error:'deletepermission',description:e});
-            return {error:true,description:'deletepermission: '+e};
+        catch (err) {
+            errorsController.logger({error:'deletepermission',description:err});
+            return {error:true,description:'deletepermission: '+err};
         }
 
     };
