@@ -25,7 +25,7 @@ var defineRoutes = router =>{
         res.status(result?200:400).send(result);
     });
 
-    router.post('/users', async function(req,res){
+    router.post('/users',checkAuth, async function(req,res){
         let result = {};
         if(!req.body.generalSearch)
             result = {error:true,description:"you are searching nothing!"};
