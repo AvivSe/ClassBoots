@@ -20,14 +20,19 @@ class SearchController {
     static async searchLecture(body) {
 
         try {
+            if (!body.date)
+                body.date = new Date(2015, 1, 1);
             return await Lecture.find(
-                {$and:[
-                    {$or: [{name: {$regex: body.generalSearch, $options: 'i'}},
-                        {description: {$regex: body.generalSearch, $options: 'i'}}]},
-                    {lecturer: {$regex: body.lecturer, $options: 'i'}}//,
-                    //{date: {$gte: body.date}}
-                    // TODO: fix date
-                ]},
+                {
+                    $and: [
+                        {
+                            $or: [{name: {$regex: body.generalSearch, $options: 'i'}},
+                                {description: {$regex: body.generalSearch, $options: 'i'}}]
+                        },
+                        {lecturer: {$regex: body.lecturer, $options: 'i'}},
+                        {date: {$gte: body.date}}
+                    ]
+                },
                 async (err, docs) => {
                     if (err)
                         console.log(err);
@@ -81,19 +86,18 @@ class SearchController {
             let videos = await VideoController.getVideoCollection();
             let comments = [];
             for (let i = 0; i < videos.length; i++) {
-                comments = comments.concat(videos[i].comments);
+                comments = comments.concat(videos[i].ytcomment);
             }
             comments = comments.map(comment => comment.content);
             var fullText = '';
             for (let i = 0; i < comments.length; i++) {
                 fullText = fullText.concat(comments[i], ' , ');
             }
-            console.log(fullText);
             for (let i = 0; i < body.words.length; i++) {
-                ac.add(body.words[i]);
+                ac.add(body.words[i].toLowerCase());
             }
             ac.build();
-            var res = ac.search(fullText);
+            var res = ac.search(fullText.toLowerCase());
             return res;
         } catch (err) {
             errorsController.logger({error: 'searchcomment', description: err});
@@ -122,15 +126,20 @@ class SearchController {
     static async searchUsers(body) {
 
         try {
+            if (!body.regdate)
+                body.regdate = new Date(2015, 1, 1);
             return await User.find(
-                {$and: [
-                    {$or: [{email: {$regex: body.generalSearch, $options: 'i'}},
-                        {firstName: {$regex: body.generalSearch, $options: 'i'}}]},
-                    {role: body.role},
-                    //{regDate: {$gte: body.regdate}},
-                    // TODO: fix date
-                    {email: {$regex: body.suffix, $options: 'i'}}
-                    ]},
+                {
+                    $and: [
+                        {
+                            $or: [{email: {$regex: body.generalSearch, $options: 'i'}},
+                                {firstName: {$regex: body.generalSearch, $options: 'i'}}]
+                        },
+                        {role: {$regex: body.role, $options: 'i'}},
+                        {regDate: {$gte: body.regdate}},
+                        {email: {$regex: body.suffix, $options: 'i'}}
+                    ]
+                },
                 async (err, docs) => {
                     if (err) {
                         errorsController.logger({error: 'searchUsers', description: err});
@@ -138,12 +147,12 @@ class SearchController {
                     }
                     return docs;
                 }).then(async docs => {
-                    if(docs.error)
-                        return docs;
-                    let users = [];
-                    for (let i = 0; i < docs.length; i++)
-                        users[i] = await User.findById(docs[i]._id);
-                    return users;
+                if (docs.error)
+                    return docs;
+                let users = [];
+                for (let i = 0; i < docs.length; i++)
+                    users[i] = await User.findById(docs[i]._id);
+                return users;
             });
         } catch (err) {
             errorsController.logger({error: 'searchUsers', description: err});

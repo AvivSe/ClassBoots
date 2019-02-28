@@ -1,6 +1,7 @@
 const express = require('express');
 const SearchController = require('../../controllers/searchController');
 const checkAuth = require('../../utils/check-auth');
+const {admin} = require('../../utils/Role');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -16,7 +17,7 @@ var defineRoutes = router =>{
         res.status(result?200:400).send(result);
     });
 
-    router.post('/words', async function(req,res){
+    router.post('/words',checkAuth, admin, async function(req,res){
         let result = {};
         if(!req.body.words)
             result = {error:true,description:"you are searching nothing!"};
@@ -25,7 +26,7 @@ var defineRoutes = router =>{
         res.status(result?200:400).send(result);
     });
 
-    router.post('/users', async function(req,res){
+    router.post('/users',checkAuth, admin, async function(req,res){
         let result = {};
         if(!req.body.generalSearch)
             result = {error:true,description:"you are searching nothing!"};
@@ -34,7 +35,7 @@ var defineRoutes = router =>{
         res.status(result?200:400).send(result);
     });
 
-    router.get('/statistic', async function(req,res){
+    router.get('/statistic',checkAuth, admin, async function(req,res){
         let result = await SearchController.getStatistic();
         res.status(result?200:400).send(result);
     });

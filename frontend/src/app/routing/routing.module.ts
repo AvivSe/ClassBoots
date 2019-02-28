@@ -25,12 +25,16 @@ import {LectureEditComponent} from "../partitial/entities/lectures/lecture-edit/
 import {LoginBoxComponent} from "../partitial/auth/login-box/login-box.component";
 import {AuthGuardService} from "../partitial/auth/auth-guard.service";
 import {AdminGuardService} from "../partitial/auth/admin-guard.service";
-import {PleaseLoginComponent} from "../pages/please-login/please-login.component";
+import {PleaseLoginComponent} from "../pages/errors/please-login/please-login.component";
 import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
 import {LastWatchesComponent } from "../partitial/entities/last-watches/last-watches.component";
-import {PageNotFoundComponent} from "../pages/page-not-found/page-not-found.component";
+import {PageNotFoundComponent} from "../pages/errors/page-not-found/page-not-found.component";
+import {PermissionDeniedComponent} from "../pages/errors/permission-denied/permission-denied.component";
+import {CanNotHandleComponent} from "../pages/errors/can-not-handle/can-not-handle.component";
+import {BadRequestComponent} from "../pages/errors/bad-request/bad-request.component";
+import {NotAllowedComponent} from "../pages/errors/not-allowed/not-allowed.component";
 
 const routes: Routes = [
 
@@ -48,7 +52,12 @@ const routes: Routes = [
     {path: 'Register', component: RegisterBoxComponent, outlet: 'modal'},
     {path: 'Profile', component: ProfileComponent},
     {path: 'PleaseLogin', component: PleaseLoginComponent},
+    {path: 'PermissionDenied', component: PermissionDeniedComponent},
     {path: '404', component: PageNotFoundComponent},
+    {path: '503', component: CanNotHandleComponent},
+    {path: '400', component: BadRequestComponent},
+    {path: '405', component: NotAllowedComponent},
+
 
     //Menu routes
     {path: 'institution/:_id', component: SchoolsComponent},
@@ -68,11 +77,11 @@ const routes: Routes = [
     {path: 'Video/create/:currentId', component: VideoCreateComponent, canActivate:[AuthGuardService]},
 
     //Edit routes
-    {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AuthGuardService]},
-    {path: 'School/edit/:_id', component: SchoolEditComponent, canActivate:[AuthGuardService]},
-    {path: 'Subject/edit/:_id', component: SubjectEditComponent, canActivate:[AuthGuardService]},
-    {path: 'Lecture/edit/:_id', component: LectureEditComponent, canActivate:[AuthGuardService]},
-    {path: 'Video/edit/:videoid', component: VideoEditComponent, canActivate:[AuthGuardService]},
+    {path: 'Institution/edit/:_id', component: InstitutionEditComponent, canActivate:[AdminGuardService]},
+    {path: 'School/edit/:_id', component: SchoolEditComponent, canActivate:[AdminGuardService]},
+    {path: 'Subject/edit/:_id', component: SubjectEditComponent, canActivate:[AdminGuardService]},
+    {path: 'Lecture/edit/:_id', component: LectureEditComponent, canActivate:[AdminGuardService]},
+    {path: 'Video/edit/:videoid', component: VideoEditComponent, canActivate:[AdminGuardService]},
 
     //Admin panel routes
     {
