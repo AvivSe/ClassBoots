@@ -8,7 +8,7 @@ import {entitiesService} from "../../entities.service";
 })
 export class VideoPlayerComponent implements OnInit {
   @Input() _id = '';
-  constructor(private entitiesService : entitiesService) {
+  constructor() {
   }
   ngOnInit() {}
 }
