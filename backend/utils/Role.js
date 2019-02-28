@@ -24,37 +24,23 @@ class Role {
                 }
 
                 if(!allowed) {
-                    res.status(401).send({error:'Auth-Failed: you dont have access to use this request.'});
+                    res.status(401).send({error:true,description:'Auth-Failed: you dont have access to use this request.'});
                 }
 
             } else {
-                res.status(401).send({error:'Auth-Failed: can\'t find user privileges'});
+                res.status(401).send({error:true,description:'Auth-Failed: can\'t find user privileges'});
             }
         }
     }
     static admin(req, res, next) {
         if(req.profile.user.role && req.profile.user.role==='admin') {
+            console.log('admin');
             next();
         } else {
-            res.status(401).send({error:'Auth-Failed: only admin can access'});
+            res.status(405).send({error:true,description:'Auth-Failed: only admin can access'});
         }
     }
 
-    static creator(req, res, next) {
-        if(req.profile.user.role && (req.profile.user.role === 'admin' || req.profile.user.role === 'creator' )) {
-            next();
-        } else {
-            res.status(401).send({error:'Auth-Failed: only creator can access'});
-        }
-    }
-
-    static editor(req, res, next) {
-        if(req.profile.user.role && (req.profile.user.role === 'admin' || req.profile.user.role === 'editor')) {
-            next();
-        } else {
-            res.status(401).send({error:'Auth-Failed: only editor can access'});
-        }
-    }
 }
 
 module.exports = Role;

@@ -2,6 +2,7 @@ const express = require('express');
 const LectureController = require('../../controllers/lectureController');
 const SubjectController = require('../../controllers/subjectController');
 const checkAuth = require('../../utils/check-auth');
+const {admin} = require('../../utils/Role');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
@@ -31,7 +32,7 @@ var defineRoutes = router => {
         res.status(200).send(result);
     });
 
-    router.post('/addplaylist/:id', checkAuth, async function (req, res) {
+    router.post('/addplaylist/:id', checkAuth, admin, async function (req, res) {
         var send = {};
         send.msg = "Trying to create new videos from playlist to lecture " + req.params.id;
         send.plID = req.body.plID;
@@ -40,7 +41,7 @@ var defineRoutes = router => {
         res.status(result.error?400:201).send(result);
     });
 
-    router.post('', checkAuth, async function (req, res) {
+    router.post('', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body.lecturer || !req.body.name || !req.body.description || !req.body.date || !req.body.subjectid) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -61,7 +62,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.delete('', checkAuth, async function (req, res) {
+    router.delete('', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body.subjectid || !req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -73,7 +74,7 @@ var defineRoutes = router => {
         res.status(200).send(result);
     });
 
-    router.put('', checkAuth, async function (req, res) {
+    router.put('', checkAuth, admin, async function (req, res) {
         let result = {};
         if(!req.body._id)
             result = {error:true,description:'you don\'t have validation'};
@@ -82,7 +83,7 @@ var defineRoutes = router => {
         res.status(200).send(result);
     });
 
-    router.post('/addVideo', checkAuth, async function (req, res) {
+    router.post('/addVideo', checkAuth, admin, async function (req, res) {
         let result = {};
         if(!req.body.lectureid || !req.body.videoid)
             result = {error:true,description:'you don\'t have validation'};

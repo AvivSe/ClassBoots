@@ -2,13 +2,14 @@ const express = require('express');
 const SubjectController = require('../../controllers/subjectController');
 const SchoolController = require('../../controllers/schoolController');
 const checkAuth = require('../../utils/check-auth');
+const {admin} = require('../../utils/Role');
 
 // you need to set mergeParams: true on the router,
 // if you want to access params from the parent router
 var router = express.Router({mergeParams: true});
 var defineRoutes = router => {
 
-    router.get('/:id/cms', async (req,res)=> {
+    router.get('/:id/cms',checkAuth, admin, async (req,res)=> {
         let result={};
         if(!req.params.id)
             result= {error:true,description:'you do\'nt have validation'};
@@ -26,7 +27,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.post('', checkAuth, async function (req, res) {
+    router.post('', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body.name || !req.body.description || !req.body.schoolid) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -46,7 +47,7 @@ var defineRoutes = router => {
         let result = await SubjectController.getSubjectCollection();
         res.status(result.error?400:200).send(result);
     });
-    router.delete('', checkAuth, async function (req, res) {
+    router.delete('', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body._id || !req.body.schoolid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -58,7 +59,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.put('', checkAuth, async function (req, res) {
+    router.put('', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -67,7 +68,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.post('/addLecture', checkAuth, async function (req, res) {
+    router.post('/addLecture', checkAuth, admin, async function (req, res) {
         let result = {};
         if (!req.body.subjectid || !req.body.lectureid)
             result = {error: true, description: 'you don\'t have validation'};
