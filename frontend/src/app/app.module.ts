@@ -100,6 +100,7 @@ import { AdminStatisticsOthersComponent } from './admin-panel/admin-statistics/a
 import { PermissionDeniedComponent } from './pages/errors/permission-denied/permission-denied.component';
 import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
+import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.component';
 
 @NgModule({
     declarations: [
@@ -167,6 +168,7 @@ import { BadRequestComponent } from './pages/errors/bad-request/bad-request.comp
         PermissionDeniedComponent,
         CanNotHandleComponent,
         BadRequestComponent,
+        NotAllowedComponent,
     ],
     imports: [
         BrowserModule,
