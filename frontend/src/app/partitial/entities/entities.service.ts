@@ -233,10 +233,14 @@ export class entitiesService implements OnInit {
     }
 
     public applyRedirectUrl() {
-        this.router.navigate([this.getRedirectUrl()]);
+        setTimeout(function(){
+            this.router.navigate([this.getRedirectUrl()]);
+        }.bind(this), 1000);
     }
     public applyRedirectUrlVideo() {
-        this.router.navigateByUrl(this.getRedirectUrl());
+        setTimeout(function () {
+            this.router.navigateByUrl(this.getRedirectUrl());
+        }.bind(this), 1000);
     }
 
     public setRedirectUrl(url) {
