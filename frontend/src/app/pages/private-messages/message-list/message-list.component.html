@@ -1,0 +1,16 @@
+<mat-accordion multi="true" *ngIf="viewMessages.length > 0">
+  <!--Comment-->
+  <mat-expansion-panel *ngFor="let msg of viewMessages">
+    <mat-expansion-panel-header>
+      <span *ngIf="isInbox"> From: {{ msg.from }} </span>
+      <span *ngIf="!isInbox"> To: {{ msg.to }} </span>
+      <span>, {{msg.title}}</span>
+    </mat-expansion-panel-header>
+    {{msg.content}}
+  </mat-expansion-panel>
+  <!--Comment end-->
+</mat-accordion>
+<mat-paginator [length]="messages.length"
+               [pageSize]="pageSize"
+               (page)="getPaginatorData($event)">
+</mat-paginator>

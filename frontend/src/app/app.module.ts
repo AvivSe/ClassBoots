@@ -97,6 +97,9 @@ import { PermissionDeniedComponent } from './pages/errors/permission-denied/perm
 import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
 import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.component';
+import { PrivateMessagesComponent } from './pages/private-messages/private-messages.component';
+import { WatchLaterComponent } from './pages/watch-later/watch-later.component';
+import { MessageListComponent } from './pages/private-messages/message-list/message-list.component';
 
 @NgModule({
     declarations: [
@@ -161,6 +164,9 @@ import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.comp
         CanNotHandleComponent,
         BadRequestComponent,
         NotAllowedComponent,
+        PrivateMessagesComponent,
+        WatchLaterComponent,
+        MessageListComponent,
     ],
     imports: [
         BrowserModule,

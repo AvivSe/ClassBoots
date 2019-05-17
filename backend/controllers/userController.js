@@ -71,6 +71,7 @@ class UserController {
                     result = {error: "history not found"};
                 }
             });
+
             return result;
         }
         catch (e) {
