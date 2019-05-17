@@ -1,27 +1,27 @@
-<div  style="padding-bottom: 5%;" class="ng-view" autoscroll="true">
-  <div class="container" style="position:center;padding-top: 5%">
-    <div class="row">
-      <mat-card style="width: 100%;padding-bottom: 50%;">
-        <div style="padding: 5%;">
-            <span class="mat-headline">Last Watches:</span>
-          <div style="padding: 5%;">
+<div class="jumbotron06 ng-view" autoscroll="true" *ngIf="isLoaded">
+    <div class="jumbotron08" style="padding-bottom: 30%;">
+        <div class="row">
+            <!-- Team member -->
+            <div class="col-md-4 card-button card-padding user-item animated fadeIn" *ngFor="let item of itemlist">
+                <div class="frontside">
+                    <div style="height: 18em;" class="card" [routerLink]="['/lecture/'+item.lectureid, {outlets:{ videoOutlet:[item._id]}} ]">
+                        <div class="card-body text-center">
+                            <p>
+                                <img class="img-size"
+                                     (mouseenter)="startSwitchImages(item._id)"
+                                     (mouseout)="stopSwitchImages(item._id)"
+                                     src="https://img.youtube.com/vi/{{item.reference}}/{{item.youtubeImageNumber}}.jpg"
+                                     alt="card image"
+                                >
+                            </p>
+                            <h4 class="card-title">{{item.name}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-              <mat-accordion>
-                  <mat-expansion-panel *ngFor="let video of videos" >
-                      <mat-expansion-panel-header>
-                          <mat-panel-title class="result">
-                              {{video.name}}
-                          </mat-panel-title>
-                      </mat-expansion-panel-header>
-                      <div [routerLink]="['/lecture/'+video.lectureid, {outlets:{ videoOutlet:[video._id]}} ]">
-                          {{video.reference}}
-                      </div>
-                  </mat-expansion-panel>
-              </mat-accordion>
-
-          </div>
         </div>
-      </mat-card>
     </div>
-  </div>
 </div>
+
+<app-lazy-loading *ngIf="!isLoaded"></app-lazy-loading>

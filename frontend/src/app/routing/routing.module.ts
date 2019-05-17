@@ -35,6 +35,8 @@ import {PermissionDeniedComponent} from "../pages/errors/permission-denied/permi
 import {CanNotHandleComponent} from "../pages/errors/can-not-handle/can-not-handle.component";
 import {BadRequestComponent} from "../pages/errors/bad-request/bad-request.component";
 import {NotAllowedComponent} from "../pages/errors/not-allowed/not-allowed.component";
+import {PrivateMessagesComponent} from "../pages/private-messages/private-messages.component";
+import {WatchLaterComponent} from "../pages/watch-later/watch-later.component";
 
 const routes: Routes = [
 
@@ -45,6 +47,9 @@ const routes: Routes = [
     {path: 'privacy', component: PrivacyComponent},
     {path: 'terms', component: TermsComponent},
     {path: 'last-watches', component: LastWatchesComponent},
+    {path: 'messages', component: PrivateMessagesComponent},
+    {path: 'watch-later', component: WatchLaterComponent},
+
 
     //Authentication routes
     {path: '', component: LoginBoxComponent, outlet: 'modal'},

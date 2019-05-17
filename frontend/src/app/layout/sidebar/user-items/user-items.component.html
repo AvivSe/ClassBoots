@@ -3,7 +3,7 @@
       <i class="far fa-user fa-3x"></i>
       <span> My Profile </span>
   </li>
-  <li routerLinkActive="user-item-active"  class="list-group-item user-item" >
+  <li routerLink="messages" routerLinkActive="user-item-active"  class="list-group-item user-item" >
     <i class="far fa-comment-alt fa-3x"></i>
     <span> My Messages </span>
   </li>
@@ -11,9 +11,9 @@
     <i class="fas fa-video fa-3x"></i>
     <span> My last watches </span>
   </li>
-  <li routerLinkActive="user-item-active" class="list-group-item user-item">
+  <li routerLink="watch-later" routerLinkActive="user-item-active" class="list-group-item user-item">
     <i class="far fa-list-alt fa-3x"></i>
-    <span> My Tasks List </span>
+    <span> My Watch Later </span>
   </li>
   <li routerLink="admin" routerLinkActive="user-item-active" class="list-group-item user-item" *ngIf="authService.getIsAdmin()">
     <i class="fas fa-snowman fa-3x"></i>

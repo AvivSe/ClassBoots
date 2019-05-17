@@ -1,0 +1,13 @@
+<div class="messages-container jumbotron">
+  <span class="mat-headline">Messages</span>
+  <div class="flex-container">
+    <div class="message-box">
+      <h1> Inbox </h1>
+      <app-message-list [isInbox]="true" [messages]="this.messages"></app-message-list>
+    </div>
+    <div class="message-box">
+      <h1>Outbox</h1>
+      <app-message-list [isInbox]="false" [messages]="this.messages"></app-message-list>
+    </div>
+  </div>
+</div>
