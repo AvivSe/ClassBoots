@@ -2,9 +2,6 @@ const errorsController = require('./errorsController');
 const {VideoController} = require('./videoController');
 const LectureController = require('./lectureController');
 const SubjectController = require('./subjectController');
-const SchoolController = require('./schoolController');
-const InstitutionController = require('./institutionController');
-const UserController = require('./userController');
 
 const Video = require('../models/video');
 const Lecture = require('../models/lecture');
@@ -13,7 +10,6 @@ const School = require('../models/school');
 const Institution = require('../models/institution');
 const User = require('../models/user');
 
-var AhoCorasick = require('node-aho-corasick');
 
 class SearchController {
 
@@ -78,33 +74,6 @@ class SearchController {
 
     };
 
-
-    static async searchcomment(body) {
-
-        try {
-            let ac = new AhoCorasick();
-            let videos = await VideoController.getVideoCollection();
-            let comments = [];
-            for (let i = 0; i < videos.length; i++) {
-                comments = comments.concat(videos[i].ytcomment);
-            }
-            comments = comments.map(comment => comment.content);
-            var fullText = '';
-            for (let i = 0; i < comments.length; i++) {
-                fullText = fullText.concat(comments[i], ' , ');
-            }
-            for (let i = 0; i < body.words.length; i++) {
-                ac.add(body.words[i].toLowerCase());
-            }
-            ac.build();
-            var res = ac.search(fullText.toLowerCase());
-            return res;
-        } catch (err) {
-            errorsController.logger({error: 'searchcomment', description: err});
-            return {error: true, description: 'searchcomment: ' + err};
-        }
-
-    }
 
     static async getStatistic(body) {
 

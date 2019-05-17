@@ -49,13 +49,13 @@ class VideoController {
         try {
             let result = {};
             let video = new Video(body);
-            YoutubeScraper.getCommentsAsync(body.reference, result => {
-                Video.findByIdAndUpdate(
-                    video._id,
-                    {$push: {"ytcomment": result}},
-                    {upsert: true, new: true}).then(x => {
-                });
-            });
+            // YoutubeScraper.getCommentsAsync(body.reference, result => {
+            //     Video.findByIdAndUpdate(
+            //         video._id,
+            //         {$push: {"ytcomment": result}},
+            //         {upsert: true, new: true}).then(x => {
+            //     });
+            // });
             await video.save(err => {
                 if (err) {
                     result = {error: true, description: err};
@@ -109,20 +109,20 @@ class VideoController {
                         {lastscrape: new Date()},
                         {upsert: true, new: true}).then(vid => {
                         //TODO: duplicate code
-                        YoutubeScraper.getCommentsAsync(vid.reference, result => {
-                            if (!vid.ytcomment.find(c => {
-                                return (c.content === result.content && c.author === result.author);
-                            })) {
-                                Video.findByIdAndUpdate(
-                                    vid._id,
-                                    {$push: {"ytcomment": result}, lastscrape: new Date()},
-                                    {upsert: true, new: true}).then(ignore => {
-                                });
-                            } else {
-                                console.log("already exist");
-                            }
-
-                        });
+                        // YoutubeScraper.getCommentsAsync(vid.reference, result => {
+                        //     if (!vid.ytcomment.find(c => {
+                        //         return (c.content === result.content && c.author === result.author);
+                        //     })) {
+                        //         Video.findByIdAndUpdate(
+                        //             vid._id,
+                        //             {$push: {"ytcomment": result}, lastscrape: new Date()},
+                        //             {upsert: true, new: true}).then(ignore => {
+                        //         });
+                        //     } else {
+                        //         console.log("already exist");
+                        //     }
+                        //
+                        // });
                     });
                 } else {
                     console.log("dont wanna update because so young :" + secondesAgo);
@@ -166,10 +166,12 @@ class VideoController {
         }
     }
 
-    static async addComment(body, userid) {
+
+    static async addComment(body, userid, userEmail) {
         try {
             let invalid = {};
             body.user = userid;
+            body.userEmail = userEmail;
             let result = await Video.findByIdAndUpdate(
                 body.videoid,
                 {$addToSet: {"comments": body}},

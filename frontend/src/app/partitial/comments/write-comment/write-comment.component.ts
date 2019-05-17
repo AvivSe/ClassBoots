@@ -26,7 +26,8 @@ export class WriteCommentComponent implements OnInit {
       const comment: Comment = {
         videoId:this.videoId,
         id:'',
-        user: "5c166059d4fb3e3f68460e12",
+        user: this.authService.getCurrentUser().email,
+        userEmail:this.authService.getCurrentUser().email ,
         title: commentForm.value.comment.split('\n')[0] + "...",
         comment: commentForm.value.comment
       };

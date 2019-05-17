@@ -1,12 +1,8 @@
-const express = require('express');
 const LectureController = require('../../controllers/lectureController');
 const SubjectController = require('../../controllers/subjectController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
 
-// you need to set mergeParams: true on the router,
-// if you want to access params from the parent router
-var router = express.Router({mergeParams: true});
 var defineRoutes = router => {
 
     router.get('/stats', async function (req, res) {

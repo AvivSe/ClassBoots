@@ -62,7 +62,6 @@ import {AdminStatisticsComponent} from './admin-panel/admin-statistics/admin-sta
 import {AdminCollectionsManagerComponent} from './admin-panel/admin-collections/admin-collections.component';
 import {AgGridComponent} from './admin-panel/admin-collections/ag-grid/ag-grid.component';
 import {AdminStatisticsPieChartComponent} from './admin-panel/admin-statistics/admin-statistics-pie-chart/admin-statistics-pie-chart.component';
-import {AdminStatisticsMapChartComponent} from './admin-panel/admin-statistics/admin-statistics-map-chart/admin-statistics-map-chart.component';
 import {AdminCollectionsUserComponent} from './admin-panel/admin-collections/admin-collections-user/admin-collections-user.component';
 import {AdminCollectionsVideoComponent} from './admin-panel/admin-collections/admin-collections-video/admin-collections-video.component';
 import {AdminCollectionsInstitutionComponent} from './admin-panel/admin-collections/admin-collections-institution/admin-collections-institution.component';
@@ -93,10 +92,7 @@ import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/
 import {LastWatchesComponent} from "./partitial/entities/last-watches/last-watches.component";
 import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
-import { AdminStatisticsAhoComponent } from './admin-panel/admin-statistics/admin-statistics-aho/admin-statistics-aho.component';
-import { AdminStatisticsGroupbyComponent } from './admin-panel/admin-statistics/admin-statistics-groupby/admin-statistics-groupby.component';
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
-import { AdminStatisticsOthersComponent } from './admin-panel/admin-statistics/admin-statistics-others/admin-statistics-others.component';
 import { PermissionDeniedComponent } from './pages/errors/permission-denied/permission-denied.component';
 import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
@@ -134,7 +130,6 @@ import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.comp
         AdminCollectionsManagerComponent,
         AgGridComponent,
         AdminStatisticsPieChartComponent,
-        AdminStatisticsMapChartComponent,
         AdminCollectionsUserComponent,
         AdminCollectionsVideoComponent,
         AdminCollectionsInstitutionComponent,
@@ -161,10 +156,7 @@ import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.comp
         LectureComponent,
         YoutubeCommentsComponent,
         PieDirectiveDirective,
-        AdminStatisticsAhoComponent,
-        AdminStatisticsGroupbyComponent,
         PageNotFoundComponent,
-        AdminStatisticsOthersComponent,
         PermissionDeniedComponent,
         CanNotHandleComponent,
         BadRequestComponent,

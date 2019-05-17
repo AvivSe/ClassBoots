@@ -12,7 +12,7 @@ export class CommentsService {
     private ytComments : Comment[] = [];
     private ytCommentsUpdated = new Subject<Comment[]>();
 
-    constructor(private http: HttpClient, authServer:AuthService){}
+    constructor(private http: HttpClient, private authService:AuthService){}
 
     getComments(){
         return this.comments;
@@ -30,9 +30,11 @@ export class CommentsService {
 
     addComment(comment : Comment){
         //if(!this.comments.find(c=>c.id==comment.id)) {
+        console.log(this.authService.getCurrentUser().email);
         this.http.post(environment.baseUrl+'api/video/addcomment', {
             videoid:comment.videoId,
-            user:"5c166059d4fb3e3f68460e12",
+            user: this.authService.getCurrentUser().email,
+            userEmail: this.authService.getCurrentUser().email ,
             title:comment.title,
             content:comment.comment
         }).subscribe(data =>{
@@ -59,6 +61,7 @@ export class CommentsService {
                     videoId: comment.videoId,
                     id: comment._id,
                     user: comment.user,
+                    userEmail: comment.userEmail,
                     title: comment.title,
                     comment: comment.content
                 }, ...this.comments];
@@ -75,6 +78,7 @@ export class CommentsService {
                     videoId: comment.videoId,
                     id: comment._id,
                     user: comment.user,
+                    userEmail: comment.userEmail,
                     title: comment.title,
                     comment: comment.content
                 }, ...this.ytComments];

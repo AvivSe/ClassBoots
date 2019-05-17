@@ -2,11 +2,6 @@ const Institution = require('../models/institution');
 const School = require('../models/school');
 const errorsController = require('./errorsController');
 const SchoolController = require('./schoolController');
-var mapreduce = require('mapred')();
-const SubjectController = require('./subjectController');
-const LectureController = require('./lectureController');
-const Video = require('../models/video');
-
 
 class InstitutionController {
     static async getInstitutionCollection() {
@@ -250,95 +245,7 @@ class InstitutionController {
 
     };
 
-    static async cms(instID) {
-        try {
-            let schools = await InstitutionController.getSchools(instID);
-            if(schools.error) {
-                return { error: true, description: 'CMS + ' + schools.description}
-            }
 
-            let totalViewsInInst = 0;
-            for (let i = 0; i < schools.length; i++) {
-                for (let j = 0; j < schools[i].subjects.length; j++) {
-                    totalViewsInInst += (await SubjectController.cms(schools[i].subjects[j])).total;
-                }
-            }
-            return { total: totalViewsInInst}
-        }
-        catch (e) {
-            errorsController.logger({error:'cms',description:e});
-            return {error:true,description:'cms: '+e};
-        }
-
-    }
-
-    static async totalCms() {
-
-        try {
-            let result = {totalViews: 0, institutions: []};
-            let institution = await InstitutionController.getInstitutionCollection();
-            if (institution.error) {
-                return {error: true, description: 'CMS + ' + institution.description}
-            }
-            for (let i = 0; i < institution.length; i++) {
-                let totalInstitutionStats = {
-                    _id: institution[i]._id,
-                    name: institution[i].name,
-                    totalViews: 0,
-                    schools: []
-                };
-                for (let j = 0; j < institution[i].schools.length; j++) {
-                    let school = await SchoolController.getSchool(institution[i].schools[j]);
-                    if (school.error) {
-                        return {error: true, description: 'CMS + ' + school.description}
-                    }
-                    let totalSchoolsStats = {
-                        _id: school._id,
-                        name: school.name,
-                        totalViews: 0,
-                        subjects: []
-                    };
-                    for (let k = 0; k < school.subjects.length; k++) {
-                        let subject = await SubjectController.getSubject(school.subjects[k]);
-                        if (subject.error) {
-                            return {error: true, description: 'CMS + ' + subject.description}
-                        }
-                        let totalSubjectStats = {
-                            _id: subject._id,
-                            name: subject.name,
-                            totalViews: 0,
-                            lectures: []
-                        };
-                        for (let l = 0; l < subject.lectures.length; l++) {
-                            let lecture = await LectureController.getLecture(subject.lectures[l]);
-                            if (lecture.error) {
-                                return {error: true, description: 'CMS + ' + lecture.description}
-                            }
-                            let totalLectureStats = {
-                                _id: lecture._id,
-                                name: lecture.name,
-                                totalViews: (await LectureController.cms(lecture._id)).total,
-                            };
-                            totalSubjectStats.totalViews += totalLectureStats.totalViews;
-                            totalSubjectStats.lectures.push(totalLectureStats);
-                        }
-                        totalSchoolsStats.totalViews += totalSubjectStats.totalViews;
-                        totalSchoolsStats.subjects.push(totalSubjectStats);
-                    }
-                    totalInstitutionStats.totalViews += totalSchoolsStats.totalViews;
-                    totalInstitutionStats.schools.push(totalSchoolsStats);
-                }
-                result.totalViews += totalInstitutionStats.totalViews;
-                result.institutions.push(totalInstitutionStats);
-            }
-
-            return result;
-        } catch (e) {
-            errorsController.logger({error:'totalCms',description:e});
-            return {error:true,description:'totalCms: '+e};
-
-        }
-    }
 }
 
 module.exports = InstitutionController;

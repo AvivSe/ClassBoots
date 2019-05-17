@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 
 var CommentSchema = new mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId, ref:'User', required:true},
+    userEmail: {type:String },
     title:{type:String, required:true},
     content:{type:String, required:true},
     date:{type:Date, default: Date.now}
 });
+
 var YTCommentSchema = new mongoose.Schema({
     author:{type:String, required:true},
     content:{type:String, required:true}
