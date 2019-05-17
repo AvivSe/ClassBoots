@@ -12,4 +12,8 @@
     </mat-form-field>
   </div>
   <button type="submit" [disabled]="loginForm.invalid" class="btn login-btn-color btn-lg" style="width: 100%">Login</button>
+  <div *ngIf="createNewAccount" align="center" class="fadeIn" (click)="onRegister()" style="padding-top:5%;padding-right:3%;">
+    <i class="fas fa-lightbulb" style="color: #d6d850;font-size:5rem;margin-top:-2%;transform: rotate(-10deg);  "></i>
+    <a mat-raised-button routerLink="." style="padding: 1% 3%;margin-left:-3%;z-index:1;">REGISTER THIS ACCOUNT!</a>
+  </div>
 </form>
