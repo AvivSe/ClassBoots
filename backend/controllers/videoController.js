@@ -82,7 +82,7 @@ class VideoController {
                 if (userid != null) {
                     await History.findOne({user: userid}).then(async history => {
                         if (!history) {
-                            var history =new History({user:userid});
+                            var history = new History({user: userid});
                             history.save();
                         }
                         await History.findOne({user: userid}, function (err, history) {
@@ -140,7 +140,7 @@ class VideoController {
 
     static async deleteVideo(id) {
         try {
-            let result = {Deleted:id};
+            let result = {Deleted: id};
             await Video.findByIdAndDelete(id).catch(err => {
                 result = {error: true, description: err};
                 errorsController.logger({error: 'deleteVideo', description: err});
