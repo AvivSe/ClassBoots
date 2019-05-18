@@ -19,18 +19,12 @@ const defineRoutes = router => {
 
     router.post('/sendpm', checkAuth, async function (req, res) {
         if (req.profile) {
-            let result = {};
+            let result = {error:false};
             if (!req.body.to || !req.body.message) {
                 result = {error: true, description: 'you don\'t have validation'};
             } else {
-                let to = await UserController.getUser(req.body.to);
-                if (!to.error) {
-                    req.body.to = to._id;
-                    req.body.from = req.profile.user._id;
-                    result = await PrivateMessageController.sendPrivateMessage(req.body);
-                } else {
-                    result = {error: "true", description: "cannot find email reciver"};
-                }
+                req.body.from = req.profile.user._id;
+                let result = await PrivateMessageController.sendPrivateMessages(req.body);
             }
             res.status(result.error ? 400 : 201).send(result);
         } else {

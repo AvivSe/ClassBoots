@@ -1,5 +1,6 @@
 const PrivateMessage = require('../models/privatemessage');
 const errorsController = require('./errorsController');
+const UsersController = require('./userController');
 
 class PrivateMessageController {
     static async getPrivateMessageCollection() {
@@ -8,23 +9,22 @@ class PrivateMessageController {
             let invalid = {};
             result = await PrivateMessage.find(err => {
                 if (err) {
-                    invalid = {error:true,description:err};
-                    errorsController.logger({error:'getPrivateMessageCollection',description:err});
+                    invalid = {error: true, description: err};
+                    errorsController.logger({error: 'getPrivateMessageCollection', description: err});
                 }
             });
-            return invalid.error===undefined?result:invalid;
-        }
-        catch (e) {
-            errorsController.logger({error:'getPrivateMessageCollection',description:e});
-            return {error:true,description:'getPrivateMessageCollection: '+e};
+            return invalid.error === undefined ? result : invalid;
+        } catch (e) {
+            errorsController.logger({error: 'getPrivateMessageCollection', description: e});
+            return {error: true, description: 'getPrivateMessageCollection: ' + e};
         }
     };
 
 
-    static async getInboxMessages(id){
+    static async getInboxMessages(id) {
         try {
             let result = [];
-            await PrivateMessage.find({to:id}).then(node => {
+            await PrivateMessage.find({to: id}).then(node => {
                 if (node)
                     result = node;
                 else
@@ -40,10 +40,10 @@ class PrivateMessageController {
         }
     }
 
-    static async getOutboxMessages(id){
+    static async getOutboxMessages(id) {
         try {
             let result = [];
-            await PrivateMessage.find({from:id}).then(node => {
+            await PrivateMessage.find({from: id}).then(node => {
                 if (node)
                     result = node;
                 else
@@ -59,7 +59,7 @@ class PrivateMessageController {
         }
     }
 
-    static async sendPrivateMessage(body){
+    static async sendPrivateMessage(body) {
         try {
             let result = {};
             let message = new PrivateMessage(body);
@@ -77,6 +77,31 @@ class PrivateMessageController {
     }
 
 
+    static async sendPrivateMessages(body) {
+        try {
+            let result = {description:"",error:false};
+            for (let i = 0; i < body.to.length; i++) {
+                let to = await UsersController.getUser(body.to[i]);
+                if (!to.error) {
+                    let send = {to:to._id,from:body.from,message:body.message};
+                    let msgresult = await PrivateMessageController.sendPrivateMessage(send);
+                    if(msgresult.error){
+                        result.error = true;
+                        result.description += (msgresult+"\n");
+                    }
+                } else {
+                    result.error = true;
+                    result.description += ("cannot find email " + body.to[i] + "reciver\n");
+                }
+            }
+
+        } catch (e) {
+            errorsController.logger({error: 'sendPrivateMessage', description: e});
+            return {error: true, description: 'sendPrivateMessage: ' + e};
+        }
+
+
+    }
 }
 
 module.exports = PrivateMessageController;
