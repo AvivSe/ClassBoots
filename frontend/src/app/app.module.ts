@@ -1,8 +1,9 @@
 import {environment} from "../environments/environment";
 
 // socket.io
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const socketIoConfig: SocketIoConfig = { url: environment.baseUrl , options: {} };
+import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
+
+const socketIoConfig: SocketIoConfig = {url: environment.baseUrl, options: {}};
 
 // angular imports
 import {BrowserModule} from '@angular/platform-browser';
@@ -13,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {
     MatInputModule,
     MatCardModule,
+    MatIconModule,
     MatButtonModule,
     MatExpansionModule,
     MatGridListModule,
@@ -22,12 +24,13 @@ import {
     MatSnackBarModule,
     MatSlideToggleModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatChipsModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import { YoutubePlayerModule } from 'ngx-youtube-player';
+import {YoutubePlayerModule} from 'ngx-youtube-player';
 
 
 // local imports
@@ -68,38 +71,39 @@ import {AdminCollectionsInstitutionComponent} from './admin-panel/admin-collecti
 import {AdminCollectionsSchoolComponent} from './admin-panel/admin-collections/admin-collections-school/admin-collections-school.component';
 import {AdminCollectionsSubjectComponent} from './admin-panel/admin-collections/admin-collections-subject/admin-collections-subject.component';
 import {AdminCollectionsLectureComponent} from './admin-panel/admin-collections/admin-collections-lecture/admin-collections-lecture.component';
-import { InstitutionCreateComponent } from './partitial/entities/institutions/institution-create/institution-create.component';
-import { CreateSchoolComponent } from './partitial/entities/schools/scholl-create/create-school.component';
-import { SubjectCreateComponent } from './partitial/entities/subjects/subject-create/subject-create.component';
-import { LectureCreateComponent } from './partitial/entities/lectures/lecture-create/lecture-create.component';
-import { InstitutionEditComponent } from './partitial/entities/institutions/institution-edit/institution-edit.component';
-import { SubjectEditComponent } from './partitial/entities/subjects/subject-edit/subject-edit.component';
-import { SchoolEditComponent } from './partitial/entities/schools/school-edit/school-edit.component';
-import { LectureEditComponent } from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
-import { UserItemsComponent } from './layout/sidebar/user-items/user-items.component';
-import { AuthGuardService } from "./partitial/auth/auth-guard.service";
+import {InstitutionCreateComponent} from './partitial/entities/institutions/institution-create/institution-create.component';
+import {CreateSchoolComponent} from './partitial/entities/schools/scholl-create/create-school.component';
+import {SubjectCreateComponent} from './partitial/entities/subjects/subject-create/subject-create.component';
+import {LectureCreateComponent} from './partitial/entities/lectures/lecture-create/lecture-create.component';
+import {InstitutionEditComponent} from './partitial/entities/institutions/institution-edit/institution-edit.component';
+import {SubjectEditComponent} from './partitial/entities/subjects/subject-edit/subject-edit.component';
+import {SchoolEditComponent} from './partitial/entities/schools/school-edit/school-edit.component';
+import {LectureEditComponent} from './partitial/entities/lectures/lecture-edit/lecture-edit.component';
+import {UserItemsComponent} from './layout/sidebar/user-items/user-items.component';
+import {AuthGuardService} from "./partitial/auth/auth-guard.service";
 import {AdminGuardService} from "./partitial/auth/admin-guard.service";
-import { PleaseLoginComponent } from './pages/errors/please-login/please-login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LazyLoadingComponent } from './partitial/lazy-loading/lazy-loading.component';
-import { VideoCreateComponent } from './partitial/entities/video/video-create/video-create.component';
-import { VideoPlayerComponent } from './partitial/entities/video/video-player/video-player.component';
-import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
-import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
-import { SearchComponent } from './partitial/entities/search/search.component';
-import { LectureComponent } from './partitial/entities/lecture/lecture.component';
-import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
+import {PleaseLoginComponent} from './pages/errors/please-login/please-login.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {LazyLoadingComponent} from './partitial/lazy-loading/lazy-loading.component';
+import {VideoCreateComponent} from './partitial/entities/video/video-create/video-create.component';
+import {VideoPlayerComponent} from './partitial/entities/video/video-player/video-player.component';
+import {VideolistComponent} from './partitial/entities/videolist/videolist.component';
+import {VideoEditComponent} from './partitial/entities/video/video-edit/video-edit.component';
+import {SearchComponent} from './partitial/entities/search/search.component';
+import {LectureComponent} from './partitial/entities/lecture/lecture.component';
+import {YoutubeCommentsComponent} from './partitial/comments/youtube-comments/youtube-comments.component';
 import {LastWatchesComponent} from "./partitial/entities/last-watches/last-watches.component";
-import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
+import {PieDirectiveDirective} from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
-import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
-import { PermissionDeniedComponent } from './pages/errors/permission-denied/permission-denied.component';
-import { CanNotHandleComponent } from './pages/errors/can-not-handle/can-not-handle.component';
-import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
-import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.component';
-import { PrivateMessagesComponent } from './pages/private-messages/private-messages.component';
-import { WatchLaterComponent } from './pages/watch-later/watch-later.component';
-import { MessageListComponent } from './pages/private-messages/message-list/message-list.component';
+import {PageNotFoundComponent} from './pages/errors/page-not-found/page-not-found.component';
+import {PermissionDeniedComponent} from './pages/errors/permission-denied/permission-denied.component';
+import {CanNotHandleComponent} from './pages/errors/can-not-handle/can-not-handle.component';
+import {BadRequestComponent} from './pages/errors/bad-request/bad-request.component';
+import {NotAllowedComponent} from './pages/errors/not-allowed/not-allowed.component';
+import {PrivateMessagesComponent} from './pages/private-messages/private-messages.component';
+import {WatchLaterComponent} from './pages/watch-later/watch-later.component';
+import {MessageListComponent} from './pages/private-messages/message-list/message-list.component';
+import {PostMessageComponent} from './pages/private-messages/message-post/post-message.component';
 
 @NgModule({
     declarations: [
@@ -167,6 +171,7 @@ import { MessageListComponent } from './pages/private-messages/message-list/mess
         PrivateMessagesComponent,
         WatchLaterComponent,
         MessageListComponent,
+        PostMessageComponent,
     ],
     imports: [
         BrowserModule,
@@ -190,12 +195,18 @@ import { MessageListComponent } from './pages/private-messages/message-list/mess
         NgbModule,
         SocketIoModule.forRoot(socketIoConfig),
         MatSnackBarModule,
-        YoutubePlayerModule
-    ],
+        YoutubePlayerModule,
+        MatChipsModule,
+        MatIconModule
+],
     entryComponents: [
         ModalComponent
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},AuthGuardService,AdminGuardService],
+    providers: [{
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+    }, AuthGuardService, AdminGuardService],
     bootstrap: [AppComponent],
 
 })
