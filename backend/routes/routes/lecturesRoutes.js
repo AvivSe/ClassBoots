@@ -11,7 +11,7 @@ var defineRoutes = router => {
     });
 
     router.get('/:id/cms', async (req,res)=> {
-        let result={};
+        let result = {error:false};
         if(!req.params.id)
             result= {error:true,description:'you do\'nt have validation'};
         else
@@ -20,7 +20,7 @@ var defineRoutes = router => {
     });
 
     router.get('/:id', async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if (!req.params.id)
             result = {error: true, description: 'you don\'t have validation'};
         else
@@ -38,7 +38,7 @@ var defineRoutes = router => {
     });
 
     router.post('', checkAuth, admin, async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if (!req.body.lecturer || !req.body.name || !req.body.description || !req.body.date || !req.body.subjectid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
@@ -59,7 +59,7 @@ var defineRoutes = router => {
     });
 
     router.delete('', checkAuth, admin, async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if (!req.body.subjectid || !req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
         else {
@@ -67,20 +67,20 @@ var defineRoutes = router => {
             if (!result.error)
                 SubjectController.deleteLecture({subjectid: req.body.subjectid, lectureid: req.body._id});
         }
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.put('', checkAuth, admin, async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if(!req.body._id)
             result = {error:true,description:'you don\'t have validation'};
         else
             result = await LectureController.updateLecture(req.body);
-        res.status(200).send(result);
+        res.status(result.error?400:200).send(result);
     });
 
     router.post('/addVideo', checkAuth, admin, async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if(!req.body.lectureid || !req.body.videoid)
             result = {error:true,description:'you don\'t have validation'};
         else
@@ -89,7 +89,7 @@ var defineRoutes = router => {
     });
 
     router.get('/getvideos/:id', checkAuth, async function (req, res) {
-        let result = {};
+        let result = {error:false};
         if (!req.params.id)
             result = {error: true, description: 'you don\'t have validation'};
         else

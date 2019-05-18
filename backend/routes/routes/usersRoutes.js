@@ -1,4 +1,5 @@
 const UserController = require('../../controllers/userController');
+const PrivateMessageController = require('../../controllers/privatemessageController');
 const checkAuth = require('../../utils/check-auth');
 const Role = require('../../utils/Role');
 
@@ -7,10 +8,36 @@ const defineRoutes = router => {
 
     router.get('/profile', checkAuth, async function (req, res) {
         if (req.profile) {
-            res.status(200).send(req.profile);
+            let result = req.profile;
+            result.inbox = await PrivateMessageController.getInboxMessages(req.profile.user._id);
+            result.outbox = await PrivateMessageController.getOutboxMessages(req.profile.user._id);
+            res.status(200).send(result);
         } else {
             res.status(400).send({error: "true", description: "cannot find profile data"});
         }
+    });
+
+    router.post('/sendpm', checkAuth, async function (req, res) {
+        if (req.profile) {
+            let result = {};
+            if (!req.body.to || !req.body.message) {
+                result = {error: true, description: 'you don\'t have validation'};
+            } else {
+                let to = await UserController.getUser(req.body.to);
+                if (!to.error) {
+                    req.body.to = to._id;
+                    req.body.from = req.profile.user._id;
+                    result = await PrivateMessageController.sendPrivateMessage(req.body);
+                } else {
+                    result = {error: "true", description: "cannot find email reciver"};
+                }
+            }
+            res.status(result.error ? 400 : 201).send(result);
+        } else {
+            res.status(400).send({error: "true", description: "cannot find profile data"});
+        }
+
+
     });
 
     router.get('/history/videos', checkAuth, async function (req, res) {
