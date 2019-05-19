@@ -94,7 +94,7 @@ class PrivateMessageController {
                     result.description += ("cannot find email " + body.to[i] + "reciver\n");
                 }
             }
-
+            return result;
         } catch (e) {
             errorsController.logger({error: 'sendPrivateMessage', description: e});
             return {error: true, description: 'sendPrivateMessage: ' + e};
