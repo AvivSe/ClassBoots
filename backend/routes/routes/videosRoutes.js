@@ -6,6 +6,16 @@ const {admin} = require('../../utils/Role');
 
 const defineRoutes = router => {
 
+    router.get('/getRelatedVideos/:id',checkAuth , async  function(req,res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'please include id param'};
+        else
+            result = await VideoController.getRelatedVideo(req.params.id);
+
+        res.status(result.error?400:200).send(result);
+    });
+
     router.get('/:id', checkAuth, async function (req, res) {
         let result = {};
         if (!req.params.id)
@@ -14,6 +24,8 @@ const defineRoutes = router => {
             result = await VideoController.getVideo(req.params.id, req.profile.user._id);
         res.status(result.error ? 400 : 200).send(result);
     });
+
+
 
     router.post('', checkAuth, admin, async function (req, res) {
         let result = {};

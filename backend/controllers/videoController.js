@@ -3,6 +3,30 @@ const History = require('../models/history');
 const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
 const createCountMinSketch = require("count-min-sketch");
+const Apriori = require('apriori');
+
+var Sketch = (function () {
+    var instance;
+
+    async function createInstance() {
+        let sketch = createCountMinSketch();
+        let videos = await VideoController.getVideoCollection();
+        videos.forEach(v => {
+            sketch.update(v.lectureid, v.views);
+        });
+        return sketch;
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
+
 
 var Sketch = (function () {
     var instance;
@@ -68,6 +92,40 @@ class VideoController {
             return {error: true, description: 'createVideo: ' + e};
         }
     };
+
+    static async learnNow() {
+        let transactions = [];
+        let history = await History.find();
+
+        await history.forEach(async history => {
+            let row = [];
+            await history.watches.forEach(watch=> {
+                row.push(watch.video.toString());
+            });
+            transactions.push(row)
+        });
+
+        return new Apriori.Algorithm(0.6,0.6,false).analyze(transactions);
+    }
+
+    static async getRelatedVideo(videoId) {
+        let result = [];
+        const relevant = ((await this.learnNow()).associationRules.filter(item => item.rhs == videoId));
+
+        await relevant.forEach(item => {
+            result = [...result,...item.lhs];
+        });
+
+        let distinct = [];
+
+        await result.forEach(item => {
+            if(!distinct.find(tmp => tmp === item)) {
+                distinct.push(item);
+            }
+        });
+
+        return distinct;
+    }
 
     static async getVideo(id, userid) {
         try {
