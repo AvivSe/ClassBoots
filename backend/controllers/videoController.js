@@ -109,22 +109,14 @@ class VideoController {
     }
 
     static async getRelatedVideo(videoId) {
-        let result = [];
+        let videoIds = [];
         const relevant = ((await this.learnNow()).associationRules.filter(item => item.rhs == videoId));
 
         await relevant.forEach(item => {
-            result = [...result,...item.lhs];
+            videoIds = [...videoIds,...item.lhs];
         });
 
-        let distinct = [];
-
-        await result.forEach(item => {
-            if(!distinct.find(tmp => tmp === item)) {
-                distinct.push(item);
-            }
-        });
-
-        return distinct;
+        return await Video.find({_id: {$in: videoIds}});
     }
 
     static async getVideo(id, userid) {
