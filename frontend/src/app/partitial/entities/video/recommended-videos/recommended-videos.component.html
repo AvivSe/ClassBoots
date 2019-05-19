@@ -1,14 +1,7 @@
 <div class="jumbotron">
-  <div class="mat-title" align="center"> Recommended Video's</div>
+  <div class="mat-title" align="center"> Related to this video </div>
   <div class="row">
-    <!-- Team member -->
-    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let number of [1,2,3,4,5,6]">
-        <div class="card">
-          <div class="card-body text-center">
-            <p><img class=" img-fluid" src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/07/Fotolia_117855281_Subscription_Monthly_M.jpg" height="100px" width="100px" alt="card image"></p>
-            <h4 class="card-title">Test episode {{number}}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <app-video-listing [itemlist]="itemlist" [isLoaded]="isLoaded "></app-video-listing>
   </div>
+</div>

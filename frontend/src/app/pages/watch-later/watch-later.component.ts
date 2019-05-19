@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-watch-later',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WatchLaterComponent implements OnInit {
 
-  constructor() { }
+  itemlist: any[] = [];
+  isLoaded: boolean = false;
 
-  ngOnInit() {
+  constructor(http: HttpClient) {
+    http.get(environment.baseUrl + 'api/user/history/videos').subscribe(data=> {
+      (data as any[]).forEach(video=> {
+        this.itemlist.push({...video, youtubeImageNumber:0})
+      });
+      this.isLoaded = true;
+    });
   }
 
+  ngOnInit() {
+
+  }
 }

@@ -89,7 +89,7 @@ import { VideoEditComponent } from './partitial/entities/video/video-edit/video-
 import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
-import {LastWatchesComponent} from "./partitial/entities/last-watches/last-watches.component";
+import {LastWatchesComponent} from "./pages/last-watches/last-watches.component";
 import { PieDirectiveDirective } from './admin-panel/admin-statistics/admin-statistics-pie-chart/pie-directive.directive';
 
 import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-found.component';
@@ -100,6 +100,8 @@ import { NotAllowedComponent } from './pages/errors/not-allowed/not-allowed.comp
 import { PrivateMessagesComponent } from './pages/private-messages/private-messages.component';
 import { WatchLaterComponent } from './pages/watch-later/watch-later.component';
 import { MessageListComponent } from './pages/private-messages/message-list/message-list.component';
+import { RecommendedComponent } from './pages/recommended/recommended.component';
+import { VideoListingComponent } from './partitial/video-listing/video-listing.component';
 
 @NgModule({
     declarations: [
@@ -167,6 +169,8 @@ import { MessageListComponent } from './pages/private-messages/message-list/mess
         PrivateMessagesComponent,
         WatchLaterComponent,
         MessageListComponent,
+        RecommendedComponent,
+        VideoListingComponent,
     ],
     imports: [
         BrowserModule,
