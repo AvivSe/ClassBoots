@@ -15,7 +15,6 @@ class LectureController {
                         playlist.forEach((v)=>{
                             //TODO: If there is already some video with same reference, dont add the video.
                             let newVideo = new Video({ name: v.name, reference: v.id, lectureid: lectureID, position:  x++ });
-                            console.log(newVideo);
                             VideoController.createVideo(newVideo);
                             LectureController.addVideo({ lectureid: lectureID, videoid: newVideo._id });
                         });

@@ -2,6 +2,7 @@ const {VideoController} = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
+const {videoPermission,lecturePermission} = require('../../utils/check-permission');
 
 
 const defineRoutes = router => {
@@ -25,9 +26,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-
-
-    router.post('', checkAuth, admin, async function (req, res) {
+    router.post('', checkAuth, lecturePermission, async function (req, res) {
         let result = {};
         if (!req.body.reference || !req.body.position || !req.body.lectureid || !req.body.name) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -48,7 +47,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.delete('', checkAuth, admin, async function (req, res) {
+    router.delete('', checkAuth, videoPermission, async function (req, res) {
         let result = {};
         if (!req.body.lectureid || req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -60,7 +59,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.put('', checkAuth, admin, async function (req, res) {
+    router.put('', checkAuth, videoPermission, async function (req, res) {
         let result = {};
         if (!req.body._id)
             result = {error: true, description: 'you don\'t have validation'};

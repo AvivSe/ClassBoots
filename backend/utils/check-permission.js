@@ -9,7 +9,6 @@ class Permission{
 
     static async videoCheckPermission(body) {
         var result = await VideoController.getVideo(body.videoid);
-        console.log(result);
         return await result.ERROR === undefined ? await this.lectureCheckPermission({
             lectureid: result.lectureid,
             userid: body.userid
@@ -18,7 +17,6 @@ class Permission{
 
     static async lectureCheckPermission(body) {
         var result = await LectureController.getLecture(body.lectureid);
-        console.log(result);
         return await result.ERROR === undefined ? await this.subjectCheckPermission({
             subjectid: result.subjectid,
             userid: body.userid
@@ -27,7 +25,6 @@ class Permission{
 
     static async subjectCheckPermission(body) {
         var result = await SubjectController.getSubject(body.subjectid);
-        console.log(result);
         return await result.ERROR == undefined ? await this.schoolCheckPermission({
             schoolid: result.schoolid,
             userid: body.userid
@@ -36,7 +33,6 @@ class Permission{
 
     static async schoolCheckPermission(body) {
         var result = await SchoolController.getSchool(body.schoolid);
-        console.log(result);
         if(await result.ERROR === undefined)
         {
             for (let i = 0; i < result.permission.length; i++) {
@@ -53,7 +49,6 @@ class Permission{
 
     static async institutionCheckPermission(body) {
         var result = await InstitutionController.getInstitution(body.institutionid);
-        console.log(result);
         if(await result.ERROR === undefined)
         {
             for (let i = 0; i < result.permission.length; i++) {
@@ -65,4 +60,67 @@ class Permission{
     };
 }
 
-module.exports = Permission;
+
+var videoPermission = async (req, res, next) => {
+    if(req.profile.role == "admin")
+        next();
+    else{
+        var body = { userid: req.profile.user._id };
+        body.videoid = req.body.videoid?req.body.videoid:req.body._id;
+        if(await Permission.videoCheckPermission(body))
+            next();
+        else
+            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+    }
+};
+var lecturePermission = async (req, res, next) => {
+    if(req.profile.role == "admin")
+        next();
+    else{
+        var body = { userid: req.profile.user._id };
+        body.lectureid = req.body.lectureid?req.body.lectureid:req.body._id;
+        if(await Permission.lectureCheckPermission(body))
+            next();
+        else
+            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+    }
+};
+var subjectPermission = async (req, res, next) => {
+    if(req.profile.role == "admin")
+        next();
+    else{
+        var body = { userid: req.profile.user._id };
+        body.subjectid = req.body.subjectid?req.body.subjectid:req.body._id;
+        if(await Permission.subjectCheckPermission(body))
+            next();
+        else
+            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+    }
+};
+var schoolPermission = async (req, res, next) => {
+    if(req.profile.role == "admin")
+        next();
+    else{
+        var body = { userid: req.profile.user._id };
+        body.schoolid = req.body.schoolid?req.body.schoolid:req.body._id;
+        if(await Permission.schoolCheckPermission(body))
+            next();
+        else
+            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+    }
+};
+var institutionPermission = async (req, res, next) => {
+    if(req.profile.role == "admin")
+        next();
+    else{
+        var body = { userid: req.profile.user._id };
+        body.institutionid = req.body.institutionid?req.body.institutionid:req.body._id;
+        if(await Permission.institutionCheckPermission(body))
+            next();
+        else
+            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+    }
+};
+
+
+module.exports = {videoPermission,lecturePermission,subjectPermission,schoolPermission,institutionPermission};

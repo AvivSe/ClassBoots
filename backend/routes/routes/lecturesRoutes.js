@@ -2,6 +2,7 @@ const LectureController = require('../../controllers/lectureController');
 const SubjectController = require('../../controllers/subjectController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
+const {lecturePermission,subjectPermission} = require('../../utils/check-permission');
 
 var defineRoutes = router => {
 
@@ -37,7 +38,7 @@ var defineRoutes = router => {
         res.status(result.error?400:201).send(result);
     });
 
-    router.post('', checkAuth, admin, async function (req, res) {
+    router.post('', checkAuth, subjectPermission, async function (req, res) {
         let result = {error:false};
         if (!req.body.lecturer || !req.body.name || !req.body.description || !req.body.date || !req.body.subjectid) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -58,7 +59,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.delete('', checkAuth, admin, async function (req, res) {
+    router.delete('', checkAuth, lecturePermission, async function (req, res) {
         let result = {error:false};
         if (!req.body.subjectid || !req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -70,7 +71,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.put('', checkAuth, admin, async function (req, res) {
+    router.put('', checkAuth, lecturePermission, async function (req, res) {
         let result = {error:false};
         if(!req.body._id)
             result = {error:true,description:'you don\'t have validation'};
@@ -79,7 +80,7 @@ var defineRoutes = router => {
         res.status(result.error?400:200).send(result);
     });
 
-    router.post('/addVideo', checkAuth, admin, async function (req, res) {
+    router.post('/addVideo', checkAuth, lecturePermission, async function (req, res) {
         let result = {error:false};
         if(!req.body.lectureid || !req.body.videoid)
             result = {error:true,description:'you don\'t have validation'};
