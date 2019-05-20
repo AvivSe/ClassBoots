@@ -13,7 +13,7 @@ export class RecommendedComponent implements OnInit {
   isLoaded: boolean = false;
 
   constructor(http: HttpClient, private router: Router) {
-    http.get(environment.baseUrl + 'api/user/history/videos').subscribe(data=> {
+    http.get(environment.baseUrl + 'api/user/getRelatedVideos').subscribe(data=> {
       (data as any[]).forEach(video=> {
         this.itemlist.push({...video, youtubeImageNumber:0})
       });

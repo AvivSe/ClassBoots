@@ -10,6 +10,7 @@ import {CommentsService} from "../../../partitial/comments/comments.service";
 })
 export class MessageListComponent implements OnInit {
   @Input() messages: Message[];
+  @Input() themeColor;
   viewMessages: Message[];
 
   @Input() isInbox: boolean = false;
