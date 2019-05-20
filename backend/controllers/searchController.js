@@ -13,65 +13,27 @@ const User = require('../models/user');
 
 class SearchController {
 
-    static async searchLecture(body) {
+    static async search(body) { // body.generalSearch
 
         try {
-            if (!body.date)
-                body.date = new Date(2015, 1, 1);
-            return await Lecture.find(
-                {
-                    $and: [
-                        {
-                            $or: [{name: {$regex: body.generalSearch, $options: 'i'}},
-                                {description: {$regex: body.generalSearch, $options: 'i'}}]
-                        },
-                        {lecturer: {$regex: body.lecturer, $options: 'i'}},
-                        {date: {$gte: body.date}}
-                    ]
-                },
-                async (err, docs) => {
-                    if (err)
-                        console.log(err);
-                }).then(async x => {
-                let doc = [];
-                for (let i = 0; i < x.length; i++) {
-                    // console.log(docs[i]);
-                    doc[i] = await LectureController.getLecture(x[i]);
+            let videos = await Video.find({name: {$regex: body.generalSearch, $options: 'i'}}, async (err, docs) => {
+                console.log("err: "+err+", docs: "+docs);
+                if (err) {
+                    errorsController.logger({error: 'search in video', description: err});
+                    return {error: true, description: 'search in video: ' + err};
                 }
-                return doc;
-            }).then(async lectures => {
-                if (body.school != null) {
-                    let schools = await School.find({name: {$regex: body.school, $options: 'i'}},
-                        async (err, docs) => {
-                            if (err)
-                                console.log(err);
-                        }).then(docs => {
-                        for (let i = 0; i < docs.length; i++) {
-                            docs[i] = docs[i]._id;
-                        }
-                        return docs;
-                    }).then(async docs => {
-                        let schoolfilter = [];
-                        for (let i = 0; i < lectures.length; i++) {
-                            let x = await SubjectController.getSubject(lectures[i].subjectid);
-                            for (let j = 0; j < docs.length; j++) {
-                                if (docs[j].toString() == x.schoolid.toString()) {
-                                    schoolfilter[i] = lectures[i];
-                                }
-                            }
-                        }
-                        return schoolfilter;
-                    });
-                    return schools;
-                }
-                //console.log(lectures);
-                return lectures;
+                return await docs.forEach(doc=>{
+                    doc.type="video";
+                });
             });
-        } catch (err) {
-            errorsController.logger({error: 'searchLecture', description: err});
-            return {error: true, description: 'searchLecture: ' + err};
-        }
+            console.log(video);
+            return videos;
 
+
+        } catch (err) {
+            errorsController.logger({error: 'search', description: err});
+            return {error: true, description: 'search: ' + err};
+        }
     };
 
 
