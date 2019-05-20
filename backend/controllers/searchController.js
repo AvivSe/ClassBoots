@@ -13,65 +13,32 @@ const User = require('../models/user');
 
 class SearchController {
 
-    static async searchLecture(body) {
+    static async microSearch(model, body) {
+        return model.find({name: {$regex: body.generalSearch, $options: 'i'}}).then(async docs => {
+            for (let i = 0; i < docs.length; i++) {
+                docs[i] = {object: docs[i], type: model.modelName};
+            }
+            return docs;
+        }).catch(err => {
+            errorsController.logger({error: 'search in ' + model.modelName, description: err});
+            return {error: true, description: 'search in ' + model.modelName + err};
+        });
+    }
 
+    static async search(body) { // body.generalSearch
         try {
-            if (!body.date)
-                body.date = new Date(2015, 1, 1);
-            return await Lecture.find(
-                {
-                    $and: [
-                        {
-                            $or: [{name: {$regex: body.generalSearch, $options: 'i'}},
-                                {description: {$regex: body.generalSearch, $options: 'i'}}]
-                        },
-                        {lecturer: {$regex: body.lecturer, $options: 'i'}},
-                        {date: {$gte: body.date}}
-                    ]
-                },
-                async (err, docs) => {
-                    if (err)
-                        console.log(err);
-                }).then(async x => {
-                let doc = [];
-                for (let i = 0; i < x.length; i++) {
-                    // console.log(docs[i]);
-                    doc[i] = await LectureController.getLecture(x[i]);
-                }
-                return doc;
-            }).then(async lectures => {
-                if (body.school != null) {
-                    let schools = await School.find({name: {$regex: body.school, $options: 'i'}},
-                        async (err, docs) => {
-                            if (err)
-                                console.log(err);
-                        }).then(docs => {
-                        for (let i = 0; i < docs.length; i++) {
-                            docs[i] = docs[i]._id;
-                        }
-                        return docs;
-                    }).then(async docs => {
-                        let schoolfilter = [];
-                        for (let i = 0; i < lectures.length; i++) {
-                            let x = await SubjectController.getSubject(lectures[i].subjectid);
-                            for (let j = 0; j < docs.length; j++) {
-                                if (docs[j].toString() == x.schoolid.toString()) {
-                                    schoolfilter[i] = lectures[i];
-                                }
-                            }
-                        }
-                        return schoolfilter;
-                    });
-                    return schools;
-                }
-                //console.log(lectures);
-                return lectures;
+            let videos = this.microSearch(Video,body);
+            let lectures = this.microSearch(Lecture,body);
+            let subjects = this.microSearch(Subject,body);
+            let schools = this.microSearch(School,body);
+            let institutions = this.microSearch(Institution,body);
+            return await Promise.all([videos, lectures,subjects,schools,institutions]).then(docs => {
+                return [...docs[0], ...docs[1], ...docs[2], ...docs[3], ...docs[4]];
             });
         } catch (err) {
-            errorsController.logger({error: 'searchLecture', description: err});
-            return {error: true, description: 'searchLecture: ' + err};
+            errorsController.logger({error: 'search', description: err});
+            return {error: true, description: 'search: ' + err};
         }
-
     };
 
 

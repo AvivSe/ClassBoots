@@ -9,7 +9,7 @@ const defineRoutes = router => {
         if (!req.body.generalSearch)
             result = {error: true, description: "you are searching nothing!"};
         else
-            result = await SearchController.searchLecture(req.body);
+            result = await SearchController.search(req.body);
         res.status(result ? 200 : 400).send(result);
     });
 

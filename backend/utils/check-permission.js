@@ -62,7 +62,7 @@ class Permission{
 
 
 var videoPermission = async (req, res, next) => {
-    if(req.profile.role == "admin")
+    if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
         var body = { userid: req.profile.user._id };
@@ -74,7 +74,7 @@ var videoPermission = async (req, res, next) => {
     }
 };
 var lecturePermission = async (req, res, next) => {
-    if(req.profile.role == "admin")
+    if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
         var body = { userid: req.profile.user._id };
@@ -86,7 +86,7 @@ var lecturePermission = async (req, res, next) => {
     }
 };
 var subjectPermission = async (req, res, next) => {
-    if(req.profile.role == "admin")
+    if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
         var body = { userid: req.profile.user._id };
@@ -98,7 +98,7 @@ var subjectPermission = async (req, res, next) => {
     }
 };
 var schoolPermission = async (req, res, next) => {
-    if(req.profile.role == "admin")
+    if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
         var body = { userid: req.profile.user._id };
@@ -110,7 +110,7 @@ var schoolPermission = async (req, res, next) => {
     }
 };
 var institutionPermission = async (req, res, next) => {
-    if(req.profile.role == "admin")
+    if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
         var body = { userid: req.profile.user._id };
