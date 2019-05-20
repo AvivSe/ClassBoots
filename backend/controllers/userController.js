@@ -11,7 +11,11 @@ class UserController {
 
     static async getRelatedVideos(userId) {
         let result = [];
-        let history  = (await this.getUserWatchesHistory(userId)).map(video => video._id.toString());
+        let history  = (await this.getUserWatchesHistory(userId));
+
+        history = history.filter(bulbul => bulbul);
+
+        history = history.map(video => video._id.toString());
 
         for (let i = 0; i < history.length; i++) {
             result = [...result, ...(await MyApriori.getRelatedVideos(history[i]))];

@@ -38,6 +38,7 @@ import {NotAllowedComponent} from "../pages/errors/not-allowed/not-allowed.compo
 import {PrivateMessagesComponent} from "../pages/private-messages/private-messages.component";
 import {WatchLaterComponent} from "../pages/watch-later/watch-later.component";
 import {RecommendedComponent} from "../pages/recommended/recommended.component";
+import {AdminContactComponent} from "../admin-panel/admin-contact/admin-contact.component";
 
 const routes: Routes = [
 
@@ -97,6 +98,7 @@ const routes: Routes = [
             {path: '', redirectTo: 'statistics', pathMatch: 'full'},
             {path: 'statistics/:about', component: AdminStatisticsComponent, outlet: 'adminPanel'},
             {path: 'statistics', component: AdminStatisticsComponent, outlet: 'adminPanel'},
+            {path: 'contact', component: AdminContactComponent, outlet: 'adminPanel'},
             {path: 'collections/:about', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'},
             {path: 'collections', component: AdminCollectionsManagerComponent, outlet: 'adminPanel'}
         ]

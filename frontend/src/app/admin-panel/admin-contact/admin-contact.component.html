@@ -1,0 +1,15 @@
+<mat-accordion multi="true" *ngIf="messages.length > 0">
+  <!--Comment-->
+  <mat-expansion-panel *ngFor="let msg of viewMessages">
+    <mat-expansion-panel-header>
+      <span > From: {{ msg.email }} | Date: {{ msg.date }} </span>
+      <mat-slide-toggle [checked]="msg.handled" (click)="toggleHandled(msg._id)"></mat-slide-toggle>
+    </mat-expansion-panel-header>
+    {{msg.message}}
+  </mat-expansion-panel>
+  <!--Comment end-->
+</mat-accordion>
+<mat-paginator style="box-shadow: 0 8px 6px -6px #4189c9;" [length]="messages.length"
+               [pageSize]="pageSize"
+               (page)="getPaginatorData($event)">
+</mat-paginator>

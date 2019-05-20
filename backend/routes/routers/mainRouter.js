@@ -8,6 +8,7 @@ var subjetsRouter = require('./subjectsRouter');
 var lecturesRouter = require('./lecturesRouter');
 var videosRouter = require('./videosRouter');
 var SearchRouter = require('./searchRouter');
+var ContactRouter = require('./contactRouter');
 
 
 var mainRouter = express.Router();
@@ -19,6 +20,7 @@ mainRouter.use('/subject', subjetsRouter);
 mainRouter.use('/lecture', lecturesRouter);
 mainRouter.use('/video', videosRouter);
 mainRouter.use('/search', SearchRouter);
+mainRouter.use('/contact', ContactRouter);
 
 module.exports = defineRoutes(mainRouter);
 

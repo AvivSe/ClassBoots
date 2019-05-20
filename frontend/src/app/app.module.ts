@@ -105,6 +105,7 @@ import { MessageListComponent } from './pages/private-messages/message-list/mess
 import { RecommendedComponent } from './pages/recommended/recommended.component';
 import { VideoListingComponent } from './partitial/video-listing/video-listing.component';
 import {PostMessageComponent} from './pages/private-messages/message-post/post-message.component';
+import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact.component';
 
 @NgModule({
     declarations: [
@@ -175,6 +176,7 @@ import {PostMessageComponent} from './pages/private-messages/message-post/post-m
         PostMessageComponent,
         RecommendedComponent,
         VideoListingComponent,
+        AdminContactComponent,
     ],
     imports: [
         BrowserModule,
@@ -183,6 +185,7 @@ import {PostMessageComponent} from './pages/private-messages/message-post/post-m
         FormsModule,
         BrowserAnimationsModule,
         MatInputModule,
+        MatSlideToggleModule,
         MatCardModule,
         MatButtonModule,
         MatGridListModule,

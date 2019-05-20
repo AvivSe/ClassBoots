@@ -1,4 +1,4 @@
-const  ContactUsMsg = require('../models/contactUsMsg');
+const ContactUsMsg = require('../models/contactUsMsg');
 const errorsController = require('./errorsController');
 
 class contactusmsgController {
@@ -23,7 +23,7 @@ class contactusmsgController {
     static async getInboxMessages(id) {
         try {
             let result = [];
-            await ContactUsMsg.find({to: id}).then(node => {
+            await ContactUsMsg.find({_id: id}).then(node => {
                 if (node)
                     result = node;
                 else
@@ -40,6 +40,32 @@ class contactusmsgController {
     }
 
 
+    static async toggleHandled(id) {
+        try {
+            let result = {};
+            await ContactUsMsg.findById(id).then(node => {
+                if (node) {
+                    node.handled = !node.handled;
+                    result = node;
+                    node.save(err => {
+                        if (err) {
+                            result = {error: true, description: err};
+                            errorsController.logger({error: 'toggleHandled', description: err});
+                        }
+                    });
+                } else {
+                    result = {};
+                }
+            }).catch(err => {
+                result = {error: true, description: err};
+                errorsController.logger({error: 'toggleHandled', description: err});
+            });
+            return result;
+        } catch (e) {
+            errorsController.logger({error: 'toggleHandled', description: e});
+            return {error: true, description: 'toggleHandled: ' + e};
+        }
+    }
 
     static async sendContactMessage(body) {
         try {
@@ -57,7 +83,6 @@ class contactusmsgController {
             return {error: true, description: 'sendContactMessage: ' + e};
         }
     }
-
 
 
 }
