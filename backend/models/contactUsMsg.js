@@ -7,4 +7,4 @@ var contactusMsgSchema = mongoose.Schema({
     handled:{type:Boolean}
 });
 
-module.exports = mongoose.model('ContactUsMsg',contactusMsgSchema); // privateMessages
+module.exports = mongoose.model('ContactUsMsg',contactusMsgSchema); // contactusMsg
