@@ -4,6 +4,7 @@ const errorsController = require('./errorsController');
 const YoutubeScraper = require('../utils/yt-scraper');
 const createCountMinSketch = require("count-min-sketch");
 const Apriori = require('apriori');
+const MyApriori = require("../utils/apriori");
 
 var Sketch = (function () {
     var instance;
@@ -93,30 +94,8 @@ class VideoController {
         }
     };
 
-    static async learnNow() {
-        let transactions = [];
-        let history = await History.find();
-
-        await history.forEach(async history => {
-            let row = [];
-            await history.watches.forEach(watch=> {
-                row.push(watch.video.toString());
-            });
-            transactions.push(row)
-        });
-
-        return new Apriori.Algorithm(0.6,0.6,false).analyze(transactions);
-    }
-
-    static async getRelatedVideo(videoId) {
-        let videoIds = [];
-        const relevant = ((await this.learnNow()).associationRules.filter(item => item.rhs == videoId));
-
-        await relevant.forEach(item => {
-            videoIds = [...videoIds,...item.lhs];
-        });
-
-        return await Video.find({_id: {$in: videoIds}});
+    static async getRelatedVideos(videoId) {
+        return await MyApriori.getRelatedVideos(videoId)
     }
 
     static async getVideo(id, userid) {

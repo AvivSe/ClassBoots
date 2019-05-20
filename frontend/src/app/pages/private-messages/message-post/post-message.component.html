@@ -1,0 +1,33 @@
+<div align="center" class="container">
+    <a mat-fab [style.background]="'#4189c9'" style="z-index: 2" (click)="changeState()">+</a>
+    <div [@slideInOut]="newMessage" class="form-field" style="margin-top:-3%;">
+    <mat-card >
+        <div style="padding-top:2%; width:70%;" *ngIf="error">
+            <p style="background:brown;color:white;">{{errorMessage}}</p>
+        </div>
+        <div style="display: flex;flex-direction: row;padding-top:3%;">
+            <p style="padding:3% 1.2% 0 0 ">Emails:</p>
+            <mat-form-field class="container">
+                <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let item of toList" [selectable]="true"
+                              [removable]="true" (removed)="remove(item)">
+                        {{item}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="example@gmail.com"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]=true
+                           (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field>
+            <p style="padding-top: 2.7%" class="grow">
+            <i class="fas fa-paper-plane" (click)="sendMessage(msg)"></i>
+            </p>
+        </div>
+        <mat-form-field style="width:100%">
+            <textarea matInput matTextareaAutosize #msg matAutosizeMinRows=5 placeholder="Your message..."></textarea>
+        </mat-form-field>
+    </mat-card>
+    </div>
+</div>

@@ -4,12 +4,28 @@ const Token = require('../utils/Token');
 const History= require('../models/history');
 const Video = require('../models/video');
 const errorsController =require('../controllers/errorsController');
+const MyApriori = require("../utils/apriori");
 
 class UserController {
+
+
+    static async getRelatedVideos(userId) {
+        let result = [];
+        let history  = (await this.getUserWatchesHistory(userId)).map(video => video._id.toString());
+
+        for (let i = 0; i < history.length; i++) {
+            result = [...result, ...(await MyApriori.getRelatedVideos(history[i]))];
+        }
+
+        return result;
+    }
+
+
     static getToken(user) {
         // TODO: Edit the secret with local variable.
         return new Token(user);
     };
+
 
     static async createUser(body) {
         if(!body.email || !body.password )

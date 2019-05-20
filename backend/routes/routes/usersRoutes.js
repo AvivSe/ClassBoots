@@ -6,6 +6,14 @@ const Role = require('../../utils/Role');
 
 const defineRoutes = router => {
 
+    router.get('/getRelatedVideos',checkAuth , async  function(req,res) {
+        let result;
+
+        result = await UserController.getRelatedVideos(req.profile.user._id);
+
+        res.status(result.error?400:200).send(result);
+    });
+
     router.get('/profile', checkAuth, async function (req, res) {
         if (req.profile) {
             let result = req.profile;
