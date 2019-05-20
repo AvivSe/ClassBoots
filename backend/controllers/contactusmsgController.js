@@ -1,4 +1,4 @@
-const  ContactUsMsg= require('../models/contactUsMsg');
+const  ContactUsMsg = require('../models/contactUsMsg');
 const errorsController = require('./errorsController');
 
 class contactusmsgController {
