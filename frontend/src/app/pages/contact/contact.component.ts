@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
 
   onPost(postForm){
     //TODO: keep the post in the database
-    this.authService.createContactPost();
+    this.authService.createContactPost({email: postForm.value.email, message: postForm.value.message});
   }
 
 }

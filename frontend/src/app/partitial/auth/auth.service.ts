@@ -155,10 +155,12 @@ export class AuthService {
             profile: profile
         }
     }
-    createContactPost(){
-        //TODO: keep the post in the database
-        this.router.navigate(['']);
-        this.matSnackBar.open('We received your message and we\'ll be in contact soon as possible.', null, {duration: 3000});
+    createContactPost(message){
+        this.http.post(environment.baseUrl + 'api/contact', message).subscribe(d=> {
+            this.router.navigate(['']);
+            this.matSnackBar.open('We received your message and we\'ll be in contact soon as possible.', null, {duration: 3000});
+        });
+
     }
 
     public applyRedirectUrl() {
