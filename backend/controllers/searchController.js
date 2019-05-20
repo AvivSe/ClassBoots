@@ -13,23 +13,28 @@ const User = require('../models/user');
 
 class SearchController {
 
+    static async microSearch(model, body) {
+        return model.find({name: {$regex: body.generalSearch, $options: 'i'}}).then(async docs => {
+            for (let i = 0; i < docs.length; i++) {
+                docs[i] = {object: docs[i], type: model.modelName};
+            }
+            return docs;
+        }).catch(err => {
+            errorsController.logger({error: 'search in ' + model.modelName, description: err});
+            return {error: true, description: 'search in ' + model.modelName + err};
+        });
+    }
+
     static async search(body) { // body.generalSearch
-
         try {
-            let videos = await Video.find({name: {$regex: body.generalSearch, $options: 'i'}}, async (err, docs) => {
-                console.log("err: "+err+", docs: "+docs);
-                if (err) {
-                    errorsController.logger({error: 'search in video', description: err});
-                    return {error: true, description: 'search in video: ' + err};
-                }
-                return await docs.forEach(doc=>{
-                    doc.type="video";
-                });
+            let videos = this.microSearch(Video,body);
+            let lectures = this.microSearch(Lecture,body);
+            let subjects = this.microSearch(Subject,body);
+            let schools = this.microSearch(School,body);
+            let institutions = this.microSearch(Institution,body);
+            return await Promise.all([videos, lectures,subjects,schools,institutions]).then(docs => {
+                return [...docs[0], ...docs[1], ...docs[2], ...docs[3], ...docs[4]];
             });
-            console.log(video);
-            return videos;
-
-
         } catch (err) {
             errorsController.logger({error: 'search', description: err});
             return {error: true, description: 'search: ' + err};
