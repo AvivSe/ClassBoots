@@ -1,7 +1,7 @@
 <div class="animated fadeIn" *ngIf="isLoaded">
 <span>
         <i class="material-icons card-button" style="float: right;font-size: 2em;" (click)="setRedirect()">edit</i></span>
-<div>
+<div style="height: 90vh; overflow: scroll">
     <app-video-player [_id]="currentVideo.reference"></app-video-player>
     <mat-card>
         <div class="row mat-title mat-h3" align="center">
@@ -21,20 +21,20 @@
         <div class="comments-block">
             <div class="mat-title" align="center"> Write a Comment...</div>
 
-            <app-write-comment [videoId]="currentVideo._id"></app-write-comment>
+            <app-write-comment [videoId]="videoId"></app-write-comment>
             <app-list-comments></app-list-comments>
         </div>
     </mat-card>
     <hr style="background-color:white;">
-    <mat-card>
-        <div class="comments-block">
-            <div align="right" style="padding-right:1%;font-size:1.5em;">Load Youtube comments&nbsp;&nbsp;
-                <mat-slide-toggle [(ngModel)]="checked"></mat-slide-toggle>
-            </div>
-            <app-youtube-comments *ngIf="checked" [TotalComments]="currentVideo.ytcomment"></app-youtube-comments>
-        </div>
-    </mat-card>
-    <app-recommended-videos></app-recommended-videos>
+<!--    <mat-card>-->
+<!--        <div class="comments-block">-->
+<!--            <div align="right" style="padding-right:1%;font-size:1.5em;">Load Youtube comments&nbsp;&nbsp;-->
+<!--                <mat-slide-toggle [(ngModel)]="checked"></mat-slide-toggle>-->
+<!--            </div>-->
+<!--            <app-youtube-comments *ngIf="checked" [TotalComments]="currentVideo.ytcomment"></app-youtube-comments>-->
+<!--        </div>-->
+<!--    </mat-card>-->
+    <app-recommended-videos [videoId]="currentVideo._id"></app-recommended-videos>
 </div>
 </div>
 

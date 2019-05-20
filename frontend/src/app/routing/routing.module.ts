@@ -29,7 +29,7 @@ import {PleaseLoginComponent} from "../pages/errors/please-login/please-login.co
 import {VideoCreateComponent} from "../partitial/entities/video/video-create/video-create.component";
 import {VideoEditComponent} from "../partitial/entities/video/video-edit/video-edit.component";
 import {LectureComponent} from "../partitial/entities/lecture/lecture.component";
-import {LastWatchesComponent } from "../partitial/entities/last-watches/last-watches.component";
+import {LastWatchesComponent } from "../pages/last-watches/last-watches.component";
 import {PageNotFoundComponent} from "../pages/errors/page-not-found/page-not-found.component";
 import {PermissionDeniedComponent} from "../pages/errors/permission-denied/permission-denied.component";
 import {CanNotHandleComponent} from "../pages/errors/can-not-handle/can-not-handle.component";
@@ -37,6 +37,7 @@ import {BadRequestComponent} from "../pages/errors/bad-request/bad-request.compo
 import {NotAllowedComponent} from "../pages/errors/not-allowed/not-allowed.component";
 import {PrivateMessagesComponent} from "../pages/private-messages/private-messages.component";
 import {WatchLaterComponent} from "../pages/watch-later/watch-later.component";
+import {RecommendedComponent} from "../pages/recommended/recommended.component";
 
 const routes: Routes = [
 
@@ -49,6 +50,8 @@ const routes: Routes = [
     {path: 'last-watches', component: LastWatchesComponent},
     {path: 'messages', component: PrivateMessagesComponent},
     {path: 'watch-later', component: WatchLaterComponent},
+    {path: 'recommended', component: RecommendedComponent},
+
 
 
     //Authentication routes

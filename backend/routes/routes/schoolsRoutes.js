@@ -2,6 +2,7 @@ const SchoolController = require('../../controllers/schoolController');
 const InstitutionController = require('../../controllers/institutionController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
+const {schoolPermission,institutionPermission} = require('../../utils/check-permission');
 
 const defineRoutes = router => {
 
@@ -23,7 +24,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('', checkAuth, admin, async function (req, res) {
+    router.post('', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body.institutionid || !req.body.name) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -44,7 +45,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.delete('', checkAuth, admin, async function (req, res) {
+    router.delete('', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body._id || !req.body.institutionid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -56,7 +57,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.put('', checkAuth, admin, async function (req, res) {
+    router.put('', checkAuth, schoolPermission, async function (req, res) {
         let result = {};
         if (!req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -65,7 +66,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/addsubject', checkAuth, admin, async function (req, res) {
+    router.post('/addsubject', checkAuth, schoolPermission, async function (req, res) {
         let result = {};
         if (!req.body.schoolid || !req.body.subjectid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -83,7 +84,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/addpermission', checkAuth, admin, async function (req, res) {
+    router.post('/addpermission', checkAuth, schoolPermission, async function (req, res) {
         let result = {};
         if (!req.body.schoolid || !req.body.userid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -92,7 +93,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.delete('/permission', checkAuth, admin, async function (req, res) {
+    router.delete('/permission', checkAuth, schoolPermission, async function (req, res) {
         let result = {};
         if (!req.body.schoolid || !req.body.userid)
             result = {error: true, description: 'you don\'t have validation'};

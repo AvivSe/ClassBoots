@@ -1,6 +1,7 @@
 const InstitutionController = require('../../controllers/institutionController');
 const checkAuth = require('../../utils/check-auth');
 const { admin } = require('../../utils/Role');
+const {institutionPermission} = require('../../utils/check-permission');
 
 const defineRoutes = router => {
 
@@ -49,7 +50,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.put('', checkAuth, admin, async function (req, res) {
+    router.put('', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -58,7 +59,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/addschool', checkAuth, admin, async function (req, res) {
+    router.post('/addschool', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body.institutionid || !req.body.schoolid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -77,7 +78,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/permission', checkAuth, admin, async function (req, res) {
+    router.post('/permission', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body.institutionid || !req.body.userid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -86,7 +87,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.delete('/permission', checkAuth, admin, async function (req, res) {
+    router.delete('/permission', checkAuth, institutionPermission, async function (req, res) {
         let result = {};
         if (!req.body.institutionid || !req.body.userid)
             result = {error: true, description: 'you don\'t have validation'};

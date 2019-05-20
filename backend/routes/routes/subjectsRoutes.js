@@ -2,6 +2,7 @@ const SubjectController = require('../../controllers/subjectController');
 const SchoolController = require('../../controllers/schoolController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
+const {subjectPermission,schoolPermission} = require('../../utils/check-permission');
 
 const defineRoutes = router => {
 
@@ -23,7 +24,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('', checkAuth, admin, async function (req, res) {
+    router.post('', checkAuth, schoolPermission, async function (req, res) {
         let result = {error:false};
         if (!req.body.name || !req.body.description || !req.body.schoolid) {
             result = {error: true, description: 'you don\'t have validation'};
@@ -43,7 +44,7 @@ const defineRoutes = router => {
         let result = await SubjectController.getSubjectCollection();
         res.status(result.error ? 400 : 200).send(result);
     });
-    router.delete('', checkAuth, admin, async function (req, res) {
+    router.delete('', checkAuth, subjectPermission, async function (req, res) {
         let result = {error:false};
         if (!req.body._id || !req.body.schoolid)
             result = {error: true, description: 'you don\'t have validation'};
@@ -55,7 +56,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.put('', checkAuth, admin, async function (req, res) {
+    router.put('', checkAuth, subjectPermission, async function (req, res) {
         let result = {error:false};
         if (!req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
@@ -64,7 +65,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/addLecture', checkAuth, admin, async function (req, res) {
+    router.post('/addLecture', checkAuth, subjectPermission, async function (req, res) {
         let result = {error:false};
         if (!req.body.subjectid || !req.body.lectureid)
             result = {error: true, description: 'you don\'t have validation'};

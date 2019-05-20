@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../../environments/environment";
+import video from "../../../../admin-panel/admin-collections/definitions/video";
 
 @Component({
   selector: 'app-recommended-videos',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecommendedVideosComponent implements OnInit {
 
-  constructor() { }
+  @Input() videoId: string = null;
+  itemlist: any[] = [];
+  isLoaded: boolean = false;
+
+  constructor(private http: HttpClient) {
+
+  }
 
   ngOnInit() {
+    this.http.get(environment.baseUrl + 'api/video/getRelatedVideos/' + this.videoId).subscribe(data=> {
+      (data as any[]).forEach(video=> {
+        this.itemlist.push({...video, youtubeImageNumber:0})
+      });
+      this.isLoaded = true;
+    });
   }
 
 }

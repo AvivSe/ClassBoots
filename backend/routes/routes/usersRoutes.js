@@ -24,7 +24,7 @@ const defineRoutes = router => {
                 result = {error: true, description: 'you don\'t have validation'};
             } else {
                 req.body.from = req.profile.user._id;
-                let result = await PrivateMessageController.sendPrivateMessages(req.body);
+                result = await PrivateMessageController.sendPrivateMessages(req.body);
             }
             res.status(result.error ? 400 : 201).send(result);
         } else {

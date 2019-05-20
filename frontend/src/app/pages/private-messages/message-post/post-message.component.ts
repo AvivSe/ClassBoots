@@ -44,8 +44,13 @@ export class PostMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageService.MessagesSendEmitter.subscribe(data => {
-      if(data.error()) this.setErrorMessage(data.description);
-      else this.changeState();
+      if(data.error){
+        this.error = true;
+        this.errorMessage = data.description;
+      }
+      else{
+        this.changeState();
+      }
     })
   }
 

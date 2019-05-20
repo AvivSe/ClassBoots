@@ -1,0 +1,27 @@
+<div class="jumbotron06 ng-view" autoscroll="true" *ngIf="isLoaded">
+  <div class="jumbotron08" style="padding-bottom: 30%;">
+    <div class="row">
+      <!-- Team member -->
+      <div class="col-md-4 card-button card-padding user-item animated fadeIn" *ngFor="let item of itemlist">
+        <div class="frontside">
+          <div style="height: 18em;" class="card" [routerLink]="['/lecture/'+item.lectureid, {outlets:{ videoOutlet:[item._id]}} ]">
+            <div class="card-body text-center">
+              <p>
+                <img class="img-size"
+                     (mouseenter)="startSwitchImages(item._id)"
+                     (mouseout)="stopSwitchImages(item._id)"
+                     src="https://img.youtube.com/vi/{{item.reference}}/{{item.youtubeImageNumber}}.jpg"
+                     alt="card image"
+                >
+              </p>
+              <h4 class="card-title">{{item.name}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-lazy-loading *ngIf="!isLoaded"></app-lazy-loading>
