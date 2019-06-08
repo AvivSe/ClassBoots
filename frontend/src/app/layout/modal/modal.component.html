@@ -1,7 +1,7 @@
 <div>
 <button type="button" class="btn login-btn-color btn-lg" (click)="openModal(loginPanel)" *ngIf="!isLogged()">Login</button>
-<button type="button" class="btn logged-btn-color btn-lg" (click)="openDialog()" *ngIf="isLogged()">{{loginName}}</button>
-  <button type="button" (click)="changeSearchComponent()" class="btn logged-btn-color btn-lg cbBtn-blue">
+<button type="button" class="btn logged-btn-color btn-lg" (click)="openProfileDialog()" *ngIf="isLogged()">{{loginName}}</button>
+  <button type="button" (click)="openSearchDialog()" class="btn logged-btn-color btn-lg cbBtn-blue">
     <i class="fas fa-search"></i>
   </button>
 <button type="button" class="btn logged-btn-color btn-lg cbBtn" (click)="onLogout()" *ngIf="isLogged()">
@@ -23,6 +23,6 @@
     <app-profile></app-profile>
   </div>
 </ng-template>
-<ng-template #searchBar>
-  <app-search></app-search>
-</ng-template>
+<!--<ng-template #searchBar>-->
+<!--  <app-search></app-search>-->
+<!--</ng-template>-->

@@ -1,0 +1,18 @@
+<div class="fullScreen">
+    <div>
+        <form #searchForm="ngForm">
+            <div class="form-group">
+                <mat-form-field class="input-size">
+                    <input autocomplete="off" (ngModelChange)="onSearch(searchForm)" matInput type="text"
+                           placeholder="Search Lecture" name="generalSearch" ngModel required>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <div *ngFor="let item of data" (click)="navigate(item)" style="cursor: pointer">
+            {{item.object.name}} in {{item.type}}s
+        </div>
+    </div>
+</div>

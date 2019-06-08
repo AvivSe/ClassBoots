@@ -222,8 +222,8 @@ export class entitiesService implements OnInit {
             next(data);
         })
     }
-    findLecture(searchData){
-        this.http.post(environment.baseUrl+"api/search", searchData).subscribe(data => {
+    find(searchData){
+        this.http.post(environment.baseUrl + "api/search", searchData).subscribe(data => {
             this.SearchEmitter.emit(data)
         });
     }
