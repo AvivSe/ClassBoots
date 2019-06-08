@@ -223,11 +223,51 @@ class VideoController {
             let result = await Video.findByIdAndUpdate(
                 body.videoid,
                 {$pull: {"comments": {_id: body.commentid}}},
-                {upsert: true, new: true});
+                {upsert: true, new: true},
+                (err => {
+                    if (err) {
+                        invalid = {error: true, description: err};
+                        errorsController.logger({error: 'addComment', description: err});
+                    }
+                }));
             return result;
         } catch (e) {
             errorsController.logger({error: 'deleteComment', description: e});
             return {error: true, description: 'deleteComment: ' + e};
+        }
+    };
+
+    static async likeVideo(body) {
+        try {
+            let invalid = {};
+            let result = await Video.findByIdAndUpdate(
+                body.videoid,
+                {$addToSet: {"likes": body.userid}},
+                {upsert: true},
+                (err => {
+                    if (err) {
+                        result.error = true;
+                        result.description = err;
+                        errorsController.logger({error: 'likeVideo', description: err});
+                    }
+                }));
+            return invalid.error === undefined ? result : invalid;
+        } catch (e) {
+            errorsController.logger({error: 'likeVideo', description: e});
+            return {error: true, description: 'likeVideo: ' + e};
+        }
+    };
+
+    static async disLikeVideo(body) {
+        try {
+            let result = await Video.findByIdAndUpdate(
+                body.videoid,
+                {$pull: {"likes": body.userid}},
+                {upsert: true, new: true});
+            return result;
+        } catch (e) {
+            errorsController.logger({error: 'disLikeVideo', description: e});
+            return {error: true, description: 'disLikeVideo: ' + e};
         }
     };
 

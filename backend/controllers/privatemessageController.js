@@ -21,10 +21,10 @@ class PrivateMessageController {
     };
 
 
-    static async getInboxMessages(id) {
+    static async getInboxMessages(email) {
         try {
             let result = [];
-            await PrivateMessage.find({to: id}).then(node => {
+            await PrivateMessage.find({to: email}).then(node => {
                 if (node)
                     result = node;
                 else
@@ -40,10 +40,10 @@ class PrivateMessageController {
         }
     }
 
-    static async getOutboxMessages(id) {
+    static async getOutboxMessages(email) {
         try {
             let result = [];
-            await PrivateMessage.find({from: id}).then(node => {
+            await PrivateMessage.find({from: email}).then(node => {
                 if (node)
                     result = node;
                 else
@@ -79,19 +79,13 @@ class PrivateMessageController {
 
     static async sendPrivateMessages(body) {
         try {
-            let result = {description:"",error:false};
+            let result = {description: "", error: false};
             for (let i = 0; i < body.to.length; i++) {
-                let to = await UsersController.getUser(body.to[i]);
-                if (!to.error) {
-                    let send = {to:to._id,from:body.from,message:body.message};
-                    let msgresult = await PrivateMessageController.sendPrivateMessage(send);
-                    if(msgresult.error){
-                        result.error = true;
-                        result.description += (msgresult+"\n");
-                    }
-                } else {
+                let send = {to: body.to[i], from: body.from, message: body.message};
+                let msgresult = await PrivateMessageController.sendPrivateMessage(send);
+                if (msgresult.error) {
                     result.error = true;
-                    result.description += ("cannot find email " + body.to[i] + "reciver\n");
+                    result.description += (msgresult + "\n");
                 }
             }
             return result;

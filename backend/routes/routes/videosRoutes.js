@@ -84,7 +84,29 @@ const defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await VideoController.deleteComment(req.body);
-        res.status(result.error ? 400 : 200).send(result);s
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.post('/like', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.body.videoid) {
+            result = {error: true, description: 'you don\'t have validation'};
+        } else {
+            req.body.userid=req.profile.user._id;
+            result = await VideoController.likeVideo(req.body);
+        }
+        res.status(result.error ? 400 : 201).send(result);
+    });
+
+    router.post('/dislike', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.body.videoid) {
+            result = {error: true, description: 'you don\'t have validation'};
+        } else {
+            req.body.userid=req.profile.user._id;
+            result = await VideoController.disLikeVideo(req.body);
+        }
+        res.status(result.error ? 400 : 200).send(result);
     });
 
     return router;
