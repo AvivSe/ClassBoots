@@ -23,7 +23,7 @@ const defineRoutes = router => {
 
     router.post('', async function (req, res) {
         let result = {};
-        if (!req.body.email || !req.body.message ) {
+        if (!req.body.email || !req.body.message) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
 

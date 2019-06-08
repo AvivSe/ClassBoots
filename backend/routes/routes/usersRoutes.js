@@ -6,12 +6,12 @@ const Role = require('../../utils/Role');
 
 const defineRoutes = router => {
 
-    router.get('/getRelatedVideos',checkAuth , async  function(req,res) {
+    router.get('/getRelatedVideos', checkAuth, async function (req, res) {
         let result;
 
         result = await UserController.getRelatedVideos(req.profile.user._id);
 
-        res.status(result.error?400:200).send(result);
+        res.status(result.error ? 400 : 200).send(result);
     });
 
     router.get('/profile', checkAuth, async function (req, res) {
@@ -28,7 +28,7 @@ const defineRoutes = router => {
 
     router.post('/sendpm', checkAuth, async function (req, res) {
         if (req.profile) {
-            let result = {error:false};
+            let result = {error: false};
             if (!req.body.to || !req.body.message) {
                 result = {error: true, description: 'you don\'t have validation'};
             } else {

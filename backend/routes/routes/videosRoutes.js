@@ -2,30 +2,26 @@ const {VideoController} = require('../../controllers/videoController');
 const LectureController = require('../../controllers/lectureController');
 const checkAuth = require('../../utils/check-auth');
 const {admin} = require('../../utils/Role');
-const {videoPermission,lecturePermission} = require('../../utils/check-permission');
+const {videoPermission, lecturePermission} = require('../../utils/check-permission');
 
 
 const defineRoutes = router => {
 
 
-    router.get('/getRelatedVideos/:id',checkAuth , async  function(req,res) {
+    router.get('/getRelatedVideos/:id', checkAuth, async function (req, res) {
         let result = {};
         if (!req.params.id)
             result = {error: true, description: 'please include id param'};
         else
             result = await VideoController.getRelatedVideos(req.params.id);
 
-        res.status(result.error?400:200).send(result);
-    });
-
-    router.get('/:id', checkAuth, async function (req, res) {
-        let result = {};
-        if (!req.params.id)
-            result = {error: true, description: 'you don\'t have validation'};
-        else
-            result = await VideoController.getVideo(req.params.id, req.profile.user._id);
         res.status(result.error ? 400 : 200).send(result);
     });
+
+    router.post('/check', checkAuth, videoPermission, async function (req, res) {
+        res.status(200).send({isAuth: true});
+    });
+
 
     router.post('', checkAuth, lecturePermission, async function (req, res) {
         let result = {};
@@ -92,7 +88,7 @@ const defineRoutes = router => {
         if (!req.body.videoid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
-            req.body.userid=req.profile.user._id;
+            req.body.userid = req.profile.user._id;
             result = await VideoController.likeVideo(req.body);
         }
         res.status(result.error ? 400 : 201).send(result);
@@ -103,9 +99,18 @@ const defineRoutes = router => {
         if (!req.body.videoid) {
             result = {error: true, description: 'you don\'t have validation'};
         } else {
-            req.body.userid=req.profile.user._id;
+            req.body.userid = req.profile.user._id;
             result = await VideoController.disLikeVideo(req.body);
         }
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.get('/:id', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await VideoController.getVideo(req.params.id, req.profile.user._id);
         res.status(result.error ? 400 : 200).send(result);
     });
 
