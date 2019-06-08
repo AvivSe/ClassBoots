@@ -1,6 +1,6 @@
 <div>
 <button type="button" class="btn login-btn-color btn-lg" (click)="openModal(loginPanel)" *ngIf="!isLogged()">Login</button>
-<button type="button" class="btn logged-btn-color btn-lg" routerLink="Profile" *ngIf="isLogged()">{{loginName}}</button>
+<button type="button" class="btn logged-btn-color btn-lg" (click)="openDialog()" *ngIf="isLogged()">{{loginName}}</button>
   <button type="button" (click)="changeSearchComponent()" class="btn logged-btn-color btn-lg cbBtn-blue">
     <i class="fas fa-search"></i>
   </button>

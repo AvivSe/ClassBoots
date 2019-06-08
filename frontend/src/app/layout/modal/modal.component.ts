@@ -3,6 +3,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {AuthService} from "../../partitial/auth/auth.service";
 import {Router} from "@angular/router";
 import {entitiesService} from "../../partitial/entities/entities.service";
+import {ProfileComponent} from "../../partitial/auth/profile/profile.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-modal',
@@ -13,7 +15,7 @@ export class ModalComponent implements OnInit {
   modalRef: BsModalRef;
   loginName = '';
 
-  constructor(private modalService: BsModalService,public authService : AuthService, private router: Router,public entitiesService:entitiesService) {
+  constructor(private modalService: BsModalService,public authService : AuthService, private router: Router,public entitiesService:entitiesService,public dialog: MatDialog) {
     authService.getUser.subscribe(user =>{
       this.loginName = user.email;
     });
@@ -37,5 +39,9 @@ export class ModalComponent implements OnInit {
   }
   changeSearchComponent(){
     this.entitiesService.SearchEmitter.emit();
+  }
+
+  openDialog() {
+    this.dialog.open(ProfileComponent, {width: '60vw'});
   }
 }
