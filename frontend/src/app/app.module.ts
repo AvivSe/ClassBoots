@@ -18,13 +18,13 @@ import {
     MatExpansionModule,
     MatGridListModule,
     MatButtonToggleModule,
-    MatPaginator,
     MatPaginatorModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatListModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -203,7 +203,8 @@ import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact
         MatSnackBarModule,
         YoutubePlayerModule,
         MatChipsModule,
-        MatIconModule
+        MatIconModule,
+        MatDialogModule
 ],
     entryComponents: [
         ModalComponent

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../partitial/auth/auth.service";
+import {MatDialog} from "@angular/material";
+import {ProfileComponent} from '../../partitial/auth/profile/profile.component'
 
 @Component({
   selector: 'app-navbar',
@@ -23,6 +25,7 @@ export class NavbarComponent implements OnInit {
   public toggle() {
     this.authService.toggleSidebar();
   }
+
 
   ngOnInit() {}
 
