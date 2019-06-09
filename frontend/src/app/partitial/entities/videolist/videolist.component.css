@@ -37,4 +37,7 @@
 .user-list {
     max-height: 500px;
     overflow: scroll;
+    overflow-x: hidden;
+
 }
+.user-list::-webkit-scrollbar { width: 0 !important }
