@@ -1,6 +1,6 @@
 const InstitutionController = require('../../controllers/institutionController');
 const checkAuth = require('../../utils/check-auth');
-const { admin } = require('../../utils/Role');
+const {admin} = require('../../utils/Role');
 const {institutionPermission} = require('../../utils/check-permission');
 
 const defineRoutes = router => {
@@ -18,13 +18,9 @@ const defineRoutes = router => {
         let result = await InstitutionController.getSchoolsGB();
         res.status(result.error ? 400 : 200).send(result);
     });
-    router.get('/:id', async function (req, res) {
-        let result = {};
-        if (!req.params.id)
-            result = {error: true, description: 'you don\'t have validation'};
-        else
-            result = await InstitutionController.getInstitution(req.params.id);
-        res.status(result.error ? 400 : 200).send(result);
+
+    router.post('/check', checkAuth, institutionPermission, async function (req, res) {
+        res.status(200).send({isAuth: true});
     });
 
     router.post('', checkAuth, admin, async function (req, res) {
@@ -93,6 +89,15 @@ const defineRoutes = router => {
             result = {error: true, description: 'you don\'t have validation'};
         else
             result = await InstitutionController.deletepermission(req.body);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.get('/:id', async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await InstitutionController.getInstitution(req.params.id);
         res.status(result.error ? 400 : 200).send(result);
     });
 

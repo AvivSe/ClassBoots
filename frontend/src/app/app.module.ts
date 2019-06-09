@@ -88,7 +88,6 @@ import { VideoCreateComponent } from './partitial/entities/video/video-create/vi
 import { VideoPlayerComponent } from './partitial/entities/video/video-player/video-player.component';
 import { VideolistComponent } from './partitial/entities/videolist/videolist.component';
 import { VideoEditComponent } from './partitial/entities/video/video-edit/video-edit.component';
-import { SearchComponent } from './partitial/entities/search/search.component';
 import { LectureComponent } from './partitial/entities/lecture/lecture.component';
 import { YoutubeCommentsComponent } from './partitial/comments/youtube-comments/youtube-comments.component';
 import {LastWatchesComponent} from "./pages/last-watches/last-watches.component";
@@ -106,6 +105,7 @@ import { RecommendedComponent } from './pages/recommended/recommended.component'
 import { VideoListingComponent } from './partitial/video-listing/video-listing.component';
 import {PostMessageComponent} from './pages/private-messages/message-post/post-message.component';
 import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact.component';
+import {SearchComponent} from "./partitial/search/search.component";
 
 @NgModule({
     declarations: [
@@ -127,6 +127,7 @@ import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact
         TermsComponent,
         ItemsListComponent,
         ProfileComponent,
+        SearchComponent,
         TermsComponent,
         ModalComponent,
         InstitutionsComponent,
@@ -160,7 +161,6 @@ import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact
         VideoPlayerComponent,
         VideolistComponent,
         VideoEditComponent,
-        SearchComponent,
         LastWatchesComponent,
         LectureComponent,
         YoutubeCommentsComponent,
@@ -207,7 +207,8 @@ import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact
         MatDialogModule
 ],
     entryComponents: [
-        ModalComponent
+        ModalComponent,
+        SearchComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

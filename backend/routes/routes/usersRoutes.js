@@ -6,19 +6,20 @@ const Role = require('../../utils/Role');
 
 const defineRoutes = router => {
 
-    router.get('/getRelatedVideos',checkAuth , async  function(req,res) {
+    router.get('/getRelatedVideos', checkAuth, async function (req, res) {
         let result;
 
         result = await UserController.getRelatedVideos(req.profile.user._id);
 
-        res.status(result.error?400:200).send(result);
+        res.status(result.error ? 400 : 200).send(result);
     });
 
     router.get('/profile', checkAuth, async function (req, res) {
         if (req.profile) {
+            console.log(req.profile);
             let result = req.profile;
-            result.inbox = await PrivateMessageController.getInboxMessages(req.profile.user._id);
-            result.outbox = await PrivateMessageController.getOutboxMessages(req.profile.user._id);
+            result.inbox = await PrivateMessageController.getInboxMessages(req.profile.user.email);
+            result.outbox = await PrivateMessageController.getOutboxMessages(req.profile.user.email);
             res.status(200).send(result);
         } else {
             res.status(400).send({error: "true", description: "cannot find profile data"});
@@ -27,11 +28,11 @@ const defineRoutes = router => {
 
     router.post('/sendpm', checkAuth, async function (req, res) {
         if (req.profile) {
-            let result = {error:false};
+            let result = {error: false};
             if (!req.body.to || !req.body.message) {
                 result = {error: true, description: 'you don\'t have validation'};
             } else {
-                req.body.from = req.profile.user._id;
+                req.body.from = req.profile.user.email;
                 result = await PrivateMessageController.sendPrivateMessages(req.body);
             }
             res.status(result.error ? 400 : 201).send(result);

@@ -85,7 +85,7 @@ export class AuthService {
             });
     }
     login(userLogin : userLogin){
-        this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/login",userLogin)
+        this.http.post<{_token: string,_profile : userData,error : boolean, _expire: string}>(environment.baseUrl + "api/user/login", userLogin)
             .subscribe(user =>{
                 if(!user.error) {
                     this.token = user._token;
@@ -96,7 +96,7 @@ export class AuthService {
                     this.authStatusListener.next(true);
                     this.sidebarStatus.next(true);
                     this.isSidebarCollapsed = true;
-                    this.saveAuthData(user._token, JSON.stringify(user._profile));
+                    this.saveAuthData(user._token, JSON.stringify(user._profile), new Date(user._expire));
                     this.commandSuccess.emit();
                     this.matSnackBar.open('You are logged in as '+this.user.email, null, {duration: 3000});
                 }
@@ -117,41 +117,41 @@ export class AuthService {
         this.matSnackBar.open('logout success!', null, {duration: 3000});
     }
 
-    saveAuthData(token: string, profile:string) {
+    saveAuthData(token: string, profile:string, expirationDate:Date) {
         localStorage.setItem('token', token);
         localStorage.setItem('profile', profile);
-        //localStorage.setItem('expiration', expirationDate.toISOString());
+        localStorage.setItem('expiration', expirationDate.toISOString());
     }
     clearAuthData() {
         localStorage.removeItem('token');
         localStorage.removeItem('profile');
-        //localStorage.removeItem('expiration');
+        localStorage.removeItem('expiration');
     }
     autoAuthUser() {
         const  autoInformation = this.getAuthData();
+
         if(!autoInformation) {
             return;
         }
+
         const date = new Date();
-        //const isInFuture = autoInformation.expire  > date;
-        //if(isInFuture) {
-
-        this.token = autoInformation.token;
-        this.user = JSON.parse(autoInformation.profile);
-        this.isLoggedIn = true;
-        this.authStatusListener.next(true);
-
-        this.getUser.emit({email: this.user.email, role:this.user.role });
-        this.isAdmin = this.user.role === "admin";
-        this.isLoggedIn = true;
-        this.authStatusListener.next(true);
-        this.sidebarStatus.next(true);
-        this.isSidebarCollapsed = true;
-        //}
+        const isInFuture = autoInformation.expire  > date;
+        if(isInFuture) {
+            this.token = autoInformation.token;
+            this.user = JSON.parse(autoInformation.profile);
+            this.isLoggedIn = true;
+            this.authStatusListener.next(true);
+            this.getUser.emit({email: this.user.email, role:this.user.role });
+            this.isAdmin = this.user.role === "admin";
+            this.isLoggedIn = true;
+            this.authStatusListener.next(true);
+            this.sidebarStatus.next(true);
+            this.isSidebarCollapsed = true;
+        }
     }
     getAuthData() {
         const token = localStorage.getItem('token');
-        //const expiration = localStorage.getItem('expiration');
+        const expiration = new Date(localStorage.getItem('expiration'));
         const profile = localStorage.getItem('profile');
 
         if(!token && !profile) {
@@ -160,7 +160,8 @@ export class AuthService {
 
         return {
             token: token,
-            profile: profile
+            profile: profile,
+            expire: expiration
         }
     }
     createContactPost(message){

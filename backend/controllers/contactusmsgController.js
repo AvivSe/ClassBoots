@@ -19,7 +19,6 @@ class contactusmsgController {
         }
     };
 
-
     static async getInboxMessages(id) {
         try {
             let result = [];

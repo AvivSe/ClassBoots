@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {entitiesService} from "../../partitial/entities/entities.service";
 import {ProfileComponent} from "../../partitial/auth/profile/profile.component";
 import {MatDialog} from "@angular/material";
-
+import {SearchComponent} from "../../partitial/search/search.component";
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -41,7 +41,12 @@ export class ModalComponent implements OnInit {
     this.entitiesService.SearchEmitter.emit();
   }
 
-  openDialog() {
+  openSearchDialog() {
+    this.dialog.open(SearchComponent, {width: '60vw'});
+
+  }
+
+  openProfileDialog() {
     this.dialog.open(ProfileComponent, {width: '60vw'});
   }
 }

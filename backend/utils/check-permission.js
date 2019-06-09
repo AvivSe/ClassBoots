@@ -6,7 +6,6 @@ const { VideoController } = require('../controllers/videoController');
 
 
 class Permission{
-
     static async videoCheckPermission(body) {
         var result = await VideoController.getVideo(body.videoid);
         return await result.ERROR === undefined ? await this.lectureCheckPermission({
