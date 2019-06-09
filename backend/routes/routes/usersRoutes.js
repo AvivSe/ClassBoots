@@ -17,9 +17,21 @@ const defineRoutes = router => {
     router.get('/profile', checkAuth, async function (req, res) {
         if (req.profile) {
             console.log(req.profile);
-            let result = req.profile;
+            let result = {};
+            result.profile = await UserController.getUserById(req.profile.user._id);
+            result.profile.password = null;
             result.inbox = await PrivateMessageController.getInboxMessages(req.profile.user.email);
             result.outbox = await PrivateMessageController.getOutboxMessages(req.profile.user.email);
+            res.status(200).send(result);
+        } else {
+            res.status(400).send({error: "true", description: "cannot find profile data"});
+        }
+    });
+
+    router.put('/profile', checkAuth, async function (req, res) {
+        if (req.profile) {
+            const uid = req.profile.user._id;
+            const result = await UserController.updateUser(uid, req.body);
             res.status(200).send(result);
         } else {
             res.status(400).send({error: "true", description: "cannot find profile data"});
@@ -39,7 +51,6 @@ const defineRoutes = router => {
         } else {
             res.status(400).send({error: "true", description: "cannot find profile data"});
         }
-
 
     });
 

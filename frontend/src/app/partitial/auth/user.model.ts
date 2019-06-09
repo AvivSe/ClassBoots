@@ -4,7 +4,7 @@ export interface userData {
     regDate: Date,
     address: string,
     role: string,
-    firstname: string,
-    lastname: string,
-    DOB: Date
+    firstName: string,
+    lastName: string,
+    dob: Date
 }

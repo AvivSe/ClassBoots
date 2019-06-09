@@ -24,6 +24,8 @@ import {
     MatListModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     MatToolbarModule
 } from "@angular/material";
@@ -177,7 +179,7 @@ import {SearchComponent} from "./partitial/search/search.component";
         PostMessageComponent,
         RecommendedComponent,
         VideoListingComponent,
-        AdminContactComponent,
+        AdminContactComponent
     ],
     imports: [
         BrowserModule,
@@ -206,7 +208,9 @@ import {SearchComponent} from "./partitial/search/search.component";
         MatChipsModule,
         MatIconModule,
         MatDialogModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatDatepickerModule,
+        MatNativeDateModule
 ],
     entryComponents: [
         ModalComponent,

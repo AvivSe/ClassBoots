@@ -1,17 +1,39 @@
-<div style="padding-bottom: 5%;opacity:50%" class="ng-view" autoscroll="true">
+<div style="margin-top:-7%;opacity:50%" class="ng-view" autoscroll="true">
     <div class="container" style="position:center;padding-top: 5%">
         <div class="row">
             <mat-card style="width: 100%;padding-bottom: 50%;">
                 <div style="padding: 5%;">
-                    <span class="mat-headline">Profile</span>
+                    <i class="fas fa-id-badge" style="color: #d6d850;font-size:5rem;margin:-1.5% 0 0 -3%;transform: rotate(50deg);  "></i>
+                    <mat-toolbar style="margin-top:-2.6%">Hello {{user.firstName != '' ? user.firstName : user.email}}, Welcome to your profile.</mat-toolbar>
                     <hr>
                     <div style="padding: 5%;">
-                        <form *ngIf="authService.isLogged()" (ngSubmit)="updateUser(userForm)" #userForm="ngForm">
+                        <form *ngIf="user" (ngSubmit)="updateUser(userForm)" #userForm="ngForm">
                             <mat-form-field class="input-size">
-                                <input matInput type="text" [placeholder]="user.email" name="email" ngModel required>
+                                <input matInput type="text" [placeholder]="user.firstName" name="firstName" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="text" [placeholder]="user.lastName" name="lastName" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input disabled matInput type="text" [placeholder]="user.role" name="role" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="text" [placeholder]="user.dob" name="dob" [matDatepicker]="myDatepicker" ngModel>
+                                <mat-datepicker-toggle name="dob" matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker name="dob" #myDatepicker></mat-datepicker>
                             </mat-form-field>
                             <br>
-                            <button type="submit" [disabled]="userForm.invalid" class="btn create-btn btn-lg"  style="width: 100%">Update User.
+                            <button type="submit" [disabled]="userForm.invalid" class="btn create-btn btn-lg"  style="width: 100%">Update User
+                            </button>
+                        </form>
+                        <form *ngIf="user" (ngSubmit)="updatePassword(userForm)" #userForm="ngForm" style="padding-top:2%">
+                            <mat-form-field class="input-size">
+                                <input matInput type="password" placeholder="New Password" name="password" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="password" placeholder="RE: Password" name="repassword" ngModel>
+                            </mat-form-field>
+                            <button type="submit" [disabled]="userForm.invalid" class="btn password btn-lg"  style="width: 100%">Update Password
                             </button>
                         </form>
                     </div>

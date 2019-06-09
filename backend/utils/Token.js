@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
  */
 class Token {
     constructor(user) {
-        const expireIn = 1; // hours
+        const expireIn = 48; // hours
         const timeUnit = 'h';
         this._token = jwt.sign({user:user}, 'todo_edit_this_secret', {expiresIn: expireIn + timeUnit});
         this._profile = { email: user.email , role: user.role };
