@@ -13,7 +13,7 @@
                     <div style="height: 18em;" class="card" (click)="setRedirect()" [routerLink]="['/'+nextPath,item._id]">
                         <div class="card-body text-center">
                             <i class="material-icons" style="float: right;font-size: 1.9em;"
-                               [routerLink]="['/'+title+'/edit',item._id]" (click)="setRedirect()" *ngIf="authService.getIsAdmin()">edit</i>
+                               [routerLink]="['/'+title+'/edit',item._id]" (click)="setRedirect()" *ngIf="authService.isAuth(title,item._id)">edit</i>
                             <p><img class="img-size" src="{{getImage(item.image)}}" alt="card image"></p>
                             <h4 class="card-title">{{item.name}}</h4>
                         </div>

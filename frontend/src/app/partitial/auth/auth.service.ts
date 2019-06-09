@@ -58,6 +58,14 @@ export class AuthService {
     getIsAdmin() {
         return this.isAdmin;
     }
+
+    isAuth(title,_id){
+        this.http.post(environment.baseUrl + title.toLowerCase() + '/check',{
+            id: _id
+        }).subscribe(data =>{
+            return data;
+        })
+    }
     createUser(userData : userLogin){
             this.http.post<{_token: string,_profile : userData,error : boolean}>(environment.baseUrl + "api/user/register",userData)
             .subscribe(user =>{
