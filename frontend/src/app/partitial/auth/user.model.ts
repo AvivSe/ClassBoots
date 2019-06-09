@@ -6,5 +6,6 @@ export interface userData {
     role: string,
     firstName: string,
     lastName: string,
-    DOB: Date
+    DOB: Date,
+    userId: string;
 }
