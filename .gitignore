@@ -4,5 +4,6 @@ frontend/node_modules/
 backend/.idea/
 .idea/workspace.xml
 .idea/
+.idea/
 frontend/dist/
 *.xml
