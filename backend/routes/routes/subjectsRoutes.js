@@ -15,7 +15,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/check', checkAuth, subjectPermission, async function (req, res) {
+    router.post('/check', subjectPermission, async function (req, res) {
         res.status(200).send({isAuth: true});
     });
 

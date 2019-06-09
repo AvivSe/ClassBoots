@@ -2,6 +2,7 @@ const InstitutionController = require('../controllers/institutionController');
 const SchoolController = require('../controllers/schoolController');
 const SubjectController = require('../controllers/subjectController');
 const LectureController = require('../controllers/lectureController');
+const jwt = require("jsonwebtoken");
 const { VideoController } = require('../controllers/videoController');
 
 
@@ -13,6 +14,7 @@ class Permission{
             userid: body.userid
         }) : false;
     };
+
 
     static async lectureCheckPermission(body) {
         var result = await LectureController.getLecture(body.lectureid);
@@ -59,8 +61,35 @@ class Permission{
     };
 }
 
+var getProfile  = async(req)=> {
+    let result;
+
+    if(!req.headers.authorization) {
+        return null;
+    }
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        await jwt.verify(token, 'todo_edit_this_secret', async (err, decoded) => {
+            if (err) {
+                result = null;
+            } else {
+                result = decoded;
+            }
+        });
+    } catch (err) {
+        res.status(401).send({error: true, description: ('Auth-Failed: ' + err)});
+    }
+    return result
+};
+
 
 var videoPermission = async (req, res, next) => {
+    req.profile = await getProfile(req);
+
+    if(!req.profile) {
+        res.status(200).send({isAuth: false});
+    }
+
     if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
@@ -73,6 +102,12 @@ var videoPermission = async (req, res, next) => {
     }
 };
 var lecturePermission = async (req, res, next) => {
+    req.profile = await getProfile(req);
+
+    if(!req.profile) {
+        res.status(200).send({isAuth: false});
+    }
+
     if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
@@ -85,6 +120,12 @@ var lecturePermission = async (req, res, next) => {
     }
 };
 var subjectPermission = async (req, res, next) => {
+    req.profile = await getProfile(req);
+
+    if(!req.profile) {
+        res.status(200).send({isAuth: false});
+    }
+
     if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
@@ -97,6 +138,12 @@ var subjectPermission = async (req, res, next) => {
     }
 };
 var schoolPermission = async (req, res, next) => {
+    req.profile = await getProfile(req);
+
+    if(!req.profile) {
+        res.status(200).send({isAuth: false});
+    }
+
     if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
@@ -109,6 +156,12 @@ var schoolPermission = async (req, res, next) => {
     }
 };
 var institutionPermission = async (req, res, next) => {
+    req.profile = await getProfile(req);
+
+    if(!req.profile) {
+        res.status(200).send({isAuth: false});
+    }
+
     if(req.profile.user.role && req.profile.user.role==='admin')
         next();
     else{
