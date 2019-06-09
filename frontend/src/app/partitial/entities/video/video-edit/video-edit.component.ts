@@ -39,4 +39,11 @@ export class VideoEditComponent implements OnInit {
       this.data.position = editForm.value.position;
     this.entitiesService.editVideo(this.data);
   }
+
+  deleteItem() {
+    this.entitiesService.deleteElement("video", this.data, (data) => {
+      if (data.error) {
+      }
+    });
+  }
 }
