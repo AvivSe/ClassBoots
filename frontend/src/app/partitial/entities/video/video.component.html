@@ -6,7 +6,12 @@
     <mat-card>
         <div class="row mat-title mat-h3" align="center">
             <div class="col-4">
-                <i class="fas fa-thumbs-up"></i> : {{likes.length}} | dislikes: {{dislikes.length}}
+                <i class="fas fa-thumbs-up button" (click)="onUnLikeClicked()" *ngIf="myLikeState === 'like'"></i>
+                <i class="far fa-thumbs-up button" (click)="onLikeClicked()" *ngIf="myLikeState !== 'like'"></i>
+                {{likes.length}}
+                <i class="fas fa-thumbs-down button" (click)="onUnDisLikeClicked()" *ngIf="myLikeState === 'dislike'"></i>
+                <i class="far fa-thumbs-down button" (click)="onDisLikeClicked()" *ngIf="myLikeState !== 'dislike'"></i>
+                {{dislikes.length}}
             </div>
             <div class="col-4">Views: {{currentVideo.views}}</div>
             <div class="col-4">Position: {{currentVideo.position}}</div>

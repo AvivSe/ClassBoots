@@ -3666,3 +3666,9 @@
         transition: none !important;
     }
 }
+
+
+.button {
+    cursor: pointer;
+    margin: 5px;
+}
