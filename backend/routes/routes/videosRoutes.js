@@ -7,7 +7,6 @@ const {videoPermission, lecturePermission} = require('../../utils/check-permissi
 
 const defineRoutes = router => {
 
-
     router.get('/getRelatedVideos/:id', checkAuth, async function (req, res) {
         let result = {};
         if (!req.params.id)
@@ -105,6 +104,43 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
+
+    router.get('/:id/like', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await VideoController.likeVideo(req.params.id, req.profile.user._id);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.get('/:id/dislike', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await VideoController.dislikeVideo(req.params.id, req.profile.user._id);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.get('/:id/unlike', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await VideoController.unLikeVideo(req.params.id, req.profile.user._id);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
+    router.get('/:id/undislike', checkAuth, async function (req, res) {
+        let result = {};
+        if (!req.params.id)
+            result = {error: true, description: 'you don\'t have validation'};
+        else
+            result = await VideoController.unDislikeVideo(req.params.id, req.profile.user._id);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
     router.get('/:id', checkAuth, async function (req, res) {
         let result = {};
         if (!req.params.id)
@@ -113,6 +149,7 @@ const defineRoutes = router => {
             result = await VideoController.getVideo(req.params.id, req.profile.user._id);
         res.status(result.error ? 400 : 200).send(result);
     });
+
 
     return router;
 };

@@ -237,12 +237,12 @@ class VideoController {
         }
     };
 
-    static async likeVideo(body) {
+    static async likeVideo(videoid, uid) {
         try {
             let invalid = {};
             let result = await Video.findByIdAndUpdate(
-                body.videoid,
-                {$addToSet: {"likes": body.userid}},
+                videoid,
+                {$addToSet: {"likes": uid}, $pull:{"dislikes": uid}},
                 {upsert: true},
                 (err => {
                     if (err) {
@@ -250,7 +250,8 @@ class VideoController {
                         result.description = err;
                         errorsController.logger({error: 'likeVideo', description: err});
                     }
-                }));
+                }))
+
             return invalid.error === undefined ? result : invalid;
         } catch (e) {
             errorsController.logger({error: 'likeVideo', description: e});
@@ -258,16 +259,69 @@ class VideoController {
         }
     };
 
-    static async disLikeVideo(body) {
+    static async unLikeVideo(videoid, uid) {
         try {
+            let invalid = {};
             let result = await Video.findByIdAndUpdate(
-                body.videoid,
-                {$pull: {"likes": body.userid}},
-                {upsert: true, new: true});
-            return result;
+                videoid,
+                {$pull: {"likes": uid}},
+                {upsert: true},
+                (err => {
+                    if (err) {
+                        result.error = true;
+                        result.description = err;
+                        errorsController.logger({error: 'likeVideo', description: err});
+                    }
+                }))
+
+            return invalid.error === undefined ? result : invalid;
         } catch (e) {
-            errorsController.logger({error: 'disLikeVideo', description: e});
-            return {error: true, description: 'disLikeVideo: ' + e};
+            errorsController.logger({error: 'likeVideo', description: e});
+            return {error: true, description: 'likeVideo: ' + e};
+        }
+    };
+
+    static async dislikeVideo(videoid, uid) {
+        try {
+            let invalid = {};
+            let result = await Video.findByIdAndUpdate(
+                videoid,
+                {$addToSet: {"dislikes": uid}, $pull:{"likes": uid}},
+                {upsert: true},
+                (err => {
+                    if (err) {
+                        result.error = true;
+                        result.description = err;
+                        errorsController.logger({error: 'dislikeVideo', description: err});
+                    }
+                }))
+
+            return invalid.error === undefined ? result : invalid;
+        } catch (e) {
+            errorsController.logger({error: 'dislikeVideo', description: e});
+            return {error: true, description: 'dislikeVideo: ' + e};
+        }
+    };
+
+    static async unDislikeVideo(videoid, uid) {
+        try {
+            let invalid = {};
+            let result = await Video.findByIdAndUpdate(
+                videoid,
+                {$pull: {"dislikes": uid}},
+                {upsert: true},
+                (err => {
+                    if (err) {
+                        result.error = true;
+                        result.description = err;
+                        errorsController.logger({error: 'likeVideo', description: err});
+                    }
+                }))
+
+            return invalid.error === undefined ? result : invalid;
+        } catch (e) {
+            errorsController.logger({error: 'likeVideo', description: e});
+            return {error: true, description: 'likeVideo: ' + e};
         }
     };
 
