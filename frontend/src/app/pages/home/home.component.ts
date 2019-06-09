@@ -9,7 +9,7 @@ import {entitiesService} from "../../partitial/entities/entities.service";
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    statistics = {institutions: 0, schools: 0, lectures: 0, videos: 0};
+    statistics = {institutions: 0, schools: 0, lectures: 0, videos: 0, subjects: 0};
 
     constructor(public authService: AuthService, public entitiesService: entitiesService) {
 
