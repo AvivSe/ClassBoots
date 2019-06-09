@@ -24,7 +24,8 @@ var videoSchema = mongoose.Schema({
     lectureid:  { type:mongoose.Schema.Types.ObjectId, ref:'Lecture', required:true },
     lastscrape: { type:Date, default: Date.now },
     name:       {type:String, required:true},
-    likes:      [ {type:mongoose.Schema.Types.ObjectId, ref:'User', required:true} ]
+    likes:      [ {type:mongoose.Schema.Types.ObjectId, ref:'User', required:true} ],
+    dislikes:   [ {type:mongoose.Schema.Types.ObjectId, ref:'User', required:true} ]
 });
 
 
