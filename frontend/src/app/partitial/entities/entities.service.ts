@@ -3,13 +3,14 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material";
+import {AuthService} from "../auth/auth.service";
 
 @Injectable({providedIn: "root"})
 export class entitiesService implements OnInit {
     itemList;
     redirectUrl;
 
-    constructor(private matSnackBar: MatSnackBar, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    constructor(private matSnackBar: MatSnackBar,private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
 
     }
 
@@ -54,11 +55,11 @@ export class entitiesService implements OnInit {
     }
     //API REQUEST FUNCTIONS
     apiRequest(request, nextPath, title, currentId, enableAdd: boolean) {
-        this.http.get(request).subscribe(data => {
+        this.http.get(request).subscribe(async data => {
             this.itemListEmitter.emit({
                 title: title,
                 _nextpath: nextPath,
-                _data: data,
+                _data: await this.authService.hasPermissionOn(data,title),
                 currentId: currentId,
                 enableAdd: enableAdd
             });

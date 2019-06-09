@@ -42,7 +42,7 @@ export class ModalComponent implements OnInit {
   }
 
   openSearchDialog() {
-    this.dialog.open(SearchComponent, {width: '60vw'});
+    this.dialog.open(SearchComponent, {width: '60vw',height: '40vh'});
 
   }
 

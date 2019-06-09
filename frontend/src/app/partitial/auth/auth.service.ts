@@ -61,6 +61,7 @@ export class AuthService {
     getIsAdmin() {
         return this.isAdmin;
     }
+
     createUser(userData: userLogin) {
         this.http.post<{ _token: string, _profile: userData, error: boolean }>(environment.baseUrl + "api/user/register", userData)
             .subscribe(user => {
@@ -123,11 +124,14 @@ export class AuthService {
         localStorage.removeItem('expiration');
     }
 
-    async hasPermissionOn(title,entityId) {
-        return await this.http.post<{isAuth:boolean}>(environment.baseUrl + 'api/' + title.toLowerCase() + '/check',
-            {_id:entityId}).subscribe(data=>{
-                return data.isAuth;
-        })
+    async hasPermissionOn(data,title) {
+        data.forEach(async entity =>{
+            this.http.post<{isAuth:boolean}>(environment.baseUrl + "api/" +
+            title + '/check',{_id: entity._id}).subscribe(res =>{
+                entity.hasPermissionOn = res.isAuth;
+            })
+        });
+        return data;
     }
 
     autoAuthUser() {

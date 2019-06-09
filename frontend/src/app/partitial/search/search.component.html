@@ -1,18 +1,25 @@
-<div class="fullScreen">
+<div>
+
+    <i class="fas fa-search" style="color: #d6d850;font-size:5rem;margin:-1.5% 0 0 -2.5%;transform: rotate(70deg);  "></i>
+    <mat-toolbar class="header" style="margin-top:-2.6%">Search</mat-toolbar>
     <div>
-        <form #searchForm="ngForm">
+        <form #searchForm="ngForm" style="padding-top:2%; text-align:center">
             <div class="form-group">
-                <mat-form-field class="input-size">
-                    <input autocomplete="off" (ngModelChange)="onSearch(searchForm)" matInput type="text"
-                           placeholder="Search Lecture" name="generalSearch" ngModel required>
+                <mat-form-field class="input-size" style="text-align:center">
+                    <input autocomplete="off" style="text-align:center" (ngModelChange)="onSearch(searchForm)" matInput type="text"
+                           placeholder="Search whatever you like" name="generalSearch" ngModel required>
                 </mat-form-field>
             </div>
         </form>
     </div>
 
+
+
+
+
     <div>
-        <div *ngFor="let item of data" (click)="navigate(item)" style="cursor: pointer">
-            {{item.object.name}} in {{item.type}}s
-        </div>
+        <span *ngFor="let item of data" (click)="navigate(item)" style="cursor: pointer;">
+            <button mat-button style="font-size:1.2rem"><span>{{item.object.name}} <span style="color:grey">in</span> {{item.type.toLowerCase()}}s</span></button>
+        </span>
     </div>
 </div>

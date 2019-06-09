@@ -24,7 +24,8 @@ import {
     MatListModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -204,7 +205,8 @@ import {SearchComponent} from "./partitial/search/search.component";
         YoutubePlayerModule,
         MatChipsModule,
         MatIconModule,
-        MatDialogModule
+        MatDialogModule,
+        MatToolbarModule
 ],
     entryComponents: [
         ModalComponent,

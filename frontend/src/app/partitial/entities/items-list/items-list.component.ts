@@ -25,10 +25,7 @@ export class ItemsListComponent implements OnInit {
             this.currentId = data.currentId;
             this.enableAdd = data.enableAdd;
             this.isLoaded = true;
-
-            this.itemlist.forEach(item => {
-                item.hasPermissionOn = authService.hasPermissionOn(this.title,item._id);
-            });
+            console.log(data);
         });
     }
     ngOnInit() {}
