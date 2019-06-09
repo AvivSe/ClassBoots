@@ -98,7 +98,7 @@ var videoPermission = async (req, res, next) => {
         if(await Permission.videoCheckPermission(body))
             next();
         else
-            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+            res.status(300).send({isAuth: false});
     }
 };
 var lecturePermission = async (req, res, next) => {
@@ -116,7 +116,7 @@ var lecturePermission = async (req, res, next) => {
         if(await Permission.lectureCheckPermission(body))
             next();
         else
-            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+            res.status(200).send({isAuth: false});
     }
 };
 var subjectPermission = async (req, res, next) => {
@@ -134,7 +134,7 @@ var subjectPermission = async (req, res, next) => {
         if(await Permission.subjectCheckPermission(body))
             next();
         else
-            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+            res.status(200).send({isAuth: false});
     }
 };
 var schoolPermission = async (req, res, next) => {
@@ -152,7 +152,7 @@ var schoolPermission = async (req, res, next) => {
         if(await Permission.schoolCheckPermission(body))
             next();
         else
-            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+            res.status(200).send({isAuth: false});
     }
 };
 var institutionPermission = async (req, res, next) => {
@@ -170,7 +170,7 @@ var institutionPermission = async (req, res, next) => {
         if(await Permission.institutionCheckPermission(body))
             next();
         else
-            res.status(401).send({error:true,description:('Auth-Failed: You don\'t have a permission')});
+            res.status(200).send({isAuth: false});
     }
 };
 
