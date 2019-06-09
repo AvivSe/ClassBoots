@@ -18,9 +18,6 @@ export class ItemsListComponent implements OnInit {
     isLoaded: boolean = false;
 
     constructor(private http: HttpClient, private entitiesService: entitiesService, public authService: AuthService,private router : Router) {
-    }
-
-    ngOnInit() {
         this.entitiesService.itemListEmitter.subscribe(data => {
             this.nextPath = data._nextpath;
             this.itemlist = data._data as any[];
@@ -28,9 +25,13 @@ export class ItemsListComponent implements OnInit {
             this.currentId = data.currentId;
             this.enableAdd = data.enableAdd;
             this.isLoaded = true;
+
+            this.itemlist.forEach(item => {
+                item.hasPermissionOn = authService.hasPermissionOn(this.title,item._id);
+            });
         });
     }
-
+    ngOnInit() {}
     getImage(image) {
         if (image == null) {
             return 'https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/07/Fotolia_117855281_Subscription_Monthly_M.jpg';
