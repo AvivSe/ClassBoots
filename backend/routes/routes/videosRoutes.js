@@ -18,7 +18,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/check', checkAuth, videoPermission, async function (req, res) {
+    router.post('/check', videoPermission, async function (req, res) {
         res.status(200).send({isAuth: true});
     });
 

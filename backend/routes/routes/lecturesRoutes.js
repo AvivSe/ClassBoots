@@ -11,7 +11,7 @@ var defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.post('/check', checkAuth, lecturePermission, async function (req, res) {
+    router.post('/check', lecturePermission, async function (req, res) {
         res.status(200).send({isAuth: true});
     });
 

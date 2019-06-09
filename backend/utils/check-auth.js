@@ -11,6 +11,7 @@ module.exports = async (req, res, next) => {
                 req.profile = decoded;
                 next();
             }
+
         });
     } catch (err) {
         res.status(401).send({error: true, description: ('Auth-Failed: ' + err)});

@@ -8,9 +8,10 @@ import {entitiesService} from "../entities.service";
 })
 export class InstitutionsComponent implements OnInit{
 
-  constructor(private entitiesService : entitiesService) { }
+  constructor(private entitiesService : entitiesService) {
+    this.entitiesService.getInstitutions();
+  }
 
   ngOnInit() {
-    this.entitiesService.getInstitutions();
   }
 }
