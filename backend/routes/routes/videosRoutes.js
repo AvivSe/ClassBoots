@@ -50,7 +50,7 @@ const defineRoutes = router => {
 
     router.delete('', checkAuth, videoPermission, async function (req, res) {
         let result = {};
-        if (!req.body.lectureid || req.body._id)
+        if (!req.body.lectureid || !req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
         else {
             result = await VideoController.deleteVideo(req.body._id);
