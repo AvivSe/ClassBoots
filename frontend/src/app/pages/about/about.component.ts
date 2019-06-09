@@ -8,16 +8,12 @@ import {Socket} from "ngx-socket-io";
 })
 export class AboutComponent implements OnInit {
 
-  constructor(public socket: Socket) {
-    socket.on('someEvent', (x)=>{
-      console.log("Some Event" + JSON.stringify(x));
-    });
+  constructor() {
+
   }
 
   ngOnInit() {
   }
-  onMyClick() {
-    this.socket.emit('someEvent', {myData:'Samba'});
-  }
+
 
 }
