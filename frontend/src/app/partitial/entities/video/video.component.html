@@ -6,12 +6,7 @@
     <mat-card>
         <div class="row mat-title mat-h3" align="center">
             <div class="col-4">
-                <ngb-rating [(rate)]="currentRate" class="noOutline">
-                    <ng-template let-fill="fill" let-index="index">
-                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3"
-                                  (click)="onRatingClicked(index)">&#9733;</span>
-                    </ng-template>
-                </ngb-rating>
+                <i class="fas fa-thumbs-up"></i> : {{likes.length}} | dislikes: {{dislikes.length}}
             </div>
             <div class="col-4">Views: {{currentVideo.views}}</div>
             <div class="col-4">Position: {{currentVideo.position}}</div>

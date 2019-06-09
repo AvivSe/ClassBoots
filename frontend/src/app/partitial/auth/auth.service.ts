@@ -184,4 +184,8 @@ export class AuthService {
     public applyRedirectUrl() {
         this.router.navigate([this.getRedirectUrl()]);
     }
+
+    getCurrentUserId() {
+        return this.user.userId;
+    }
 }

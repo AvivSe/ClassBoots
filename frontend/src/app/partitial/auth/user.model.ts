@@ -7,4 +7,5 @@ export interface userData {
     firstName: string,
     lastName: string,
     dob: Date
+    userId: string;
 }

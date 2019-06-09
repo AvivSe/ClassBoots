@@ -19,6 +19,10 @@ export class VideoComponent implements OnInit,OnDestroy {
   videoId: string = '';
   checked : boolean = false;
   isLoaded: boolean = false;
+  dislikes: string[] = [];
+  likes: string[] = [];
+  currentUserId: string;
+  myLikeState: string = "none";
 
   constructor(public entitiesService : entitiesService,
               private route: ActivatedRoute,
@@ -31,23 +35,60 @@ export class VideoComponent implements OnInit,OnDestroy {
     this.socket.on('new-comment', function(videoId){
       commentsService.notify(videoId);
     });
+
+    this.currentUserId = this.authService.getCurrentUserId();
   }
 
   ngOnInit() {
     this.videoId = this.route.snapshot.params.videoId;
-    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[],views:string,position:string}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
+    this.http.get<{reference:string,_id:string,lectureid:string,ytcomment:[],views:string,position:string, likes: string[], dislikes:string[]}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId).subscribe(data => {
+      this.likes = data.likes;
+      this.dislikes = data.dislikes;
       this.currentVideo = data;
       this.isVideoLoaded=true;
       this.commentsService.notify(this.currentVideo._id);
       this.entitiesService.changeSideBarEmitter.emit(this.currentVideo.lectureid);
       this.isLoaded = true;
+
+      if(this.likes.find(string=>string==this.currentUserId)) {
+        this.myLikeState = "like"
+      }
+      if(this.dislikes.find(string=>string==this.currentUserId)) {
+        this.myLikeState = "dislike"
+      }
+
     });
   }
 
-  onRatingClicked(value) {
-     console.log("Rating is: " + (value+1));
+  onLikeClicked() {
+    this.updateLikes("like");
+  }
+  onDisLikeClicked() {
+    this.updateLikes("dislike");
+  }
+  onUnLikeClicked() {
+    this.updateLikes("unlike");
+  }
+  onUnDisLikeClicked() {
+    this.updateLikes("undislike");
   }
 
+
+  updateLikes(action) {
+    this.http.get<{likes: string[], dislikes:string[]}>(environment.baseUrl + 'api/video/' + this.route.snapshot.params.videoId + '/' + action).subscribe(data => {
+      this.likes = data.likes;
+      this.dislikes = data.dislikes;
+      this.myLikeState = "none";
+
+      if(this.likes.find(string=>string==this.currentUserId)) {
+        this.myLikeState = "like"
+      }
+      if(this.dislikes.find(string=>string==this.currentUserId)) {
+        this.myLikeState = "dislike"
+      }
+
+    });
+  }
   ngOnDestroy(): void {
   }
   setRedirect() {

@@ -172,6 +172,11 @@ class UserController {
 
     static async updateUser(uid, profile) {
         try {
+
+            if(profile.password) {
+                profile.password = await bcrypt.hash(profile.password, await bcrypt.genSalt(10));
+            }
+
             let invalid = { };
             await User.findByIdAndUpdate(uid, profile, {}).catch(err => {
                 invalid = {error: true, description: err};
