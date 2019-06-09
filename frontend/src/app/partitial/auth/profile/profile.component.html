@@ -6,9 +6,17 @@
                     <span class="mat-headline">Profile</span>
                     <hr>
                     <div style="padding: 5%;">
-                        <form *ngIf="authService.isLogged()" (ngSubmit)="updateUser(userForm)" #userForm="ngForm">
+                        <form *ngIf="user" (ngSubmit)="updateUser(userForm)" #userForm="ngForm">
                             <mat-form-field class="input-size">
-                                <input matInput type="text" [placeholder]="user.email" name="email" ngModel required>
+                                <input matInput type="text" [placeholder]="user.firstName" name="firstName" ngModel>
+                            </mat-form-field>
+                            <mat-form-field class="input-size">
+                                <input matInput type="text" [placeholder]="user.lastName" name="lastName" ngModel>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput [matDatepicker]="myDatepicker">
+                                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #myDatepicker></mat-datepicker>
                             </mat-form-field>
                             <br>
                             <button type="submit" [disabled]="userForm.invalid" class="btn create-btn btn-lg"  style="width: 100%">Update User.

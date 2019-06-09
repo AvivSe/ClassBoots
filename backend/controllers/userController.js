@@ -169,6 +169,34 @@ class UserController {
             return {error:true,description:'getUserCollection: '+e};
         }
     };
+
+    static async updateUser(uid, profile) {
+        try {
+            let invalid = { };
+            await User.findByIdAndUpdate(uid, profile, {}).catch(err => {
+                invalid = {error: true, description: err};
+                errorsController.logger({error: 'updateUser', description: err});
+            });
+            return invalid;
+        } catch (e) {
+            errorsController.logger({error: 'updateUser', description: e});
+            return {error: true, description: 'updateUser: ' + e};
+        }
+    }
+
+    static async getUserById(uid) {
+        try {
+            let result = {};
+            result = await User.findOne({ _id: uid }).catch(err => {
+                result = {error: true, description: err};
+                errorsController.logger({error: 'getUser', description: err});
+            });
+            return result;
+        } catch (e) {
+            errorsController.logger({error: 'getUser', description: e});
+            return {error: true, description: 'getUser: ' + e};
+        }
+    }
 }
 
 module.exports = UserController;

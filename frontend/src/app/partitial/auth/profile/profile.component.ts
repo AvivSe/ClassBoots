@@ -1,7 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material";
-import {AuthService} from "../auth.service";
 import {userData} from "../user.model";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -9,17 +10,17 @@ import {userData} from "../user.model";
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  user : userData;
-  constructor(@Inject(MAT_DIALOG_DATA) public data,public authService : AuthService) {
-    this.user = authService.getCurrentUser();
-    console.log(this.user);
+  user : userData = null;
+  constructor(@Inject(MAT_DIALOG_DATA) public data, public http: HttpClient) {
+    this.http.get<{profile: userData, error : boolean}>(environment.baseUrl + "api/user/profile")
+        .subscribe(user =>{
+          if(!user.error) {
+            this.user = user.profile;
+            console.log(this.user);
+          }
+        });
   }
-  ngOnInit() {
-    this.authService.getUser.subscribe(user=>{
-      console.log(user);
-      this.user = user.email;
-    })
-  }
+
   updateUser(userForm){
     userForm.resetForm();
   }

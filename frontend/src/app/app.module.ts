@@ -24,7 +24,8 @@ import {
     MatListModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatDialogModule
+    MatDialogModule, MatDatepickerModule,
+    MatNativeDateModule
 } from "@angular/material";
 import {AgGridModule} from 'ag-grid-angular';
 import {Ng2GoogleChartsModule} from 'ng2-google-charts';
@@ -176,7 +177,7 @@ import {SearchComponent} from "./partitial/search/search.component";
         PostMessageComponent,
         RecommendedComponent,
         VideoListingComponent,
-        AdminContactComponent,
+        AdminContactComponent
     ],
     imports: [
         BrowserModule,
@@ -204,8 +205,10 @@ import {SearchComponent} from "./partitial/search/search.component";
         YoutubePlayerModule,
         MatChipsModule,
         MatIconModule,
-        MatDialogModule
-],
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ],
     entryComponents: [
         ModalComponent,
         SearchComponent

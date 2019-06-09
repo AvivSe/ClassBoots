@@ -34,6 +34,8 @@ export class AuthService {
     getCurrentUser(){
         return this.user;
     }
+
+
     isLogged(){
         return this.isLoggedIn;
     }
