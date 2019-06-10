@@ -109,6 +109,7 @@ import { VideoListingComponent } from './partitial/video-listing/video-listing.c
 import {PostMessageComponent} from './pages/private-messages/message-post/post-message.component';
 import { AdminContactComponent } from './admin-panel/admin-contact/admin-contact.component';
 import {SearchComponent} from "./partitial/search/search.component";
+import { SendPmComponent } from './partitial/send-pm/send-pm.component';
 
 @NgModule({
     declarations: [
@@ -179,7 +180,8 @@ import {SearchComponent} from "./partitial/search/search.component";
         PostMessageComponent,
         RecommendedComponent,
         VideoListingComponent,
-        AdminContactComponent
+        AdminContactComponent,
+        SendPmComponent
     ],
     imports: [
         BrowserModule,
@@ -214,7 +216,8 @@ import {SearchComponent} from "./partitial/search/search.component";
 ],
     entryComponents: [
         ModalComponent,
-        SearchComponent
+        SearchComponent,
+        SendPmComponent
     ],
     providers: [{
         provide: HTTP_INTERCEPTORS,

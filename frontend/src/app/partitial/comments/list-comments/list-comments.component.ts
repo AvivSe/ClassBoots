@@ -2,10 +2,11 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import { Comment } from "../comment.model";
 import { CommentsService}  from "../comments.service";
 import { Subscription } from 'rxjs';
-import {MatPaginator} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatPaginator} from "@angular/material";
 import {AuthService} from "../../auth/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import {SendPmComponent} from "../../send-pm/send-pm.component";
 @Component({
   selector: 'app-list-comments',
   templateUrl: './list-comments.component.html',
@@ -18,7 +19,7 @@ export class ListCommentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public commentsService : CommentsService, public authService: AuthService, public http: HttpClient) { }
+  constructor(public commentsService : CommentsService, public authService: AuthService, public http: HttpClient,public dialog: MatDialog) { }
 
   pageIndex:number = 0;
   pageSize:number = 10;
@@ -64,5 +65,13 @@ export class ListCommentsComponent implements OnInit {
     this.http.delete(environment.baseUrl + 'api/video/' + this.videoId + '/deletecomment/' + id ).subscribe(()=> {
       this.commentsService.redrawComments(this.commentsService.getComments().filter(comment=>comment.id !== id))
     })
+  }
+
+  sendPm(to: string) {
+
+    const config = new MatDialogConfig();
+    config.data = { to };
+
+    this.dialog.open(SendPmComponent, config);
   }
 }

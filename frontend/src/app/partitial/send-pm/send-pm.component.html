@@ -1,0 +1,9 @@
+<form (ngSubmit)="handleSubmit(pmForm)" #pmForm="ngForm">
+  <mat-card>
+    <mat-form-field>
+      <textarea placeholder="Write your message here" name="message" matInput rows="2" ngModel required minlength="3" #comment="ngModel"></textarea>
+      <mat-error *ngIf="comment.invalid">Please enter a comment.</mat-error>
+    </mat-form-field>
+    <button  [disabled]="pmForm.invalid" mat-raised-button color="warn">Send</button>
+  </mat-card>
+</form>

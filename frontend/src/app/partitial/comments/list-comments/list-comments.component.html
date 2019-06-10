@@ -6,6 +6,8 @@
     </mat-expansion-panel-header>
     {{comment.comment}}
     <button *ngIf="authService.getIsAdmin()" (click)="deleteComment(comment.id)"> delete </button>
+    <button (click)="sendPm(comment.userEmail)"> send pm </button>
+
   </mat-expansion-panel>
   <!--Comment end-->
 </mat-accordion>
