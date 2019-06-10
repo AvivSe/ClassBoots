@@ -17,7 +17,8 @@ export class MessageListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public commentsService : CommentsService) { }
+  constructor(public commentsService : CommentsService) {
+  }
 
   pageIndex:number = 0;
   pageSize:number = 10;

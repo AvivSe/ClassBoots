@@ -93,6 +93,6 @@ export class VideoComponent implements OnInit,OnDestroy {
   }
   setRedirect() {
     this.entitiesService.setRedirectUrl(this.router.routerState.snapshot);
-    this.router.navigate(['Video/edit/',this.videoId]);
+    this.router.navigate(['Video/edit/',this.videoId,this.currentVideo.lectureid]);
   }
 }

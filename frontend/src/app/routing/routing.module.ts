@@ -90,7 +90,7 @@ const routes: Routes = [
     {path: 'School/edit/:_id', component: SchoolEditComponent, canActivate:[AdminGuardService]},
     {path: 'Subject/edit/:_id', component: SubjectEditComponent, canActivate:[AdminGuardService]},
     {path: 'Lecture/edit/:_id', component: LectureEditComponent, canActivate:[AdminGuardService]},
-    {path: 'Video/edit/:videoid', component: VideoEditComponent, canActivate:[AdminGuardService]},
+    {path: 'Video/edit/:videoid/:lectureid', component: VideoEditComponent, canActivate:[AdminGuardService]},
 
     //Admin panel routes
     {

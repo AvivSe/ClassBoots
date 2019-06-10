@@ -84,6 +84,7 @@ export class AuthService {
         this.http.post<{ _token: string, _profile: userData, error: boolean, _expire: string }>(environment.baseUrl + "api/user/login", userLogin)
             .subscribe(user => {
                 if (!user.error) {
+                    console.log(user);
                     this.token = user._token;
                     this.user = user._profile;
                     this.getUser.emit(user._profile);

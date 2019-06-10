@@ -260,5 +260,18 @@ export class entitiesService implements OnInit {
             }
         });
     }
+
+    public deleteVideo(title,element,next) {
+        this.http.request<{ error: boolean }>('delete',environment.baseUrl + 'api/'+title,{body:element}).subscribe(data => {
+            if(data.error){
+            }
+            else{
+                setTimeout(function(){
+                    this.router.navigateByUrl('/lecture/' + element.lectureid);
+                }.bind(this), 1000);
+                this.matSnackBar.open(title+' Deleted', null, {duration: 3000});
+            }
+        });
+    }
 }
 
