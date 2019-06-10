@@ -26,6 +26,7 @@ export class VideoEditComponent implements OnInit {
       }
     });
     this.route.params.subscribe(params=>{
+      console.log(params);
       this.entitiesService.getVideo(params['videoid']);
       this.currentLectureId = params['lectureid']
     })
@@ -41,7 +42,7 @@ export class VideoEditComponent implements OnInit {
   }
 
   deleteItem() {
-    this.entitiesService.deleteElement("video", { lectureid: this.currentLectureId ,_id:this.data._id }, (data) => {
+    this.entitiesService.deleteVideo("video", { lectureid: this.currentLectureId ,_id:this.data._id }, (data) => {
       if (data.error) {
       }
     });
