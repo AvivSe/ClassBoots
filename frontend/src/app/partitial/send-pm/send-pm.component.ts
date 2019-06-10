@@ -1,9 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {environment} from "../../../environments/environment";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from "@angular/material";
-import {AuthService} from "../auth/auth.service";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-send-pm',
@@ -19,7 +18,7 @@ export class SendPmComponent implements OnInit {
   }
 
   handleSubmit(commentForm: NgForm) {
-    this.http.post(environment.baseUrl + 'api/user/sendpm', { to:this.data.to.toString(), message: commentForm.value.message }).subscribe(res=> {
+    this.http.post(environment.baseUrl + 'api/user/sendpm', { to:[this.data.to.toString()], message: commentForm.value.message }).subscribe(res=> {
       this.dialog.closeAll();
     });
   }

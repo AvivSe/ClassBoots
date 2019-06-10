@@ -16,6 +16,7 @@
                                [routerLink]="['/'+title+'/edit',item._id]" (click)="setRedirect()" *ngIf="item.hasPermissionOn">edit</i>
                             <p><img class="img-size" src="{{getImage(item.image)}}" alt="card image"></p>
                             <h4 class="card-title">{{item.name}}</h4>
+                            <h5 *ngIf="item.lecturer"> {{item.lecturer}}</h5>
                         </div>
                     </div>
                 </div>
