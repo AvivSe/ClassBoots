@@ -218,19 +218,17 @@ class VideoController {
         }
     };
 
-    static async deleteComment(body) {
+    static async deleteComment(videoId, commentId) {
         try {
-            let result = await Video.findByIdAndUpdate(
-                body.videoid,
-                {$pull: {"comments": {_id: body.commentid}}},
+            return await Video.findByIdAndUpdate(
+                videoId,
+                {$pull: {"comments": {_id: commentId}}},
                 {upsert: true, new: true},
                 (err => {
                     if (err) {
-                        invalid = {error: true, description: err};
                         errorsController.logger({error: 'addComment', description: err});
                     }
                 }));
-            return result;
         } catch (e) {
             errorsController.logger({error: 'deleteComment', description: e});
             return {error: true, description: 'deleteComment: ' + e};
@@ -250,7 +248,7 @@ class VideoController {
                         result.description = err;
                         errorsController.logger({error: 'likeVideo', description: err});
                     }
-                }))
+                }));
 
             return invalid.error === undefined ? result : invalid;
         } catch (e) {
@@ -272,7 +270,7 @@ class VideoController {
                         result.description = err;
                         errorsController.logger({error: 'likeVideo', description: err});
                     }
-                }))
+                }));
 
             return invalid.error === undefined ? result : invalid;
         } catch (e) {
@@ -294,7 +292,7 @@ class VideoController {
                         result.description = err;
                         errorsController.logger({error: 'dislikeVideo', description: err});
                     }
-                }))
+                }));
 
             return invalid.error === undefined ? result : invalid;
         } catch (e) {
@@ -316,7 +314,7 @@ class VideoController {
                         result.description = err;
                         errorsController.logger({error: 'likeVideo', description: err});
                     }
-                }))
+                }));
 
             return invalid.error === undefined ? result : invalid;
         } catch (e) {

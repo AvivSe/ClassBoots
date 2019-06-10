@@ -3,6 +3,9 @@ import { Comment } from "../comment.model";
 import { CommentsService}  from "../comments.service";
 import { Subscription } from 'rxjs';
 import {MatPaginator} from "@angular/material";
+import {AuthService} from "../../auth/auth.service";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 @Component({
   selector: 'app-list-comments',
   templateUrl: './list-comments.component.html',
@@ -11,10 +14,11 @@ import {MatPaginator} from "@angular/material";
 export class ListCommentsComponent implements OnInit {
   comments:Comment[] = [];
   commentsSub:Subscription;
+  @Input() videoId:string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public commentsService : CommentsService) { }
+  constructor(public commentsService : CommentsService, public authService: AuthService, public http: HttpClient) { }
 
   pageIndex:number = 0;
   pageSize:number = 10;
@@ -54,5 +58,11 @@ export class ListCommentsComponent implements OnInit {
   }
   ngOnDestroy(){
     this.commentsSub.unsubscribe();
+  }
+
+  deleteComment(id: string) {
+    this.http.delete(environment.baseUrl + 'api/video/' + this.videoId + '/deletecomment/' + id ).subscribe(()=> {
+      this.commentsService.redrawComments(this.commentsService.getComments().filter(comment=>comment.id !== id))
+    })
   }
 }

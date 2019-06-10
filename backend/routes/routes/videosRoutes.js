@@ -7,6 +7,11 @@ const {videoPermission, lecturePermission} = require('../../utils/check-permissi
 
 const defineRoutes = router => {
 
+    router.delete('/:videoId/deletecomment/:commentId', checkAuth, admin, async function (req, res) {
+        let result = await VideoController.deleteComment(req.params.videoId, req.params.commentId);
+        res.status(result.error ? 400 : 200).send(result);
+    });
+
     router.get('/getRelatedVideos/:id', checkAuth, async function (req, res) {
         let result = {};
         if (!req.params.id)
@@ -45,7 +50,7 @@ const defineRoutes = router => {
 
     router.delete('', checkAuth, videoPermission, async function (req, res) {
         let result = {};
-        if (!req.body.lectureid || req.body._id)
+        if (!req.body.lectureid || !req.body._id)
             result = {error: true, description: 'you don\'t have validation'};
         else {
             result = await VideoController.deleteVideo(req.body._id);
@@ -73,14 +78,7 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
-    router.delete('/deletecomment', checkAuth, admin, async function (req, res) {
-        let result = {};
-        if (!req.body.videoid || !req.body.commentid)
-            result = {error: true, description: 'you don\'t have validation'};
-        else
-            result = await VideoController.deleteComment(req.body);
-        res.status(result.error ? 400 : 200).send(result);
-    });
+
 
     router.post('/like', checkAuth, async function (req, res) {
         let result = {};

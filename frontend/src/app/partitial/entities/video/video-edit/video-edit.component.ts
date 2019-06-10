@@ -8,7 +8,7 @@ import {entitiesService} from "../../entities.service";
   styleUrls: ['./video-edit.component.css']
 })
 export class VideoEditComponent implements OnInit {
-  data = {reference:'',name:'',position:''};
+  data = {reference:'',name:'',position:'',_id: ''};
   currentLectureId;
   errorMessage: string;
   error: boolean = false;
@@ -41,7 +41,7 @@ export class VideoEditComponent implements OnInit {
   }
 
   deleteItem() {
-    this.entitiesService.deleteElement("video", this.data, (data) => {
+    this.entitiesService.deleteElement("video", { lectureid: this.currentLectureId ,_id:this.data._id }, (data) => {
       if (data.error) {
       }
     });
