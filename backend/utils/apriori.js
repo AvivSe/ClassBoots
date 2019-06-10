@@ -16,7 +16,8 @@ class MyApriori {
             transactions.push(row)
         });
 
-        return new Apriori.Algorithm(0.6,0.6,false).analyze(transactions);
+        console.log(transactions);
+        return new Apriori.Algorithm(0.4,0.7,false).analyze(transactions);
     }
 
     static async getRelatedVideos(videoId) {
