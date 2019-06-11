@@ -1,6 +1,6 @@
 <div class="animated fadeIn" *ngIf="isLoaded">
 <span>
-        <i class="material-icons card-button" style="float: right;font-size: 2em;" (click)="setRedirect()">edit</i></span>
+        <i class="material-icons card-button" style="float: right;font-size: 2em;" *ngIf="authService.getIsAdmin()" (click)="setRedirect()">edit</i></span>
 <div style="height: 90vh; overflow: scroll">
     <app-video-player [_id]="currentVideo.reference"></app-video-player>
     <mat-card>
