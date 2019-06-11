@@ -11,16 +11,16 @@
     <i class="fas fa-video fa-3x"></i>
     <span> My last watches </span>
   </li>
-  <li routerLink="watch-later" routerLinkActive="user-item-active" class="list-group-item user-item">
-    <i class="far fa-list-alt fa-3x"></i>
-    <span> My Watch Later </span>
-  </li>
+<!--  <li routerLink="watch-later" routerLinkActive="user-item-active" class="list-group-item user-item">-->
+<!--    <i class="far fa-list-alt fa-3x"></i>-->
+<!--    <span> My Watch Later </span>-->
+<!--  </li>-->
   <li routerLink="recommended" routerLinkActive="user-item-active" class="list-group-item user-item">
-    <i class="fas fa-cannabis fa-3x"></i>
+    <i class="far fa-list-alt fa-3x"></i>
     <span>Recommended For Me </span>
   </li>
   <li routerLink="admin" routerLinkActive="user-item-active" class="list-group-item user-item" *ngIf="authService.getIsAdmin()">
-    <i class="fas fa-bong fa-3x"></i>
+    <i class="fas fa-tachometer-alt fa-3x"></i>
     <span> Admin </span>
   </li>
 </ul>
