@@ -112,7 +112,9 @@ class UserController {
             history = history.slice(0,10);
             let result = [];
             for(let i = 0; i < history.length; i++) {
-                result.push(await Video.findById(history[i].video));
+                const video = await Video.findById(history[i].video);
+                if(video && !video.error)
+                    result.push(video);
             }
             return result;
         }
