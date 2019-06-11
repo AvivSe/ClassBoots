@@ -202,6 +202,21 @@ class UserController {
             return {error: true, description: 'getUser: ' + e};
         }
     }
+
+    static async getUserProfileByEmail(email) {
+        try {
+            let result = {};
+            result = await User.findOne({ email }).catch(err => {
+                result = {error: true, description: err};
+                errorsController.logger({error: 'getUserProfileByEmail', description: err});
+            });
+            return result;
+        } catch (e) {
+            errorsController.logger({error: 'getUserProfileByEmail', description: e});
+            return {error: true, description: 'getUserProfileByEmail: ' + e};
+        }
+    }
+
 }
 
 module.exports = UserController;

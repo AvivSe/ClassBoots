@@ -2,15 +2,16 @@ import {EventEmitter, Injectable, OnInit, Output} from "@angular/core";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatSnackBar} from "@angular/material";
 import {AuthService} from "../auth/auth.service";
+import {SendPmComponent} from "../send-pm/send-pm.component";
 
 @Injectable({providedIn: "root"})
 export class entitiesService implements OnInit {
     itemList;
     redirectUrl;
 
-    constructor(private matSnackBar: MatSnackBar,private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    constructor(private matSnackBar: MatSnackBar,private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router,public dialog: MatDialog) {
 
     }
 
@@ -272,6 +273,13 @@ export class entitiesService implements OnInit {
                 this.matSnackBar.open(title+' Deleted', null, {duration: 3000});
             }
         });
+    }
+
+    public sendPm(to:string) {
+        const config = new MatDialogConfig();
+        config.data = { to };
+
+        this.dialog.open(SendPmComponent, config);
     }
 }
 

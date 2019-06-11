@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { Message } from "../../../models/message.model";
 import {MatPaginator} from "@angular/material";
 import {CommentsService} from "../../../partitial/comments/comments.service";
+import {entitiesService} from "../../../partitial/entities/entities.service";
 
 @Component({
   selector: 'app-message-list',
@@ -17,7 +18,7 @@ export class MessageListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public commentsService : CommentsService) {
+  constructor(public commentsService : CommentsService, public entitiesService:entitiesService) {
   }
 
   pageIndex:number = 0;
@@ -56,6 +57,5 @@ export class MessageListComponent implements OnInit {
     }
     return tmp;
   }
-
 
 }

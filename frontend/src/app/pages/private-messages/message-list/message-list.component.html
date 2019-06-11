@@ -7,6 +7,7 @@
       <span>, {{msg.title}}</span>
     </mat-expansion-panel-header>
     {{msg.message}}
+    <button *ngIf="isInbox" (click)="entitiesService.sendPm(msg.from)"> הגב </button>
   </mat-expansion-panel>
   <!--Comment end-->
 </mat-accordion>

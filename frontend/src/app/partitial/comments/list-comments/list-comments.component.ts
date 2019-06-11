@@ -7,6 +7,7 @@ import {AuthService} from "../../auth/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {SendPmComponent} from "../../send-pm/send-pm.component";
+import {entitiesService} from "../../entities/entities.service";
 @Component({
   selector: 'app-list-comments',
   templateUrl: './list-comments.component.html',
@@ -19,7 +20,7 @@ export class ListCommentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public commentsService : CommentsService, public authService: AuthService, public http: HttpClient,public dialog: MatDialog) { }
+  constructor(public commentsService : CommentsService, public authService: AuthService, public http: HttpClient,public dialog: MatDialog, public entitiesService:entitiesService) { }
 
   pageIndex:number = 0;
   pageSize:number = 10;
@@ -68,10 +69,6 @@ export class ListCommentsComponent implements OnInit {
   }
 
   sendPm(to: string) {
-
-    const config = new MatDialogConfig();
-    config.data = { to };
-
-    this.dialog.open(SendPmComponent, config);
+    this.entitiesService.sendPm(to);
   }
 }

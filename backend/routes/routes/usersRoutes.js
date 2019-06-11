@@ -14,6 +14,21 @@ const defineRoutes = router => {
         res.status(result.error ? 400 : 200).send(result);
     });
 
+    router.get('/profile/:email', checkAuth, async function (req, res) {
+        if (req.body.email) {
+            console.log(req.profile);
+            let result = {};
+            let profile = await UserController.getUserProfileByEmail(req.params.email);
+            result.email = profile.email;
+            result.firstName = profile.firstName;
+            result.lastName = profile.lastName;
+
+            res.status(200).send(result);
+        } else {
+            res.status(400).send({error: "true", description: "cannot find profile data"});
+        }
+    });
+
     router.get('/profile', checkAuth, async function (req, res) {
         if (req.profile) {
             console.log(req.profile);
