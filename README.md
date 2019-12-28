@@ -9,7 +9,7 @@
 # Video player
 <a href="https://ibb.co/2kTcg4w"><img src="https://i.ibb.co/nLFQzJT/Screen-Shot-2019-12-28-at-12-31-35.png" alt="Screen-Shot-2019-12-28-at-12-31-35" border="0"></a>
 
-# Comments
+# Comments (Socket!)
 <a href="https://ibb.co/WHRfZJ5"><img src="https://i.ibb.co/CwSQgG8/Screen-Shot-2019-12-28-at-12-31-57.png" alt="Screen-Shot-2019-12-28-at-12-31-57" border="0"></a>
 
 # Related Videos (Theree is: "Related to this video" / "Related to me")
