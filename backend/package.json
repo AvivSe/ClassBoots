@@ -7,8 +7,7 @@
   },
   "dependencies": {
     "apriori": "^1.0.7",
-    "aws-sdk": "^2.377.0",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "casper": "^0.1.1",
     "casperjs": "^1.1.4",
